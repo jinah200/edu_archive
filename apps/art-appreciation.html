@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미술 감상 탐구실</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel (JSX 컴파일러) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .font-serif { font-family: 'Noto Serif KR', serif; }
+        
+        /* 인쇄 설정 */
+        @media print {
+            body * { visibility: hidden; }
+            #root, #root * { visibility: visible; }
+            #root { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- 아이콘 컴포넌트 (Lucide 아이콘을 SVG로 직접 구현하여 의존성 제거) ---
+        const IconBase = ({ children, className }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={className}
+            >
+                {children}
+            </svg>
+        );
+
+        const User = ({ size, className }) => (
+            <IconBase className={className} size={size}>
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </IconBase>
+        );
+
+        const PenTool = ({ className }) => (
+            <IconBase className={className}>
+                <path d="m12 19 7-7 3 3-7 7-3-3z"></path>
+                <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="m2 2 7.586 7.586"></path>
+                <circle cx="11" cy="11" r="2"></circle>
+            </IconBase>
+        );
+
+        const BookOpen = ({ className }) => (
+            <IconBase className={className}>
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </IconBase>
+        );
+
+        const Palette = ({ className }) => (
+            <IconBase className={className}>
+                <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+                <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+                <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+            </IconBase>
+        );
+
+        const Search = ({ size, className }) => (
+            <IconBase className={className} size={size}>
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </IconBase>
+        );
+
+        const Globe = ({ size, className }) => (
+            <IconBase className={className} size={size}>
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+            </IconBase>
+        );
+
+        const Save = ({ className }) => (
+            <IconBase className={className}>
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+            </IconBase>
+        );
+
+        const ArrowLeft = ({ className }) => (
+            <IconBase className={className}>
+                <path d="m12 19-7-7 7-7"></path>
+                <path d="M19 12H5"></path>
+            </IconBase>
+        );
+
+        const CheckCircle = ({ className }) => (
+            <IconBase className={className}>
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </IconBase>
+        );
+
+        const Printer = ({ className }) => (
+            <IconBase className={className}>
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect width="12" height="8" x="6" y="14"></rect>
+            </IconBase>
+        );
+
+        // --- 데이터 ---
+        const artists = [
+            {
+                id: 'moore',
+                name: '헨리 무어',
+                englishName: 'Henry Moore',
+                style: '추상 조각, 유기적 형태',
+                color: 'bg-stone-100',
+            },
+            {
+                id: 'renoir',
+                name: '오귀스트 르누아르',
+                englishName: 'Pierre-Auguste Renoir',
+                style: '인상주의, 따뜻한 색채',
+                color: 'bg-orange-50',
+            },
+            {
+                id: 'vermeer',
+                name: '요하네스 페르메이르',
+                englishName: 'Johannes Vermeer',
+                style: '바로크, 빛의 마술사',
+                color: 'bg-blue-50',
+            },
+            {
+                id: 'munch',
+                name: '에드바르 뭉크',
+                englishName: 'Edvard Munch',
+                style: '표현주의, 감정의 표출',
+                color: 'bg-red-50',
+            },
+            {
+                id: 'modigliani',
+                name: '아메데오 모딜리아니',
+                englishName: 'Amedeo Modigliani',
+                style: '에콜 드 파리, 긴 목과 얼굴',
+                color: 'bg-amber-50',
+            },
+            {
+                id: 'picasso',
+                name: '파블로 피카소',
+                englishName: 'Pablo Picasso',
+                style: '입체파, 다양한 시점',
+                color: 'bg-indigo-50',
+            }
+        ];
+
+        const worksheetSections = [
+            {
+                id: 'content_analysis',
+                title: '내용 분석',
+                Icon: BookOpen,
+                questions: [
+                    { id: 'q1', label: '1. 어떤 소재를 사용하였는가?', searchKeyword: '대표 작품 소재', placeholder: '작품 속에 등장하는 인물, 사물, 배경 등은 무엇인가요?' },
+                    { id: 'q2', label: '2. 미술가가 나타내고자 하는 것은?', searchKeyword: '작품 의도 특징', placeholder: '작가는 이 작품을 통해 어떤 생각이나 감정을 전달하고 싶었을까요?' },
+                    { id: 'q3', label: '3. 시대적, 사회적 특징은 무엇일까요?', searchKeyword: '시대적 배경 사조', placeholder: '작품이 만들어진 시대의 분위기나 역사적 사건이 작품에 영향을 주었나요?' }
+                ]
+            },
+            {
+                id: 'formal_analysis',
+                title: '형식 분석',
+                Icon: Palette,
+                questions: [
+                    { id: 'q4', label: '1. 작품에 사용된 조형 요소는?', searchKeyword: '조형 요소 특징', placeholder: '점, 선, 면, 형, 색, 명암, 양감, 질감, 공간감 등 눈에 보이는 요소들을 찾아보세요.' },
+                    { id: 'q5', label: '2. 작품에 사용된 조형 원리는?', searchKeyword: '조형 원리 구도', placeholder: '통일, 변화, 균형, 비례, 율동, 강조, 대비, 점증, 조화 등 요소들의 배치를 살펴보세요.' },
+                    { id: 'q6', label: '3. 어떤 재료와 방법을 사용하였나요?', searchKeyword: '재료 기법', placeholder: '유화, 수채화, 청동, 대리석 등 재료와 붓터치, 조각 기법 등을 적어보세요.' }
+                ]
+            }
+        ];
+
+        // --- 메인 앱 컴포넌트 ---
+        function App() {
+            const [selectedArtist, setSelectedArtist] = useState(null);
+            const [answers, setAnswers] = useState({});
+            const [viewMode, setViewMode] = useState('list'); 
+
+            useEffect(() => {
+                try {
+                    const saved = localStorage.getItem('artClassAnswers');
+                    if (saved) {
+                        setAnswers(JSON.parse(saved));
+                    }
+                } catch (e) {
+                    console.error("Failed to load saved answers", e);
+                }
+            }, []);
+
+            const handleSave = (artistId, questionId, text) => {
+                const newAnswers = {
+                    ...answers,
+                    [artistId]: {
+                        ...(answers[artistId] || {}),
+                        [questionId]: text
+                    }
+                };
+                setAnswers(newAnswers);
+                localStorage.setItem('artClassAnswers', JSON.stringify(newAnswers));
+            };
+
+            const getAnswer = (artistId, questionId) => {
+                return answers[artistId]?.[questionId] || '';
+            };
+
+            const handleSelectArtist = (artist) => {
+                setSelectedArtist(artist);
+                setViewMode('worksheet');
+            };
+
+            const handleBack = () => {
+                setSelectedArtist(null);
+                setViewMode('list');
+            };
+
+            const handleComplete = () => {
+                setViewMode('report');
+            };
+
+            // 1. 작가 선택 화면
+            const ArtistSelection = () => (
+                <div className="p-6 max-w-6xl mx-auto">
+                    <header className="text-center mb-10 space-y-2">
+                        <h1 className="text-4xl font-bold text-slate-800 font-serif">미술 감상 탐구실</h1>
+                        <p className="text-slate-500 text-lg">조사할 작가를 선택하여 나만의 도슨트 노트를 완성해보세요.</p>
+                    </header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {artists.map((artist) => (
+                            <button
+                                key={artist.id}
+                                onClick={() => handleSelectArtist(artist)}
+                                className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 hover:shadow-xl border-2 border-transparent hover:border-slate-200 ${artist.color} hover:-translate-y-1 w-full`}
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <User className="w-32 h-32" />
+                                </div>
+                                <div className="relative z-10">
+                                    <h2 className="text-2xl font-bold text-slate-800 mb-1">{artist.name}</h2>
+                                    <p className="text-sm font-medium text-slate-500 mb-4 font-serif italic">{artist.englishName}</p>
+                                    <div className="inline-flex items-center text-sm font-semibold text-slate-700 bg-white/60 px-3 py-1 rounded-full">
+                                        <span>{artist.style}</span>
+                                    </div>
+                                    <div className="mt-6 flex items-center text-slate-600 font-medium group-hover:text-blue-600 transition-colors">
+                                        <PenTool className="w-4 h-4 mr-2" />
+                                        탐구 시작하기
+                                    </div>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            // 2. 작성 화면
+            const Worksheet = () => {
+                if (!selectedArtist) return null;
+                
+                return (
+                    <div className="min-h-screen bg-slate-50 pb-20">
+                        <div className="bg-white shadow-sm sticky top-0 z-20">
+                            <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+                                <button onClick={handleBack} className="flex items-center text-slate-600 hover:text-slate-900">
+                                    <ArrowLeft className="w-5 h-5 mr-2" />
+                                    작가 목록으로
+                                </button>
+                                <h2 className="font-bold text-lg text-slate-800">{selectedArtist.name} 탐구 활동</h2>
+                                <button 
+                                    onClick={handleComplete}
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center"
+                                >
+                                    <CheckCircle className="w-4 h-4 mr-2" />
+                                    작성 완료
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="max-w-5xl mx-auto px-4 py-8">
+                            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+                                <div className={`h-32 ${selectedArtist.color} flex items-center justify-center relative overflow-hidden`}>
+                                    <span className="absolute text-9xl font-serif opacity-5 italic select-none">{selectedArtist.englishName}</span>
+                                    <div className="z-10 text-center">
+                                        <h1 className="text-3xl font-bold text-slate-800">{selectedArtist.name}</h1>
+                                        <p className="text-slate-600 mt-1">{selectedArtist.englishName}</p>
+                                    </div>
+                                </div>
+                                <div className="p-6 border-t border-slate-100">
+                                    <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-lg text-blue-800 text-sm">
+                                        <BookOpen className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <p className="font-bold mb-1">조사 가이드</p>
+                                            <p>인터넷 검색을 통해 <strong>{selectedArtist.name}의 대표 작품</strong>을 하나 선정하여 감상한 뒤, 아래 질문에 답해보세요.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {worksheetSections.map((section) => (
+                                    <div key={section.id} className="bg-white rounded-xl shadow-sm p-6 h-fit">
+                                        <div className="flex items-center gap-2 mb-6 pb-3 border-b border-slate-100">
+                                            <div className="p-2 bg-slate-100 rounded-lg text-slate-700">
+                                                <section.Icon className="w-5 h-5" />
+                                            </div>
+                                            <h3 className="text-xl font-bold text-slate-800">{section.title}</h3>
+                                        </div>
+                                        
+                                        <div className="space-y-8">
+                                            {section.questions.map((q) => (
+                                                <div key={q.id} className="group">
+                                                    <div className="flex flex-wrap items-end justify-between mb-2 gap-2">
+                                                        <label className="block text-slate-800 font-semibold">
+                                                            {q.label}
+                                                        </label>
+                                                        <div className="flex gap-2 text-xs">
+                                                            <a
+                                                                href={`https://www.google.com/search?q=${encodeURIComponent(selectedArtist.name + ' ' + q.searchKeyword)}`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 rounded hover:bg-slate-50 text-slate-600 transition-colors no-underline"
+                                                                title="구글 검색"
+                                                            >
+                                                                <Search className="w-3 h-3" /> 구글 검색
+                                                            </a>
+                                                            <a
+                                                                href={`https://terms.naver.com/search.naver?query=${encodeURIComponent(selectedArtist.name + ' ' + q.searchKeyword)}`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center gap-1 px-2 py-1 bg-white border border-green-200 rounded hover:bg-green-50 text-green-700 transition-colors no-underline"
+                                                                title="네이버 지식백과 검색"
+                                                            >
+                                                                <Globe className="w-3 h-3" /> 네이버 백과
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <textarea
+                                                        className="w-full p-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all min-h-[100px] text-slate-700 placeholder-slate-400 bg-slate-50 focus:bg-white resize-y"
+                                                        placeholder={q.placeholder}
+                                                        value={getAnswer(selectedArtist.id, q.id)}
+                                                        onChange={(e) => handleSave(selectedArtist.id, q.id, e.target.value)}
+                                                    />
+                                                    <div className="flex justify-end mt-1 opacity-0 group-focus-within:opacity-100 transition-opacity">
+                                                        <span className="text-xs text-blue-600 flex items-center">
+                                                            <Save className="w-3 h-3 mr-1" /> 자동 저장됨
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            // 3. 완료 리포트 (인쇄용)
+            const Report = () => {
+                if (!selectedArtist) return null;
+
+                return (
+                    <div className="min-h-screen bg-slate-100 py-8 print:bg-white print:py-0 print:h-auto print:overflow-visible">
+                        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden print:shadow-none print:max-w-none">
+                            <div className="bg-slate-800 text-white p-8 text-center print:bg-white print:text-black print:border-b-2 print:border-black">
+                                <h1 className="text-3xl font-bold font-serif mb-2">미술 작품 감상 보고서</h1>
+                                <p className="opacity-80">Art Appreciation Report</p>
+                            </div>
+
+                            <div className="p-8 print:p-0 print:mt-4">
+                                <div className="flex justify-between items-end mb-8 border-b-2 border-slate-100 pb-4">
+                                    <div>
+                                        <span className="text-sm text-slate-500 block mb-1">Selected Artist</span>
+                                        <h2 className="text-2xl font-bold text-slate-800">{selectedArtist.name}</h2>
+                                    </div>
+                                    <div className="text-right hidden print:block">
+                                        <p>학년: ______ 반: ______ 번호: ______</p>
+                                        <p className="mt-1">이름: __________________</p>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-8">
+                                    {worksheetSections.map((section) => (
+                                        <div key={section.id} className="break-inside-avoid">
+                                            <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2 bg-slate-50 p-2 rounded print:bg-transparent print:p-0">
+                                                <section.Icon className="w-5 h-5" /> {section.title}
+                                            </h3>
+                                            <div className="grid gap-6 pl-4 border-l-2 border-slate-200">
+                                                {section.questions.map((q) => (
+                                                    <div key={q.id}>
+                                                        <h4 className="font-semibold text-slate-700 mb-2 text-sm">{q.label}</h4>
+                                                        <div className="text-slate-800 leading-relaxed whitespace-pre-wrap bg-slate-50/50 p-3 rounded border border-transparent hover:border-slate-100 print:bg-transparent print:p-0 print:border print:border-slate-300">
+                                                            {getAnswer(selectedArtist.id, q.id) || <span className="text-slate-300 italic">(내용 없음)</span>}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="bg-slate-50 p-4 flex justify-between items-center border-t border-slate-200 print:hidden no-print">
+                                <button onClick={() => setViewMode('worksheet')} className="text-slate-600 hover:text-slate-900 font-medium px-4 py-2 rounded hover:bg-slate-200">
+                                    수정하기
+                                </button>
+                                <div className="flex gap-3">
+                                    <button onClick={() => window.print()} className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors">
+                                        <Printer className="w-4 h-4" /> 인쇄 / PDF 저장
+                                    </button>
+                                    <button onClick={handleBack} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                        다른 작가 선택
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="font-sans text-slate-900 bg-slate-50 min-h-screen">
+                    {viewMode === 'list' && <ArtistSelection />}
+                    {viewMode === 'worksheet' && <Worksheet />}
+                    {viewMode === 'report' && <Report />}
+                </div>
+            );
+        }
+
+        // 렌더링
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

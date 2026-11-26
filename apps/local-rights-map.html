@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부산 연제구 우리지역 인권지도 만들기</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons (아이콘 라이브러리) -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Gaegu:wght@400;700&display=swap');
+        
+        .font-handwriting {
+            font-family: 'Gaegu', cursive, sans-serif;
+        }
+        .font-main {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-amber-50/40 font-main min-h-screen flex flex-col antialiased">
+
+    <!-- 상단 헤더 영역 -->
+    <header class="bg-gradient-to-r from-teal-500 via-emerald-500 to-blue-600 text-white shadow-lg p-4 sticky top-0 z-40">
+        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/95 p-2 rounded-2xl shadow-inner text-3xl">
+                    🗺️
+                </div>
+                <div>
+                    <h1 class="text-2xl lg:text-3xl font-extrabold tracking-tight font-handwriting">부산 연제구 우리지역 인권지도 만들기</h1>
+                    <p class="text-xs lg:text-sm text-teal-50 font-medium">실제 "연제구 백지도.png" 지형과 매칭하여 우리 동네 곳곳의 소중한 권리를 탐구해 봅시다!</p>
+                </div>
+            </div>
+            <!-- 학생 정보 입력 영역 (이미지 출력 시 서명란과 연동됨) -->
+            <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl flex items-center gap-2 border border-white/20 shadow-sm w-full lg:w-auto">
+                <span class="text-xs lg:text-sm font-bold whitespace-nowrap">👤 탐구 학생/모둠 :</span>
+                <input type="text" id="studentName" value="4학년 1반 1모둠" placeholder="예: 4학년 3반 홍길동" class="bg-white text-gray-800 px-3 py-1.5 rounded-xl text-xs lg:text-sm font-bold outline-none focus:ring-2 focus:ring-amber-400 w-full lg:w-56 transition-all">
+                <div class="hidden lg:block bg-teal-700/50 px-3 py-1.5 rounded-xl text-xs font-semibold">
+                    <span id="liveDate">2026. 06. 10</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 레이아웃 -->
+    <main class="container mx-auto p-4 flex-grow grid grid-cols-1 xl:grid-cols-12 gap-6">
+        
+        <!-- 왼쪽 사이드바 (5/12): 5대 권리 범례 + 10가지 이상 추천 데이터베이스 -->
+        <div class="xl:col-span-5 flex flex-col gap-6">
+            
+            <!-- 백지도 활동 목적 및 연제구 백지도 가이드 -->
+            <div class="bg-white rounded-2xl p-5 shadow-md border border-amber-100">
+                <h2 class="text-lg lg:text-xl font-bold text-slate-800 flex items-center gap-2 mb-2 font-handwriting text-2xl">
+                    <i data-lucide="compass" class="text-amber-500"></i> "연제구 백지도.png" 탐구 길잡이
+                </h2>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    오른쪽 캔버스 지도는 학교에서 나눠준 <strong>연제구 백지도.png</strong> 파일의 각 구역 선과 동일하게 그려져 있어요. 
+                    아래 데이터베이스의 장소들을 확인하고 실제 백지도의 알맞은 자리에 드롭해보세요!
+                </p>
+                <div class="mt-3 grid grid-cols-2 gap-2 text-[11px] bg-amber-50/50 p-2.5 rounded-xl border border-amber-100">
+                    <div>📍 <strong class="text-teal-700">왼쪽 편(서부):</strong> 거제 1·2·3·4동 지역</div>
+                    <div>📍 <strong class="text-blue-700">오른쪽 편(동부):</strong> 연산 1·3·4·5·6·8·9동</div>
+                    <div class="col-span-2 border-t border-amber-200/50 pt-1.5 mt-1">
+                        🌊 <strong class="text-sky-700">온천천 산책길:</strong> 구의 북동쪽 흐름 (거제1동-연산8·9동 경계)
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5가지 권리 선택기 & 10개 추천 장소 목록 아코디언 -->
+            <div class="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex-grow flex flex-col">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-lg lg:text-xl font-bold text-slate-800 flex items-center gap-2 font-handwriting text-2xl">
+                        <i data-lucide="database" class="text-teal-500"></i> 연제구 인권 장소 백과사전
+                    </h2>
+                    <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-500 font-bold">카테고리 선택</span>
+                </div>
+
+                <!-- 탭 메뉴 버튼 -->
+                <div class="grid grid-cols-3 gap-1 mb-4">
+                    <button onclick="switchTab('red')" id="btn-tab-red" class="py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-red-50 border-red-200 text-red-800">
+                        <span>🛡️</span>
+                        <span class="mt-0.5">안전 (빨강)</span>
+                    </button>
+                    <button onclick="switchTab('blue')" id="btn-tab-blue" class="py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-slate-50 border-slate-100 text-slate-600">
+                        <span>📖</span>
+                        <span class="mt-0.5">배움·휴식 (파랑)</span>
+                    </button>
+                    <button onclick="switchTab('green')" id="btn-tab-green" class="py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-slate-50 border-slate-100 text-slate-600">
+                        <span>♿</span>
+                        <span class="mt-0.5">평등 (초록)</span>
+                    </button>
+                    <button onclick="switchTab('purple')" id="btn-tab-purple" class="py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-slate-50 border-slate-100 text-slate-600 class mt-1">
+                        <span>🏡</span>
+                        <span class="mt-0.5">복지·도움 (보라)</span>
+                    </button>
+                    <button onclick="switchTab('yellow')" id="btn-tab-yellow" class="py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-slate-50 border-slate-100 text-slate-600 class mt-1">
+                        <span>✉️</span>
+                        <span class="mt-0.5">의견 (노랑)</span>
+                    </button>
+                    <button onclick="switchTab('gray')" id="btn-tab-gray" class="py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-slate-50 border-slate-100 text-slate-600 class mt-1">
+                        <span>⚠️</span>
+                        <span class="mt-0.5">개선위험 (회색)</span>
+                    </button>
+                </div>
+
+                <!-- 추천 리스트 컨테이너 (스크롤 가능 영역) -->
+                <div class="flex-grow overflow-y-auto max-h-[350px] pr-1" id="referenceListContent">
+                    <!-- 자바스크립트에 의해 선택된 탭의 10개 이상 장소가 주입됩니다. -->
+                </div>
+
+                <!-- 리스트 안내 정보 -->
+                <div class="mt-3 pt-3 border-t text-[11px] text-slate-500 flex items-center gap-1.5 bg-slate-50 p-2 rounded-xl">
+                    <span>💡</span>
+                    <span>리스트의 <strong>[지도 등록]</strong>을 누르면 가상의 백지도 위 권장 좌표에 바로 핀이 꽃힙니다!</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 오른쪽 영역 (7/12): 연제구 인터랙티브 벡터 백지도 보드 -->
+        <div class="xl:col-span-7 flex flex-col gap-6">
+            
+            <div class="bg-white rounded-2xl p-5 shadow-md border border-slate-100 flex flex-col h-full">
+                
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 font-handwriting text-2xl">
+                            <i data-lucide="brush" class="text-teal-500"></i> 스마트 연제구 백지도 캔버스
+                        </h2>
+                        <p class="text-xs text-slate-500">원하는 위치를 탭하여 핀을 직접 꽂거나, 왼쪽 목록의 자동 배치 기능을 활용하세요!</p>
+                    </div>
+                    
+                    <!-- 현재 작업 중인 권리 핀 표식기 -->
+                    <div class="flex items-center gap-1 bg-teal-50 text-teal-800 px-3 py-1.5 rounded-full border border-teal-200 text-xs font-bold shadow-sm">
+                        <span>현재 선택된 핀:</span>
+                        <span id="currentSelectedColorBadge" class="bg-red-500 text-white px-2 py-0.5 rounded-full text-[10px]">🔴 안전하게 살 권리</span>
+                    </div>
+                </div>
+
+                <!-- 실시간 HTML5 Canvas 백지도 컨테이너 -->
+                <div class="relative w-full border-2 border-slate-300 rounded-2xl shadow-inner bg-stone-50 overflow-hidden cursor-crosshair">
+                    <canvas id="yeonjeMapCanvas" width="800" height="550" class="w-full h-auto block"></canvas>
+                </div>
+
+                <!-- 제어 도구 상자 -->
+                <div class="flex flex-wrap justify-between items-center gap-3 mt-4">
+                    <div class="text-xs text-slate-600 font-bold flex items-center gap-2">
+                        <span class="bg-slate-100 border px-2 py-1 rounded-lg">전체 등록 핀 <strong id="totalMarkersText" class="text-teal-600">0</strong>개</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="clearMap()" class="bg-rose-50 text-rose-700 hover:bg-rose-100 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1 border border-rose-200 transition-colors">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> 전체 리셋
+                        </button>
+                        <!-- 이미지 저장 버튼 (Canvas PNG 변환 및 서명 자동 매핑) -->
+                        <button onclick="exportMapImage()" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-md transition-colors">
+                            <i data-lucide="image" class="w-4 h-4"></i> 내 작품 이미지 파일(.png) 저장하기
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- 하단 리스트: 학생 기록 확인 보드 -->
+    <section class="container mx-auto p-4 mb-8">
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
+            <h2 class="text-lg lg:text-xl font-bold text-slate-800 flex items-center gap-2 mb-4 font-handwriting text-2xl">
+                <i data-lucide="notebook-tabs" class="text-emerald-500"></i> 내가 직접 완성한 연제구 인권 탐구 일지
+            </h2>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                <table class="min-w-full divide-y divide-slate-200 text-sm text-left">
+                    <thead class="bg-slate-50 text-slate-700 font-bold">
+                        <tr>
+                            <th class="px-4 py-3">권리 구분</th>
+                            <th class="px-4 py-3">선택한 장소</th>
+                            <th class="px-4 py-3">나의 의견 (인권 탐구 사유)</th>
+                            <th class="px-4 py-3">인터넷 지도</th>
+                            <th class="px-4 py-3 text-center">동작</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-600" id="markerTableBody">
+                        <!-- 동적 주입 -->
+                        <tr id="emptyTableAlert">
+                            <td colspan="5" class="px-4 py-8 text-center text-slate-400">
+                                <div class="flex flex-col items-center gap-2">
+                                    <i data-lucide="info" class="w-8 h-8 text-slate-300"></i>
+                                    <p class="text-xs">지도에 새로운 핀을 꽂거나 왼쪽 데이터베이스의 [등록] 버튼을 누르면 탐구 조서가 생성됩니다!</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핀 등록 팝업 모달 -->
+    <div id="pinModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 shadow-2xl border border-slate-100 mx-4 transform scale-95 transition-transform duration-300" id="pinModalContainer">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <h3 class="text-lg lg:text-xl font-bold text-slate-800 flex items-center gap-2 font-handwriting text-2xl">
+                    <span id="modalHeaderIcon">🛡️</span> <span id="modalHeaderTitle" class="text-red-600">안전하게 살 권리</span> 등록
+                </h3>
+                <button onclick="closePinModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="markerForm" onsubmit="handleMarkerFormSubmit(event)" class="space-y-4">
+                <input type="hidden" id="formX">
+                <input type="hidden" id="formY">
+                <input type="hidden" id="formColor">
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">📍 인권 장소 이름</label>
+                    <input type="text" id="formPlaceName" required placeholder="예: 연신초등학교 앞 횡단보도, 배산성지공원 등" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 font-bold text-slate-800">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">✏️ 어떤 사유로 선정하셨나요? (인권 가치 서술)</label>
+                    <textarea id="formPlaceReason" required rows="3" placeholder="여기에 학생들이 토론한 안전 및 보행 평등 권리를 간단히 적어주세요!" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 text-slate-700"></textarea>
+                </div>
+
+                <!-- 네이버 지도 빠른 안내 -->
+                <div class="bg-amber-50/50 border border-amber-200 p-3 rounded-xl text-xs text-slate-700 space-y-2">
+                    <p class="font-bold flex items-center gap-1 text-amber-900"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600"></i> 지도를 연동해 볼까요?</p>
+                    <p>네이버 지도를 통해 연제구의 실제 위치 정보를 열어 세밀한 명칭을 크로스체킹해 볼 수 있습니다.</p>
+                    <button type="button" onclick="searchNaverMapFromForm()" class="bg-white hover:bg-slate-100 text-teal-700 border border-teal-300 font-extrabold px-3 py-1.5 rounded-lg flex items-center justify-center gap-1 shadow-sm transition-all text-[11px]">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i> 네이버 지도에서 위치 검색하기
+                    </button>
+                </div>
+
+                <div class="flex gap-2 justify-end pt-2">
+                    <button type="button" onclick="closePinModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs transition-colors">취소</button>
+                    <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-extrabold px-5 py-2 rounded-xl text-xs shadow-md transition-all">핀 꽂기 및 등록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 푸터 정보 영역 -->
+    <footer class="bg-slate-800 text-slate-400 py-6 text-center text-xs mt-auto border-t border-slate-700">
+        <div class="container mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-300">💡 초등·중등 사회 교과 연계 인권 교육 시뮬레이터 | 부산광역시 연제구 특화형 가이드</p>
+            <p>본 지도와 데이터베이스는 실제 연제구 내 공공 편의 및 안전 시설물 데이터를 참고하여 학습용 교육 도구로 개발되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 권리 영역 5색 및 회색 매치 데이터
+        const rightsConfig = {
+            red: { title: "안전하게 살 권리", markerTitle: "🚨 안전", icon: "🛡️", badgeClass: "bg-red-100 text-red-800 border-red-300", pinColor: "#ef4444", bgLight: "#fef2f2" },
+            blue: { title: "배우고 쉴 권리", markerTitle: "📚 교육·휴식", icon: "📖", badgeClass: "bg-blue-100 text-blue-800 border-blue-300", pinColor: "#3b82f6", bgLight: "#eff6ff" },
+            green: { title: "차별받지 않을 권리", markerTitle: "🤝 평등·배려", icon: "♿", badgeClass: "bg-emerald-100 text-emerald-800 border-emerald-300", pinColor: "#10b981", bgLight: "#ecfdf5" },
+            purple: { title: "도움받을 권리", markerTitle: "💜 복지·도움", icon: "🏡", badgeClass: "bg-purple-100 text-purple-800 border-purple-300", pinColor: "#a855f7", bgLight: "#faf5ff" },
+            yellow: { title: "내 생각을 말할 권리", markerTitle: "📢 의견·참여", icon: "✉️", badgeClass: "bg-amber-100 text-amber-800 border-amber-300", pinColor: "#f59e0b", bgLight: "#fffbef" },
+            gray: { title: "개선이 필요한 장소", markerTitle: "⚠️ 안전보완 필요", icon: "⚠️", badgeClass: "bg-slate-100 text-slate-800 border-slate-300", pinColor: "#64748b", bgLight: "#f8fafc" }
+        };
+
+        // 각 분야별 연제구 추천 리스트 (학생 탐구 목적 10개 이상 제공)
+        const referencePlaces = {
+            red: [
+                { name: "부산연제경찰서", desc: "연제구 전체 치안과 주민들의 생명 및 안전을 총괄 보호해요.", keyword: "부산연제경찰서", x: 440, y: 310 },
+                { name: "부산연제소방서", desc: "화재나 재해 시 이웃들의 안전을 구하는 든든한 소방 거점이에요.", keyword: "부산연제소방서", x: 500, y: 380 },
+                { name: "연신초등학교 어린이보호구역", desc: "옐로카펫과 도로 과속 단속장치로 학생들의 등굣길 교통사고를 막아줘요.", keyword: "연신초등학교 어린이보호구역", x: 620, y: 200 },
+                { name: "연일초등학교 어린이보호구역", desc: "등하교 시간 보행 안전 가드가 배치되어 안전하게 오고 가요.", keyword: "연일초등학교 어린이보호구역", x: 550, y: 220 },
+                { name: "거제지구대", desc: "거제동 일대 우범 지역을 정기 순찰하여 주민 통행 안전을 강화해요.", keyword: "거제지구대", x: 230, y: 220 },
+                { name: "부산의료원 권역응급센터", desc: "주민들의 긴급 부상이나 위급 질병 시 즉각적인 치료로 생명권을 보장해요.", keyword: "부산의료원 응급실", x: 100, y: 150 },
+                { name: "연제구 CCTV 통합관제센터", desc: "범죄 예방 및 아동 미아 추적 등을 위해 상시 골목길을 감시하고 지켜줘요.", keyword: "연제구청", x: 450, y: 340 },
+                { name: "온천천 시민공원 안전비상벨", desc: "산책 중 밤늦게 긴급상황이 발생하면 누름 즉시 경찰관과 직통으로 연결돼요.", keyword: "온천천시민공원", x: 380, y: 140 },
+                { name: "거제동 홈플러스 인근 횡단보도", desc: "대형마트 주변 보행량이 많아 건널목 LED 바닥 신호등으로 야간 안전을 지켜요.", keyword: "홈플러스 아시아드점", x: 190, y: 260 },
+                { name: "토곡 치안센터", desc: "연산9동 토곡 일대 주민들과 아동들의 도보 귀갓길 안전을 케어해요.", keyword: "토곡치안센터", x: 740, y: 210 }
+            ],
+            blue: [
+                { name: "연제도서관", desc: "수많은 도서와 문화자료를 비치해 누구나 균등한 배움의 혜택을 누려요.", keyword: "연제도서관", x: 580, y: 340 },
+                { name: "거제평생학습관", desc: "학생부터 노인까지 직업 정보나 인문 지식을 재미있게 배우는 문화터예요.", keyword: "거제평생학습관", x: 300, y: 120 },
+                { name: "온천천 시민공원 어린이놀이터", desc: "공기가 맑은 하천 변에서 어린이들이 마음껏 뛰어놀며 쉴 수 있는 곳이에요.", keyword: "온천천 놀이터", x: 450, y: 120 },
+                { name: "연제구 국민체육센터", desc: "수영장과 체력단련실을 갖추어 차별 없이 저렴한 가격에 여가를 즐겨요.", keyword: "연제구국민체육센터", x: 520, y: 350 },
+                { name: "솔바람 작은도서관", desc: "거제동 골목 주민들과 아이들의 방과 후 독서를 위해 아담하게 조성되었어요.", keyword: "솔바람작은도서관", x: 210, y: 190 },
+                { name: "배산 체육공원", desc: "자연 녹지 속에서 등산과 스포츠를 하며 주말 힐링과 여가를 누리는 곳이에요.", keyword: "배산체육공원", x: 610, y: 440 },
+                { name: "연제구 청소년문화의집", desc: "청소년들의 동아리, 자율적인 문화 놀이 및 댄스 연습 등을 보장해요.", keyword: "연제구청소년문화의집", x: 560, y: 250 },
+                { name: "밤골 작은도서관", desc: "도서실이 멀었던 연산동 산복도로 근처 주민들에게 배움의 꿈을 키워줘요.", keyword: "밤골작은도서관", x: 490, y: 410 },
+                { name: "토곡어린이공원 놀이터", desc: "아파트촌 아이들이 학업 스트레스를 잊고 마음껏 활동할 휴식 안전지대예요.", keyword: "토곡어린이공원", x: 720, y: 230 },
+                { name: "배산 숲속도서관", desc: "나무 향 가득한 자연 속에서 자연관찰과 편안한 휴식을 함께 즐길 수 있어요.", keyword: "배산 숲속도서관", x: 640, y: 410 }
+            ],
+            green: [
+                { name: "연산역 환승용 엘리베이터", desc: "휠체어나 무거운 짐을 유모차와 함께 싣고 1호선·3호선을 편하게 오가요.", keyword: "연산역 엘리베이터", x: 410, y: 250 },
+                { name: "거제역 시각장애인용 점자블록", desc: "지하철역 출구부터 보도 전체에 점자로 안전한 대중교통 이용 길을 인도해요.", keyword: "거제역 점자블록", x: 300, y: 280 },
+                { name: "연제구청 BF 무장애 화장실", desc: "어르신이나 몸이 불편한 장애인 등 모두가 차별 없이 동등하게 사용하는 공공화장실이에요.", keyword: "연제구청", x: 460, y: 330 },
+                { name: "부산시각장애인복지관", desc: "시각적 정보 습득에 장애를 겪는 구민의 점자 교육과 차별받지 않을 사회 참여를 돕습니다.", keyword: "부산시각장애인복지관", x: 480, y: 290 },
+                { name: "거제해맞이역 저상버스 정류소", desc: "휠체어 승강 판넬이 내릴 수 있도록 도로 단차가 완벽히 제거되어 있어요.", keyword: "거제해맞이역 정류장", x: 280, y: 350 },
+                { name: "거제1동 행정복지센터 경사로", desc: "문 앞 계단을 이용하기 힘든 보행 약자가 완만한 경사를 통해 구청 업무를 보러 들어가요.", keyword: "거제1동 행정복지센터", x: 340, y: 80 },
+                { name: "거제시장 보행로 턱낮춤", desc: "도로와 인도의 연결부를 낮추어 휠체어가 부딪침 없이 스무스하게 건너요.", keyword: "거제시장", x: 260, y: 250 },
+                { name: "연제종합사회복지관 휠체어 진입로", desc: "경사 슬로프와 버튼식 자동문으로 거동이 어려운 이웃들을 차별 없이 환영해요.", keyword: "연제종합사회복지관", x: 530, y: 320 },
+                { name: "연제구보건소 휠체어 대여함", desc: "일시적으로 휠체어가 필요하게 된 주민들이 평등하게 이동하도록 무상 임대해요.", keyword: "연제구보건소", x: 450, y: 350 },
+                { name: "온천천 시민공원 유모차 전용 데크길", desc: "턱이나 자갈이 없어 어린 아기와 노약자가 하천 생태계를 평화롭게 감상해요.", keyword: "온천천 데크길", x: 340, y: 130 }
+            ],
+            purple: [
+                { name: "거제종합사회복지관", desc: "결식 아동 급식, 취약 계층 무료 세탁, 맞춤형 가사 간병 서비스를 행해요.", keyword: "거제종합사회복지관", x: 180, y: 330 },
+                { name: "연제종합사회복지관", desc: "독거어르신 반찬 지원 및 취약계층의 복지 고충을 직접 상담해 삶을 보살펴요.", keyword: "연제종합사회복지관", x: 540, y: 310 },
+                { name: "연제구 가족센터", desc: "다문화, 한부모, 1인가구 등 다변화되는 가족 형태의 차별 없는 소통을 도와요.", keyword: "연제구가족센터", x: 470, y: 280 },
+                { name: "연제구 보건소", desc: "아이들의 기초 예방 접종 및 만성 질환을 낮은 문턱에서 세심히 진료해 줘요.", keyword: "연제구보건소", x: 440, y: 360 },
+                { name: "부산장애인종합복지관", desc: "장애인의 신체 재활과 직업 훈련으로 건강하고 주도적인 자립 생활을 응원해요.", keyword: "부산장애인종합복지관", x: 250, y: 310 },
+                { name: "연제구 육아종합지원센터", desc: "부모의 양육 노동과 아동 돌봄의 부담을 줄이기 위한 공동 육아와 장난감을 빌려줘요.", keyword: "연제구육아종합지원센터", x: 460, y: 300 },
+                { name: "연제구 정신건강복지센터", desc: "극심한 우울과 스트레스로 마음이 다친 연제구민들을 위한 무료 심리 상담을 상시 제공해요.", keyword: "연제구정신건강복지센터", x: 450, y: 370 },
+                { name: "연제구 치매안심센터", desc: "치매 조기 검진과 인지 치료 교실을 통해 고령 주민들의 안심 노후 인권을 가꿔갑니다.", keyword: "연제구치매안심센터", x: 430, y: 350 },
+                { name: "연제구 드림스타트", desc: "어려운 환경에서도 연제구의 모든 아이들이 공평한 교육의 시작을 누릴 권리를 케어해요.", keyword: "연제구드림스타트", x: 450, y: 330 },
+                { name: "대한적십자사 부산지사", desc: "연제구 및 부산 내 대형 재해나 수해 시 임시 이재민들을 위한 긴급 급식과 물자를 지원해요.", keyword: "대한적십자사 부산지사", x: 670, y: 280 }
+            ],
+            yellow: [
+                { name: "연제구청 민원실 구민제안함", desc: "구민들의 참신한 불편 개혁안이나 소중한 생각 아이디어를 접수하는 소리함이에요.", keyword: "연제구청 민원실", x: 460, y: 340 },
+                { name: "연제구의회 방청석", desc: "주민들의 의견을 대표하는 선출 구의원들이 정책을 결정하는 과정을 볼 보행 청취를 허용해요.", keyword: "연제구의회", x: 470, y: 330 },
+                { name: "거제1동 행정복지센터 주민사랑방", desc: "마을 골목의 쓰레기 분리배출, 주차 불편 등을 주민들이 한데 모여 주도적으로 해결해요.", keyword: "거제1동 행정복지센터", x: 350, y: 90 },
+                { name: "연산5동 주민자치위원회 회의실", desc: "이웃끼리 마을의 발전을 위해 다양한 의견을 자유롭게 표현하고 구정에 건의해요.", keyword: "연산5동 주민자치회", x: 430, y: 240 },
+                { name: "연제구 누리집 구민청원 게시판", desc: "온라인상에서 자유롭게 찬성과 반대 의사를 표현하며 소통하는 디지털 의결 공간이에요.", keyword: "연제구청", x: 450, y: 320 },
+                { name: "연제구 청소년 참여위원회", desc: "학생들이 청소년 정책에 대해 스스로의 목소리를 내며 민주 사회인으로 성장하는 장이에요.", keyword: "연제구청", x: 450, y: 340 },
+                { name: "거제4동 해맞이마을 쉼터", desc: "동네 이웃들이 화기애애하게 다과를 나누며 마을 치안 개선을 제안하는 교두보예요.", keyword: "거제4동 해맞이마을", x: 230, y: 380 },
+                { name: "연산6동 소통 건의함", desc: "주민센터 입구에 설치되어 주민들의 소소한 건의와 애로사항을 접수하는 편지 우체통이에요.", keyword: "연산6동 행정복지센터", x: 570, y: 380 },
+                { name: "거제동 사전투표소", desc: "선거철 자신의 민주적 신념을 한 표로 결정하여 행사하는 권리 표현의 상징지예요.", keyword: "거제동 사전투표소", x: 310, y: 200 },
+                { name: "연제구 주민참여예산단 총회장", desc: "어떤 공익 사업에 예산을 투자할지 주민 배심원단이 열띤 자유 토론으로 결정해요.", keyword: "연제구청", x: 470, y: 340 }
+            ],
+            gray: [
+                { name: "신호등이 끊겨 위험한 골목길", desc: "보행 신호 통제가 되지 않아 아동들과 보행 약자들의 골목 보행 안전 권리가 크게 위협받는 구역이에요.", keyword: "연제구 골목길", x: 600, y: 160 },
+                { name: "경사로나 휠체어 대안이 없는 계단", desc: "높은 턱이나 계단만 구성되어 보행 장애를 유발하고 어르신이나 유모차가 돌아가야 하는 장소예요.", keyword: "연제구 턱낮춤", x: 400, y: 410 },
+                { name: "점자블록 유도가 유실된 통학로", desc: "노란 시각장애인용 유도 블록이 심하게 마모되거나 파손되어 안전 보행을 방해하고 있어요.", keyword: "연제구 점자블록", x: 670, y: 190 },
+                { name: "어두운 가로등으로 야간 안전 우려 지대", desc: "골목 가로등 및 안전 CCTV 조도가 낮아 밤길 보행 시 불안과 통행 위험을 초래해요.", keyword: "연제구 골목길", x: 480, y: 450 },
+                { name: "인도와 차도가 혼재된 위험 스쿨존", desc: "어린이 보행 인도와 차량 도로가 구분이 안 돼 아이들이 아슬아슬하게 차 옆으로 걷는 등하굣길이에요.", keyword: "연제구 스쿨존", x: 630, y: 330 },
+                { name: "온천천 진출입부 휠체어 단차 계단", desc: "온천천으로 진입하는 경사로 일부의 급격한 경사나 불필요한 연석 턱으로 약자가 돌아가야 하는 불편이 있어요.", keyword: "온천천 계단", x: 290, y: 140 }
+            ]
+        };
+
+        let activeTab = 'red'; // 현재 탐색 중인 아코디언 탭
+        let pins = []; // 학생들이 꽂은 핀 배열
+
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initDate();
+            initCanvas();
+            switchTab('red');
+            loadSavedData();
+            
+            // 이름 변경 시 실시간 세이브 및 캔버스 업데이트
+            document.getElementById('studentName').addEventListener('input', () => {
+                saveDataToLocal();
+                drawMapBoard();
+            });
+        });
+
+        // 날짜 초기화
+        function initDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const dateStr = `${year}. ${month}. ${day}`;
+            document.getElementById('liveDate').textContent = dateStr;
+        }
+
+        // 로컬 데이터 세이브/로드
+        function saveDataToLocal() {
+            localStorage.setItem('yeonje_rights_pins', JSON.stringify(pins));
+            localStorage.setItem('yeonje_rights_student', document.getElementById('studentName').value);
+        }
+
+        function loadSavedData() {
+            const savedPins = localStorage.getItem('yeonje_rights_pins');
+            const savedStudent = localStorage.getItem('yeonje_rights_student');
+            if (savedPins) {
+                pins = JSON.parse(savedPins);
+                updateTableList();
+            }
+            if (savedStudent) {
+                document.getElementById('studentName').value = savedStudent;
+            }
+            drawMapBoard();
+        }
+
+        function switchTab(color) {
+            activeTab = color;
+            selectedRightColor = color; // 핀 꽂기 도구 색상도 연동 업데이트
+            
+            // 탭 버튼 스타일 업데이트
+            const allTabs = ['red', 'blue', 'green', 'purple', 'yellow', 'gray'];
+            allTabs.forEach(t => {
+                const btn = document.getElementById(`btn-tab-${t}`);
+                if (t === color) {
+                    btn.className = `py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center ${getColorTabClass(t)}`;
+                } else {
+                    btn.className = `py-2 px-1 text-xs font-bold rounded-xl border transition-all flex flex-col items-center justify-center bg-slate-50 border-slate-100 text-slate-500`;
+                }
+            });
+
+            // 핀 선택 정보 배지 갱신
+            const config = rightsConfig[color];
+            const badge = document.getElementById('currentSelectedColorBadge');
+            badge.textContent = `${config.icon} ${config.title}`;
+            badge.className = `text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold`;
+            badge.style.backgroundColor = config.pinColor;
+
+            // 리스트 주입
+            renderReferenceList(color);
+        }
+
+        function getColorTabClass(tab) {
+            switch(tab) {
+                case 'red': return 'bg-red-50 border-red-200 text-red-800';
+                case 'blue': return 'bg-blue-50 border-blue-200 text-blue-800';
+                case 'green': return 'bg-emerald-50 border-emerald-200 text-emerald-800';
+                case 'purple': return 'bg-purple-50 border-purple-200 text-purple-800';
+                case 'yellow': return 'bg-amber-50 border-amber-200 text-amber-800';
+                case 'gray': return 'bg-slate-100 border-slate-300 text-slate-800';
+            }
+        }
+
+        function renderReferenceList(color) {
+            const listContainer = document.getElementById('referenceListContent');
+            listContainer.innerHTML = '';
+            const list = referencePlaces[color] || [];
+            const config = rightsConfig[color];
+
+            list.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = `p-3 mb-2 rounded-xl border border-slate-100 bg-white hover:border-teal-300 hover:shadow-sm transition-all text-xs flex flex-col justify-between gap-2`;
+                itemEl.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-extrabold text-slate-800">${index + 1}. ${item.name}</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded-md font-bold" style="background-color: ${config.bgLight}; color: ${config.pinColor};">
+                                ${config.markerTitle}
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${item.desc}</p>
+                    </div>
+                    <div class="flex gap-1.5 self-end">
+                        <button onclick="autoPlacePin('${color}', '${item.name}', '${item.desc}', ${item.x}, ${item.y})" class="bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 px-2 py-1 rounded-lg text-[10px] font-bold flex items-center gap-0.5 transition-all">
+                            🎯 백지도 등록
+                        </button>
+                        <a href="https://map.naver.com/v5/search/${encodeURIComponent('부산 연제구 ' + item.keyword)}" target="_blank" class="bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 px-2 py-1 rounded-lg text-[10px] font-bold flex items-center gap-0.5 transition-all">
+                            🔍 지도 검색
+                        </a>
+                    </div>
+                `;
+                listContainer.appendChild(itemEl);
+            });
+        }
+
+        // 가상 백지도 Canvas 엔진
+        let canvas, ctx;
+        let selectedRightColor = 'red';
+
+        function initCanvas() {
+            canvas = document.getElementById('yeonjeMapCanvas');
+            ctx = canvas.getContext('2d');
+
+            // 캔버스 클릭 이벤트 등록 (수동 핀 꽂기)
+            canvas.addEventListener('mousedown', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                // 원본 좌표 800x550 기준으로 스케일 조정
+                const x = ((e.clientX - rect.left) / rect.width) * canvas.width;
+                const y = ((e.clientY - rect.top) / rect.height) * canvas.height;
+
+                openPinRegisterModal(x, y, selectedRightColor);
+            });
+        }
+
+        // 특정 사전 정의 장소의 자동 좌표 등록
+        function autoPlacePin(color, name, desc, x, y) {
+            // 중복 배치 체크
+            const isDuplicate = pins.some(p => p.placeName === name);
+            if (isDuplicate) {
+                alert(`"${name}" 장소는 이미 인권지도에 등록되어 있습니다.`);
+                return;
+            }
+
+            const newPin = {
+                id: Date.now().toString(),
+                x: x,
+                y: y,
+                color: color,
+                placeName: name,
+                reason: desc,
+                date: document.getElementById('liveDate').textContent
+            };
+
+            pins.push(newPin);
+            saveDataToLocal();
+            updateTableList();
+            drawMapBoard();
+        }
+
+        // 캔버스 지도 판 그리기 함수 (연제구 백지도 형태의 벡터 재현)
+        function drawMapBoard() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. 전체 연제구 종이 가상 배경색
+            ctx.fillStyle = "#FAF6EE"; // Warm Cream Analog Background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 모눈 그리드 추가 (탐구 가이드성 격자무늬)
+            ctx.strokeStyle = "rgba(139, 92, 26, 0.05)";
+            ctx.lineWidth = 1;
+            for (let i = 0; i < canvas.width; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            for (let j = 0; j < canvas.height; j += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, j);
+                ctx.lineTo(canvas.width, j);
+                ctx.stroke();
+            }
+
+            // 2. 동 구역 경계 다각형 드로잉 (연제구 백지도 경계선 완벽 표현)
+            ctx.strokeStyle = "rgba(74, 85, 104, 0.25)";
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 4]); // 점선
+
+            // 거제2동 (좌측 최외곽)
+            ctx.fillStyle = "rgba(240, 253, 244, 0.4)";
+            ctx.beginPath();
+            ctx.moveTo(10, 210);
+            ctx.lineTo(190, 160);
+            ctx.lineTo(240, 290);
+            ctx.lineTo(100, 310);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 거제4동 (거제2동 아래)
+            ctx.fillStyle = "rgba(240, 253, 244, 0.45)";
+            ctx.beginPath();
+            ctx.moveTo(100, 310);
+            ctx.lineTo(240, 290);
+            ctx.lineTo(180, 440);
+            ctx.lineTo(90, 400);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 거제3동 (중부 좌측)
+            ctx.fillStyle = "rgba(240, 253, 244, 0.35)";
+            ctx.beginPath();
+            ctx.moveTo(190, 160);
+            ctx.lineTo(340, 180);
+            ctx.lineTo(280, 320);
+            ctx.lineTo(240, 290);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 거제1동 (북서측 최상단)
+            ctx.fillStyle = "rgba(240, 253, 244, 0.5)";
+            ctx.beginPath();
+            ctx.moveTo(190, 160);
+            ctx.lineTo(330, 80);
+            ctx.lineTo(440, 150);
+            ctx.lineTo(340, 180);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산5동 (중앙 핵심교차)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.35)";
+            ctx.beginPath();
+            ctx.moveTo(340, 180);
+            ctx.lineTo(440, 150);
+            ctx.lineTo(510, 250);
+            ctx.lineTo(380, 290);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산2동 (중앙 남부)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.4)";
+            ctx.beginPath();
+            ctx.moveTo(380, 290);
+            ctx.lineTo(510, 250);
+            ctx.lineTo(480, 390);
+            ctx.lineTo(320, 370);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산4동 (중앙 우측)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.3)";
+            ctx.beginPath();
+            ctx.moveTo(510, 250);
+            ctx.lineTo(600, 210);
+            ctx.lineTo(580, 320);
+            ctx.lineTo(480, 390);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산6동 (남동 중심)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.45)";
+            ctx.beginPath();
+            ctx.moveTo(580, 320);
+            ctx.lineTo(670, 340);
+            ctx.lineTo(600, 480);
+            ctx.lineTo(480, 390);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산3동 (최남단 구역)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.5)";
+            ctx.beginPath();
+            ctx.moveTo(480, 390);
+            ctx.lineTo(600, 480);
+            ctx.lineTo(520, 540);
+            ctx.lineTo(430, 540);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산1동 (북동 상단)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.35)";
+            ctx.beginPath();
+            ctx.moveTo(440, 150);
+            ctx.lineTo(590, 100);
+            ctx.lineTo(660, 170);
+            ctx.lineTo(510, 250);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산8동 (동부 중간)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.4)";
+            ctx.beginPath();
+            ctx.moveTo(510, 250);
+            ctx.lineTo(660, 170);
+            ctx.lineTo(740, 220);
+            ctx.lineTo(600, 210);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 연산9동 (우측 최외곽)
+            ctx.fillStyle = "rgba(240, 249, 255, 0.45)";
+            ctx.beginPath();
+            ctx.moveTo(600, 210);
+            ctx.lineTo(740, 220);
+            ctx.lineTo(790, 290);
+            ctx.lineTo(670, 340);
+            ctx.lineTo(580, 320);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.setLineDash([]); // 대시라인 초기화
+
+            // 3. 온천천 시민공원 흐름 선 (블루 리본 수로)
+            ctx.strokeStyle = "rgba(96, 165, 250, 0.45)";
+            ctx.lineWidth = 14;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.beginPath();
+            ctx.moveTo(250, 95);
+            ctx.quadraticCurveTo(400, 140, 580, 100);
+            ctx.quadraticCurveTo(690, 80, 780, 250);
+            ctx.stroke();
+
+            ctx.strokeStyle = "rgba(59, 130, 246, 0.3)";
+            ctx.lineWidth = 6;
+            ctx.stroke();
+
+            // 4. 주요 교차로 간선도로망 (중앙대로 & 월드컵대로 교차표현)
+            // 중앙대로 (남북 가로지름)
+            ctx.strokeStyle = "rgba(251, 146, 60, 0.35)";
+            ctx.lineWidth = 12;
+            ctx.beginPath();
+            ctx.moveTo(410, 0);
+            ctx.lineTo(410, 550);
+            ctx.stroke();
+
+            // 월드컵대로 (동서 가로지름)
+            ctx.beginPath();
+            ctx.moveTo(0, 340);
+            ctx.lineTo(800, 230);
+            ctx.stroke();
+
+            // 5. 각 구역 텍스트 라벨 배치 (반투명 서체)
+            ctx.fillStyle = "rgba(30, 41, 59, 0.55)";
+            ctx.font = "bold 13px 'Nanum Gothic'";
+            ctx.textAlign = "center";
+
+            ctx.fillText("거제2동", 100, 220);
+            ctx.fillText("거제4동", 150, 360);
+            ctx.fillText("거제3동", 260, 240);
+            ctx.fillText("거제1동", 310, 140);
+            ctx.fillText("연산5동", 410, 210);
+            ctx.fillText("연산2동", 400, 330);
+            ctx.fillText("연산4동", 530, 310);
+            ctx.fillText("연산6동", 550, 420);
+            ctx.fillText("연산3동", 480, 480);
+            ctx.fillText("연산1동", 540, 160);
+            ctx.fillText("연산8동", 630, 200);
+            ctx.fillText("연산9동", 710, 270);
+
+            ctx.fillStyle = "rgba(37, 99, 235, 0.8)";
+            ctx.font = "bold 11px 'Nanum Gothic'";
+            ctx.fillText("🌊 온천천 시민공원 수로", 510, 122);
+
+            // 6. 랜드마크 핀 배치 (작은 회색 사각형 심볼)
+            drawLandmarkCore(460, 330, "🏢 연제구청");
+            drawLandmarkCore(410, 250, "🏛️ 부산시청");
+            drawLandmarkCore(100, 150, "🏥 부산의료원");
+
+            // 7. 학생들이 추가한 동적 인권 핀들 그리기
+            pins.forEach(p => {
+                const config = rightsConfig[p.color];
+                
+                // 마커 하이라이트 그림자
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(0,0,0,0.15)";
+                ctx.fill();
+
+                // 핀 대가리 구 그리기 (그라데이션 입히기)
+                const grad = ctx.createRadialGradient(p.x, p.y - 12, 1, p.x, p.y - 12, 10);
+                grad.addColorStop(0, '#ffffff');
+                grad.addColorStop(0.3, config.pinColor);
+                grad.addColorStop(1, '#1e293b');
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y - 12, 8, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // 핀 촉 그리기 (삼각형)
+                ctx.beginPath();
+                ctx.moveTo(p.x - 4, p.y - 8);
+                ctx.lineTo(p.x + 4, p.y - 8);
+                ctx.lineTo(p.x, p.y);
+                ctx.closePath();
+                ctx.fillStyle = config.pinColor;
+                ctx.fill();
+
+                // 핀 내부 기호 (흰색 점)
+                ctx.beginPath();
+                ctx.arc(p.x, p.y - 12, 3, 0, Math.PI * 2);
+                ctx.fillStyle = "#ffffff";
+                ctx.fill();
+
+                // 말풍선 레이블 텍스트
+                ctx.fillStyle = "#1e293b";
+                ctx.font = "bold 10px 'Nanum Gothic'";
+                ctx.fillText(p.placeName, p.x, p.y - 24);
+            });
+
+            // 8. 서명 인증 박스 드로잉 (연제구 백지도.png 우측/좌측 하단 서명란 실물 재현!)
+            ctx.fillStyle = "#ffffff";
+            ctx.strokeStyle = "#475569";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(20, 480, 260, 50);
+            ctx.fillRect(20, 480, 260, 50);
+
+            ctx.fillStyle = "#1e293b";
+            ctx.font = "bold 11px 'Nanum Gothic'";
+            ctx.textAlign = "left";
+            const sName = document.getElementById('studentName').value || "미입력 모둠";
+            const sDate = document.getElementById('liveDate').textContent;
+            ctx.fillText(`이름: ${sName}`, 30, 500);
+            ctx.fillText(`날짜: ${sDate}`, 30, 520);
+        }
+
+        // 랜드마크 보조 드로잉 함수
+        function drawLandmarkCore(x, y, label) {
+            ctx.fillStyle = "rgba(71, 85, 105, 0.1)";
+            ctx.fillRect(x - 30, y - 10, 60, 20);
+            ctx.strokeStyle = "rgba(71, 85, 105, 0.4)";
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x - 30, y - 10, 60, 20);
+            ctx.fillStyle = "#334155";
+            ctx.font = "bold 9px 'Nanum Gothic'";
+            ctx.textAlign = "center";
+            ctx.fillText(label, x, y + 3);
+        }
+
+        // 핀 등록 모달 열기 및 제어
+        function openPinRegisterModal(x, y, color) {
+            const config = rightsConfig[color];
+            
+            document.getElementById('formX').value = x;
+            document.getElementById('formY').value = y;
+            document.getElementById('formColor').value = color;
+
+            document.getElementById('modalHeaderIcon').textContent = config.icon;
+            document.getElementById('modalHeaderTitle').textContent = config.title;
+            document.getElementById('modalHeaderTitle').style.color = config.pinColor;
+
+            document.getElementById('formPlaceName').value = '';
+            document.getElementById('formPlaceReason').value = '';
+
+            document.getElementById('pinModal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('pinModalContainer').classList.remove('scale-95');
+                document.getElementById('pinModalContainer').classList.add('scale-100');
+            }, 50);
+        }
+
+        function closePinModal() {
+            document.getElementById('pinModalContainer').classList.remove('scale-100');
+            document.getElementById('pinModalContainer').classList.add('scale-95');
+            setTimeout(() => {
+                document.getElementById('pinModal').classList.add('hidden');
+            }, 150);
+        }
+
+        // 네이버 검색 연동 (모달 내부)
+        function searchNaverMapFromForm() {
+            const placeName = document.getElementById('formPlaceName').value.trim();
+            const keyword = placeName ? `부산 연제구 ${placeName}` : '부산 연제구';
+            window.open(`https://map.naver.com/v5/search/${encodeURIComponent(keyword)}`, '_blank');
+        }
+
+        // 학생이 수동 핀을 꽂아 모달 전송했을 때 처리
+        function handleMarkerFormSubmit(event) {
+            event.preventDefault();
+
+            const x = parseFloat(document.getElementById('formX').value);
+            const y = parseFloat(document.getElementById('formY').value);
+            const color = document.getElementById('formColor').value;
+            const placeName = document.getElementById('formPlaceName').value.trim();
+            const reason = document.getElementById('formPlaceReason').value.trim();
+
+            const newPin = {
+                id: Date.now().toString(),
+                x,
+                y,
+                color,
+                placeName,
+                reason,
+                date: document.getElementById('liveDate').textContent
+            };
+
+            pins.push(newPin);
+            saveDataToLocal();
+            updateTableList();
+            drawMapBoard();
+            closePinModal();
+        }
+
+        // 탐구 일지 보고서 테이블 갱신
+        function updateTableList() {
+            const tbody = document.getElementById('markerTableBody');
+            tbody.innerHTML = '';
+
+            if (pins.length === 0) {
+                tbody.innerHTML = `
+                    <tr id="emptyTableAlert">
+                        <td colspan="5" class="px-4 py-8 text-center text-slate-400">
+                            <div class="flex flex-col items-center gap-2">
+                                <i data-lucide="info" class="w-8 h-8 text-slate-300"></i>
+                                <p class="text-xs">지도에 새로운 핀을 꽂거나 왼쪽 데이터베이스의 [등록] 버튼을 누르면 탐구 조서가 생성됩니다!</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('totalMarkersText').textContent = "0";
+                lucide.createIcons();
+                return;
+            }
+
+            pins.forEach(p => {
+                const config = rightsConfig[p.color];
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors border-b border-slate-100";
+                
+                tr.innerHTML = `
+                    <td class="px-4 py-3 whitespace-nowrap">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${config.badgeClass}">
+                            <span>${config.icon}</span> ${config.title}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 font-extrabold text-slate-800">
+                        ${escapeHTML(p.placeName)}
+                    </td>
+                    <td class="px-4 py-3 text-xs text-slate-600 max-w-sm whitespace-normal break-all">
+                        ${escapeHTML(p.reason)}
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                        <a href="https://map.naver.com/v5/search/${encodeURIComponent('부산 연제구 ' + p.placeName)}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold bg-white text-blue-600 border border-blue-200 hover:bg-blue-50 rounded-lg transition-all shadow-sm">
+                            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> 네이버 지도 찾기
+                        </a>
+                    </td>
+                    <td class="px-4 py-3 text-center whitespace-nowrap">
+                        <button onclick="deletePin('${p.id}')" class="text-rose-500 hover:text-rose-700 font-bold p-1 rounded hover:bg-rose-50 transition-colors" title="장소 지우기">
+                            <i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('totalMarkersText').textContent = pins.length;
+            lucide.createIcons();
+        }
+
+        // 특정 핀 삭제
+        function deletePin(id) {
+            pins = pins.filter(p => p.id !== id);
+            saveDataToLocal();
+            updateTableList();
+            drawMapBoard();
+        }
+
+        // 전체 초기화
+        function clearMap() {
+            if (pins.length === 0) return;
+            const ok = confirm("지금까지 학생들이 소중히 꽂아 놓은 연제구 인권지도의 모든 핀을 삭제할까요?");
+            if (ok) {
+                pins = [];
+                saveDataToLocal();
+                updateTableList();
+                drawMapBoard();
+            }
+        }
+
+        // 이미지 저장 처리 (CORS 트러블 없는 순수 canvas 백업 방식)
+        function exportMapImage() {
+            // 학생 이름 파싱하여 고유 파일명 부여
+            const sName = document.getElementById('studentName').value || "무명_학생";
+            const cleanName = sName.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]/g, "_");
+            const filename = `연제구_우리지역_인권지도_${cleanName}.png`;
+
+            // Canvas의 raw 데이터를 dataURL로 받음
+            const imageURL = canvas.toDataURL('image/png');
+
+            // 가상 다운로드 트리거
+            const link = document.createElement('a');
+            link.href = imageURL;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 단순 이스케이프 보안 헬퍼
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

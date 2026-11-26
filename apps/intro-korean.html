@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사각사각 글쓰기 놀이터</title>
+    <!-- 구글 폰트: Jua (제목), Nanum Pen Script (손글씨 본문) -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <!-- 아이콘 -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+    
+    <style>
+        /* 국어/글쓰기 테마 색상 */
+        :root {
+            --read-color: #48cae4;      /* 읽기 - 상쾌한 하늘색 */
+            --write-color: #ffb703;     /* 쓰기 - 따뜻한 연필 노란색 */
+            --listen-color: #fb8500;    /* 듣기/말하기 - 활기찬 오렌지색 */
+            --text-dark: #4a4e69;
+            --bg-paper: #fffdf5;        /* 미색 종이 질감 배경 */
+            --line-color: #e9ecef;      /* 공책 줄 색상 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Jua', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* 애니메이션 */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes pencil-write {
+            0% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(5px) rotate(10deg); }
+            50% { transform: translateX(0) rotate(0); }
+            75% { transform: translateX(-5px) rotate(-10deg); }
+            100% { transform: translateX(0) rotate(0); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(40px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* 헤더 섹션 */
+        header {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(180deg, #fff 0%, #fffdf5 100%);
+            border-bottom: 3px dashed #ccc;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* 헤더 장식 아이콘 */
+        .header-deco {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s infinite ease-in-out;
+            opacity: 0.8;
+        }
+        .deco-1 { top: 20%; left: 10%; animation-delay: 0s; color: var(--write-color); }
+        .deco-2 { bottom: 20%; right: 10%; animation-delay: 1.5s; color: var(--read-color); }
+
+        h1 {
+            font-size: 3rem;
+            color: #222;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        h1 span {
+            color: var(--listen-color);
+            display: inline-block;
+        }
+
+        .subtitle {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.8rem;
+            color: #666;
+            background: linear-gradient(to top, #ffe66d 40%, transparent 40%); /* 형광펜 효과 */
+            display: inline-block;
+            padding: 0 10px;
+        }
+
+        /* 메인 컨텐츠 그리드 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        /* 폴라로이드/카드 스타일 */
+        .card {
+            background: white;
+            border-radius: 15px; /* 약간 각진 느낌 */
+            padding: 30px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.05), -1px -1px 5px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            border: 1px solid #eee;
+        }
+
+        /* 포스트잇 느낌의 테이프 장식 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .card:nth-child(1)::before { background-color: rgba(72, 202, 228, 0.3); transform: translateX(-50%) rotate(-2deg); }
+        .card:nth-child(2)::before { background-color: rgba(255, 183, 3, 0.3); transform: translateX(-50%) rotate(1deg); }
+        .card:nth-child(3)::before { background-color: rgba(251, 133, 0, 0.3); transform: translateX(-50%) rotate(-1deg); }
+
+        .card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* 아이콘 영역 */
+        .icon-area {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+        
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .card:hover .icon-circle {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .read .icon-circle { background-color: var(--read-color); }
+        .write .icon-circle { background-color: var(--write-color); }
+        .listen .icon-circle { background-color: var(--listen-color); }
+
+        .card h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* 역량 태그 */
+        .competency-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ccc;
+        }
+
+        .read .competency-box { border-left-color: var(--read-color); }
+        .write .competency-box { border-left-color: var(--write-color); }
+        .listen .competency-box { border-left-color: var(--listen-color); }
+
+        .competency-title {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 15px;
+            color: white;
+            font-size: 0.9rem;
+            font-family: 'Nanum Pen Script', cursive; /* 태그도 손글씨 느낌 */
+            font-size: 1.1rem; /* 손글씨 폰트라 조금 크게 */
+            letter-spacing: 0.5px;
+        }
+
+        .read .tag { background-color: var(--read-color); }
+        .write .tag { background-color: var(--write-color); }
+        .listen .tag { background-color: var(--listen-color); }
+
+        /* 설명 텍스트 (원고지 느낌 살짝) */
+        .description {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #444;
+            text-align: center;
+            word-break: keep-all;
+            padding: 10px;
+            background-image: linear-gradient(transparent 95%, #eee 95%);
+            background-size: 100% 2.4rem; /* 줄 간격 */
+        }
+
+        /* 선생님의 책상 (하단) */
+        .teacher-desk {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px; /* 노트처럼 */
+            padding: 40px;
+            text-align: center;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.05);
+            position: relative;
+            
+            /* 공책 줄무늬 배경 */
+            background-image: repeating-linear-gradient(#fff 0px, #fff 29px, #00b4d8 30px);
+            background-size: 100% 30px;
+        }
+        
+        /* 공책 옆 빨간 줄 */
+        .teacher-desk::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 40px;
+            width: 2px;
+            height: 100%;
+            background-color: #ff595e;
+            opacity: 0.5;
+        }
+
+        .desk-content {
+            background-color: rgba(255,255,255,0.85); /* 글씨 잘 보이게 배경 */
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .btn-write {
+            background-color: var(--write-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Jua';
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 10px rgba(255, 183, 3, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-write:hover {
+            transform: translateY(-3px) scale(1.05);
+            background-color: #ffaa00;
+        }
+        
+        .btn-write:active i {
+            animation: pencil-write 0.5s ease;
+        }
+
+        .visible {
+            animation: popIn 0.8s forwards;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.4rem; }
+            .teacher-desk { padding: 20px; }
+            .teacher-desk::before { left: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-deco deco-1">✎</div>
+        <div class="header-deco deco-2">📖</div>
+        <h1>마법의 연필, <span>국어 탐험대</span></h1>
+        <div class="subtitle">내 생각을 글로 쓰면 마법이 시작돼요!</div>
+    </header>
+
+    <div class="container">
+        
+        <!-- 읽기/문학 카드 -->
+        <div class="card read">
+            <div class="icon-area">
+                <div class="icon-circle">
+                    <i data-lucide="book-open"></i>
+                </div>
+            </div>
+            <h2>읽기와 상상하기</h2>
+            <div class="competency-box">
+                <div class="competency-title">☁️ 책 속으로 풍덩!</div>
+                <div class="tags">
+                    <span class="tag">#문학향유역량</span>
+                    <span class="tag">#비판적창의적사고</span>
+                </div>
+            </div>
+            <p class="description">
+                "책은 다른 세상으로 통하는<br>
+                비밀의 문이에요."<br>
+                주인공이 되어 모험을 떠나고,<br>
+                시 속에 숨은 보석 같은 마음을 찾아봐요.
+            </p>
+        </div>
+
+        <!-- 쓰기/표현 카드 -->
+        <div class="card write">
+            <div class="icon-area">
+                <div class="icon-circle">
+                    <i data-lucide="pen-tool"></i>
+                </div>
+            </div>
+            <h2>나만의 글쓰기</h2>
+            <div class="competency-box">
+                <div class="competency-title">📝 쓱싹쓱싹 나의 이야기</div>
+                <div class="tags">
+                    <span class="tag">#자료정보활용</span>
+                    <span class="tag">#디지털미디어역량</span>
+                </div>
+            </div>
+            <p class="description">
+                "빈 종이를 두려워하지 마세요.<br>
+                여러분의 생각이 곧 정답이니까요."<br>
+                일기, 편지, 그리고 나만의 동화까지.<br>
+                연필 끝에서 세상을 만들어 봐요.
+            </p>
+        </div>
+
+        <!-- 듣기/말하기 카드 -->
+        <div class="card listen">
+            <div class="icon-area">
+                <div class="icon-circle">
+                    <i data-lucide="message-circle-heart"></i>
+                </div>
+            </div>
+            <h2>경청과 대화</h2>
+            <div class="competency-box">
+                <div class="competency-title">👂 마음을 기울여요</div>
+                <div class="tags">
+                    <span class="tag">#의사소통역량</span>
+                    <span class="tag">#공동체대인관계</span>
+                </div>
+            </div>
+            <p class="description">
+                "말은 마음을 전달하는 다리예요.<br>
+                예쁜 말로 튼튼한 다리를 지어요."<br>
+                친구의 이야기를 귀담아듣고,<br>
+                나의 마음을 진심을 담아 전해요.
+            </p>
+        </div>
+    </div>
+
+    <div class="teacher-desk">
+        <div class="desk-content">
+            <h3>🏫 선생님의 글쓰기 연구소</h3>
+            <p style="font-family: 'Nanum Pen Script'; font-size: 1.6rem; margin-top:15px; color: #333; line-height: 1.4;">
+                "글씨를 못 써도 괜찮아요. 맞춤법을 조금 틀려도 괜찮아요.<br>
+                가장 중요한 건, 여러분의 <strong>솔직한 마음</strong>을 담는 거랍니다.<br>
+                오늘 어떤 글을 쓸지 고민되나요?"
+            </p>
+            <button class="btn-write" onclick="generateTopic()">
+                <i data-lucide="sparkles"></i> 글감 요정 소환하기!
+            </button>
+            <div id="topic-display" style="margin-top: 20px; font-size: 1.4rem; color: #d62828; font-family: 'Jua'; min-height: 30px;">
+                <!-- 글감이 여기에 나타납니다 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 아이콘 초기화
+        lucide.createIcons();
+
+        // 스크롤 애니메이션
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+
+        // 글감 생성기 기능
+        function generateTopic() {
+            const topics = [
+                "💭 만약 내가 투명 인간이 된다면?",
+                "🎒 내 가방 속에 코끼리가 살고 있다면?",
+                "🍲 내가 세상에서 제일 좋아하는 음식 소개하기",
+                "💌 10년 뒤의 나에게 보내는 편지",
+                "🌈 내가 만약 '빨강색'이라면 어떤 기분일까?",
+                "🦸‍♂️ 나에게 초능력이 생긴다면 무엇을 할까?",
+                "🌧️ 비 오는 날의 냄새에 대해 써보자",
+                "🧸 내가 아끼는 물건과 그 이유"
+            ];
+            
+            const display = document.getElementById('topic-display');
+            display.style.opacity = 0; // 깜빡임 효과 시작
+            
+            setTimeout(() => {
+                const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+                display.innerText = randomTopic;
+                display.style.opacity = 1; // 나타나기
+            }, 300);
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

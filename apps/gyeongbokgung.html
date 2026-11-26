@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경복궁 탐험 학습 사이트</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Noto Sans KR 폰트 (한국어 기본 폰트) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Noto Sans KR 폰트를 Tailwind CSS의 기본 폰트로 적용 */
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- 전체 컨테이너 -->
+    <div class="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+
+        <!-- 헤더 섹션 -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-3">경복궁 탐험 학습 사이트</h1>
+            <p class="text-lg md:text-xl text-gray-700">유응준 선생님과 함께하는 경복궁의 숨겨진 아름다움!</p>
+            <p class="text-md text-indigo-600 font-medium mt-2">아래 지도를 참고하여, '주요 공간 탐험하기'의 각 장소를 클릭해 미션을 해결해 보세요.</p>
+        </header>
+
+        <!-- 메인 컨텐츠 그리드 -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- 1. 지도 섹션 (왼쪽) -->
+            <section class="lg:col-span-2 bg-white rounded-xl shadow-lg overflow-hidden">
+                <h2 class="text-2xl font-bold text-gray-900 p-6 border-b border-gray-200">
+                    경복궁 전체 지도
+                </h2>
+                <div class="p-4">
+                    <!-- 사용자 요청 이미지 URL -->
+                    <img src="https://i.namu.wiki/i/qFhgf2RWA_My5vH_GydI8ZK0FuvQJwT2NO2Zf4J1IM80-rk-AUB1lT1GEWcN3By6wferWlcSMBzUXzi25CSFXw.webp" 
+                         alt="경복궁 전체 지도" 
+                         class="w-full h-auto rounded-lg border border-gray-200"
+                         onerror="this.onerror=null; this.src='https://placehold.co/1200x800/e2e8f0/334155?text=%EA%B2%BD%EB%B3%B5%EA%B6%81+%EC%A7%80%EB%8F%84+%EB%A1%9C%EB%94%A9+%EC%8B%A4%ED%8C%A8';">
+                </div>
+            </section>
+
+            <!-- 2. 링크 섹션 (오른쪽) -->
+            <aside class="lg:col-span-1 flex flex-col gap-8">
+                
+                <!-- 미션 공간 링크 -->
+                <section class="bg-white rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-gray-900 p-6 border-b border-gray-200">
+                        주요 공간 탐험하기
+                    </h3>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <!-- 각 항목을 활동지 미션과 연결 -->
+                            <li>
+                                <a href="https://www.google.com/search?q=%EA%B4%91%ED%99%94%EB%AC%B8" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-gray-50 hover:bg-indigo-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-indigo-700">1. 광화문 (光化門)</span>
+                                    <p class="text-sm text-gray-600 mt-1">미션 1: 경복궁의 정문. 2006년부터 복원 공사가 시작되었죠.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/search?q=%EA%B7%BC%EC%A0%95%EC%A0%84" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-gray-50 hover:bg-indigo-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-indigo-700">2. 근정전 (勤政殿)</span>
+                                    <p class="text-sm text-gray-600 mt-1">미션 2: 경복궁의 중심 건물. 왕의 즉위식 등 중요 행사가 열렸어요.</p>
+                                </a>
+                            </li>
+                             <li>
+                                <a href="https://www.google.com/search?q=%EA%B2%BD%ED%9A%8C%EB%A3%A8" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-gray-50 hover:bg-indigo-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-indigo-700">3. 경회루 (慶會樓)</span>
+                                    <p class="text-sm text-gray-600 mt-1">미션 6: 나라에 경사가 있을 때 연회를 베풀던 공간입니다.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/search?q=%EC%82%AC%EC%A0%95%EC%A0%84" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-gray-50 hover:bg-indigo-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-indigo-700">4. 사정전 (思政殿)</span>
+                                    <p class="text-sm text-gray-600 mt-1">미션 4: 왕이 매일 신하들과 정무를 보던 공식 업무 공간(편전)이에요.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/search?q=%EC%9E%90%EA%B2%BD%EC%A0%84" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-gray-50 hover:bg-indigo-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-indigo-700">5. 자경전 (慈慶殿)</span>
+                                    <p class="text-sm text-gray-600 mt-1">미션 3: 고종의 양어머니인 신정왕후를 위해 지은 대비의 처소입니다.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/search?q=%ED%96%A5%EC%9B%90%EC%A0%95" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-gray-50 hover:bg-indigo-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-indigo-700">6. 향원정 (香遠亭)</span>
+                                    <p class="text-sm text-gray-600 mt-1">미션 5: 왕과 왕비가 휴식을 취하던 아름다운 연못 위의 정자입니다.</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 신뢰할 수 있는 사이트 -->
+                <section class="bg-white rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-gray-900 p-6 border-b border-gray-200">
+                        참고하면 좋은 신뢰할 수 있는 사이트
+                    </h3>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="https://www.royalpalace.go.kr/" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-green-50 hover:bg-green-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-green-800">경복궁 관리소 (공식)</span>
+                                    <p class="text-sm text-gray-600 mt-1">가장 정확한 관람 정보와 공식 자료를 제공합니다.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.heritage.go.kr/heri/idx/index.do" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-green-50 hover:bg-green-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-green-800">문화재청 국가문화유산포털</span>
+                                    <p class="text-sm text-gray-600 mt-1">경복궁 내 국보, 보물 등 문화재 정보를 검색할 수 있습니다.</p>
+                                </a>
+                            </li>
+                             <li>
+                                <a href="https://www.gogung.go.kr/" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-green-50 hover:bg-green-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-green-800">국립고궁박물관</span>
+                                    <p class="text-sm text-gray-600 mt-1">경복궁 바로 옆! 조선 왕실의 유물을 소장하고 있습니다.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://encykorea.aks.ac.kr/" target="_blank" rel="noopener noreferrer"
+                                   class="block p-4 rounded-lg bg-green-50 hover:bg-green-100 hover:shadow-md transition-all duration-200">
+                                    <span class="text-lg font-semibold text-green-800">한국민족문화대백과사전</span>
+                                    <p class="text-sm text-gray-600 mt-1">신뢰할 수 있는 학술적인 정보를 찾아볼 때 유용합니다.</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </aside>
+
+        </main>
+        
+        <!-- 푸터 -->
+        <footer class="text-center mt-12 py-6 border-t border-gray-300">
+            <p class="text-sm text-gray-500">이 웹사이트는 유응준 선생님의 사회/역사 수업을 돕기 위해 제작되었습니다.</p>
+        </footer>
+
+    </div>
+
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

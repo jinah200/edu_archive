@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인권 탐구 리서치 센터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <!-- Header Section -->
+    <header class="bg-indigo-600 text-white py-12 px-6 shadow-lg">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">인권 침해 사례 조사 및 발표 지원</h1>
+            <p class="text-indigo-100 text-lg">신뢰할 수 있는 자료를 바탕으로 더 나은 세상을 위한 목소리를 내어주세요.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto py-12 px-6">
+        
+        <!-- Intro Section -->
+        <div class="bg-white rounded-2xl p-8 mb-12 shadow-sm border border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">선생님의 가이드 📋</h2>
+            <ul class="space-y-3 text-slate-600">
+                <li class="flex items-start">
+                    <span class="text-indigo-500 mr-2">✔</span>
+                    국가인권위원회와 국제앰네스티 같은 공신력 있는 기관의 자료를 활용하세요.
+                </li>
+                <li class="flex items-start">
+                    <span class="text-indigo-500 mr-2">✔</span>
+                    구글 검색 링크를 통해 최신 뉴스 기사 및 사회적 이슈를 조사할 수 있습니다.
+                </li>
+                <li class="flex items-start">
+                    <span class="text-indigo-500 mr-2">✔</span>
+                    발표 자료에는 인권 침해의 원인과 해결을 위한 국제적 노력을 포함해 봅시다.
+                </li>
+            </ul>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            
+            <!-- Category 1: 아동 인권 -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 bg-yellow-100 rounded-lg text-2xl">👶</div>
+                    <h3 class="ml-4 text-xl font-bold text-slate-800">아동 인권</h3>
+                </div>
+                <p class="text-slate-600 mb-6 h-12">아동 학대, 학습권 침해, 아동 노동 등 아이들이 마땅히 누려야 할 권리를 알아봅니다.</p>
+                <div class="space-y-2">
+                    <a href="https://www.humanrights.go.kr" target="_blank" class="block w-full text-center py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-semibold transition">국가인권위원회 방문</a>
+                    <a href="https://www.google.com/search?q=%EC%95%84%EB%8F%99%EC%9D%B8%EA%B6%8C+%EC%B9%A8%ED%95%B4+%EC%82%AC%EB%A1%80" target="_blank" class="block w-full text-center py-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-indigo-700 font-semibold transition">구글에서 사례 검색</a>
+                </div>
+            </div>
+
+            <!-- Category 2: 장애인 인권 -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 bg-blue-100 rounded-lg text-2xl">♿</div>
+                    <h3 class="ml-4 text-xl font-bold text-slate-800">장애인 인권</h3>
+                </div>
+                <p class="text-slate-600 mb-6 h-12">이동권, 고용 차별, 시설 내 인권 침해 등 장애인이 겪는 문턱에 대해 조사합니다.</p>
+                <div class="space-y-2">
+                    <a href="http://www.kappd.or.kr" target="_blank" class="block w-full text-center py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-semibold transition">한국지체장애인협회</a>
+                    <a href="https://www.google.com/search?q=%EC%9E%A5%EC%95%A0%EC%9D%B8+%EC%9D%B8%EA%B6%8C%EC%B9%A8%ED%95%B4+%EC%82%AC%EB%A1%80" target="_blank" class="block w-full text-center py-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-indigo-700 font-semibold transition">구글에서 사례 검색</a>
+                </div>
+            </div>
+
+            <!-- Category 3: 다문화 및 이주민 인권 -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 bg-green-100 rounded-lg text-2xl">🌍</div>
+                    <h3 class="ml-4 text-xl font-bold text-slate-800">다문화 · 이주민 인권</h3>
+                </div>
+                <p class="text-slate-600 mb-6 h-12">문화적 편견, 임금 체불, 혐오 표현 등 우리 이웃이 겪는 어려움을 살펴봅니다.</p>
+                <div class="space-y-2">
+                    <a href="https://www.liveinkorea.kr" target="_blank" class="block w-full text-center py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-semibold transition">다누리 (다문화지원)</a>
+                    <a href="https://www.google.com/search?q=%EB%8B%A4%EB%AC%B8%ED%99%94+%EC%9D%B4%EC%A3%BC%EB%AF%BC+%EC%9D%B8%EA%B6%8C%EC%B9%A8%ED%95%B4+%EC%82%AC%EB%A1%80" target="_blank" class="block w-full text-center py-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-indigo-700 font-semibold transition">구글에서 사례 검색</a>
+                </div>
+            </div>
+
+            <!-- Category 4: 세계 인권 (수정됨) -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 bg-red-100 rounded-lg text-2xl">🌏</div>
+                    <h3 class="ml-4 text-xl font-bold text-slate-800">세계 인권</h3>
+                </div>
+                <p class="text-slate-600 mb-6 h-12">난민 문제, 전쟁 지역의 인권, 표현의 자유 등 지구촌 곳곳의 인권 현안을 탐구합니다.</p>
+                <div class="space-y-2">
+                    <a href="https://www.amnesty.or.kr" target="_blank" class="block w-full text-center py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-semibold transition">국제앰네스티 한국지부</a>
+                    <a href="https://www.google.com/search?q=%EC%84%B8%EA%B3%84+%EC%9D%B8%EA%B6%8C+%EC%B9%A8%ED%95%B4+%EC%82%AC%EB%A1%80" target="_blank" class="block w-full text-center py-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-indigo-700 font-semibold transition">구글에서 사례 검색</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Extra Resources -->
+        <div class="mt-12 p-8 bg-slate-800 text-white rounded-2xl">
+            <h3 class="text-xl font-bold mb-4">💡 발표 자료 꿀팁!</h3>
+            <p class="text-slate-300 mb-6">자료를 모은 후에는 아래 질문들에 답해보며 발표를 구성해 보세요.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-slate-700 p-4 rounded-xl">
+                    <span class="block text-indigo-400 font-bold mb-2">1단계: 현황</span>
+                    어떤 인권 침해가 얼마나 발생하고 있나요?
+                </div>
+                <div class="border border-slate-700 p-4 rounded-xl">
+                    <span class="block text-indigo-400 font-bold mb-2">2단계: 원인</span>
+                    왜 이런 일이 생길까요? (편견, 제도 부족 등)
+                </div>
+                <div class="border border-slate-700 p-4 rounded-xl">
+                    <span class="block text-indigo-400 font-bold mb-2">3단계: 해결</span>
+                    우리가 할 수 있는 노력은 무엇인가요?
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 text-slate-500 text-sm">
+        <p>© 2024 우리 반 사회 수업 - 인권 탐구 프로젝트</p>
+    </footer>
+
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>불국사 & 석굴암 탐험</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            animation: fadeIn 1s ease-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .link-button {
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .link-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .heading-animation {
+            animation: popIn 0.5s ease-out forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+
+    <div class="container mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-2 heading-animation">불국사와 석굴암 탐험!</h1>
+        <p class="text-center text-lg md:text-xl text-gray-600 mb-8">역사 속으로 떠나는 신나는 여행</p>
+
+        <!-- 불국사 섹션 -->
+        <div class="card bg-lime-100 p-6 rounded-lg shadow-xl mb-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-6">
+                    <img src="https://i.namu.wiki/i/XO6E06_qrvaiZnbaLsHC-Ov1z4WI8vRqSn_R9IqHobEgHD2gYLLN3Ldi3zvnFLRYcLTQmWpRuAdsfH_2IrNNPQ.webp" alt="불국사 다보탑" class="rounded-lg shadow-md w-full mb-4 md:mb-0">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 heading-animation">⭐ 불국사</h2>
+                    <p class="text-gray-700 mb-4">
+                        불국사는 신라 시대에 지어진 아름다운 절이에요. 이곳에는 웅장한 건물과 신기한 유물이 많이 있답니다. 특히 <span class="font-bold text-green-700">다보탑</span>과 <span class="font-bold text-green-700">석가탑</span>은 불국사를 대표하는 보물이에요. 이 두 탑이 서로 다른 모양을 하고 있다는 사실을 알고 있었나요?
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" onclick="searchNaver('불국사')" class="link-button bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600 shadow-md">불국사 알아보기</a>
+                        <a href="#" onclick="searchNaver('다보탑과 석가탑')" class="link-button bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600 shadow-md">다보탑과 석가탑 찾기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 석굴암 섹션 -->
+        <div class="card bg-orange-100 p-6 rounded-lg shadow-xl mb-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-6 order-2 md:order-1">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 heading-animation">⭐ 석굴암</h2>
+                    <p class="text-gray-700 mb-4">
+                        석굴암은 불국사 근처에 있는 동굴 사원이에요. 이 동굴 안에는 아주 멋진 부처님 상이 모셔져 있어요. 석굴암은 놀라운 과학 기술로 만들어져서 동굴 안에 습기가 차지 않고 깨끗하게 유지될 수 있답니다!
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" onclick="searchNaver('석굴암')" class="link-button bg-orange-500 text-white font-bold py-2 px-4 rounded-full hover:bg-orange-600 shadow-md">석굴암 알아보기</a>
+                        <a href="#" onclick="searchNaver('석굴암 건축 원리')" class="link-button bg-orange-500 text-white font-bold py-2 px-4 rounded-full hover:bg-orange-600 shadow-md">석굴암 건축의 비밀</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 order-1 md:order-2">
+                    <img src="https://www.heritage.go.kr/unisearch/images/national_treasure/thumb/2021042208550900.jpg" alt="석굴암 본존불" class="rounded-lg shadow-md w-full mb-4 md:mb-0">
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center text-gray-600 text-sm md:text-base mt-8">더 궁금한 점이 있다면 아래 버튼을 눌러보세요!</p>
+
+        <div class="flex justify-center mt-4 gap-4">
+            <a href="#" onclick="searchNaver('불국사 석굴암')" class="link-button bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-gray-600 shadow-md">불국사 석굴암 전체 검색</a>
+        </div>
+    </div>
+
+    <script>
+        // 네이버 검색 함수
+        function searchNaver(query) {
+            const naverSearchUrl = `https://search.naver.com/search.naver?query=${encodeURIComponent(query)}`;
+            window.open(naverSearchUrl, '_blank');
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

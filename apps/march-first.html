@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="ko" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.1운동 조사 활동지</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    
+    .tab-btn.active {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(30, 58, 95, 0.3);
+    }
+    
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .response-card {
+      animation: slideIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .gradient-border {
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(135deg, #c41e3a, #1e3a5f) border-box;
+      border: 3px solid transparent;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, #c41e3a 0%, #a01830 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #d42a46 0%, #b01e38 100%);
+      transform: scale(1.02);
+    }
+    
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .resource-link {
+      transition: all 0.2s ease;
+    }
+    
+    .resource-link:hover {
+      background: #f0f7ff;
+      transform: translateX(4px);
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+    
+    .delete-confirm {
+      animation: fadeIn 0.2s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .toast {
+      animation: toastSlide 0.3s ease;
+    }
+    
+    @keyframes toastSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse-slow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .animate-pulse-slow {
+      animation: pulse-slow 3s ease-in-out infinite;
+    }
+    
+    .input-highlight {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .input-highlight::before {
+      content: '✏️';
+      position: absolute;
+      left: -30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .input-highlight:focus::before {
+      opacity: 1;
+      left: -35px;
+    }
+    
+    .input-highlight:focus {
+      transform: scale(1.01);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), 0 8px 20px rgba(99, 102, 241, 0.2);
+    }
+    
+    .textarea-highlight {
+      position: relative;
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(135deg, #fbbf24, #f59e0b) border-box;
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .textarea-highlight:focus {
+      background: linear-gradient(#fffbeb, #fffbeb) padding-box,
+                  linear-gradient(135deg, #f59e0b, #ea580c) border-box;
+      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
+      transform: scale(1.01);
+    }
+    
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.75rem;
+    }
+    
+    .input-label::before {
+      content: '👉';
+      font-size: 1.25rem;
+      animation: pointRight 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pointRight {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+    
+    .form-card {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 4px solid #f59e0b;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-card::before {
+      content: '✨';
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; transform: rotate(0deg) scale(1); }
+      50% { opacity: 1; transform: rotate(15deg) scale(1.2); }
+    }
+    
+    .encouragement-text {
+      display: none;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .submit-btn-enhanced {
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+      font-size: 1.25rem;
+      font-weight: 800;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .submit-btn-enhanced::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .submit-btn-enhanced:hover:not(:disabled)::before {
+      left: 100%;
+    }
+    
+    .submit-btn-enhanced:hover:not(:disabled) {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px rgba(245, 158, 11, 0.4);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gradient-to-br from-slate-50 via-blue-50 to-red-50">
+  <div id="app" class="h-full overflow-auto"><!-- Header -->
+   <header class="bg-white shadow-lg border-b-4 border-red-700">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+     <div class="flex items-center gap-4">
+      <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-lg animate-pulse-slow border-4 border-red-600"><span class="text-4xl">🇰🇷</span>
+      </div>
+      <div>
+       <h1 id="main-title" class="text-2xl md:text-3xl font-bold text-slate-800">3.1운동 조사 활동지</h1>
+       <p id="teacher-message" class="text-slate-600 mt-1">전국으로 확산된 3.1운동의 모습을 함께 조사해봅시다!</p>
+      </div>
+     </div>
+    </div>
+   </header><!-- Toast Container -->
+   <div id="toast-container" class="fixed top-4 right-4 z-50"></div><!-- Main Content -->
+   <main class="max-w-6xl mx-auto px-4 py-8"><!-- Navigation Tabs -->
+    <div class="flex flex-wrap gap-2 mb-8 bg-white p-2 rounded-2xl shadow-md"><button onclick="switchTab('intro')" class="tab-btn active flex-1 min-w-[120px] px-4 py-3 rounded-xl font-medium text-slate-600 transition-all" data-tab="intro"> 📚 학습 안내 </button> <button onclick="switchTab('database')" class="tab-btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-medium text-slate-600 transition-all" data-tab="database"> 🔍 자료 조사 </button> <button onclick="switchTab('map')" class="tab-btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-medium text-slate-600 transition-all" data-tab="map"> 🗺️ 지도 분석 </button> <button onclick="switchTab('local')" class="tab-btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-medium text-slate-600 transition-all" data-tab="local"> 🏠 지역 조사 </button> <button onclick="switchTab('share')" class="tab-btn flex-1 min-w-[120px] px-4 py-3 rounded-xl font-medium text-slate-600 transition-all" data-tab="share"> 💬 공유하기 </button>
+    </div><!-- Tab Contents -->
+    <div id="tab-contents"><!-- Intro Tab -->
+     <section id="intro-tab" class="tab-content">
+      <div class="grid md:grid-cols-2 gap-6"><!-- Learning Objectives -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg card-hover gradient-border">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">🎯</span> 학습 목표</h2>
+        <ul class="space-y-3">
+         <li class="flex items-start gap-3 p-3 bg-blue-50 rounded-xl"><span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span> <span class="text-slate-700">3.1운동이 전국으로 확산된 과정을 이해할 수 있다.</span></li>
+         <li class="flex items-start gap-3 p-3 bg-blue-50 rounded-xl"><span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span> <span class="text-slate-700">지역별 3.1운동의 특징을 비교하고 분석할 수 있다.</span></li>
+         <li class="flex items-start gap-3 p-3 bg-blue-50 rounded-xl"><span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span> <span class="text-slate-700">우리 지역의 3.1운동 역사를 조사하고 의미를 되새길 수 있다.</span></li>
+        </ul>
+       </div><!-- Activity Steps -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">📋</span> 활동 순서</h2>
+        <div class="space-y-4">
+         <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
+          <div class="w-12 h-12 bg-green-500 text-white rounded-xl flex items-center justify-center text-xl font-bold shadow-md">
+           1
+          </div>
+          <div>
+           <p class="font-semibold text-slate-800">자료 조사하기</p>
+           <p class="text-sm text-slate-600">삼일운동 데이터베이스 살펴보기</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl">
+          <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center text-xl font-bold shadow-md">
+           2
+          </div>
+          <div>
+           <p class="font-semibold text-slate-800">���도 분석하기</p>
+           <p class="text-sm text-slate-600">지도에서 발견한 사실 기록하기</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-rose-50 to-red-50 rounded-xl">
+          <div class="w-12 h-12 bg-rose-500 text-white rounded-xl flex items-center justify-center text-xl font-bold shadow-md">
+           3
+          </div>
+          <div>
+           <p class="font-semibold text-slate-800">지역 조사하기</p>
+           <p class="text-sm text-slate-600">우리 지역의 3.1운동 알아보기</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl">
+          <div class="w-12 h-12 bg-purple-500 text-white rounded-xl flex items-center justify-center text-xl font-bold shadow-md">
+           4
+          </div>
+          <div>
+           <p class="font-semibold text-slate-800">공유하기</p>
+           <p class="text-sm text-slate-600">친구들과 조사 내용 나누기</p>
+          </div>
+         </div>
+        </div>
+       </div><!-- Historical Context -->
+       <div class="md:col-span-2 bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-6 shadow-xl text-white">
+        <h2 class="text-xl font-bold mb-4 flex items-center gap-2"><span class="text-2xl">📜</span> 3.1운동이란?</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+         <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+          <p class="text-3xl font-bold text-red-400">1919년</p>
+          <p class="text-slate-300 mt-1">3월 1일 시작</p>
+         </div>
+         <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+          <p class="text-3xl font-bold text-blue-400">200만+</p>
+          <p class="text-slate-300 mt-1">참여 인원 추정</p>
+         </div>
+         <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+          <p class="text-3xl font-bold text-green-400">1,500+</p>
+          <p class="text-slate-300 mt-1">전국 만세 시위 횟수</p>
+         </div>
+        </div>
+        <p class="mt-4 text-slate-300 leading-relaxed">3.1운동은 1919년 3월 1일 서울에서 시작되어 전국 방방곡곡으로 퍼져나간 독립운동���니다. 학생, 농민, 노동자, 상인 등 모든 계층이 참여하여 "대한 독립 만세"를 외쳤습니다.</p>
+       </div>
+      </div>
+     </section><!-- Database Tab -->
+     <section id="database-tab" class="tab-content hidden">
+      <div class="space-y-6"><!-- Database Link Card -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">🔗</span> 삼일운동 데이터베이스</h2><a href="https://hgis.history.go.kr/samil/home/demons/select_demons_list.do" target="_blank" rel="noopener noreferrer" class="resource-link flex items-center gap-4 p-4 border-2 border-indigo-200 rounded-xl hover:border-indigo-400 hover:shadow-lg">
+         <div class="w-14 h-14 bg-indigo-500 rounded-xl flex items-center justify-center text-white text-2xl shadow-md">
+          🗺️
+         </div>
+         <div class="flex-1">
+          <p class="font-bold text-slate-800">삼일운동 지도 - 시공간 역사정보시스템</p>
+          <p class="text-sm text-slate-600">3.1운동이 일어난 장소를 지도에서 확인하세요!</p>
+         </div>
+         <div class="text-indigo-500">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+         </div></a>
+       </div><!-- Research Guide -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">💡</span> 조사 가이드</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+         <div class="p-4 bg-amber-50 rounded-xl">
+          <h3 class="font-semibold text-amber-800 mb-2">🔍 검색해 볼 키워드</h3>
+          <div class="flex flex-wrap gap-2"><span class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">지역명</span> <span class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">인물</span> <span class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">날짜</span> <span class="px-3 py-1 bg-amber-200 text-amber-800 rounded-full text-sm">만세운동</span>
+          </div>
+         </div>
+         <div class="p-4 bg-green-50 rounded-xl">
+          <h3 class="font-semibold text-green-800 mb-2">✍️ 기록할 내용</h3>
+          <ul class="text-sm text-green-700 space-y-1">
+           <li>• 시위가 일어난 장소와 날짜</li>
+           <li>• 참여한 사람들의 수와 직업</li>
+           <li>• 시위의 방법과 특징</li>
+           <li>• 일제의 탄압과 피해</li>
+          </ul>
+         </div>
+        </div>
+       </div><!-- Note Taking Area -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">✏️</span> 조사 내용 기록하기</h2>
+        <form id="database-form" class="space-y-4">
+         <div><label class="block text-sm font-medium text-slate-700 mb-2">이름</label> <input type="text" id="db-name" placeholder="이름을 입력하세요" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+         </div>
+         <div><label class="block text-sm font-medium text-slate-700 mb-2">데이터베이스에서 찾은 내용</label> <textarea id="db-content" rows="5" placeholder="데이터베이스에서 조사한 내용을 정리해서 적어보세요.
+
+예시: 1919년 3월 1일 서울 탑���공원에서 독립선���서가 낭독되었다..." class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-none"></textarea>
+         </div><button type="submit" class="submit-btn w-full py-3 text-white font-semibold rounded-xl shadow-lg flex items-center justify-center gap-2"> <span id="db-btn-text">💾 저장하기</span> <span id="db-spinner" class="hidden">
+           <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle> <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+           </svg></span> </button>
+        </form>
+       </div>
+      </div>
+     </section><!-- Map Tab -->
+     <section id="map-tab" class="tab-content hidden">
+      <div class="space-y-6"><!-- Map Info -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center">🗺️</span> 3.1운동 확산 지도 분석하기</h2>
+        <div class="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-4 mb-4">
+         <p class="text-slate-700"><span class="font-semibold text-teal-700">📌 활동 안내:</span> 삼일운동 데이터베이스의 지도를 살펴보고, 발견한 사실들을 아래에 기록해보세요.</p>
+        </div><!-- Guiding Questions -->
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+         <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-teal-500">
+          <p class="font-medium text-slate-800 mb-2">🤔 생각해 볼 질문</p>
+          <ul class="text-sm text-slate-600 space-y-2">
+           <li>• 3.1운동이 처음 시작된 곳은 어디인가요?</li>
+           <li>• 어느 지역에서 시위가 가장 많이 일어났나요?</li>
+           <li>• 시위는 어떤 순서로 퍼져나갔나요?</li>
+           <li>• 해안 지역과 내륙 지역의 차이가 있나요?</li>
+          </ul>
+         </div>
+         <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-cyan-500">
+          <p class="font-medium text-slate-800 mb-2">📊 분석 포인트</p>
+          <ul class="text-sm text-slate-600 space-y-2">
+           <li>• 시위 참여 인원의 분포</li>
+           <li>• 도시와 농촌의 시위 양상</li>
+           <li>• 시간에 따른 확산 패턴</li>
+           <li>• 특별히 격렬했던 지역</li>
+          </ul>
+         </div>
+        </div>
+       </div><!-- Map Analysis Form -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center">📝</span> 지도에서 발견한 사실 기록하기</h2>
+        <form id="map-form" class="space-y-4">
+         <div><label class="block text-sm font-medium text-slate-700 mb-2">이름</label> <input type="text" id="map-name" placeholder="이름을 입력하세요" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all">
+         </div>
+         <div><label class="block text-sm font-medium text-slate-700 mb-2">지도를 보고 알 수 있는 사실</label> <textarea id="map-content" rows="6" placeholder="지도에서 발견한 사실들을 자세히 적어보세요.
+
+예시:
+- 서울에서 시작된 만세운동이 경기도를 거쳐 전국으로 퍼져나갔다.
+- 평안도와 함경도 지역에서도 많은 시위가 일어났다..." class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all resize-none"></textarea>
+         </div><button type="submit" class="submit-btn w-full py-3 text-white font-semibold rounded-xl shadow-lg flex items-center justify-center gap-2"> <span id="map-btn-text">💾 저장하기</span> <span id="map-spinner" class="hidden">
+           <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle> <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+           </svg></span> </button>
+        </form>
+       </div>
+      </div>
+     </section><!-- Local Tab -->
+     <section id="local-tab" class="tab-content hidden">
+      <div class="space-y-6"><!-- Region Selection -->
+       <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-rose-100 rounded-lg flex items-center justify-center">🏠</span> 우리 지역의 3.1운동 조사하기</h2>
+        <div class="bg-gradient-to-r from-rose-50 to-orange-50 rounded-xl p-4 mb-6">
+         <p class="text-slate-700"><span class="font-semibold text-rose-700">📌 활동 안내:</span> 내가 사는 지역이나 인근 지역에서 일어난 3.1운동에 대해 조사하고 느낀 점을 기록해보세요.</p>
+        </div><!-- Region Quick Select -->
+        <div class="mb-6">
+         <p class="text-sm font-medium text-slate-700 mb-3">지역 빠른 선택</p>
+         <div class="flex flex-wrap gap-2"><button type="button" onclick="selectRegion('서울')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">서울</button> <button type="button" onclick="selectRegion('경기')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">경기</button> <button type="button" onclick="selectRegion('인천')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">인천</button> <button type="button" onclick="selectRegion('강원')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">강원</button> <button type="button" onclick="selectRegion('충북')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">충북</button> <button type="button" onclick="selectRegion('충남')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">충남</button> <button type="button" onclick="selectRegion('대전')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">대전</button> <button type="button" onclick="selectRegion('세종')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">세종</button> <button type="button" onclick="selectRegion('전북')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">전북</button> <button type="button" onclick="selectRegion('전남')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">전남</button> <button type="button" onclick="selectRegion('광주')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">광주</button> <button type="button" onclick="selectRegion('경북')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">경북</button> <button type="button" onclick="selectRegion('경남')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">경남</button> <button type="button" onclick="selectRegion('대구')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">대구</button> <button type="button" onclick="selectRegion('울산')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">울산</button> <button type="button" onclick="selectRegion('부산')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">부산</button> <button type="button" onclick="selectRegion('제주')" class="px-4 py-2 bg-slate-100 hover:bg-rose-100 text-slate-700 rounded-lg transition-all text-sm">제주</button>
+         </div>
+        </div>
+       </div><!-- Local Research Form -->
+       <div class="form-card rounded-3xl p-8 shadow-2xl">
+        <div class="bg-white rounded-2xl p-6 shadow-inner">
+         <h2 class="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3"><span class="text-4xl">📝</span> <span class="bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent">여기에 적어보세요!</span></h2>
+         <form id="local-form" class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-4">
+           <div><label class="input-label">나의 이름</label> <input type="text" id="local-name" placeholder="이름을 적어주세요 😊" class="input-highlight w-full px-5 py-4 border-3 border-rose-300 rounded-2xl text-lg font-medium focus:border-orange-500 focus:outline-none">
+           </div>
+           <div><label class="input-label">조사한 지역</label> <input type="text" id="local-region" placeholder="예: 서울, 수원, 광주..." class="input-highlight w-full px-5 py-4 border-3 border-rose-300 rounded-2xl text-lg font-medium focus:border-orange-500 focus:outline-none">
+           </div>
+          </div>
+          <div><label class="input-label">우리 지역의 3.1운동 조사 내용</label>
+           <div class="relative"><textarea id="local-research" rows="5" placeholder="예시: 수원에서는 1919년 3월 1일 서울의 만세운동 소식이 전해진 후, 3월 중순부터 본격적인 만세운동이 시작되었습니다. 수원 화성에서 많은 학생들과 시민들이 모여 대한독립 만세를 외쳤습니다..." class="textarea-highlight w-full px-5 py-4 rounded-2xl text-lg resize-none focus:outline-none" oninput="showEncouragement('local-research-encouragement')"></textarea>
+            <div id="local-research-encouragement" class="encouragement-text">
+             멋진 조사예요! 계속 작성해주세요! 📚
+            </div>
+           </div>
+          </div>
+          <div><label class="input-label">조사하면서 느낀 점</label>
+           <div class="relative"><textarea id="local-feeling" rows="5" placeholder="예시: 우리 지역에서도 독립을 위해 많은 분들이 희생하셨다는 것을 알게 되어 가슴이 뭉클했습니다. 나라의 독립이 얼마나 소중한지 다시 한번 생각하게 되었습니다..." class="textarea-highlight w-full px-5 py-4 rounded-2xl text-lg resize-none focus:outline-none" oninput="showEncouragement('local-feeling-encouragement')"></textarea>
+            <div id="local-feeling-encouragement" class="encouragement-text">
+             깊이 있는 생각이네요! 훌륭해요! 💭
+            </div>
+           </div>
+          </div><button type="submit" class="submit-btn-enhanced w-full py-5 text-white rounded-2xl shadow-2xl flex items-center justify-center gap-3 transition-all"> <span id="local-btn-text">💾 저장하기</span> <span id="local-spinner" class="hidden">
+            <svg class="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle> <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg></span> </button>
+         </form>
+        </div>
+       </div>
+      </div>
+     </section><!-- Share Tab -->
+     <section id="share-tab" class="tab-content hidden">
+      <div class="space-y-6"><!-- Stats Overview -->
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="stat-card rounded-xl p-4 text-center">
+         <p class="text-3xl font-bold text-slate-800" id="stat-total">0</p>
+         <p class="text-sm text-slate-600">전체 기록</p>
+        </div>
+        <div class="stat-card rounded-xl p-4 text-center">
+         <p class="text-3xl font-bold text-blue-600" id="stat-database">0</p>
+         <p class="text-sm text-slate-600">자료 조사</p>
+        </div>
+        <div class="stat-card rounded-xl p-4 text-center">
+         <p class="text-3xl font-bold text-teal-600" id="stat-map">0</p>
+         <p class="text-sm text-slate-600">지도 분석</p>
+        </div>
+        <div class="stat-card rounded-xl p-4 text-center">
+         <p class="text-3xl font-bold text-rose-600" id="stat-local">0</p>
+         <p class="text-sm text-slate-600">지역 조사</p>
+        </div>
+       </div><!-- Filter Buttons -->
+       <div class="bg-white rounded-xl p-4 shadow-md">
+        <div class="flex flex-wrap gap-2"><button onclick="filterResponses('all')" class="filter-btn active px-4 py-2 bg-slate-800 text-white rounded-lg transition-all" data-filter="all"> 📋 전체 보기 </button> <button onclick="filterResponses('database')" class="filter-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-blue-100 transition-all" data-filter="database"> 🔍 자료 조사 </button> <button onclick="filterResponses('map')" class="filter-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-teal-100 transition-all" data-filter="map"> 🗺️ 지도 분석 </button> <button onclick="filterResponses('local')" class="filter-btn px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-rose-100 transition-all" data-filter="local"> 🏠 지역 조사 </button>
+        </div>
+       </div><!-- Responses List -->
+       <div id="responses-container" class="space-y-4">
+        <div class="bg-white rounded-2xl p-8 shadow-lg text-center">
+         <div class="text-6xl mb-4">
+          📝
+         </div>
+         <p class="text-slate-600">아직 저장된 기록이 없습니다.</p>
+         <p class="text-sm text-slate-500 mt-2">다른 탭에서 활동을 완료하고 저장해보세요!</p>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div>
+   </main><!-- Footer -->
+   <footer class="bg-white border-t border-slate-200 mt-8">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-center">
+     <p class="text-slate-600 text-sm">🇰🇷 3.1운동의 정신을 기억하며 | <a href="https://hgis.history.go.kr/samil/home/demons/select_demons_list.do" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline"> 삼일운동 지도 보러가기 </a></p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: '3.1운동 조사 활동지',
+      teacher_message: '전국으로 확산된 3.1운동의 모습을 함께 조사해봅시다!',
+      background_color: '#f8fafc',
+      primary_color: '#c41e3a',
+      text_color: '#1e293b',
+      surface_color: '#ffffff',
+      accent_color: '#1e3a5f'
+    };
+
+    let config = { ...defaultConfig };
+    let allResponses = [];
+    let currentFilter = 'all';
+    let recordCount = 0;
+    const MAX_RECORDS = 999;
+    
+    // Show encouragement message when typing
+    let encouragementTimeout;
+    function showEncouragement(elementId) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      
+      clearTimeout(encouragementTimeout);
+      element.style.display = 'inline-block';
+      
+      encouragementTimeout = setTimeout(() => {
+        element.style.display = 'none';
+      }, 3000);
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast px-4 py-3 rounded-lg shadow-lg text-white font-medium ${
+        type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+      }`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Tab switching
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    }
+
+    // Region quick select
+    function selectRegion(region) {
+      document.getElementById('local-region').value = region;
+      document.getElementById('local-region').focus();
+    }
+
+    // Filter responses
+    function filterResponses(filter) {
+      currentFilter = filter;
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === filter) {
+          btn.classList.add('active');
+          btn.classList.remove('bg-slate-100', 'text-slate-700');
+          btn.classList.add('bg-slate-800', 'text-white');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.remove('bg-slate-800', 'text-white');
+          btn.classList.add('bg-slate-100', 'text-slate-700');
+        }
+      });
+      
+      renderResponses();
+    }
+
+    // Render responses
+    function renderResponses() {
+      const container = document.getElementById('responses-container');
+      const filtered = currentFilter === 'all' 
+        ? allResponses 
+        : allResponses.filter(r => r.type === currentFilter);
+      
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 shadow-lg text-center">
+            <div class="text-6xl mb-4">📝</div>
+            <p class="text-slate-600">아��� 저장된 기록이 없��니다.</p>
+            <p class="text-sm text-slate-500 mt-2">다른 탭에서 활동을 완료하고 저장해보세요!</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Update existing cards or create new ones
+      const existingCards = new Map(
+        [...container.querySelectorAll('.response-card')].map(el => [el.dataset.id, el])
+      );
+      
+      const fragment = document.createDocumentFragment();
+      
+      filtered.forEach(response => {
+        const typeConfig = {
+          database: { icon: '🔍', label: '자료 조사', color: 'blue' },
+          map: { icon: '🗺️', label: '지도 분석', color: 'teal' },
+          local: { icon: '🏠', label: '지역 조사', color: 'rose' }
+        };
+        
+        const tc = typeConfig[response.type];
+        
+        if (existingCards.has(response.__backendId)) {
+          // Update existing card
+          const card = existingCards.get(response.__backendId);
+          card.querySelector('.response-name').textContent = response.student_name || '익명';
+          card.querySelector('.response-content').textContent = response.content;
+          if (response.region) {
+            const regionEl = card.querySelector('.response-region');
+            if (regionEl) regionEl.textContent = response.region;
+          }
+          existingCards.delete(response.__backendId);
+        } else {
+          // Create new card
+          const card = document.createElement('div');
+          card.className = 'response-card bg-white rounded-2xl p-6 shadow-lg';
+          card.dataset.id = response.__backendId;
+          
+          card.innerHTML = `
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-${tc.color}-100 rounded-xl flex items-center justify-center text-xl">
+                  ${tc.icon}
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-800 response-name">${response.student_name || '익명'}</p>
+                  <p class="text-sm text-${tc.color}-600">${tc.label}${response.region ? ` • <span class="response-region">${response.region}</span>` : ''}</p>
+                </div>
+              </div>
+              <button onclick="confirmDelete('${response.__backendId}')" class="delete-btn text-slate-400 hover:text-red-500 transition-colors p-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <p class="text-slate-700 whitespace-pre-wrap response-content">${response.content}</p>
+            </div>
+            <div class="delete-confirm-area hidden mt-3"></div>
+          `;
+          
+          fragment.appendChild(card);
+        }
+      });
+      
+      // Remove cards that no longer exist
+      existingCards.forEach(card => card.remove());
+      
+      // Append new cards
+      container.appendChild(fragment);
+    }
+
+    // Confirm delete with inline UI
+    function confirmDelete(id) {
+      const card = document.querySelector(`[data-id="${id}"]`);
+      const confirmArea = card.querySelector('.delete-confirm-area');
+      const deleteBtn = card.querySelector('.delete-btn');
+      
+      deleteBtn.classList.add('hidden');
+      confirmArea.classList.remove('hidden');
+      confirmArea.innerHTML = `
+        <div class="delete-confirm flex items-center justify-end gap-2 p-2 bg-red-50 rounded-lg">
+          <span class="text-sm text-red-700">정말 삭제하시겠습니까?</span>
+          <button onclick="cancelDelete('${id}')" class="px-3 py-1 bg-slate-200 text-slate-700 rounded-lg text-sm hover:bg-slate-300 transition-colors">
+            취소
+          </button>
+          <button onclick="deleteResponse('${id}')" class="px-3 py-1 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 transition-colors">
+            삭제
+          </button>
+        </div>
+      `;
+    }
+
+    // Cancel delete
+    function cancelDelete(id) {
+      const card = document.querySelector(`[data-id="${id}"]`);
+      const confirmArea = card.querySelector('.delete-confirm-area');
+      const deleteBtn = card.querySelector('.delete-btn');
+      
+      confirmArea.classList.add('hidden');
+      confirmArea.innerHTML = '';
+      deleteBtn.classList.remove('hidden');
+    }
+
+    // Delete response
+    async function deleteResponse(id) {
+      const response = allResponses.find(r => r.__backendId === id);
+      if (!response) return;
+      
+      const card = document.querySelector(`[data-id="${id}"]`);
+      const confirmArea = card.querySelector('.delete-confirm-area');
+      confirmArea.innerHTML = `
+        <div class="flex items-center justify-end gap-2 p-2">
+          <svg class="animate-spin h-5 w-5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="text-sm text-slate-500">삭제 중...</span>
+        </div>
+      `;
+      
+      if (window.dataSdk) {
+        const result = await window.dataSdk.delete(response);
+        if (!result.isOk) {
+          showToast('삭제에 실패했습니다.', 'error');
+          cancelDelete(id);
+        }
+      }
+    }
+
+    // Update stats
+    function updateStats() {
+      const total = allResponses.length;
+      const database = allResponses.filter(r => r.type === 'database').length;
+      const map = allResponses.filter(r => r.type === 'map').length;
+      const local = allResponses.filter(r => r.type === 'local').length;
+      
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-database').textContent = database;
+      document.getElementById('stat-map').textContent = map;
+      document.getElementById('stat-local').textContent = local;
+      
+      recordCount = total;
+    }
+
+    // Set loading state
+    function setLoading(formId, isLoading) {
+      const btn = document.querySelector(`#${formId} button[type="submit"]`);
+      const btnText = document.getElementById(`${formId.replace('-form', '')}-btn-text`);
+      const spinner = document.getElementById(`${formId.replace('-form', '')}-spinner`);
+      
+      btn.disabled = isLoading;
+      if (isLoading) {
+        btnText.classList.add('hidden');
+        spinner.classList.remove('hidden');
+      } else {
+        btnText.classList.remove('hidden');
+        spinner.classList.add('hidden');
+      }
+    }
+
+    // Form submissions
+    document.getElementById('database-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (recordCount >= MAX_RECORDS) {
+        showToast(`최대 ${MAX_RECORDS}개까지만 저장할 수 있습니다.`, 'error');
+        return;
+      }
+      
+      const name = document.getElementById('db-name').value.trim();
+      const content = document.getElementById('db-content').value.trim();
+      
+      if (!content) {
+        showToast('조사 내용을 입력해주세요.', 'error');
+        return;
+      }
+      
+      setLoading('database-form', true);
+      
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create({
+          id: Date.now().toString(),
+          type: 'database',
+          student_name: name,
+          content: content,
+          region: '',
+          created_at: new Date().toISOString()
+        });
+        
+        if (result.isOk) {
+          showToast('저장되었습니다!', 'success');
+          document.getElementById('db-content').value = '';
+        } else {
+          showToast('저장에 실패했습니다.', 'error');
+        }
+      }
+      
+      setLoading('database-form', false);
+    });
+
+    document.getElementById('map-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (recordCount >= MAX_RECORDS) {
+        showToast(`최대 ${MAX_RECORDS}개까지만 저장할 수 있습니다.`, 'error');
+        return;
+      }
+      
+      const name = document.getElementById('map-name').value.trim();
+      const content = document.getElementById('map-content').value.trim();
+      
+      if (!content) {
+        showToast('발견한 사실을 입력해주세요.', 'error');
+        return;
+      }
+      
+      setLoading('map-form', true);
+      
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create({
+          id: Date.now().toString(),
+          type: 'map',
+          student_name: name,
+          content: content,
+          region: '',
+          created_at: new Date().toISOString()
+        });
+        
+        if (result.isOk) {
+          showToast('저장되었습니다!', 'success');
+          document.getElementById('map-content').value = '';
+        } else {
+          showToast('저장에 실패했습니다.', 'error');
+        }
+      }
+      
+      setLoading('map-form', false);
+    });
+
+    document.getElementById('local-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (recordCount >= MAX_RECORDS) {
+        showToast(`최대 ${MAX_RECORDS}개까지만 저장할 수 있습니다.`, 'error');
+        return;
+      }
+      
+      const name = document.getElementById('local-name').value.trim();
+      const region = document.getElementById('local-region').value.trim();
+      const research = document.getElementById('local-research').value.trim();
+      const feeling = document.getElementById('local-feeling').value.trim();
+      
+      if (!research && !feeling) {
+        showToast('조사 내용이나 느낀 점을 입력해주세요.', 'error');
+        return;
+      }
+      
+      const content = `[조사 내용]\n${research || '(미입력)'}\n\n[느낀 점]\n${feeling || '(미입력)'}`;
+      
+      setLoading('local-form', true);
+      
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create({
+          id: Date.now().toString(),
+          type: 'local',
+          student_name: name,
+          content: content,
+          region: region,
+          created_at: new Date().toISOString()
+        });
+        
+        if (result.isOk) {
+          showToast('저장되었습니다!', 'success');
+          document.getElementById('local-research').value = '';
+          document.getElementById('local-feeling').value = '';
+        } else {
+          showToast('저장에 실패했습니다.', 'error');
+        }
+      }
+      
+      setLoading('local-form', false);
+    });
+
+    // Data handler for SDK
+    const dataHandler = {
+      onDataChanged(data) {
+        allResponses = data.sort((a, b) => 
+          new Date(b.created_at) - new Date(a.created_at)
+        );
+        updateStats();
+        renderResponses();
+      }
+    };
+
+    // Config change handler
+    async function onConfigChange(newConfig) {
+      config = { ...defaultConfig, ...newConfig };
+      
+      const titleEl = document.getElementById('main-title');
+      const messageEl = document.getElementById('teacher-message');
+      
+      if (titleEl) titleEl.textContent = config.main_title || defaultConfig.main_title;
+      if (messageEl) messageEl.textContent = config.teacher_message || defaultConfig.teacher_message;
+    }
+
+    // Map to capabilities
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ accent_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    // Map to edit panel values
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['main_title', config.main_title || defaultConfig.main_title],
+        ['teacher_message', config.teacher_message || defaultConfig.teacher_message]
+      ]);
+    }
+
+    // Initialize
+    async function init() {
+      // Initialize Element SDK
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities,
+          mapToEditPanelValues
+        });
+      }
+      
+      // Initialize Data SDK
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error('Failed to initialize data SDK');
+        }
+      }
+    }
+
+    init();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c454e5780e0aa65',t:'MTc2OTQ4NjAzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

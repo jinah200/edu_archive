@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호기심 팡팡 과학 탐험대</title>
+    <!-- 구글 폰트: Jua (귀여운 제목용), Gamja Flower (손글씨 본문용) -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <!-- 아이콘 사용을 위한 CDN -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+    
+    <style>
+        /* 과학 테마 색상 설정 */
+        :root {
+            --inquiry-color: #4CC9F0;   /* 탐구 - 밝은 하늘색 */
+            --exp-color: #7209B7;       /* 실험 - 신비로운 보라색 */
+            --comm-color: #06D6A0;      /* 소통/참여 - 생명 녹색 */
+            --text-dark: #333;
+            --bg-color: #F0F9FF;        /* 배경 - 아주 연한 하늘색 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Jua', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#e0f2fe 2px, transparent 2px); /* 모눈종이 같은 패턴 */
+            background-size: 30px 30px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* 애니메이션 키프레임 */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(76, 201, 240, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
+        }
+
+        /* 헤더 섹션 */
+        header {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%); /* 우주 느낌 그라데이션 */
+            border-bottom-left-radius: 60% 20%;
+            border-bottom-right-radius: 60% 20%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 헤더 장식 별 */
+        header::before {
+            content: '✨';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 2rem;
+            animation: float 4s infinite;
+        }
+        header::after {
+            content: '🪐';
+            position: absolute;
+            bottom: 30%;
+            right: 15%;
+            font-size: 3rem;
+            animation: float 6s infinite reverse;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 1.6rem;
+            color: #fff;
+            background-color: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 메인 컨텐츠 그리드 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+        }
+
+        /* 카드 스타일 */
+        .card {
+            background: white;
+            border-radius: 35px;
+            padding: 35px 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 통통 튀는 효과 */
+            position: relative;
+            opacity: 0;
+            border-top: 5px solid transparent;
+        }
+
+        /* 카드 호버 효과 */
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+        }
+
+        .card.inquiry:hover { border-top-color: var(--inquiry-color); }
+        .card.exp:hover { border-top-color: var(--exp-color); }
+        .card.comm:hover { border-top-color: var(--comm-color); }
+
+        /* 아이콘 뱃지 */
+        .icon-badge {
+            width: 90px;
+            height: 90px;
+            border-radius: 40%; /* 둥근 사각형 느낌 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -70px auto 25px;
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            animation: float 3.5s ease-in-out infinite;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+
+        .inquiry .icon-badge { background-color: var(--inquiry-color); animation-delay: 0s; }
+        .exp .icon-badge { background-color: var(--exp-color); animation-delay: 1.2s; }
+        .comm .icon-badge { background-color: var(--comm-color); animation-delay: 0.6s; }
+
+        .card h2 {
+            text-align: center;
+            font-size: 2.1rem;
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        /* 역량 태그 스타일 */
+        .competency-box {
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px dashed #e9ecef;
+        }
+
+        .competency-title {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            border-radius: 25px;
+            color: white;
+            font-size: 0.95rem;
+            font-family: 'Gamja Flower', cursive;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .inquiry .tag { background-color: var(--inquiry-color); }
+        .exp .tag { background-color: var(--exp-color); }
+        .comm .tag { background-color: var(--comm-color); }
+
+        /* 설명 텍스트 */
+        .description {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: #555;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        /* 선생님의 한마디 (하단) */
+        .teacher-msg {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 배경 장식 */
+        .teacher-msg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 8px;
+            background: repeating-linear-gradient(45deg, var(--inquiry-color), var(--inquiry-color) 20px, var(--exp-color) 20px, var(--exp-color) 40px, var(--comm-color) 40px, var(--comm-color) 60px);
+        }
+        
+        .btn-magic {
+            background-color: #3f37c9;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Jua';
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(63, 55, 201, 0.4);
+        }
+        
+        .btn-magic:hover {
+            transform: scale(1.1);
+            background-color: #3a0ca3;
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        .visible {
+            animation: popIn 0.8s forwards;
+        }
+
+        /* 반응형 폰트 사이즈 조절 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.2rem; }
+            .container { gap: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🔭 호기심 팡팡! 과학 탐험대</h1>
+        <div class="subtitle">세상을 보는 눈을 넓히는 시간</div>
+    </header>
+
+    <div class="container">
+        
+        <!-- 탐구 카드 (Inquiry) -->
+        <div class="card inquiry">
+            <div class="icon-badge">
+                <i data-lucide="search"></i>
+            </div>
+            <h2>관찰과 질문</h2>
+            <div class="competency-box">
+                <div class="competency-title">👀 이런 힘이 자라나요</div>
+                <div class="tags">
+                    <span class="tag">#과학적사고력</span>
+                    <span class="tag">#과학적탐구능력</span>
+                </div>
+            </div>
+            <p class="description">
+                "정답을 맞히는 것보다<br>
+                <strong>'왜 그럴까?'</strong> 질문하는 게 중요해요."<br><br>
+                작은 변화도 놓치지 않고 관찰하며<br>
+                숨겨진 비밀을 찾아내는 명탐정이 되어봐요!
+            </p>
+        </div>
+
+        <!-- 실험 카드 (Experiment/Problem Solving) -->
+        <div class="card exp">
+            <div class="icon-badge">
+                <i data-lucide="flask-conical"></i>
+            </div>
+            <h2>실험과 발견</h2>
+            <div class="competency-box">
+                <div class="competency-title">💡 이런 힘이 자라나요</div>
+                <div class="tags">
+                    <span class="tag">#과학적문제해결력</span>
+                    <span class="tag">#창의적발상</span>
+                </div>
+            </div>
+            <p class="description">
+                "실패는 실패가 아니에요.<br>
+                <strong>새로운 발견</strong>으로 가는 과정이죠!"<br><br>
+                직접 도구를 사용해 실험해 보고,<br>
+                증거를 수집하며 문제를 멋지게 해결해요.
+            </p>
+        </div>
+
+        <!-- 소통 카드 (Communication/Participation) -->
+        <div class="card comm">
+            <div class="icon-badge">
+                <i data-lucide="globe-2"></i>
+            </div>
+            <h2>소통과 참여</h2>
+            <div class="competency-box">
+                <div class="competency-title">🌏 이런 힘이 자라나요</div>
+                <div class="tags">
+                    <span class="tag">#과학적의사소통능력</span>
+                    <span class="tag">#참여와평생학습</span>
+                </div>
+            </div>
+            <p class="description">
+                "과학은 혼자가 아닌<br>
+                <strong>함께 나눌 때</strong> 더 빛이 나요."<br><br>
+                나의 발견을 친구들에게 설명하고,<br>
+                지구와 환경을 지키는 방법에 대해 토론해요.
+            </p>
+        </div>
+    </div>
+
+    <div class="teacher-msg">
+        <h3>🚀 선생님의 연구실</h3>
+        <p style="font-family: 'Gamja Flower'; font-size: 1.4rem; margin-top:15px; color: #444;">
+            과학자 여러분, 환영합니다! <br>
+            교실은 거대한 우주선이고, 우리는 모험을 떠나는 대원들이에요.<br>
+            어려운 공식보다는 <strong>'신기하다!'</strong>는 마음 하나면 충분해요.<br>
+            오늘도 호기심의 날개를 활짝 펴볼까요?
+        </p>
+        <button class="btn-magic" onclick="scienceFact()">💡 오늘의 과학 명언 켜기</button>
+    </div>
+
+    <script>
+        // 아이콘 초기화
+        lucide.createIcons();
+
+        // 스크롤 애니메이션
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+
+        // 과학 명언/격려 메시지 기능
+        function scienceFact() {
+            const facts = [
+                "중요한 것은 질문을 멈추지 않는 것이다. - 아인슈타인 🧠",
+                "발명은 99%의 땀과 1%의 영감으로 이루어진다. - 에디슨 💡",
+                "자연을 깊이 들여다보라. 그러면 모든 것을 더 잘 이해하게 될 것이다. 🌿",
+                "어제와 똑같이 살면서 다른 미래를 기대하는 것은 정신병이다. - (변화의 중요성) 🚀",
+                "실수해도 괜찮아! 그건 네가 시도했다는 증거니까! 🧪",
+                "우리는 모두 별의 먼지로 만들어졌단다. ✨"
+            ];
+            const randomFact = facts[Math.floor(Math.random() * facts.length)];
+            alert("💌 선생님이 보내는 메시지:\n\n" + randomFact);
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

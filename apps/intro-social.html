@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함께 사는 세상, 사회 탐구반</title>
+    <!-- 구글 폰트: Jua (귀여운 제목용), Gamja Flower (손글씨 본문용) -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gamja+Flower&display=swap" rel="stylesheet">
+    <!-- 아이콘 사용을 위한 CDN -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+    
+    <style>
+        /* 사회 테마 색상 설정 */
+        :root {
+            --geo-color: #2a9d8f;       /* 지리/환경 - 안정적인 청록색 */
+            --history-color: #e76f51;   /* 역사/문화 - 따뜻한 흙색/오렌지 */
+            --society-color: #264653;   /* 사회/법 - 신뢰감 있는 네이비 */
+            --text-dark: #333;
+            --bg-color: #fcfbf7;        /* 배경 - 따뜻한 아이보리 톤 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Jua', sans-serif;
+            background-color: var(--bg-color);
+            /* 지도 등고선 느낌의 은은한 배경 패턴 */
+            background-image: repeating-linear-gradient(45deg, #f0efe9 0, #f0efe9 1px, transparent 0, transparent 50%);
+            background-size: 20px 20px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* 애니메이션 키프레임 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(40px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes stamp {
+            0% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 헤더 섹션 */
+        header {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(to right, #f4a261, #e76f51); /* 노을빛 그라데이션 */
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .subtitle {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 1.6rem;
+            color: #fff;
+            background-color: rgba(255,255,255,0.25);
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 도시 실루엣 장식 (CSS로 간단히 표현) */
+        .city-skyline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-image: linear-gradient(to top, rgba(255,255,255,0.3) 0%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+            z-index: 1;
+        }
+
+        /* 메인 컨텐츠 그리드 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 45px;
+        }
+
+        /* 카드 스타일 */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            border: 2px solid #eee;
+        }
+
+        /* 카드 호버 효과 - 책장 넘기는 듯한 느낌 */
+        .card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: #ddd;
+        }
+
+        .card.geo:hover { border-top: 6px solid var(--geo-color); }
+        .card.history:hover { border-top: 6px solid var(--history-color); }
+        .card.society:hover { border-top: 6px solid var(--society-color); }
+
+        /* 아이콘 뱃지 */
+        .icon-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -70px auto 25px; /* 카드 밖으로 돌출 */
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+            transform: rotate(-10deg);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover .icon-badge {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .geo .icon-badge { background-color: var(--geo-color); }
+        .history .icon-badge { background-color: var(--history-color); }
+        .society .icon-badge { background-color: var(--society-color); }
+
+        .card h2 {
+            text-align: center;
+            font-size: 2.1rem;
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        /* 역량 태그 스타일 */
+        .competency-box {
+            background-color: #fff9f0;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px dashed #dcbfa6;
+        }
+
+        .competency-title {
+            font-size: 1.2rem;
+            color: #8d5b4c;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            font-family: 'Gamja Flower', cursive;
+            font-weight: bold;
+        }
+
+        .geo .tag { background-color: var(--geo-color); opacity: 0.9; }
+        .history .tag { background-color: var(--history-color); opacity: 0.9; }
+        .society .tag { background-color: var(--society-color); opacity: 0.9; }
+
+        /* 설명 텍스트 */
+        .description {
+            font-family: 'Gamja Flower', cursive;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        /* 선생님의 한마디 (하단) */
+        .teacher-msg {
+            max-width: 850px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            border-left: 10px solid var(--history-color);
+        }
+
+        .btn-citizen {
+            background-color: var(--society-color);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-family: 'Jua';
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(38, 70, 83, 0.3);
+        }
+        
+        .btn-citizen:hover {
+            transform: translateY(-3px);
+            background-color: #1a3c4a;
+        }
+
+        .visible {
+            animation: popIn 0.8s forwards;
+        }
+
+        /* 시민증 모달 스타일 */
+        .citizen-card-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .citizen-card {
+            background: white;
+            width: 320px;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 4px solid var(--society-color);
+            position: relative;
+            animation: stamp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌏 함께 사는 세상, 사회 탐구반</h1>
+        <div class="subtitle">나, 너, 그리고 우리가 만드는 이야기</div>
+        <div class="city-skyline"></div>
+    </header>
+
+    <div class="container">
+        
+        <!-- 지리/환경 카드 -->
+        <div class="card geo">
+            <div class="icon-badge">
+                <i data-lucide="map"></i>
+            </div>
+            <h2>우리 땅과 지도</h2>
+            <div class="competency-box">
+                <div class="competency-title">🧭 세상을 넓게 봐요</div>
+                <div class="tags">
+                    <span class="tag">#정보활용능력</span>
+                    <span class="tag">#공간지각능력</span>
+                </div>
+            </div>
+            <p class="description">
+                "지도는 세상을 작게 줄여놓은<br>
+                <strong>보물 지도</strong>와 같아요."<br><br>
+                우리가 사는 고장의 모습을 살펴보고,<br>
+                자연과 사람이 어떻게 어울려 사는지 배워요.
+            </p>
+        </div>
+
+        <!-- 역사/문화 카드 -->
+        <div class="card history">
+            <div class="icon-badge">
+                <i data-lucide="scroll"></i>
+            </div>
+            <h2>옛날이야기와 문화</h2>
+            <div class="competency-box">
+                <div class="competency-title">⏳ 시간을 여행해요</div>
+                <div class="tags">
+                    <span class="tag">#비판적사고력</span>
+                    <span class="tag">#역사적사고력</span>
+                </div>
+            </div>
+            <p class="description">
+                "옛날 사람들의 지혜가 모여<br>
+                <strong>지금의 우리</strong>가 되었답니다."<br><br>
+                오래된 물건 속에 담긴 이야기를 듣고,<br>
+                소중한 우리 문화를 아끼는 마음을 길러요.
+            </p>
+        </div>
+
+        <!-- 일반사회/시민의식 카드 -->
+        <div class="card society">
+            <div class="icon-badge">
+                <i data-lucide="users"></i>
+            </div>
+            <h2>법과 민주주의</h2>
+            <div class="competency-box">
+                <div class="competency-title">⚖️ 약속을 지켜요</div>
+                <div class="tags">
+                    <span class="tag">#의사소통및협업</span>
+                    <span class="tag">#민주시민의식</span>
+                </div>
+            </div>
+            <p class="description">
+                "혼자서는 살 수 없어요.<br>
+                <strong>서로 돕고 배려하는 법</strong>을 배워요."<br><br>
+                다 같이 행복하기 위한 약속(법)을 만들고,<br>
+                문제를 지혜롭게 해결하는 시민이 되어요.
+            </p>
+        </div>
+    </div>
+
+    <div class="teacher-msg">
+        <h3>📢 선생님의 알림장</h3>
+        <p style="font-family: 'Gamja Flower'; font-size: 1.4rem; margin-top:20px; color: #444; line-height: 1.8;">
+            사회 시간은 단순히 지식을 외우는 시간이 아니에요.<br>
+            옆 짝꿍을 이해하고, 우리 마을을 사랑하며,<br>
+            더 나은 세상을 꿈꾸는 <strong>멋진 시민</strong>이 되는 연습을 하는 시간입니다.<br>
+            준비되었나요?
+        </p>
+        <button class="btn-citizen" onclick="showCitizenCard()">🎖️ 나는 멋진 꼬마 시민!</button>
+    </div>
+
+    <!-- 모달: 꼬마 시민 다짐 -->
+    <div id="citizenModal" class="citizen-card-modal" onclick="closeModal(event)">
+        <div class="citizen-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🎖️</div>
+            <h3 style="font-size: 1.8rem; color: var(--society-color); margin-bottom: 15px;">꼬마 민주 시민증</h3>
+            <p style="font-family: 'Gamja Flower'; font-size: 1.4rem; margin-bottom: 20px;">
+                나는 친구의 이야기를 잘 듣고,<br>
+                약속을 소중히 여기는<br>
+                멋진 어린이가 되겠습니다.
+            </p>
+            <div style="border-top: 2px dashed #ccc; padding-top: 15px; font-size: 1.1rem; color: #777;">
+                (여기를 눌러서 닫기)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 아이콘 초기화
+        lucide.createIcons();
+
+        // 스크롤 애니메이션
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+
+        // 시민증 모달 기능
+        function showCitizenCard() {
+            const modal = document.getElementById('citizenModal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(event) {
+            // 배경을 클릭했을 때만 닫힘
+            const modal = document.getElementById('citizenModal');
+            if (event.target === modal || event.target.closest('.citizen-card')) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

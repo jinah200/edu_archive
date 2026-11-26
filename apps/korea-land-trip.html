@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신나는 우리 국토 탐험대</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+        }
+
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background-color: #f0f9ff; 
+        }
+        
+        h1, h2, h3, .jua-font { 
+            font-family: 'Jua', sans-serif; 
+        }
+
+        .tab-active { 
+            background-color: var(--secondary); 
+            color: white !important; 
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-hover { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .card-hover:hover { 
+            transform: translateY(-8px) rotate(1deg); 
+        }
+
+        .stamp-locked { filter: grayscale(1) opacity(0.3); }
+        .stamp-unlocked { filter: grayscale(0) opacity(1); animation: pop 0.5s ease-out; }
+
+        @keyframes pop {
+            0% { transform: scale(0.5); }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .floating { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* 스크롤바 숨기기 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-10">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 to-teal-400 text-white py-10 px-4 shadow-xl relative overflow-hidden text-center">
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="inline-block bg-white text-blue-600 rounded-full px-4 py-1 text-sm font-bold mb-4 shadow-md">
+                🎒 레벨 1: 초보 탐험가
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md">🚀 신나는 우리 국토 탐험대</h1>
+            <p class="text-white text-lg opacity-95 jua-font tracking-wide">지형 스탬프를 모으고 나만의 탐험 일지를 완성해봐!</p>
+        </div>
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
+        <div class="absolute -bottom-10 -left-10 w-60 h-60 bg-yellow-300 opacity-20 rounded-full"></div>
+    </header>
+
+    <main class="flex-grow max-w-5xl mx-auto w-full p-4 md:p-6 -mt-8">
+        
+        <!-- Progress Tracker (Stamps) -->
+        <div class="bg-white p-6 rounded-3xl shadow-md mb-8">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                <i class="fas fa-medal text-yellow-500"></i> 나의 탐험 스탬프
+            </h2>
+            <div class="flex justify-around items-center">
+                <div id="stamp-coast" class="text-center stamp-locked">
+                    <div class="text-3xl mb-1">🐚</div>
+                    <div class="text-[10px] font-bold">해안</div>
+                </div>
+                <div id="stamp-island" class="text-center stamp-locked">
+                    <div class="text-3xl mb-1">🏝️</div>
+                    <div class="text-[10px] font-bold">섬</div>
+                </div>
+                <div id="stamp-mountain" class="text-center stamp-locked">
+                    <div class="text-3xl mb-1">⛰️</div>
+                    <div class="text-[10px] font-bold">산지</div>
+                </div>
+                <div id="stamp-river" class="text-center stamp-locked">
+                    <div class="text-3xl mb-1">💧</div>
+                    <div class="text-[10px] font-bold">하천</div>
+                </div>
+                <div id="stamp-plain" class="text-center stamp-locked">
+                    <div class="text-3xl mb-1">🌾</div>
+                    <div class="text-[10px] font-bold">평야</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geography Tabs -->
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-8 border-4 border-white">
+            <div class="flex bg-gray-100 p-2 gap-1 overflow-x-auto no-scrollbar">
+                <button onclick="showTab('coast')" id="tab-coast" class="flex-1 py-3 px-4 rounded-2xl text-gray-500 font-bold transition-all flex flex-col items-center gap-1 min-w-[70px]">
+                    <span class="text-xl">🌊</span><span class="text-xs">해안</span>
+                </button>
+                <button onclick="showTab('island')" id="tab-island" class="flex-1 py-3 px-4 rounded-2xl text-gray-500 font-bold transition-all flex flex-col items-center gap-1 min-w-[70px]">
+                    <span class="text-xl">🏝️</span><span class="text-xs">섬</span>
+                </button>
+                <button onclick="showTab('mountain')" id="tab-mountain" class="flex-1 py-3 px-4 rounded-2xl text-gray-500 font-bold transition-all flex flex-col items-center gap-1 min-w-[70px]">
+                    <span class="text-xl">⛰️</span><span class="text-xs">산지</span>
+                </button>
+                <button onclick="showTab('river')" id="tab-river" class="flex-1 py-3 px-4 rounded-2xl text-gray-500 font-bold transition-all flex flex-col items-center gap-1 min-w-[70px]">
+                    <span class="text-xl">💧</span><span class="text-xs">하천</span>
+                </button>
+                <button onclick="showTab('plain')" id="tab-plain" class="flex-1 py-3 px-4 rounded-2xl text-gray-500 font-bold transition-all flex flex-col items-center gap-1 min-w-[70px]">
+                    <span class="text-xl">🌾</span><span class="text-xs">평야</span>
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div id="geography-content" class="p-6 md:p-10 bg-white min-h-[400px]">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+
+        <!-- My Passport (Planner) -->
+        <div class="bg-teal-500 p-6 md:p-8 rounded-[40px] shadow-2xl relative">
+            <div class="absolute -top-6 right-8 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl shadow-lg floating">
+                📖
+            </div>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-white jua-font tracking-wider">나의 국토 탐험 일지</h2>
+                <button onclick="clearPlan()" class="bg-white/20 text-white text-xs px-3 py-1 rounded-full hover:bg-white/30 transition-all">모두 비우기</button>
+            </div>
+            
+            <div id="plan-list" class="space-y-4">
+                <!-- Trip plans injected via JS -->
+                <div id="empty-msg" class="text-center text-teal-100 py-12 border-2 border-dashed border-teal-300 rounded-3xl">
+                    <i class="fas fa-map-marked-alt text-4xl mb-4 opacity-50"></i>
+                    <p class="jua-font">탐험하고 싶은 곳을 눌러서<br>일지를 채워보세요!</p>
+                </div>
+            </div>
+
+            <!-- Final Mission Section (Updated with Links) -->
+            <div id="plan-footer" class="mt-8 hidden animate-fadeIn">
+                <div class="bg-white p-6 rounded-3xl shadow-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-yellow-400 w-10 h-10 rounded-full flex items-center justify-center text-xl">🚩</div>
+                        <h3 class="font-bold text-gray-800 text-xl jua-font tracking-wide">선생님의 마지막 미션!</h3>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">
+                        와! 멋진 탐험 일지를 완성했군요. 이제 선택한 장소들에 대해 <b>더 자세한 정보</b>를 찾아보러 갈 시간이에요. 아래 사이트들을 방문해서 실제 여행지의 모습과 즐길 거리를 확인해보세요!
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Updated Link: 국토지리정보원 -> 대한민국 구석구석 -->
+                        <a href="https://korean.visitkorea.or.kr" target="_blank" class="flex items-center gap-3 p-4 bg-orange-50 border-2 border-orange-200 rounded-2xl hover:bg-orange-100 transition-all group">
+                            <span class="text-3xl group-hover:scale-110 transition-transform">📸</span>
+                            <div>
+                                <p class="text-xs font-bold text-orange-600">대한민국 구석구석</p>
+                                <p class="font-bold text-gray-800">생생한 전국 여행 탐험</p>
+                            </div>
+                        </a>
+                        <a href="https://www.vworld.kr/v2po_main.do" target="_blank" class="flex items-center gap-3 p-4 bg-blue-50 border-2 border-blue-200 rounded-2xl hover:bg-blue-100 transition-all group">
+                            <span class="text-3xl group-hover:scale-110 transition-transform">🌍</span>
+                            <div>
+                                <p class="text-xs font-bold text-blue-600">브이월드</p>
+                                <p class="font-bold text-gray-800">3D 입체나라 여행</p>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/results?search_query=초등+우리나라+지형" target="_blank" class="flex items-center gap-3 p-4 bg-red-50 border-2 border-red-200 rounded-2xl hover:bg-red-100 transition-all group">
+                            <span class="text-3xl group-hover:scale-110 transition-transform">📺</span>
+                            <div>
+                                <p class="text-xs font-bold text-red-600">유튜브 탐험</p>
+                                <p class="font-bold text-gray-800">생생한 지형 영상</p>
+                            </div>
+                        </a>
+                        <a href="https://map.naver.com" target="_blank" class="flex items-center gap-3 p-4 bg-green-50 border-2 border-green-200 rounded-2xl hover:bg-green-100 transition-all group">
+                            <span class="text-3xl group-hover:scale-110 transition-transform">📍</span>
+                            <div>
+                                <p class="text-xs font-bold text-green-600">네이버 지도</p>
+                                <p class="font-bold text-gray-800">맛집&가는 길 찾기</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                        <p class="text-xs text-center text-gray-500 font-medium">
+                            💡 팁: '대한민국 구석구석'에서 가고 싶은 장소를 검색해보세요!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-gray-400 mt-10 py-4 text-xs font-medium">
+        신나는 사회 시간 - 국토 탐험대 프로젝트 🇰🇷
+    </footer>
+
+    <script>
+        const geoData = {
+            coast: {
+                title: '🌊 파도가 춤추는 해안',
+                badge: '🐚',
+                desc: '육지와 바다가 만나는 해안은 정말 신기해요! 동해안은 해수욕장이 많고, 서해안은 진흙 갯벌이 넓게 펼쳐져 있죠.',
+                mission: '갯벌과 모래사장의 차이점 알아보기',
+                spots: [
+                    { name: '대천 해수욕장', desc: '서해안의 보령 머드 축제로 유명한 곳이에요!', exp: '머드팩 바르기, 조개 껍데기 줍기' },
+                    { name: '강릉 정동진', desc: '세계에서 바다와 가장 가까운 기차역이 있어요.', exp: '해돋이 보기, 바다열차 타기' },
+                    { name: '순천만 국가정원', desc: '강물과 바닷물이 만나는 신비로운 습지예요.', exp: '짱뚱어 찾기, 갈대 미로 걷기' }
+                ]
+            },
+            island: {
+                title: '🏝️ 보석 같은 섬들',
+                badge: '🏝️',
+                desc: '우리나라는 섬이 정말 많아요! 화산이 폭발해서 만들어진 신기한 모양의 섬들도 있답니다.',
+                mission: '화산으로 만들어진 섬 2곳 이름 외우기',
+                spots: [
+                    { name: '제주도 만장굴', desc: '용암이 흘러가며 만든 거대한 동굴이에요.', exp: '동굴 속 온도 느껴보기, 거대 용암 기둥 보기' },
+                    { name: '울릉도 거북바위', desc: '바위가 정말 거북이처럼 생겼어요!', exp: '독특한 바위 이름 붙여주기, 호박엿 맛보기' },
+                    { name: '독도', desc: '대한민국 가장 동쪽 끝, 소중한 우리 땅이에요.', exp: '국토 사랑 다짐하기, 동해 바다 구경' }
+                ]
+            },
+            mountain: {
+                title: '⛰️ 웅장한 초록 산지',
+                badge: '⛰️',
+                desc: '우리나라는 땅의 70%가 산이에요. 높은 산에 올라가면 우리 국토가 한눈에 내려다보이죠.',
+                mission: '우리나라에서 가장 높은 산 이름 찾기',
+                spots: [
+                    { name: '설악산 울산바위', desc: '바위가 병풍처럼 펼쳐진 장관을 볼 수 있어요.', exp: '망원경으로 멀리 보기, 다람쥐 관찰하기' },
+                    { name: '속리산 법주사', desc: '나무가 울창하고 커다란 불상이 있는 산이에요.', exp: '숲속 공기 마시기, 정이품송 만나기' },
+                    { name: '평창 대관령 목장', desc: '높은 지대에 위치한 시원하고 넓은 목장이에요.', exp: '양 먹이 주기, 풍력 발전기 구경' }
+                ]
+            },
+            river: {
+                title: '💧 굽이굽이 흐르는 하천',
+                badge: '💧',
+                desc: '강은 우리에게 꼭 필요한 물을 주고, 물고기들의 집이 되어줘요. 강 주변엔 도시와 평야가 생겨났죠.',
+                mission: '우리 동네 주변에 흐르는 강 이름 알아보기',
+                spots: [
+                    { name: '충주 탄금호', desc: '남한강의 맑은 물이 흐르는 곳이에요.', exp: '수상 레저 구경하기, 강변 자전거 타기' },
+                    { name: '영월 선암마을', desc: '강이 휘돌아 흐르며 한반도 모양 지형을 만들었어요.', exp: '한반도 지도 모양 찾아보기' },
+                    { name: '한강 뚝섬지구', desc: '서울의 중심을 흐르는 넓은 강변 공원이에요.', exp: '강바람 맞으며 피크닉 즐기기' }
+                ]
+            },
+            plain: {
+                title: '🌾 황금빛 넓은 평야',
+                badge: '🌾',
+                desc: '평평하고 넓은 땅이에요. 여기서는 우리가 먹는 쌀이 쑥쑥 자란답니다.',
+                mission: '쌀이 만들어지는 과정 영상 찾아보기',
+                spots: [
+                    { name: '김제 벽골제', desc: '옛날 사람들이 농사를 위해 만든 저수지예요.', exp: '지평선 바라보기, 연날리기' },
+                    { name: '나주 평야', desc: '맛있는 배와 쌀이 가득한 넓은 들판이에요.', exp: '나주 배 먹어보기, 농사 기구 구경하기' },
+                    { name: '김해 들판', desc: '낙동강 하구에 형성된 비옥한 땅이에요.', exp: '철새 관찰하기, 박물관 견학' }
+                ]
+            }
+        };
+
+        let myPlan = [];
+        let collectedStamps = new Set();
+
+        function showTab(tabId) {
+            document.querySelectorAll('button[id^="tab-"]').forEach(btn => btn.classList.remove('tab-active'));
+            document.getElementById(`tab-${tabId}`).classList.add('tab-active');
+
+            const data = geoData[tabId];
+            const content = document.getElementById('geography-content');
+            
+            unlockStamp(tabId);
+
+            let spotsHtml = data.spots.map(spot => `
+                <div class="bg-gray-50 border-2 border-dashed border-gray-200 p-5 rounded-3xl card-hover relative overflow-hidden group">
+                    <div class="absolute -right-2 -top-2 text-4xl opacity-10 group-hover:scale-150 transition-all">${data.badge}</div>
+                    <h4 class="font-bold text-lg text-blue-600 mb-2">${spot.name}</h4>
+                    <p class="text-xs text-gray-500 mb-3 leading-relaxed">${spot.desc}</p>
+                    <div class="bg-blue-100/50 p-2 rounded-xl text-[11px] font-bold text-blue-700 mb-4">
+                        ✨ 추천: ${spot.exp}
+                    </div>
+                    <button onclick="addToPlan('${spot.name}', '${data.badge} ${tabId}')" class="w-full py-3 bg-white border-2 border-blue-500 text-blue-600 rounded-2xl text-xs font-bold hover:bg-blue-500 hover:text-white transition-all active:scale-90">
+                        내 일지에 추가 +
+                    </button>
+                </div>
+            `).join('');
+
+            content.innerHTML = `
+                <div class="animate-fadeIn">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">${data.badge}</span>
+                        <h3 class="text-2xl font-bold text-gray-800">${data.title}</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">${data.desc}</p>
+                    
+                    <div class="bg-teal-50 p-4 rounded-2xl mb-8 border border-teal-100 flex items-center gap-4">
+                        <div class="text-2xl">📝</div>
+                        <div>
+                            <p class="text-[10px] text-teal-600 font-bold uppercase tracking-widest">탐험 미션</p>
+                            <p class="text-sm font-bold text-teal-800">${data.mission}</p>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-flag-checkered text-red-500"></i> 탐험 추천 장소
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        ${spotsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function unlockStamp(id) {
+            if (!collectedStamps.has(id)) {
+                collectedStamps.add(id);
+                const stampEl = document.getElementById(`stamp-${id}`);
+                stampEl.classList.remove('stamp-locked');
+                stampEl.classList.add('stamp-unlocked');
+                
+                if (collectedStamps.size === 5) {
+                    setTimeout(() => showMessage('🎉 모든 지형 탐험 완료! 당신은 최고의 탐험가입니다!'), 500);
+                }
+            }
+        }
+
+        function addToPlan(name, category) {
+            if (myPlan.some(item => item.name === name)) {
+                showMessage('이미 일지에 적은 장소예요! 😊');
+                return;
+            }
+            myPlan.push({ name, category, id: Date.now() });
+            updatePlanUI();
+            showMessage('📍 일지에 추가 완료!');
+        }
+
+        function removeFromPlan(id) {
+            myPlan = myPlan.filter(item => item.id !== id);
+            updatePlanUI();
+        }
+
+        function clearPlan() {
+            if(confirm('모든 내용을 지우고 다시 시작할까요?')) {
+                myPlan = [];
+                updatePlanUI();
+            }
+        }
+
+        function updatePlanUI() {
+            const list = document.getElementById('plan-list');
+            const emptyMsg = document.getElementById('empty-msg');
+            const footer = document.getElementById('plan-footer');
+
+            if (myPlan.length === 0) {
+                emptyMsg.style.display = 'block';
+                footer.classList.add('hidden');
+                list.querySelectorAll('.plan-item').forEach(el => el.remove());
+            } else {
+                emptyMsg.style.display = 'none';
+                footer.classList.remove('hidden');
+                
+                const html = myPlan.map(item => `
+                    <div class="plan-item bg-white/95 p-5 rounded-[25px] shadow-lg flex items-center justify-between border-l-8 border-yellow-400 group">
+                        <div>
+                            <span class="text-[10px] font-black text-teal-500 bg-teal-50 px-2 py-0.5 rounded-full mb-1 inline-block uppercase">${item.category.split(' ')[1]}</span>
+                            <h4 class="font-bold text-gray-800 text-lg">${item.name}</h4>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl opacity-40 group-hover:opacity-100 transition-opacity">✅</span>
+                            <button onclick="removeFromPlan(${item.id})" class="text-gray-300 hover:text-red-400 p-2 transition-colors">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                list.innerHTML = html;
+            }
+        }
+
+        function showMessage(text) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-gray-800 px-8 py-4 rounded-3xl shadow-2xl z-[100] font-bold text-center border-4 border-yellow-400 animate-pop';
+            toast.innerHTML = `<div class="text-3xl mb-2">💡</div>${text}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 1500);
+        }
+
+        window.onload = () => showTab('coast');
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

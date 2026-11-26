@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 우리 오투반 최고의 노래를 뽑아줘! 🌟</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Inter', sans-serif; /* "Inter" 폰트 사용 */
+            background-color: #fcf4f8; /* 연한 핑크색 배경 */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: #ff80ab; /* 진한 핑크색 헤더 */
+            color: white;
+            padding: 25px;
+            border-radius: 20px; /* 둥근 모서리 */
+            margin-bottom: 35px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+            letter-spacing: 2px;
+        }
+        p.subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        /* 현재 사용자 정보 표시 */
+        #current-user-info {
+            background-color: #e0f2f7; /* 연한 파란색 배경 */
+            border: 1px solid #81d4fa;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            display: inline-block;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #0288d1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 전체 이름 보기 버튼 스타일 */
+        .reveal-all-container {
+            margin-bottom: 25px;
+            text-align: right; /* 오른쪽 정렬 */
+            padding-right: 20px;
+        }
+        .reveal-all-button {
+            background-color: #6a1b9a; /* 보라색 버튼 */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .reveal-all-button:hover {
+            background-color: #5d1587;
+            transform: translateY(-2px);
+        }
+        .reveal-all-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 컨테이너 스타일 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px; /* 둥근 모서리 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 각 노래 작품 스타일 */
+        .song-entry {
+            background-color: #ffebee; /* 더 연한 핑크 */
+            border: 2px solid #ff528a; /* 테두리 색상 */
+            border-radius: 15px; /* 둥근 모서리 */
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease-in-out; /* 호버 효과 */
+        }
+        .song-entry:hover {
+            transform: translateY(-5px); /* 살짝 뜨는 효과 */
+        }
+        .song-entry h2 {
+            color: #d81b60; /* 진한 핑크 제목 */
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f48fb1; /* 밑줄 */
+            padding-bottom: 8px;
+            display: flex; /* 이름 보기 버튼과 정렬을 위해 flex 사용 */
+            align-items: center;
+            gap: 10px;
+        }
+        .song-entry h2 .artist-name {
+            flex-grow: 1; /* 이름이 가능한 공간을 모두 차지하도록 */
+        }
+        .song-entry h3 {
+            color: #c2185b;
+            font-size: 1.4em;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        .song-entry p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .song-entry a {
+            color: #2196f3; /* 링크 색상 */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease-in-out;
+        }
+        .song-entry a:hover {
+            color: #1976d2; /* 호버 시 링크 색상 변경 */
+        }
+
+        /* 투표 버튼 섹션 스타일 */
+        .vote-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* 왼쪽 정렬 */
+            gap: 10px; /* 버튼들 간 간격 줄이기 */
+            margin-top: 20px;
+        }
+        /* 투표 버튼 공통 스타일 */
+        .vote-button, .unvote-button {
+            color: white;
+            border: none;
+            padding: 12px 20px; /* 패딩 조정 */
+            border-radius: 10px; /* 둥근 모서리 */
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        /* 투표 버튼 (초록색) */
+        .vote-button {
+            background-color: #4CAF50; /* 초록색 버튼 */
+        }
+        .vote-button:hover:not(:disabled) {
+            background-color: #45a049; /* 호버 시 색상 변경 */
+            transform: translateY(-2px); /* 살짝 뜨는 효과 */
+        }
+        .vote-button:active:not(:disabled) {
+            transform: translateY(0); /* 클릭 시 눌리는 효과 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        /* 투표 취소 버튼 (빨간색) */
+        .unvote-button {
+            background-color: #f44336; /* 빨간색 버튼 */
+        }
+        .unvote-button:hover:not(:disabled) {
+            background-color: #da3328; /* 호버 시 색상 변경 */
+            transform: translateY(-2px); /* 살짝 뜨는 효과 */
+        }
+        .unvote-button:active:not(:disabled) {
+            transform: translateY(0); /* 클릭 시 눌리는 효과 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        /* 버튼 비활성화 시 */
+        .vote-button:disabled, .unvote-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .vote-count {
+            font-size: 1.2em;
+            color: #d81b60; /* 투표 수 강조 색상 */
+            font-weight: bold;
+            background-color: #f8bbd0; /* 배경색 추가 */
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+
+        /* 개별 이름 보기/숨기기 버튼 */
+        .reveal-name-button {
+            background-color: #ffa726; /* 주황색 버튼 */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .reveal-name-button:hover {
+            background-color: #fb8c00;
+            transform: translateY(-2px);
+        }
+        .reveal-name-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        /* 익명으로 숨기기 버튼 (다른 색상) */
+        .hide-name-button {
+            background-color: #9e9e9e; /* 회색 버튼 */
+        }
+        .hide-name-button:hover {
+            background-color: #757575;
+        }
+
+        /* 투표한 친구들 목록 스타일 */
+        .voters-display {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed #f48fb1;
+        }
+        .voters-display h4 {
+            color: #c2185b;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .voter-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start;
+            font-size: 1.5em; /* 이모지 크기 */
+        }
+        .voter-list .voter-emoji {
+            background-color: #ffe0b2; /* 연한 주황색 배경 */
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease; /* 투명도 변화 애니메이션 */
+        }
+        /* 투표 취소된 이모지 스타일 */
+        .voter-list .voter-emoji.unvoted {
+            opacity: 0.5; /* 투명하게 */
+        }
+
+        /* 감상 댓글 섹션 스타일 */
+        .comments-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #b39ddb; /* 보라색 구분선 */
+            text-align: left;
+        }
+        .comments-section h4 {
+            color: #673ab7; /* 보라색 제목 */
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .comment-guidance {
+            background-color: #e8eaf6; /* 연한 보라색 배경 */
+            border-left: 5px solid #5e35b1; /* 진한 보라색 선 */
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            color: #311b92;
+        }
+        .comment-input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap; /* 모바일에서 줄바꿈 */
+        }
+        .comment-input-area textarea {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ce93d8; /* 연한 보라색 테두리 */
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            min-height: 60px;
+            resize: vertical; /* 세로 크기 조절 가능 */
+        }
+        .comment-input-area button {
+            background-color: #8e24aa; /* 진한 보라색 버튼 */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .comment-input-area button:hover {
+            background-color: #7b1fa2;
+            transform: translateY(-2px);
+        }
+        .comment-input-area button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .comment-list {
+            max-height: 250px; /* 스크롤바 생기도록 높이 제한 */
+            overflow-y: auto;
+            border: 1px solid #f3e5f5; /* 아주 연한 보라색 테두리 */
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fce4ec; /* 연한 핑크 배경 */
+        }
+        .comment-item {
+            background-color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .comment-item:last-child {
+            margin-bottom: 0;
+        }
+        .comment-item .comment-author-emoji {
+            font-size: 1.6em; /* 이모지 크기 */
+            flex-shrink: 0; /* 이모지가 줄어들지 않도록 */
+        }
+        .comment-item .comment-content {
+            flex-grow: 1;
+            font-size: 0.95em;
+            color: #444;
+            word-break: break-word; /* 긴 단어 잘림 방지 */
+        }
+        .comment-item .comment-timestamp {
+            font-size: 0.8em;
+            color: #999;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            p.subtitle {
+                font-size: 1em;
+            }
+            .reveal-all-container {
+                text-align: center; /* 모바일에서 가운데 정렬 */
+                padding-right: 0;
+            }
+            .container {
+                padding: 20px;
+            }
+            .song-entry {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            .song-entry h2 {
+                font-size: 1.6em;
+                flex-direction: column; /* 세로 정렬 */
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .song-entry h3 {
+                font-size: 1.2em;
+            }
+            .song-entry p {
+                font-size: 1em;
+            }
+            .vote-button, .unvote-button {
+                padding: 10px 15px; /* 패딩 조정 */
+                font-size: 1em;
+            }
+            .vote-section {
+                flex-direction: column; /* 세로로 정렬 */
+                align-items: flex-start; /* 왼쪽 정렬 */
+                gap: 8px; /* 간격 조정 */
+            }
+            .reveal-name-button {
+                padding: 6px 12px;
+                font-size: 0.8em;
+            }
+            .voter-list {
+                justify-content: center; /* 모바일에서 가운데 정렬 */
+            }
+            .comment-input-area {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .comment-input-area button {
+                width: 100%;
+            }
+            .comment-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .comment-item .comment-timestamp {
+                align-self: flex-end; /* 타임스탬프 오른쪽 정렬 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌟 우리 오투반 최고의 노래를 뽑아줘! 🌟</h1>
+        <p class="subtitle">친구들이 만든 멋진 노래들을 감상하고, 가장 마음에 드는 작품에 투표해주세요!</p>
+    </header>
+
+    <div class="container">
+        <!-- 현재 웹페이지를 이용하는 친구 정보 (익명) -->
+        <div id="current-user-info"></div>
+
+        <div class="reveal-all-container">
+            <button class="reveal-all-button" id="reveal-all-names">✨ 모든 이름 보기 ✨</button>
+        </div>
+
+        <!-- 작품 목록 시작 -->
+
+        <!-- 작곡가1 -->
+        <div class="song-entry" id="song-작곡가1">
+            <h2 data-original-artist="작곡가1">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 작은별</h3>
+            <p><strong>가사:</strong> 우리반은 오투반 오투반은 신난다<br>오투반은 즐겁다 오투반은 잘한다<br>오투반은 재밋다 오투반은 즐겁다</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/5299126291529728" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가1">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가1" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가1">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가1"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가1" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가1">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가1">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가2 -->
+        <div class="song-entry" id="song-작곡가2">
+            <h2 data-original-artist="작곡가2">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 떳다 떳다 오투반 잘한다 잘한다 많이 많이 이겨라 우리 오투반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/5369495035707392" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가2">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가2" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가2">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가2"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가2" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가2">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가2">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가3 -->
+        <div class="song-entry" id="song-작곡가3">
+            <h2 data-original-artist="작곡가3">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 떴다떴다 오투반 오투반 오투반 떴다떴다 오투반 웃움 많은반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/5995575371235328" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가3">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가3" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가3">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가3"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가3" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가3">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가3">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가4 -->
+        <div class="song-entry" id="song-작곡가4">
+            <h2 data-original-artist="작곡가4">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 원본, 스티브의 라바치킨</h3>
+            <p><strong>가사:</strong> 최최최고의<br>오오오투반<br>최고의 오투반 정말 재미있지<br>우~ 정말 활기차서 기분좋아<br>우리반에게 2등다윈 필요없지<br>5학년 중 최고의 우리오투반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6192568341233664" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가4">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가4" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가4">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가4"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가4" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가4">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가4">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가5 -->
+        <div class="song-entry" id="song-작곡가5">
+            <h2 data-original-artist="작곡가5">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: (도레미송 멜로디에 맞추어)</h3>
+            <p><strong>가사:</strong> 오투반 즐거운반 항상 행복한반 장난정도 심할때 많이 있었지만 항상 기운UP한반 혼날때도 있지만 항상 기쁜 반.</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6305570205859840" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가5">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가5" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가5">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가5"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가5" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가5">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가5">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가6 -->
+        <div class="song-entry" id="song-작곡가6">
+            <h2 data-original-artist="작곡가6">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 원곡: MICA: kick ass (we are young)</h3>
+            <p><strong>가사:</strong> 거학의! 대명사! 우리는 o2반이다! 거학의! 자랑인! 우리는 o2반이다!</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6299949872054272" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가6">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가6" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가6">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가6"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가6" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가6">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가6">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가7 -->
+        <div class="song-entry" id="song-작곡가7">
+            <h2 data-original-artist="작곡가7">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 우리 오투반 재밌죠 우리 오투반 신나죠</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/4878763044765696" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가7">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가7" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가7">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가7"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가7" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가7">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가7">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가8 -->
+        <div class="song-entry" id="song-작곡가8">
+            <h2 data-original-artist="작곡가8">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 사랑의 하츄핑 노래</h3>
+            <p><strong>가사:</strong> 사랑에 오투반 용기를 줘, 오투반 희망에 오투반 올바른 오투반 즐거워 오투반 / 행복의 오투반.</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6617937936515072" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가8">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가8" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가8">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가8"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가8" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가8">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가8">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가9 -->
+        <div class="song-entry" id="song-작곡가9">
+            <h2 data-original-artist="작곡가9">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 오.투.반.오.투.반.</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6046675650609152" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가9">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가9" disabled>� 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가9">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가9"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가9" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가9">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가9">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가10 -->
+        <div class="song-entry" id="song-작곡가10">
+            <h2 data-original-artist="작곡가10">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p>이 친구의 멋진 음악 세계를 탐험해보세요!</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6354657454194688" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가10">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가10" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가10">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가10"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가10" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가10">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가10">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가11 -->
+        <div class="song-entry" id="song-작곡가11">
+            <h2 data-original-artist="작곡가11">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 언제나 즐거운 오투반 나가신다 언제나 행복한 5학년의 오투반 언제나 행복한 오투반 최고야 언제나 행복한 오늘은 또 어떤것을 배울까?</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/4618127819800576" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가11">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가11" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가11">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가11"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가11" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가11">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가11">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가12 -->
+        <div class="song-entry" id="song-작곡가12">
+            <h2 data-original-artist="작곡가12">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 오투반 23명 언제나 희망에 차 있죠 힘차고 밝은 얼굴로 맑은 오투반은 언제나 활기찹니다.</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6241865975857152" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가12">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가12" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가12">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가12"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가12" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가12">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가12">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가13 -->
+        <div class="song-entry" id="song-작곡가13">
+            <h2 data-original-artist="작곡가13">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 원곡:나비야 (작사:작곡가13)</h3>
+            <p><strong>가사:</strong> 우리는 웃음이 넘쳐나는 O2반<br>[솔미미 파레레 도미솔솔 미미미]<br>친구들과 즐거운 하루를 보내지<br>[레레레레 레미파 미미미미 미파솔]<br>우린서로를 돕고 배려가 가득한<br>[솔미미미 파레레]<br>행복가득한 즐거운 O2반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6512987128594432" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가13">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가13" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가13">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가13"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가13" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가13">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가13">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가14 -->
+        <div class="song-entry" id="song-작곡가14">
+            <h2 data-original-artist="작곡가14">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 비행기 노래 입니다.</h3>
+            <p><strong>가사:</strong> 활기찬 우리반 오투반 오투반<br>행복한 오투반 즐거운 오투반<br>배려하는 우리반 오투반 오투반<br>재미있는 우리반 다같이 만들자<br>활기찬 우리반 오투반 오투반<br>행복한 오투반 즐거운 오투반<br>재미있는 오투반 오투반 오투반<br>배려하는 우리반 다같이 만들자<br>멋진 오투반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/5061328816963584" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가14">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가14" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가14">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가14"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가14" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가14">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가14">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가15 -->
+        <div class="song-entry" id="song-작곡가15">
+            <h2 data-original-artist="작곡가15">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 활기찬 오투반 행복한 우리반<br>즐거움 가득 오투반 소중한 우리반<br>도전하는 오투반 최고의 우리반<br>시끌벅적 오투반 멋있는 오투반<br>아름다운 우리반 다 같이 하하하<br>차별 없는 오투반 웃음 가득 우리반<br>항상 기쁜 우리반 너무나 즐거워<br>똑똑한 우리반 항상 즐거워</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/4994545565171712" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가15">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가15" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가15">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가15"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가15" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가15">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가15">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가16 -->
+        <div class="song-entry" id="song-작곡가16">
+            <h2 data-original-artist="작곡가16">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: (비행기 멜로디 참고)</h3>
+            <p><strong>가사:</strong> 우리반은 오투반 빛나는 오투반 하하호호 웃는 반 5학년 5반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6735551320948736" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가16">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가16" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가16">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가16"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가16" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가16">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가16">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가17 -->
+        <div class="song-entry" id="song-작곡가17">
+            <h2 data-original-artist="작곡가17">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: ‘피곤한 간때문이야’</h3>
+            <p><strong>가사:</strong> 항상 즐겁고, 밝은 우리반, 즐거운 추억만들죠. 우리는 바로 오투반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/4518935879352320" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가17">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가17" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가17">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가17"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가17" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가17">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가17">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가18 -->
+        <div class="song-entry" id="song-작곡가18">
+            <h2 data-original-artist="작곡가18">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: (산토끼 멜로디에)</h3>
+            <p><strong>가사:</strong> 항상 즐거운 우리반은 오투반<br>모두 착한 학생들이 모인 우리반<br>선생님도 좋은 우리반은 오투반<br>항상 활기가 넘치는 우리반 오투반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/5926651011137536" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가18">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가18" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가18">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가18"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가18" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가18">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가18">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가19 -->
+        <div class="song-entry" id="song-작곡가19">
+            <h2 data-original-artist="작곡가19">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <h3>노래: 후라이의 꿈</h3>
+            <p><strong>가사:</strong> <strong>[1링크]</strong>저 하늘을 바라보면서 언젠간 졸업을 할거라고<br>친구들과 함께 놀면서 계속 같이 지낼거라고<br>매일매일이 모두 힘들겠지만<br>작은 사회 안에서도 꿈을 찾은걸<br>크기는 작지만 그속은 웃음 party<br>어른이 되서도 마음에 담아 둘레~<br>(빠암~빠암~)<br><br><strong>[2링크]</strong>그 시절로 돌아갈래<br>하고 후회한 다음에도<br>항상 마음에 담아두면서<br>되돌아오기를 바라면서<br>기억하자</p>
+            <p>
+                <a href="https://musiclab.chromeexperiments.com/Song-Maker/song/6484147631161344" target="_blank">🎼 1번 멜로디 들어보기 (클릭!)</a><br>
+                <a href="https://musiclab.chromeexperiments.com/Song-Maker/song/5710091445207040" target="_blank">🎼 2번 멜로디 들어보기 (클릭!)</a>
+            </p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가19">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가19" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가19">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가19"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가19" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가19">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가19">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가20 -->
+        <div class="song-entry" id="song-작곡가20">
+            <h2 data-original-artist="작곡가20">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 하하 호호 웃음이 찬 우리반 매일 웃음이 찬 우리반 매일 웃음이 차네.🎵🎶<br>계속 빛나고 활기차게 아침을 맞이해 피곤할 때도 있지만 언제나 웃음이 반을 채우네.🎵🎶<br>언제나 웃음이 언제나 활기찬 우리반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/4832001420558336" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가20">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가20" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가20">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가20"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가20" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가20">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가20">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작곡가21 -->
+        <div class="song-entry" id="song-작곡가21">
+            <h2 data-original-artist="작곡가21">🎵 작곡가: <span class="artist-name" data-is-revealed="false"></span> <button class="reveal-name-button">이름 보기</button></h2>
+            <p><strong>가사:</strong> 활기차고 재밌는 웃음 가득한 오 투 반<br>다정하고 똑똑하고 매력넘치는 오 투 반 선생님<br>다같이 협동해서 공감해주고 신나게 놀는 우리오투반</p>
+            <p><a href="https://musiclab.chromeexperiments.com/Song-Maker/song/4630243922542592" target="_blank">🎼 노래 들어보기 (클릭!)</a></p>
+            <div class="vote-section">
+                <button class="vote-button" data-song-id="작곡가21">👍 투표하기</button>
+                <button class="unvote-button" data-song-id="작곡가21" disabled>👎 투표 취소</button>
+                <span class="vote-count" id="votes-작곡가21">0표</span>
+            </div>
+            <div class="voters-display">
+                <h4>투표한 친구들:</h4>
+                <span class="voter-list" id="voters-작곡가21"></span>
+            </div>
+            <div class="comments-section">
+                <h4>감상 댓글 남기기 💬</h4>
+                <p class="comment-guidance">💡 **고운 말 바른 말!** 말과 행동은 우리에게 돌아와요. 친구에게 힘이 되는 댓글을 남겨주세요! 😊</p>
+                <div class="comment-input-area">
+                    <textarea id="comment-input-작곡가21" placeholder="이곳에 감상 댓글을 남겨주세요!"></textarea>
+                    <button class="submit-comment-button" data-song-id="작곡가21">댓글 달기</button>
+                </div>
+                <div class="comment-list" id="comment-list-작곡가21">
+                    <!-- 댓글이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 작품 목록 끝 -->
+
+    </div>
+
+    <script>
+        // 학생 이름과 익명 별명(이모지 포함) 매핑
+        const artistAliases = {
+            "작곡가1": { emoji: "🐱", alias: "귀여운 고양이" },
+            "작곡가2": { emoji: "🐶", alias: "씩씩한 강아지" },
+            "작곡가3": { emoji: "🐼", alias: "재롱둥이 팬더" },
+            "작곡가4": { emoji: "🦁", alias: "용감한 사자" },
+            "작곡가5": { emoji: "🐘", alias: "명랑한 코끼리" },
+            "작곡가6": { emoji: "🐻", alias: "듬직한 곰" },
+            "작곡가7": { emoji: "🦊", alias: "영리한 여우" },
+            "작곡가8": { emoji: "🐰", alias: "사랑스러운 토끼" },
+            "작곡가9": { emoji: "🐒", alias: "호기심 많은 원숭이" },
+            "작곡가10": { emoji: "🦉", alias: "신비로운 부엉이" },
+            "작곡가11": { emoji: "🐬", alias: "활발한 돌고래" },
+            "작곡가12": { emoji: "🐆", alias: "날쌘 치타" },
+            "작곡가13": { emoji: "🦢", alias: "우아한 백조" },
+            "작곡가14": { emoji: "🐿️", alias: "재주꾼 다람쥐" },
+            "작곡가15": { emoji: "🦒", alias: "상냥한 기린" },
+            "작곡가16": { emoji: "🐨", alias: "지혜로운 코알라" },
+            "작곡가17": { emoji: "🐧", alias: "깜찍한 펭귄" },
+            "작곡가18": { emoji: "🐥", alias: "즐거운 병아리" },
+            "작곡가19": { emoji: "🌟", alias: "반짝이는 별" },
+            "작곡가20": { emoji: "🐦", alias: "춤추는 새" },
+            "작곡가21": { emoji: "🦉", alias: "똑똑한 올빼미" }
+        };
+
+        // 이모지 목록을 확장하여 긍정적/중립적인 이모지들을 더 많이 포함
+        const voterEmojis = [
+            "😊", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "☺️", "😌", "😉", "😏", "😗", "😙", "😚", "😘", "🥰", "😍", "🤩", "🥳", "😇", "🙂", "🙃", "🫠", "😋", "😜", "🤪", "😝", "😛", "🤑", "🤠", "🤓", "😎", "🧐", "🤔", "🫡", "🫨", "🤗", "🫢", "🤫", "🤥", "🤤", "😴", "😮‍💨", "😬", "😮", "😵", "😵‍💫", "🤯", "🥰", "🥳", "🥺", "🥹", "🌈", "✨", "💡", "🌟", "🎈", "🎉", "🎁", "🎊", "🎵", "🎶", "🔔", "☀️", "🌷", "🌱", "💧", "💫", "💖", "💙", "💚", "💛", "💜", "🧡"
+        ];
+
+        let currentUser = {}; // Global object for the current user
+
+        /**
+         * Get or create a unique user ID and assign an emoji for the current session.
+         * The user ID and emoji are stored in localStorage for persistence across sessions.
+         */
+        function setupUserSession() {
+            let userId = localStorage.getItem('currentUserId');
+            let userEmoji = localStorage.getItem('currentUserEmoji');
+
+            if (!userId) {
+                // If no user ID, generate a new one
+                userId = crypto.randomUUID();
+                localStorage.setItem('currentUserId', userId);
+            }
+            if (!userEmoji) {
+                // If no user emoji, assign a random one from the predefined list
+                const randomIndex = Math.floor(Math.random() * voterEmojis.length);
+                userEmoji = voterEmojis[randomIndex];
+                localStorage.setItem('currentUserEmoji', userEmoji);
+            }
+            currentUser = { id: userId, emoji: userEmoji };
+
+            // Display current user info on the page
+            const currentUserInfoDiv = document.getElementById('current-user-info');
+            if (currentUserInfoDiv) {
+                currentUserInfoDiv.innerHTML = `👋 나(친구): ${currentUser.emoji} <small>(이모지는 페이지 새로고침 시 바뀔 수 있어요!)</small>`;
+            }
+        }
+
+        /**
+         * Updates the display of voters for a specific song.
+         * @param {string} songId - The ID of the song.
+         * @param {Array<Object>} allVotersData - An array of {id, emoji, voted} objects.
+         */
+        function updateVotersDisplay(songId, allVotersData) {
+            const voterListSpan = document.getElementById(`voters-${songId}`);
+            if (voterListSpan) {
+                voterListSpan.innerHTML = ''; // Clear existing emojis
+                if (allVotersData && allVotersData.length > 0) {
+                    allVotersData.forEach(voter => {
+                        const span = document.createElement('span');
+                        span.className = 'voter-emoji';
+                        if (!voter.voted) {
+                            span.classList.add('unvoted'); // Add class for styling if unvoted
+                            span.textContent = `${voter.emoji}💔`; // Add broken heart for unvoted
+                        } else {
+                            span.textContent = voter.emoji; // Show normal emoji if voted
+                        }
+                        voterListSpan.appendChild(span);
+                    });
+                } else {
+                    voterListSpan.textContent = '아직 투표한 친구가 없어요.';
+                    voterListSpan.style.fontSize = '0.9em';
+                    voterListSpan.style.color = '#777';
+                }
+            }
+        }
+
+        /**
+         * Updates the state of the vote and unvote buttons based on user's vote status.
+         * @param {string} songId - The ID of the song.
+         * @param {boolean} hasVoted - True if the current user has actively voted for this song.
+         */
+        function updateVoteButtons(songId, hasVoted) {
+            const voteButton = document.querySelector(`.vote-button[data-song-id="${songId}"]`);
+            const unvoteButton = document.querySelector(`.unvote-button[data-song-id="${songId}"]`);
+
+            if (voteButton && unvoteButton) {
+                if (hasVoted) {
+                    voteButton.disabled = true;
+                    unvoteButton.disabled = false;
+                } else {
+                    voteButton.disabled = false;
+                    unvoteButton.disabled = true;
+                }
+            }
+        }
+
+        /**
+         * Loads and displays comments for a given song.
+         * @param {string} songId - The ID of the song.
+         */
+        function loadComments(songId) {
+            const commentListDiv = document.getElementById(`comment-list-${songId}`);
+            const comments = JSON.parse(localStorage.getItem(`comments_${songId}`) || '[]');
+            commentListDiv.innerHTML = ''; // Clear existing comments
+
+            if (comments.length === 0) {
+                commentListDiv.innerHTML = '<p style="text-align: center; color: #999;">아직 댓글이 없어요. 첫 댓글을 남겨주세요! 😊</p>';
+                return;
+            }
+
+            comments.forEach(comment => {
+                const commentItem = document.createElement('div');
+                commentItem.className = 'comment-item';
+                commentItem.innerHTML = `
+                    <span class="comment-author-emoji">${comment.authorEmoji}</span>
+                    <span class="comment-content">${comment.text}</span>
+                    <span class="comment-timestamp">${new Date(comment.timestamp).toLocaleString('ko-KR')}</span>
+                `;
+                commentListDiv.appendChild(commentItem);
+            });
+            commentListDiv.scrollTop = commentListDiv.scrollHeight; // Scroll to the bottom
+        }
+
+        // DOMContentLoaded 이벤트는 HTML 문서가 완전히 로드되고 파싱되었을 때 실행됩니다.
+        document.addEventListener('DOMContentLoaded', () => {
+            setupUserSession(); // Setup or load current user session
+
+            const voteButtons = document.querySelectorAll('.vote-button');
+            const unvoteButtons = document.querySelectorAll('.unvote-button');
+            const revealNameButtons = document.querySelectorAll('.reveal-name-button');
+            const artistNameSpans = document.querySelectorAll('.artist-name');
+            const revealAllNamesButton = document.getElementById('reveal-all-names');
+            const submitCommentButtons = document.querySelectorAll('.submit-comment-button');
+
+
+            // 초기 익명 이름 설정
+            artistNameSpans.forEach(span => {
+                const h2Element = span.closest('h2');
+                const originalArtistName = h2Element.dataset.originalArtist;
+                if (artistAliases[originalArtistName]) {
+                    const { emoji, alias } = artistAliases[originalArtistName];
+                    span.textContent = `${emoji} ${alias}`; // 이모지와 별명으로 설정
+                } else {
+                    span.textContent = `알 수 없는 작곡가`; // 매핑에 없는 경우 기본값
+                }
+            });
+
+            // 각 작품에 대한 투표 데이터 및 댓글 초기화 및 버튼 상태 업데이트
+            document.querySelectorAll('.song-entry').forEach(entry => {
+                const songId = entry.id.replace('song-', '');
+                const voteCountSpan = document.getElementById(`votes-${songId}`);
+
+                // 투표 수 로드
+                let votes = parseInt(localStorage.getItem(`votes_${songId}_count`) || '0');
+                voteCountSpan.textContent = `${votes}표`;
+
+                // 투표한 친구들 목록 로드 및 표시
+                let allVotersData = JSON.parse(localStorage.getItem(`voters_${songId}_list`) || '[]');
+                updateVotersDisplay(songId, allVotersData);
+
+                // 현재 사용자가 이 노래에 투표했는지 확인 (active vote만 체크)
+                const hasCurrentUserVoted = allVotersData.some(user => user.id === currentUser.id && user.voted);
+                updateVoteButtons(songId, hasCurrentUserVoted);
+
+                // 댓글 로드
+                loadComments(songId);
+            });
+
+
+            // 각 투표 버튼에 클릭 이벤트 리스너를 추가합니다.
+            voteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const songId = button.dataset.songId;
+                    const voteCountSpan = document.getElementById(`votes-${songId}`);
+
+                    let votes = parseInt(localStorage.getItem(`votes_${songId}_count`) || '0');
+                    let allVotersData = JSON.parse(localStorage.getItem(`voters_${songId}_list`) || '[]');
+
+                    // 현재 사용자가 이미 투표했는지 (현재 활성 투표 상태) 확인
+                    let userIndex = allVotersData.findIndex(user => user.id === currentUser.id);
+
+                    if (userIndex === -1) {
+                        // 새로운 사용자: 투표자로 추가하고 voted: true
+                        allVotersData.push({ ...currentUser, voted: true });
+                        votes++;
+                        showTemporaryMessage(button, '✅ 투표 완료!');
+                    } else if (!allVotersData[userIndex].voted) {
+                        // 기존 사용자이지만 이전에 취소했음: voted: true로 변경
+                        allVotersData[userIndex].voted = true;
+                        votes++;
+                        showTemporaryMessage(button, '✅ 투표 완료!');
+                    } else {
+                        // 이미 투표했음 (활성 상태): 경고
+                        showTemporaryMessage(button, '이미 투표했어요!', true);
+                        return; // 더 이상 진행하지 않음
+                    }
+
+                    localStorage.setItem(`votes_${songId}_count`, votes); // localStorage에 투표 수 저장
+                    localStorage.setItem(`voters_${songId}_list`, JSON.stringify(allVotersData)); // localStorage에 투표자 목록 저장
+
+                    voteCountSpan.textContent = `${votes}표`; // 화면에 업데이트된 투표 수 표시
+                    updateVotersDisplay(songId, allVotersData); // 투표자 목록 업데이트
+                    updateVoteButtons(songId, true); // 버튼 상태 업데이트 (투표했음)
+                });
+            });
+
+            // 각 투표 취소 버튼에 클릭 이벤트 리스너를 추가합니다.
+            unvoteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const songId = button.dataset.songId;
+                    const voteCountSpan = document.getElementById(`votes-${songId}`);
+
+                    let votes = parseInt(localStorage.getItem(`votes_${songId}_count`) || '0');
+                    let allVotersData = JSON.parse(localStorage.getItem(`voters_${songId}_list`) || '[]');
+
+                    // 현재 사용자가 투표했는지 확인 (활성 투표 상태인지)
+                    let userIndex = allVotersData.findIndex(user => user.id === currentUser.id);
+
+                    if (userIndex !== -1 && allVotersData[userIndex].voted) {
+                        // 사용자를 찾았고 현재 투표 상태임: voted: false로 변경
+                        allVotersData[userIndex].voted = false;
+                        if (votes > 0) { // 투표 수가 0보다 커야 감소
+                            votes--;
+                        }
+                        showTemporaryMessage(button, '❌ 투표 취소!');
+                    } else {
+                        // 투표하지 않았거나 이미 취소했음: 경고
+                        showTemporaryMessage(button, '투표하지 않았거나 이미 취소했어요!', true);
+                        return; // 더 이상 진행하지 않음
+                    }
+
+                    localStorage.setItem(`votes_${songId}_count`, votes); // localStorage에 투표 수 저장
+                    localStorage.setItem(`voters_${songId}_list`, JSON.stringify(allVotersData)); // localStorage에 투표자 목록 저장
+
+                    voteCountSpan.textContent = `${votes}표`; // 화면에 업데이트된 투표 수 표시
+                    updateVotersDisplay(songId, allVotersData); // 투표자 목록 업데이트
+                    updateVoteButtons(songId, false); // 버튼 상태 업데이트 (투표 안 했음)
+                });
+            });
+
+            // 각 '이름 보기/숨기기' 버튼에 클릭 이벤트 리스너를 추가합니다.
+            revealNameButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const h2Element = event.target.closest('h2');
+                    const artistNameSpan = h2Element.querySelector('.artist-name');
+                    const isRevealed = artistNameSpan.dataset.isRevealed === 'true';
+                    const originalArtistName = h2Element.dataset.originalArtist;
+
+                    if (!isRevealed) {
+                        // 이름을 보이기
+                        artistNameSpan.textContent = originalArtistName;
+                        artistNameSpan.dataset.isRevealed = 'true';
+                        button.textContent = '익명으로 숨기기';
+                        button.classList.add('hide-name-button'); // 클래스 추가로 스타일 변경
+                    } else {
+                        // 이름을 숨기기 (익명 동물 캐릭터로 되돌리기)
+                        const { emoji, alias } = artistAliases[originalArtistName];
+                        artistNameSpan.textContent = `${emoji} ${alias}`;
+                        artistNameSpan.dataset.isRevealed = 'false';
+                        button.textContent = '이름 보기';
+                        button.classList.remove('hide-name-button'); // 클래스 제거로 스타일 되돌리기
+                    }
+                });
+            });
+
+            // '모든 이름 보기' 버튼에 클릭 이벤트 리스너를 추가합니다.
+            revealAllNamesButton.addEventListener('click', () => {
+                artistNameSpans.forEach(span => {
+                    const h2Element = span.closest('h2');
+                    const originalArtistName = h2Element.dataset.originalArtist;
+                    const button = h2Element.querySelector('.reveal-name-button');
+
+                    span.textContent = originalArtistName; // 모든 익명 이름을 실제 이름으로 변경
+                    span.dataset.isRevealed = 'true'; // 상태 업데이트
+
+                    if (button) {
+                        button.textContent = '익명으로 숨기기';
+                        button.classList.add('hide-name-button');
+                    }
+                });
+                revealAllNamesButton.style.display = 'none'; // '모든 이름 보기' 버튼도 숨깁니다.
+            });
+
+            // 감상 댓글 제출 버튼에 클릭 이벤트 리스너 추가
+            submitCommentButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const songId = event.target.dataset.songId;
+                    const commentInput = document.getElementById(`comment-input-${songId}`);
+                    const commentText = commentInput.value.trim();
+
+                    if (commentText.length > 0) {
+                        let comments = JSON.parse(localStorage.getItem(`comments_${songId}`) || '[]');
+                        const newComment = {
+                            authorEmoji: currentUser.emoji,
+                            text: commentText,
+                            timestamp: new Date().toISOString() // ISO 형식으로 저장하여 정렬 및 표시 용이
+                        };
+                        comments.push(newComment);
+                        localStorage.setItem(`comments_${songId}`, JSON.stringify(comments));
+                        commentInput.value = ''; // 입력 필드 초기화
+                        loadComments(songId); // 댓글 목록 다시 로드 및 표시
+                        showTemporaryMessage(button, '댓글이 등록되었어요! ✨');
+                    } else {
+                        showTemporaryMessage(button, '댓글 내용을 입력해주세요!', true);
+                    }
+                });
+            });
+
+
+            /**
+             * 특정 요소 근처에 임시 메시지를 표시하는 함수.
+             * @param {HTMLElement} targetElement 메시지를 표시할 기준 요소
+             * @param {string} message 표시할 메시지 텍스트
+             * @param {boolean} isWarning - 경고 메시지 여부 (빨간색으로 표시)
+             */
+            function showTemporaryMessage(targetElement, message, isWarning = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = message;
+                messageDiv.style.cssText = `
+                    position: absolute;
+                    background-color: ${isWarning ? '#f44336' : '#4CAF50'}; /* 경고면 빨강, 아니면 초록 */
+                    color: white;
+                    padding: 8px 15px;
+                    border-radius: 8px;
+                    font-size: 0.9em;
+                    white-space: nowrap;
+                    opacity: 0;
+                    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+                    transform: translateY(10px);
+                    z-index: 10;
+                `;
+                // 버튼의 위치를 기준으로 메시지 위치를 조정합니다.
+                const rect = targetElement.getBoundingClientRect();
+                messageDiv.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (messageDiv.offsetWidth / 2)}px`;
+                messageDiv.style.top = `${rect.top + window.scrollY - messageDiv.offsetHeight - 10}px`;
+
+                document.body.appendChild(messageDiv);
+
+                // 메시지를 서서히 나타나게 합니다.
+                setTimeout(() => {
+                    messageDiv.style.opacity = '1';
+                    messageDiv.style.transform = 'translateY(0)';
+                }, 10); // 작은 딜레이를 주어 transition이 작동하도록 함
+
+                // 2초 후에 메시지를 서서히 사라지게 하고 DOM에서 제거합니다.
+                setTimeout(() => {
+                    messageDiv.style.opacity = '0';
+                    messageDiv.style.transform = 'translateY(-10px)';
+                    messageDiv.addEventListener('transitionend', () => {
+                        messageDiv.remove();
+                    });
+                }, 2000); // 2초 후에 사라지기 시작
+            }
+        });
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+�

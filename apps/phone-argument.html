@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교내 휴대전화 사용, 함께 알아봐요! 🧐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Dongle:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f0f9ff; /* Very light blue background */
+        }
+        h1, h2 {
+            font-family: 'Dongle', sans-serif;
+            font-weight: 700;
+        }
+        .keyword-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .keyword-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .card {
+            background-color: white;
+            border-radius: 16px; /* More rounded corners */
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 3rem; /* Dongle font is naturally large, adjust if needed */
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .category-title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem; /* 20px */
+            margin-top: 1.5rem; /* 24px */
+            margin-bottom: 0.75rem; /* 12px */
+            color: #1e3a8a; /* Dark blue */
+            border-left: 4px solid #3b82f6; /* Blue accent */
+            padding-left: 8px;
+        }
+        .section-description {
+            font-size: 1rem;
+            color: #4b5563; /* Gray-600 */
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="bg-sky-50 min-h-screen flex flex-col items-center p-4 sm:p-6">
+    <div class="container mx-auto max-w-4xl">
+        <header class="text-center mb-8 sm:mb-12">
+            <h1 class="text-5xl sm:text-6xl text-blue-700">교내 휴대전화 사용, 함께 알아봐요! <img src="https://placehold.co/60x60/FFD700/000000?text=Q" alt="궁금한 표정 아이콘" class="inline-block w-12 h-12 sm:w-16 sm:h-16 align-middle"></h1>
+            <p class="text-lg sm:text-xl text-gray-600 mt-4">학교에서 휴대전화를 사용하는 것에 대해 여러 가지 생각이 있어요.<br>아래 키워드를 눌러 다양한 의견을 살펴보고, 나의 생각을 정리해 봐요!</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            <section class="card border-2 border-green-400 bg-green-50">
+                <h2 class="section-title text-green-600">
+                    <img src="https://placehold.co/40x40/34D399/FFFFFF?text=찬성" alt="찬성 아이콘" class="w-10 h-10 mr-2">
+                    휴대전화 사용 찬성!
+                </h2>
+                <p class="section-description">휴대전화를 학교에서 잘 사용하면 도움이 될 수 있다는 의견들이에요. 어떤 점이 좋을까요?</p>
+                
+                <div>
+                    <h3 class="category-title">똑똑한 학습 도구 🏫💻</h3>
+                    <ul class="space-y-2 mt-2">
+                        <li><a href="https://www.google.com/search?q=스마트+기기+활용+교육" target="_blank" class="keyword-button block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">스마트 기기 활용 교육 💻</a></li>
+                        <li><a href="https://www.google.com/search?q=디지털+리터러시+교육" target="_blank" class="keyword-button block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">디지털 리터러시 교육 💡</a></li>
+                        <li><a href="https://www.google.com/search?q=미래+교실+모습" target="_blank" class="keyword-button block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">미래 교실 모습 🚀</a></li>
+                        <li><a href="https://www.google.com/search?q=온라인+학습+장점" target="_blank" class="keyword-button block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">온라인 학습 장점 🌐</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="category-title">스스로 학습하고 연구해요 📚📱</h3>
+                    <ul class="space-y-2 mt-2">
+                        <li><a href="https://www.google.com/search?q=스마트폰+교육적+활용+연구" target="_blank" class="keyword-button block w-full bg-green-400 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">스마트폰 교육적 활용 연구 📱</a></li>
+                        <li><a href="https://www.google.com/search?q=디지털교과서+효과" target="_blank" class="keyword-button block w-full bg-green-400 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">디지털교과서 효과 📖</a></li>
+                         <li><a href="https://www.google.com/search?q=정보 검색 능력 향상" target="_blank" class="keyword-button block w-full bg-green-400 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">정보 검색 능력 향상 🔍</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="category-title">나의 권리와 안전 지킴이 🗣️🛡️</h3>
+                    <ul class="space-y-2 mt-2">
+                        <li><a href="https://www.google.com/search?q=학생+인권+휴대전화" target="_blank" class="keyword-button block w-full bg-green-300 hover:bg-green-400 text-green-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">학생 인권과 휴대전화 🛡️</a></li>
+                        <li><a href="https://www.google.com/search?q=교내+휴대폰+자율권" target="_blank" class="keyword-button block w-full bg-green-300 hover:bg-green-400 text-green-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">교내 휴대폰 자율권 🕊️</a></li>
+                        <li><a href="https://www.google.com/search?q=청소년+자기결정권" target="_blank" class="keyword-button block w-full bg-green-300 hover:bg-green-400 text-green-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">청소년 자기결정권 ✊</a></li>
+                        <li><a href="https://www.google.com/search?q=학생+안전+귀가+알리미" target="_blank" class="keyword-button block w-full bg-green-300 hover:bg-green-400 text-green-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">학생 안전 귀가 알리미 🔔</a></li>
+                        <li><a href="https://www.google.com/search?q=부모님과+비상+연락" target="_blank" class="keyword-button block w-full bg-green-300 hover:bg-green-400 text-green-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">부모님과 비상 연락 📞</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="card border-2 border-red-400 bg-red-50">
+                <h2 class="section-title text-red-600">
+                     <img src="https://placehold.co/40x40/F87171/FFFFFF?text=반대" alt="반대 아이콘" class="w-10 h-10 mr-2">
+                    휴대전화 사용 반대!
+                </h2>
+                <p class="section-description">학교에서 휴대전화를 사용하면 걱정되는 점들도 있어요. 어떤 어려움이 있을까요?</p>
+
+                <div>
+                    <h3 class="category-title">중독과 유해정보 걱정돼요 😟🛡️</h3>
+                    <ul class="space-y-2 mt-2">
+                        <li><a href="https://www.google.com/search?q=청소년+스마트폰+중독+실태" target="_blank" class="keyword-button block w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">청소년 스마트폰 중독 실태 😟</a></li>
+                        <li><a href="https://www.google.com/search?q=사이버폭력+예방+교육" target="_blank" class="keyword-button block w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">사이버폭력 예방 교육 🙅</a></li>
+                        <li><a href="https://www.google.com/search?q=디지털+과의존+문제점" target="_blank" class="keyword-button block w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">디지털 과의존 문제점 ⚠️</a></li>
+                        <li><a href="https://www.google.com/search?q=인터넷+유해정보+차단" target="_blank" class="keyword-button block w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">인터넷 유해정보 차단 🚫</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="category-title">수업에 방해가 될 수 있어요 🧑‍🏫🚫</h3>
+                     <ul class="space-y-2 mt-2">
+                        <li><a href="https://www.google.com/search?q=교내+휴대폰+문제점" target="_blank" class="keyword-button block w-full bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">교내 휴대폰 문제점 🚫</a></li>
+                        <li><a href="https://www.google.com/search?q=수업+중+스마트폰+사용+금지+찬반" target="_blank" class="keyword-button block w-full bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">수업 중 사용 금지 (찬반) 🤫</a></li>
+                        <li><a href="https://www.google.com/search?q=교권+침해+스마트폰" target="_blank" class="keyword-button block w-full bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">교권 침해와 스마트폰 😥</a></li>
+                        <li><a href="https://www.google.com/search?q=학교+수업+집중+방해" target="_blank" class="keyword-button block w-full bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">학교 수업 집중 방해 🤯</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="category-title">우리 몸과 마음에 미치는 영향 🧠🤝</h3>
+                    <ul class="space-y-2 mt-2">
+                        <li><a href="https://www.google.com/search?q=청소년+스마트폰+뇌+영향" target="_blank" class="keyword-button block w-full bg-red-300 hover:bg-red-400 text-red-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">스마트폰과 뇌 발달 🧠</a></li>
+                        <li><a href="https://www.google.com/search?q=디지털+기기+과사용+건강" target="_blank" class="keyword-button block w-full bg-red-300 hover:bg-red-400 text-red-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">디지털 기기 과사용과 건강 💪</a></li>
+                        <li><a href="https://www.google.com/search?q=청소년+수면+부족+스마트폰" target="_blank" class="keyword-button block w-full bg-red-300 hover:bg-red-400 text-red-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">수면 부족과 스마트폰 😴</a></li>
+                        <li><a href="https://www.google.com/search?q=거북목+증후군+예방" target="_blank" class="keyword-button block w-full bg-red-300 hover:bg-red-400 text-red-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">거북목 증후군 예방 🐢</a></li>
+                        <li><a href="https://www.google.com/search?q=친구+관계+스마트폰+영향" target="_blank" class="keyword-button block w-full bg-red-300 hover:bg-red-400 text-red-800 font-bold py-3 px-4 rounded-lg text-center text-base sm:text-lg">친구 관계 스마트폰 영향 👥</a></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 py-6 border-t border-gray-300">
+            <p class="text-gray-600 text-sm">이 페이지는 정보 검색을 돕기 위해 만들어졌습니다.<br>다양한 의견을 살펴보고 스스로 생각하는 힘을 길러보아요! ✨</p>
+        </footer>
+    </div>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

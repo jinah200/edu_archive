@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 생활 속 속력 탐구</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter 폰트 (Tailwind 기본) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* 'Noto Sans KR'을 폰트 스택에 추가하여 한국어 가독성 향상 */
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        
+        /* 클릭 시 부드러운 전환 효과를 위한 스타일 */
+        .answer {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .answer.visible {
+            max-height: 100px; /* 충분한 높이 */
+            opacity: 1;
+            margin-top: 0.75rem; /* 12px */
+        }
+        .prompt {
+            transition: opacity 0.3s ease;
+        }
+        .prompt.hidden {
+            opacity: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+
+        <!-- 앱 제목 -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-700">우리 생활 속 속력 탐구</h1>
+            <p class="text-lg text-gray-600 mt-3">
+                안녕하세요! 과학 선생님입니다. <br>
+                주변의 속력을 조사하고, <span class="font-bold text-blue-600">(이동 거리 / 걸린 시간)</span>으로 생각해 보세요!
+            </p>
+        </header>
+
+        <!-- 1. 검색 섹션 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-blue-200 pb-2 mb-4">
+                궁금한 속력, 직접 검색해 보기
+            </h2>
+            <p class="text-gray-600 mb-4">
+                아래 검색어 버튼을 눌러 구글(G)이나 네이버(N)에서 더 많은 정보를 찾아보세요!
+            </p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <!-- 검색어 버튼 -->
+                <a href="https://www.google.com/search?q=동물의+달리기+속력" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors">
+                    동물의 속력 (G)
+                </a>
+                <a href="https://search.naver.com/search.naver?query=교통수단+속력" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors">
+                    교통수단 속력 (N)
+                </a>
+                <a href="https://www.google.com/search?q=자연+현상+속력" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors">
+                    날씨/자연 현상 속력 (G)
+                </a>
+                <a href="https://search.naver.com/search.naver?query=스포츠+선수+속력" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors">
+                    운동 경기 속력 (N)
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. 속력 카드 섹션 (카테고리별 분리) -->
+
+        <!-- 카테고리 1: 운동경기 -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-red-800 border-b-2 border-red-200 pb-2 mb-6">
+                1. 운동경기 속력
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="speed-card bg-red-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-red-800">우사인 볼트 (100m)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-red-600">(100m / 약 9.58초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-red-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-red-800">KBO 투수 (패스트볼)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-red-600">(18.44m / 약 0.4초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-red-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-red-800">수영 선수 (자유형 50m)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-red-600">(50m / 약 21초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-red-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-red-800">양궁 화살 (70m)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-red-600">(70m / 약 1.2초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-red-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-red-800">K-리그 (강력한 슛)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-red-600">(30m / 약 1초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 카테고리 2: 교통수단 -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-green-800 border-b-2 border-green-200 pb-2 mb-6">
+                2. 교통수단 속력
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="speed-card bg-green-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-green-800">KTX (고속열차)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-green-600">(300km / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-green-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-green-800">여객기 (국제선)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-green-600">(900km / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-green-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-green-800">고속도로 자동차</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-green-600">(100km / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-green-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-green-800">사람의 걸음걸이</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-green-600">(4km / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-green-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-green-800">자전거 (일반)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-green-600">(15km / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 카테고리 3: 동물 -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-yellow-800 border-b-2 border-yellow-200 pb-2 mb-6">
+                3. 동물의 속력
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="speed-card bg-yellow-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-yellow-800">치타의 속력</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-yellow-600">(100m / 약 3초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-yellow-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-yellow-800">달팽이의 속력</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-yellow-600">(50m / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-yellow-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-yellow-800">매 (급강하)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-yellow-600">(90m / 약 1초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-yellow-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-yellow-800">돌고래 (유영)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-yellow-600">(40km / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-yellow-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-yellow-800">갈라파고스 거북</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-yellow-600">(300m / 약 1시간)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 카테고리 4: 날씨 및 자연 현상 -->
+        <section>
+            <h2 class="text-2xl font-semibold text-blue-800 border-b-2 border-blue-200 pb-2 mb-6">
+                4. 날씨 및 자연 현상
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="speed-card bg-blue-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-800">태풍 (강한 바람)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-blue-600">(40m / 약 1초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-blue-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-800">천둥 (소리)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-blue-600">(1km / 약 3초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-blue-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-800">지진파 (P파)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-blue-600">(8km / 약 1초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-blue-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-800">지구의 공전</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-blue-600">(30km / 약 1초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                <div class="speed-card bg-blue-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-800">빛의 속력 (진공)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-blue-600">(300,000km / 약 1초)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+                 <div class="speed-card bg-blue-50 p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-blue-800">대륙 이동 (판)</h3>
+                    <div class="answer"><p class="text-lg font-medium text-gray-700"><span class="font-bold text-blue-600">(5cm / 약 1년)</span></p></div>
+                    <p class="prompt text-sm text-gray-500 mt-2">클릭해서 확인해 보세요!</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 모든 'speed-card' 요소를 선택합니다.
+            const cards = document.querySelectorAll('.speed-card');
+
+            cards.forEach(card => {
+                // 각 카드에서 'answer'와 'prompt' 요소를 찾습니다.
+                const answer = card.querySelector('.answer');
+                const prompt = card.querySelector('.prompt');
+
+                // 각 카드에 클릭 이벤트 리스너를 추가합니다.
+                card.addEventListener('click', () => {
+                    // 'answer' 요소에 'visible' 클래스를 토글(추가/제거)합니다.
+                    answer.classList.toggle('visible');
+                    
+                    // 'prompt' 요소에 'hidden' 클래스를 토글합니다.
+                    prompt.classList.toggle('hidden');
+                });
+            });
+        });
+    </script>
+
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+

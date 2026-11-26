@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 워크 활동 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #FFF9F0; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6 text-slate-800">
+
+<div class="max-w-5xl mx-auto">
+    <!-- Header -->
+    <header class="text-center mb-8 pt-4">
+        <div class="inline-block bg-white px-6 py-2 rounded-full shadow-sm border-2 border-yellow-200 mb-4">
+            <span class="text-yellow-500 font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                함께 만드는 배움
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-slate-800 mb-2">♣ 갤러리 워크 활동 ♣</h1>
+        <p class="text-slate-500 font-medium">친구들의 생각을 여행하며 소중한 피드백을 남겨주세요!</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left Side: Instructions -->
+        <div class="lg:col-span-8 space-y-8">
+            <!-- Step Card -->
+            <div class="bg-white rounded-[2rem] shadow-lg border-4 border-white overflow-hidden">
+                <div class="flex bg-slate-50 p-2 gap-2" id="step-tabs">
+                    <button onclick="changeStep(0)" class="step-tab flex-1 py-3 px-2 rounded-2xl font-bold transition-all text-sm md:text-base bg-white text-indigo-600 shadow-md">1단계</button>
+                    <button onclick="changeStep(1)" class="step-tab flex-1 py-3 px-2 rounded-2xl font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-white/50">2단계</button>
+                    <button onclick="changeStep(2)" class="step-tab flex-1 py-3 px-2 rounded-2xl font-bold transition-all text-sm md:text-base text-slate-400 hover:bg-white/50">3단계</button>
+                </div>
+
+                <div id="step-contents">
+                    <!-- Step 1 -->
+                    <div class="step-content active p-8 bg-pink-50 border-b-4 border-pink-200">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-white rounded-2xl shadow-sm text-pink-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-800">1단계: 감상하기</h2>
+                        </div>
+                        <p class="text-lg font-semibold text-slate-700 leading-relaxed mb-6">각 모둠은 시계 방향으로 이동하며 다른 모둠의 결과물을 감상합니다.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white/60 p-3 rounded-xl flex items-center gap-3 text-slate-700 font-medium border border-white">
+                                <div class="w-2 h-2 rounded-full bg-slate-400"></div><p>친구들의 작품을 조용히 살펴봐요.</p>
+                            </div>
+                            <div class="bg-white/60 p-3 rounded-xl flex items-center gap-3 text-slate-700 font-medium border border-white">
+                                <div class="w-2 h-2 rounded-full bg-slate-400"></div><p>시계 방향으로 함께 이동해요!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="step-content p-8 bg-yellow-50 border-b-4 border-yellow-200">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-white rounded-2xl shadow-sm text-yellow-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-800">2단계: 댓글 달기</h2>
+                        </div>
+                        <p class="text-lg font-semibold text-slate-700 leading-relaxed mb-6">결과물을 보고 내 생각의 종류(♡, ◇, ?)에 맞게 댓글을 써서 붙입니다.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white/60 p-3 rounded-xl flex items-center gap-3 text-slate-700 font-medium border border-white">
+                                <div class="w-2 h-2 rounded-full bg-slate-400"></div><p>모둠원들과 생각을 나누며 참여해요.</p>
+                            </div>
+                            <div class="bg-white/60 p-3 rounded-xl flex items-center gap-3 text-slate-700 font-medium border border-white">
+                                <div class="w-2 h-2 rounded-full bg-slate-400"></div><p>기호의 의미에 맞춰 문장을 완성해요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="step-content p-8 bg-cyan-50 border-b-4 border-cyan-200">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-white rounded-2xl shadow-sm text-cyan-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-800">3단계: 확인하기</h2>
+                        </div>
+                        <p class="text-lg font-semibold text-slate-700 leading-relaxed mb-6">자기 자리로 돌아와 우리 모둠 결과물에 달린 댓글을 확인합니다.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-white/60 p-3 rounded-xl flex items-center gap-3 text-slate-700 font-medium border border-white">
+                                <div class="w-2 h-2 rounded-full bg-slate-400"></div><p>친구들이 준 피드백을 꼼꼼히 읽어요.</p>
+                            </div>
+                            <div class="bg-white/60 p-3 rounded-xl flex items-center gap-3 text-slate-700 font-medium border border-white">
+                                <div class="w-2 h-2 rounded-full bg-slate-400"></div><p>새롭게 알게 된 점을 정리해 봅시다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white flex justify-between items-center">
+                    <button onclick="prevStep()" id="prev-btn" class="px-4 py-2 text-slate-400 font-bold hover:text-indigo-500 disabled:opacity-20">◀ 이전</button>
+                    <div class="flex gap-2" id="step-dots">
+                        <div class="dot w-6 h-3 rounded-full bg-indigo-500 transition-all"></div>
+                        <div class="dot w-3 h-3 rounded-full bg-slate-200 transition-all"></div>
+                        <div class="dot w-3 h-3 rounded-full bg-slate-200 transition-all"></div>
+                    </div>
+                    <button onclick="nextStep()" id="next-btn" class="px-6 py-2 bg-indigo-500 text-white rounded-xl font-bold shadow-md hover:bg-indigo-600 transition-all">다음 단계 ▶</button>
+                </div>
+            </div>
+
+            <!-- Note Picker -->
+            <div class="bg-white rounded-[2rem] shadow-lg p-8 border-4 border-white relative overflow-hidden">
+                <h3 class="text-xl font-black mb-6 flex items-center gap-2">어떤 댓글을 달아볼까요?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <button onclick="showNote('discovery')" class="bg-pink-100 border-pink-300 border-b-4 border-r-4 p-5 rounded-3xl text-left hover:-translate-y-1 transition-all group">
+                        <div class="mb-4 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm text-pink-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        </div>
+                        <span class="text-xs font-black text-pink-800 opacity-60 uppercase tracking-wider">하트 (발견)</span>
+                        <p class="text-sm font-black text-pink-800 leading-tight">“이 모둠에서 제가 새롭게 알게 된 것은 ___이에요.”</p>
+                    </button>
+                    <button onclick="showNote('connection')" class="bg-emerald-100 border-emerald-300 border-b-4 border-r-4 p-5 rounded-3xl text-left hover:-translate-y-1 transition-all group">
+                        <div class="mb-4 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm text-emerald-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.4l8.6 8.6a2.41 2.41 0 0 0 3.4 0l8.6-8.6a2.41 2.41 0 0 0 0-3.4L14.7 1.7a2.41 2.41 0 0 0-3.4 0z"/></svg>
+                        </div>
+                        <span class="text-xs font-black text-emerald-800 opacity-60 uppercase tracking-wider">다이아 (연결)</span>
+                        <p class="text-sm font-black text-emerald-800 leading-tight">“우리 모둠과 비교하면 ___점이 같고, ___점이 다릅니다.”</p>
+                    </button>
+                    <button onclick="showNote('question')" class="bg-blue-100 border-blue-300 border-b-4 border-r-4 p-5 rounded-3xl text-left hover:-translate-y-1 transition-all group">
+                        <div class="mb-4 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <span class="text-xs font-black text-blue-800 opacity-60 uppercase tracking-wider">물음표 (질문)</span>
+                        <p class="text-sm font-black text-blue-800 leading-tight">“이것을 보고 ___가 더 궁금해졌어요.”</p>
+                    </button>
+                </div>
+
+                <div id="note-guide" class="hidden mt-8 p-6 rounded-[1.5rem] border-2 border-dashed bg-slate-50 relative animate-in zoom-in-95">
+                    <button onclick="closeNote()" class="absolute top-4 right-4 text-slate-400 hover:text-red-500"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/></svg></button>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div id="guide-icon" class="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm"></div>
+                        <h4 id="guide-title" class="font-black text-slate-800"></h4>
+                    </div>
+                    <div class="bg-white px-4 py-4 rounded-2xl border-2 border-slate-100 text-slate-500 italic font-medium">
+                        포스트잇에 위 문장 형식을 참고해서 친구에게 전하고 싶은 말을 적어보세요!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Timer Controls -->
+        <div class="lg:col-span-4 space-y-6">
+            <div class="bg-slate-800 rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500 rounded-full blur-[60px] opacity-30"></div>
+                <div class="relative z-10 text-center">
+                    <div class="flex items-center justify-center gap-2 mb-4 text-indigo-300 font-black text-xs uppercase tracking-widest">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Rotation Time
+                    </div>
+                    <div id="timer-display" class="text-6xl font-black mb-4 tracking-tighter tabular-nums text-white">05:00</div>
+                    
+                    <!-- Sound Toggle Button -->
+                    <div class="flex justify-center mb-6">
+                        <button id="sound-toggle" onclick="toggleSound()" class="flex items-center gap-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full transition-all text-[10px] font-bold text-indigo-300">
+                            <span id="sound-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                            </span>
+                            <span id="sound-text">소리 켜짐</span>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col gap-3 mb-6">
+                        <button id="timer-toggle" onclick="toggleTimer()" class="bg-indigo-500 hover:bg-indigo-600 py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all text-white">시작</button>
+                        <button onclick="resetTimer()" class="bg-white/10 hover:bg-white/20 py-3 rounded-2xl font-bold transition-all text-sm flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><polyline points="21 3 21 8 16 8"/></svg>
+                            다시 맞추기
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-2 rounded-2xl gap-1">
+                        <button onclick="setTimer(60)" class="flex-1 py-2 rounded-xl text-[10px] font-black hover:text-white transition-all text-slate-400">1분</button>
+                        <button onclick="setTimer(180)" class="flex-1 py-2 rounded-xl text-[10px] font-black hover:text-white transition-all text-slate-400">3분</button>
+                        <button onclick="setTimer(300)" class="flex-1 py-2 rounded-xl text-[10px] font-black bg-white text-slate-800 transition-all">5분</button>
+                        <button onclick="setTimer(600)" class="flex-1 py-2 rounded-xl text-[10px] font-black hover:text-white transition-all text-slate-400">10분</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="bg-amber-100 rounded-[2rem] p-6 text-amber-900 shadow-sm border-2 border-amber-200">
+                <h4 class="font-black mb-4 flex items-center gap-2 text-lg">활동 체크!</h4>
+                <ul class="space-y-4">
+                    <li class="flex gap-3 text-sm font-bold leading-tight"><span class="w-5 h-5 bg-white rounded-full flex items-center justify-center text-[10px] text-amber-600 font-black shadow-sm">1</span>모둠원 모두 함께 이동하기</li>
+                    <li class="flex gap-3 text-sm font-bold leading-tight"><span class="w-5 h-5 bg-white rounded-full flex items-center justify-center text-[10px] text-amber-600 font-black shadow-sm">2</span>친절하고 바른 말로 쓰기</li>
+                    <li class="flex gap-3 text-sm font-bold leading-tight"><span class="w-5 h-5 bg-white rounded-full flex items-center justify-center text-[10px] text-amber-600 font-black shadow-sm">3</span>기호(♡, ◇, ?)에 맞게 쓰기</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <!-- Tick sound for 3, 2, 1 -->
+    <audio id="tick-sound">
+        <source src="https://actions.google.com/sounds/v1/clocks/single_clock_tick.ogg" type="audio/ogg">
+        <source src="https://www.soundjay.com/buttons/beep-07.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Chime sound for 0 -->
+    <audio id="chime-sound">
+        <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock_elegant_chime.ogg" type="audio/ogg">
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+    </audio>
+
+    <footer class="mt-12 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest pb-8">
+        Gallery Walk Interactive Guide • Have fun learning!
+    </footer>
+</div>
+
+<script>
+    let currentStepIdx = 0;
+    let timerSeconds = 300;
+    let timerInterval = null;
+    let isTimerActive = false;
+    let isMuted = false;
+
+    const tickAudio = document.getElementById('tick-sound');
+    const chimeAudio = document.getElementById('chime-sound');
+
+    // Sound Logic
+    function toggleSound() {
+        isMuted = !isMuted;
+        const icon = document.getElementById('sound-icon');
+        const text = document.getElementById('sound-text');
+        
+        tickAudio.muted = isMuted;
+        chimeAudio.muted = isMuted;
+
+        if(isMuted) {
+            text.innerText = "소리 꺼짐";
+            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+        } else {
+            text.innerText = "소리 켜짐";
+            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+        }
+    }
+
+    // Step Logic
+    function updateStepsUI() {
+        const tabs = document.querySelectorAll('.step-tab');
+        const contents = document.querySelectorAll('.step-content');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        tabs.forEach((tab, i) => {
+            if(i === currentStepIdx) {
+                tab.classList.add('bg-white', 'text-indigo-600', 'shadow-md');
+                tab.classList.remove('text-slate-400');
+            } else {
+                tab.classList.remove('bg-white', 'text-indigo-600', 'shadow-md');
+                tab.classList.add('text-slate-400');
+            }
+        });
+
+        contents.forEach((content, i) => {
+            content.classList.toggle('active', i === currentStepIdx);
+        });
+
+        dots.forEach((dot, i) => {
+            if(i === currentStepIdx) {
+                dot.classList.add('bg-indigo-500', 'w-6');
+                dot.classList.remove('bg-slate-200', 'w-3');
+            } else {
+                dot.classList.remove('bg-indigo-500', 'w-6');
+                dot.classList.add('bg-slate-200', 'w-3');
+            }
+        });
+
+        prevBtn.disabled = currentStepIdx === 0;
+        nextBtn.disabled = currentStepIdx === 2;
+    }
+
+    function changeStep(idx) {
+        currentStepIdx = idx;
+        updateStepsUI();
+    }
+
+    function nextStep() {
+        if(currentStepIdx < 2) currentStepIdx++;
+        updateStepsUI();
+    }
+
+    function prevStep() {
+        if(currentStepIdx > 0) currentStepIdx--;
+        updateStepsUI();
+    }
+
+    // Note Logic
+    const noteData = {
+        discovery: { title: '하트 (발견) 작성 팁', icon: '<svg class="text-pink-400" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>', color: 'border-pink-300' },
+        connection: { title: '다이아 (연결) 작성 팁', icon: '<svg class="text-emerald-400" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.4l8.6 8.6a2.41 2.41 0 0 0 3.4 0l8.6-8.6a2.41 2.41 0 0 0 0-3.4L14.7 1.7a2.41 2.41 0 0 0-3.4 0z"/></svg>', color: 'border-emerald-300' },
+        question: { title: '물음표 (질문) 작성 팁', icon: '<svg class="text-blue-400" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>', color: 'border-blue-300' }
+    };
+
+    function showNote(type) {
+        const guide = document.getElementById('note-guide');
+        const title = document.getElementById('guide-title');
+        const icon = document.getElementById('guide-icon');
+        
+        guide.className = `mt-8 p-6 rounded-[1.5rem] border-2 border-dashed bg-slate-50 relative animate-in zoom-in-95 ${noteData[type].color}`;
+        title.innerText = noteData[type].title;
+        icon.innerHTML = noteData[type].icon;
+        guide.classList.remove('hidden');
+    }
+
+    function closeNote() {
+        document.getElementById('note-guide').classList.add('hidden');
+    }
+
+    // Timer Logic
+    function updateTimerDisplay() {
+        const m = Math.floor(timerSeconds / 60);
+        const s = timerSeconds % 60;
+        document.getElementById('timer-display').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+        const btn = document.getElementById('timer-toggle');
+        if (isTimerActive) {
+            clearInterval(timerInterval);
+            btn.innerText = '시작';
+            btn.className = 'bg-indigo-500 hover:bg-indigo-600 py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all text-white';
+        } else {
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+
+                    // Play tick sound for 3, 2, 1 seconds
+                    if (timerSeconds >= 1 && timerSeconds <= 3) {
+                        tickAudio.currentTime = 0;
+                        tickAudio.play().catch(e => console.log("Tick failed", e));
+                    }
+                } else {
+                    // Timer finished
+                    clearInterval(timerInterval);
+                    isTimerActive = false;
+                    
+                    // Play chime sound at 0
+                    chimeAudio.currentTime = 0;
+                    chimeAudio.play().catch(e => console.log("Chime failed", e));
+                    
+                    btn.innerText = '시작';
+                    btn.className = 'bg-indigo-500 hover:bg-indigo-600 py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all text-white';
+                }
+            }, 1000);
+            btn.innerText = '중지';
+            btn.className = 'bg-orange-400 hover:bg-orange-500 py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all text-white';
+        }
+        isTimerActive = !isTimerActive;
+    }
+
+    function setTimer(sec) {
+        clearInterval(timerInterval);
+        isTimerActive = false;
+        timerSeconds = sec;
+        updateTimerDisplay();
+        document.getElementById('timer-toggle').innerText = '시작';
+        document.getElementById('timer-toggle').className = 'bg-indigo-500 hover:bg-indigo-600 py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all text-white';
+        
+        // Update selection UI
+        document.querySelectorAll('.lg\\:col-span-4 button[onclick^="setTimer"]').forEach(b => {
+            const bSec = parseInt(b.getAttribute('onclick').match(/\d+/)[0]);
+            if(bSec === sec) {
+                b.classList.add('bg-white', 'text-slate-800');
+                b.classList.remove('text-slate-400');
+            } else {
+                b.classList.remove('bg-white', 'text-slate-800');
+                b.classList.add('text-slate-400');
+            }
+        });
+    }
+
+    function resetTimer() {
+        setTimer(300);
+    }
+
+    // Init
+    updateStepsUI();
+    updateTimerDisplay();
+</script>
+
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

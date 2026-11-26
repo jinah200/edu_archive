@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교폭력 예방교육: 존중의 숲</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .tab-btn.active {
+            background-color: #16a34a; /* green-600 */
+            color: white;
+            border-color: #16a34a; /* green-600 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .bg-leaf-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23dcfce7' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20-5-5-5 5L11 0zM21 25l5 20-5-5-5 5L21 25zM31 50l5 20-5-5-5 5L31 50zM41 75l5 20-5-5-5 5L41 75zM51 0l5 20-5-5-5 5L51 0zM61 25l5 20-5-5-5 5L61 25zM71 50l5 20-5-5-5 5L71 50zM1 75l5 20-5-5-5 5L1 75zM1 25l5 20-5-5-5 5L1 25z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-green-50 bg-leaf-pattern">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-green-800 mb-2">🌳 존중의 숲으로 떠나는 여행 🌳</h1>
+            <p class="text-xl md:text-2xl text-green-600 font-semibold">함께 만들어요, 폭력 없는 우리 학교!</p>
+            <p class="text-gray-600 mt-4 text-lg">서로를 아끼고 존중하는 마음을 함께 키워나가요!</p>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <nav class="flex justify-center flex-wrap gap-3 mb-8">
+            <button class="tab-btn active text-lg font-bold py-3 px-6 rounded-full border-2 border-green-500 bg-white text-green-700 transition-all duration-300 hover:bg-green-100" onclick="openTab(event, 'intro')">학교폭력이란?</button>
+            <button class="tab-btn text-lg font-bold py-3 px-6 rounded-full border-2 border-green-500 bg-white text-green-700 transition-all duration-300 hover:bg-green-100" onclick="openTab(event, 'types')">폭력의 종류</button>
+            <button class="tab-btn text-lg font-bold py-3 px-6 rounded-full border-2 border-green-500 bg-white text-green-700 transition-all duration-300 hover:bg-green-100" onclick="openTab(event, 'action')">대처 방법</button>
+            <button class="tab-btn text-lg font-bold py-3 px-6 rounded-full border-2 border-green-500 bg-white text-green-700 transition-all duration-300 hover:bg-green-100" onclick="openTab(event, 'resources')">도움자료</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main id="tab-container" class="bg-white rounded-2xl shadow-xl p-6 md:p-10">
+            <!-- Intro Content -->
+            <div id="intro" class="tab-content active">
+                <h2 class="text-3xl font-bold text-green-700 mb-6 text-center">🤔 학교폭력이 무엇일까요?</h2>
+                <div class="grid md:grid-cols-5 gap-8 items-center">
+                    <div class="md:col-span-3">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/u7_wqbnETOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 bg-green-100 border-l-4 border-green-500 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-green-800 mb-3">꼭 기억해요!</h4>
+                        <p class="text-lg text-gray-700">
+                            학교 안이나 밖에서 친구에게 <span class="font-bold text-red-500">신체적, 언어적, 정신적으로 피해를 주는 모든 행동</span>이 학교폭력이에요. 장난으로 한 행동이라도 친구가 힘들고 아팠다면 폭력이 될 수 있어요.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Types of Violence Content -->
+            <div id="types" class="tab-content">
+                <h2 class="text-3xl font-bold text-green-700 mb-8 text-center">🙅‍♀️ 이런 행동은 폭력이에요!</h2>
+                <div class="space-y-10">
+                    <!-- 언어폭력 -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">💬 언어폭력 (나쁜 말)</h3>
+                        <div class="grid md:grid-cols-2 gap-6 items-start">
+                            <div class="video-container"><iframe src="https://www.youtube.com/embed/s75cmeHqfGs" title="언어폭력" frameborder="0" allowfullscreen></iframe></div>
+                            <div class="bg-yellow-100 p-4 rounded-lg"><h4 class="font-bold mb-2">🤝 우리들의 약속</h4><ul class="list-disc list-inside text-gray-700 space-y-1"><li>친구가 싫어하는 별명 부르지 않기</li><li>욕설, 험담(뒷담화) 하지 않기</li></ul></div>
+                        </div>
+                    </div>
+                    <!-- 신체폭력 & 강요 (영상 대체) -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">👊 신체폭력 & 강요</h3>
+                        <div class="bg-red-50 border border-red-200 p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-red-700 mb-4">이런 행동은 '신체 폭력'이에요!</h4>
+                            <div class="grid sm:grid-cols-2 gap-4 text-gray-700 text-lg">
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">❌</span> 때리기, 밀치기, 발로 차기</div>
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">❌</span> 꼬집거나 할퀴기</div>
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">❌</span> 물건을 던져서 위협하기</div>
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">❌</span> 일부러 부딪혀 넘어뜨리기</div>
+                            </div>
+                            <p class="mt-4 text-sm text-red-600">* 장난이었다고 해도 친구가 아프거나 기분 나빴다면 폭력이에요.</p>
+                        </div>
+                        
+                        <div class="my-6 h-px bg-gray-200"></div>
+
+                        <div class="bg-orange-50 border border-orange-200 p-6 rounded-lg shadow-sm">
+                            <h4 class="text-xl font-bold text-orange-700 mb-4">이런 행동은 '강요'라는 폭력이에요!</h4>
+                             <div class="grid sm:grid-cols-2 gap-4 text-gray-700 text-lg">
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">🚫</span> 하기 싫은 심부름 시키기 (빵셔틀)</div>
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">🚫</span> 내 숙제를 대신하라고 시키기</div>
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">🚫</span> 하기 싫은 게임을 억지로 시키기</div>
+                                <div class="flex items-center bg-white p-3 rounded-lg"><span class="text-2xl mr-3">🚫</span> 나쁜 행동에 억지로 참여시키기</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-yellow-100 p-6 rounded-lg">
+                            <h4 class="font-bold text-xl text-yellow-800 mb-3 text-center">🤝 우리들의 약속 🤝</h4>
+                            <ul class="text-gray-700 text-lg space-y-2 text-center">
+                                <li><strong>첫째,</strong> 친구의 몸과 마음을 소중히 여겨요.</li>
+                                <li><strong>둘째,</strong> 친구가 "싫어!"라고 말하면 즉시 멈춰요.</li>
+                                <li><strong>셋째,</strong> 장난과 폭력을 구분해요.</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- 따돌림, 사이버폭력, 금품갈취, 성폭력 -->
+                    <div class="grid md:grid-cols-2 gap-8">
+                         <div><h3 class="text-2xl font-bold text-gray-800 mb-4">👥 따돌림</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/M4xS8BA2mTA" title="따돌림" frameborder="0" allowfullscreen></iframe></div></div>
+                        <div><h3 class="text-2xl font-bold text-gray-800 mb-4">📱 사이버폭력</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/L7j_apLd1P4" title="사이버폭력" frameborder="0" allowfullscreen></iframe></div></div>
+                        <div><h3 class="text-2xl font-bold text-gray-800 mb-4">💰 금품갈취</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/1DM3K1s_MRw" title="금품갈취" frameborder="0" allowfullscreen></iframe></div></div>
+                        <div><h3 class="text-2xl font-bold text-gray-800 mb-4">젠더폭력(성폭력)</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/xGKqRj7J98Y" title="성폭력" frameborder="0" allowfullscreen></iframe></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Content -->
+            <div id="action" class="tab-content">
+                <h2 class="text-3xl font-bold text-green-700 mb-8 text-center">🆘 도움이 필요할 때 이렇게 행동해요!</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">🛡️ 괴롭힘을 멈추는 용기</h3>
+                        <div class="video-container mb-6">
+                            <iframe src="https://www.youtube.com/embed/ItelaScy9uU" title="괴롭힘 멈추는 방법" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">📢 학교폭력 신고하기</h3>
+                        <div class="video-container mb-6">
+                            <iframe src="https://www.youtube.com/embed/C3C3j4JqQ-Q" title="학교폭력 신고" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 bg-yellow-100 border-l-4 border-yellow-400 p-6 rounded-lg shadow-md">
+                    <h4 class="text-xl font-bold text-yellow-800 mb-4">🤙 꼭 기억해야 할 행동 약속!</h4>
+                    <ul class="list-none space-y-3 text-lg text-gray-700">
+                        <li class="flex items-start"><span class="mr-3 text-xl">1️⃣</span> <strong>"안 돼!", "하지 마!"</strong> 라고 단호하게 거부 의사를 표현해요.</li>
+                        <li class="flex items-start"><span class="mr-3 text-xl">2️⃣</span> 위험한 상황에서는 그 자리를 빨리 피해요.</li>
+                        <li class="flex items-start"><span class="mr-3 text-xl">3️⃣</span> <strong>부모님, 선생님</strong> 등 믿을 수 있는 어른께 반드시 알려요.</li>
+                        <li class="flex items-start"><span class="mr-3 text-xl">4️⃣</span> 학교폭력 신고 전화 <strong>117</strong>로 전화하거나 문자로 신고할 수 있어요.</li>
+                        <li class="flex items-start"><span class="mr-3 text-xl">5️⃣</span> 친구가 괴롭힘당하는 것을 보면, 못 본 척하지 말고 어른들께 알려줘요. (방관자도 나빠요!)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Resources Content -->
+            <div id="resources" class="tab-content">
+                <h2 class="text-3xl font-bold text-green-700 mb-8 text-center">📚 더 알아보기 & 활동자료</h2>
+                <p class="text-center text-gray-600 mb-10">아래 사이트에서 더 많은 정보와 재미있는 활동지를 찾아보세요!</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <a href="https://doran.edunet.net" target="_blank" class="block bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h4 class="text-xl font-bold text-blue-600 mb-2 flex items-center"><i class="fa-solid fa-book-open-reader mr-2"></i>도란도란</h4>
+                        <p class="text-gray-600">교육부에서 운영하는 학교폭력 예방 누리집이에요. 웹툰, 영상 등 재미있는 자료가 많아요.</p>
+                    </a>
+                    <a href="https://www.btf.or.kr/" target="_blank" class="block bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h4 class="text-xl font-bold text-sky-600 mb-2 flex items-center"><i class="fa-solid fa-tree mr-2"></i>푸른나무재단</h4>
+                        <p class="text-gray-600">학교폭력 예방을 위해 다양한 활동을 하는 곳이에요. 유용한 정보와 상담을 받을 수 있어요.</p>
+                    </a>
+                    <a href="https://www.117.go.kr/cops/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000101" target="_blank" class="block bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <h4 class="text-xl font-bold text-purple-600 mb-2 flex items-center"><i class="fa-solid fa-file-lines mr-2"></i>117Chat 자료실</h4>
+                        <p class="text-gray-600">학교폭력 예방과 관련된 포스터, 카드뉴스, 활동지 등 다양한 자료를 다운받을 수 있어요.</p>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-8 md:mt-12">
+            <div class="bg-green-700 text-white p-6 rounded-2xl shadow-lg">
+                <h3 class="text-2xl font-bold mb-2">혼자 고민하지 마세요!</h3>
+                <p class="mb-4">어려운 일이 있을 땐 언제나 도움을 요청할 수 있어요.</p>
+                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
+                    <div class="text-lg text-center">
+                        <span class="font-bold">학교폭력 신고·상담 센터</span>
+                        <p class="text-3xl font-bold tracking-wider">📞 117</p>
+                    </div>
+                    <div class="hidden md:block border-l-2 border-green-500 h-12"></div>
+                    <div class="text-lg text-center">
+                        <span class="font-bold">가까이에 있는 어른들</span>
+                        <p class="text-2xl font-bold">선생님, 부모님</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-6">이 페이지는 초등백과의 '학교폭력예방교육주간 프로그램'을 바탕으로 재구성되었습니다.</p>
+        </footer>
+    </div>
+
+    <script>
+        // 기본으로 첫 번째 탭을 활성화
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tab-btn').classList.add('active');
+            document.querySelector('.tab-content').classList.add('active');
+        });
+
+        function openTab(event, tabName) {
+            // 모든 탭 컨텐츠를 숨김
+            const tabcontent = document.querySelectorAll(".tab-content");
+            tabcontent.forEach(tab => tab.classList.remove("active"));
+
+            // 모든 탭 버튼에서 'active' 클래스를 제거
+            const tablinks = document.querySelectorAll(".tab-btn");
+            tablinks.forEach(tablink => tablink.classList.remove("active"));
+
+            // 선택된 탭을 보여주고, 버튼에 'active' 클래스를 추가
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

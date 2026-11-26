@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초등 진로와 픽토그램 탐구 교실</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Jua for friendly elementary feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Jua', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .jua-font {
+            font-family: 'Jua', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+                <div class="bg-white/20 p-2 rounded-xl text-2xl">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl jua-font tracking-wide">꿈을 그리는 진로·픽토그램 교실</h1>
+                    <p class="text-xs text-indigo-200">초등학교 5학년 '일과 직업의 이해' 교과 연계 학습 웹앱</p>
+                </div>
+            </div>
+            <nav class="flex space-x-2 text-sm">
+                <button onclick="switchTab('intro')" id="tab-intro" class="px-3 py-2 rounded-lg bg-white/20 font-medium transition hover:bg-white/30">활동 안내</button>
+                <button onclick="switchTab('pictogram')" id="tab-pictogram" class="px-3 py-2 rounded-lg hover:bg-white/20 font-medium transition">픽토그램이란?</button>
+                <button onclick="switchTab('activity6')" id="tab-activity6" class="px-3 py-2 rounded-lg hover:bg-white/20 font-medium transition">활동6: 직업 문자도</button>
+                <button onclick="switchTab('activity7')" id="tab-activity7" class="px-3 py-2 rounded-lg hover:bg-white/20 font-medium transition">활동7: 해 보고 싶은 일</button>
+                <button onclick="switchTab('links')" id="tab-links" class="px-3 py-2 rounded-lg hover:bg-white/20 font-medium transition text-yellow-300"><i class="fa-solid fa-link mr-1"></i> 추천 진로 링크모음</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6">
+
+        <!-- 1. 활동 안내 Tab Content -->
+        <section id="content-intro" class="tab-content space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+                <div class="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-semibold mb-3">진로 전문교사 가이드</div>
+                <h2 class="text-2xl sm:text-3xl jua-font text-indigo-900 mb-4">변화하는 직업세계 이해 및 창의적 진로 탐색</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    안녕하세요 어린이 여러분! 본 웹앱은 첨부된 학습지의 <span class="text-indigo-600 font-bold">‘활동 6: 직업 문자도’</span>와 <span class="text-purple-600 font-bold">‘활동 7: 해 보고 싶은 일(픽토그램 제작)’</span>을 온라인 환경에서 더 깊이 있게 탐색할 수 있도록 만들어졌습니다. 미래 사회의 다양한 직업을 살펴보고 나만의 창의적인 시각으로 표현해 봅시다!
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <!-- Card 1 -->
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="text-indigo-600 font-bold text-lg mb-2 flex items-center">
+                                <i class="fa-solid fa-paintbrush mr-2"></i> 활동 6 : 직업 문자도
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">
+                                직업명에 그 직업인이 사용하는 물건, 하는 일의 내용, 일의 의미 등을 담아 그림 글자로 표현하는 활동입니다. 그림 그리기가 부담스러운 학생도 문자 형태를 기반으로 쉽고 편안하게 접근할 수 있습니다.
+                            </p>
+                        </div>
+                        <button onclick="switchTab('activity6')" class="mt-2 w-full bg-indigo-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition">활동 6 바로가기</button>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="text-purple-600 font-bold text-lg mb-2 flex items-center">
+                                <i class="fa-solid fa-shapes mr-2"></i> 활동 7 : 해 보고 싶은 일 & 픽토그램
+                            </div>
+                            <p class="text-slate-600 text-sm mb-4">
+                                미래 직업 정보를 탐색하고 자신이 해 보고 싶은 일을 찾아 픽토그램으로 표현하는 활동입니다. 미래 사회를 예측하고 직업에 대한 시야를 넓힐 수 있습니다.
+                            </p>
+                        </div>
+                        <button onclick="switchTab('activity7')" class="mt-2 w-full bg-purple-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition">활동 7 바로가기</button>
+                    </div>
+                </div>
+
+                <!-- Trusted Link Section -->
+                <div class="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-5">
+                    <h3 class="font-bold text-slate-800 mb-2 flex items-center">
+                        <i class="fa-solid fa-link text-blue-600 mr-2"></i> 신뢰로운 진로 정보 출처 (커리어넷 링크)
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-3">수업팁에 안내된 <strong>커리어넷(CareerNet)</strong>의 미래 직업 정보를 공식 사이트에서 직접 탐색해 보세요.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://www.career.go.kr" target="_blank" rel="noopener noreferrer" class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 transition flex items-center">
+                            <i class="fa-solid fa-globe text-indigo-600 mr-2"></i> 커리어넷 메인홈페이지 <i class="fa-solid fa-external-link-alt ml-2 text-xs text-slate-400"></i>
+                        </a>
+                        <a href="https://www.career.go.kr/cnet/front/base/job/jobList.do" target="_blank" rel="noopener noreferrer" class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 transition flex items-center">
+                            <i class="fa-solid fa-magnifying-glass text-purple-600 mr-2"></i> 커리어넷 직업정보 탐색 <i class="fa-solid fa-external-link-alt ml-2 text-xs text-slate-400"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 픽토그램이란? Tab Content -->
+        <section id="content-pictogram" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+                <div class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold mb-3">초등 5학년 눈높이 학습</div>
+                <h2 class="text-2xl sm:text-3xl jua-font text-purple-900 mb-4">한눈에 쏙 들어오는 그림 언어, '픽토그램(Pictogram)'</h2>
+                
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-6 rounded-r-xl">
+                    <p class="text-purple-900 font-medium">
+                        <strong>픽토그램(Pictogram)</strong>이란 그림(Picture)과 전신(Telegram)의 합성어로, 언어를 초월하여 누구나 직관적으로 이해할 수 있도록 만든 상징적인 그림 문자입니다.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-1">1. 직관성</h3>
+                        <p class="text-sm text-slate-600">글을 읽지 못해도 그림만 보면 뜻을 즉시 알 수 있습니다. (예: 비상구, 화장실 표지판)</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-1">2. 세계 공통성</h3>
+                        <p class="text-sm text-slate-600">나라와 언어가 달라도 전 세계 모든 사람이 같은 의미로 통용할 수 있습니다.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-1">3. 간결함</h3>
+                        <p class="text-sm text-slate-600">복잡한 모양을 빼고 핵심 특징만 단순하고 명확한 도형으로 나타냅니다.</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                    <h3 class="jua-font text-xl text-slate-800 mb-3"><i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i>미래 직업과 픽토그램의 만남</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        미래 사회에는 인공지능 전문가, 우주 여행 가이드, 로봇 윤리학자, 드론 교통 관리자 등 새로운 직업들이 생겨납니다. 이러한 미래 직업의 핵심 특징을 픽토그램이나 직업 문자도로 표현해보면 직업의 본질을 훨씬 깊이 이해할 수 있습니다!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 활동 6: 직업 문자도 Tab Content -->
+        <section id="content-activity6" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+                <div class="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-semibold mb-3">활동 6</div>
+                <h2 class="text-2xl sm:text-3xl jua-font text-indigo-900 mb-4">직업 문자도 디자인 스케치북</h2>
+                <p class="text-slate-600 mb-6 text-sm">
+                    선택한 직업의 글자에 그 직업이 사용하는 도구와 특징을 녹여내어 나만의 직업 문자도를 계획해 보세요.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Form Input Area -->
+                    <div class="space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">1. 문자도 계획서 작성</h3>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">탐색할 직업명</label>
+                            <input type="text" id="job-title-input" placeholder="예: 의사, 로봇공학자, 수의사 등" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">사용하는 주요 도구 및 상징물</label>
+                            <input type="text" id="job-tools-input" placeholder="예: 청진기, 주사기, 톱니바퀴 등" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">직업의 의미와 나의 다짐</label>
+                            <textarea id="job-desc-input" rows="3" placeholder="이 직업이 사회에 주는 도움과 내가 이 직업을 통해 이루고 싶은 꿈을 적어보세요." class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm"></textarea>
+                        </div>
+                        <button onclick="generateJobCard()" class="w-full bg-indigo-600 text-white font-semibold py-2.5 rounded-lg hover:bg-indigo-700 transition shadow-sm">나만의 직업 문자도 카드 완성하기</button>
+                    </div>
+
+                    <!-- Preview Card Area -->
+                    <div class="border-2 border-dashed border-indigo-200 bg-indigo-50/50 rounded-xl p-6 flex flex-col justify-between items-center text-center">
+                        <div class="w-full">
+                            <div class="text-xs uppercase tracking-wider text-indigo-500 font-bold mb-2">My Job Calligraphy Preview</div>
+                            <div id="preview-card" class="bg-white rounded-xl shadow-md p-6 border border-indigo-100 max-w-sm mx-auto space-y-4">
+                                <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-3xl mx-auto">
+                                    <i class="fa-solid fa-user-tie" id="preview-icon"></i>
+                                </div>
+                                <h4 id="preview-title" class="text-xl jua-font text-indigo-900">직업명을 입력하세요</h4>
+                                <p id="preview-tools" class="text-xs text-slate-500 font-medium bg-slate-100 py-1 px-3 rounded-full inline-block">주요 도구: -</p>
+                                <p id="preview-desc" class="text-sm text-slate-600">직업의 의미와 다짐이 여기에 나타납니다.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-xs text-slate-400">
+                            * 작성한 내용을 바탕으로 실제 종이에 채색 도구와 가이를 활용해 멋진 문자도를 만들어 보세요!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 활동 7: 해 보고 싶은 일 & 픽토그램 Tab Content -->
+        <section id="content-activity7" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+                <div class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold mb-3">활동 7</div>
+                <h2 class="text-2xl sm:text-3xl jua-font text-purple-900 mb-4">해 보고 싶은 일 - 미래 직업 픽토그램 기획</h2>
+                <p class="text-slate-600 mb-6 text-sm">
+                    미래 사회를 예측하고 내가 가장 해 보고 싶은 일을 상징적인 픽토그램 아이디어로 기획해 봅시다.
+                </p>
+
+                <!-- Interactive Pictogram Generator / Selector -->
+                <div class="space-y-6">
+                    <div class="bg-purple-50 p-5 rounded-xl border border-purple-100">
+                        <h3 class="font-bold text-purple-900 mb-3"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>미래 직업 픽토그램 아이디어 템플릿</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-purple-800 mb-1">1. 미래 직업 선택</label>
+                                <select id="future-job-select" class="w-full px-3 py-2 rounded-lg border border-purple-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="우주여행 가이드">우주여행 가이드</option>
+                                    <option value="AI 반려로봇 심리상담사">AI 반려로봇 심리상담사</option>
+                                    <option value="기후변화 환경 복원가">기후변화 환경 복원가</option>
+                                    <option value="드론 교통 제어 전문가">드론 교통 제어 전문가</option>
+                                    <option value="메타버스 아키텍트(건축가)">메타버스 아키텍트(건축가)</option>
+                                    <option value="기타 직접 입력">기타 직접 입력</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-purple-800 mb-1">2. 핵심 상징 아이콘</label>
+                                <select id="future-icon-select" class="w-full px-3 py-2 rounded-lg border border-purple-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="fa-rocket">로켓 (우주)</option>
+                                    <option value="fa-robot">로봇 (AI)</option>
+                                    <option value="fa-leaf">나뭇잎 (환경)</option>
+                                    <option value="fa-plane">비행기/드론 (교통)</option>
+                                    <option value="fa-vr-cardboard">VR/가상현실 (메타버스)</option>
+                                    <option value="fa-heart">하트 (돌봄)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-purple-800 mb-1">3. 내가 이 일을 하고 싶은 이유</label>
+                                <input type="text" id="future-reason-input" placeholder="예: 모두가 안전하게 우주를 여행하도록 돕고 싶어서" class="w-full px-3 py-2 rounded-lg border border-purple-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                        </div>
+                        <button onclick="createPictogramProject()" class="bg-purple-600 text-white font-semibold px-5 py-2.5 rounded-lg text-sm hover:bg-purple-700 transition shadow-sm">픽토그램 기획서 저장하기</button>
+                    </div>
+
+                    <!-- Saved Ideas List -->
+                    <div>
+                        <h4 class="font-bold text-slate-800 mb-3 text-lg"><i class="fa-solid fa-clipboard-list text-purple-600 mr-2"></i>나의 픽토그램 아이디어 보관함</h4>
+                        <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Dynamic items will be added here -->
+                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-slate-500 text-sm text-center italic">
+                                아직 저장된 아이디어가 없습니다. 위 템플릿을 작성해 보세요!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 추천 진로 링크 모음 Tab Content -->
+        <section id="content-links" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+                <div class="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold mb-3">초등 5학년 맞춤형 진로 탐색</div>
+                <h2 class="text-2xl sm:text-3xl jua-font text-blue-900 mb-2">신뢰할 수 있는 공식 진로·직업 탐색 링크 모음</h2>
+                <p class="text-slate-600 mb-6 text-sm">
+                    교육부 및 한국고용정보원, 한국직업능력연구원에서 운영하는 공신력 있는 초등 진로 사이트입니다. 수업 시간 및 가정에서 직업 세계를 넓히는 데 활용해 보세요!
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Link Card 1 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-blue-400 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-child-reaching"></i>
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-base">주니어 워크넷 (Junior Worknet)</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                                초등학생 눈높이에 맞춘 재미있는 직업 정보, 가상 직업 체험, 진로 심리검사 등을 제공하는 어린이 전용 고용노동부 진로 사이트입니다.
+                            </p>
+                        </div>
+                        <a href="https://www.work.go.kr/junior/index.do" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center">
+                            <span>주니어 워크넷 바로가기</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Link Card 2 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-indigo-400 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-compass"></i>
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-base">커리어넷 (CareerNet)</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                                대한민국 대표 진로정보망으로, 초등학생용 학과 정보, 직업 탐색, 미래 직업 트렌드 및 진로 동영상을 풍부하게 제공합니다.
+                            </p>
+                        </div>
+                        <a href="https://www.career.go.kr" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center">
+                            <span>커리어넷 바로가기</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Link Card 3 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-purple-400 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-school"></i>
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-base">진로체험망 꿈길 (GGoomgil)</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                                교육부가 지원하는 전국 진로체험 프로그램 및 기관 정보 검색 사이트로, 학교 및 지역사회에서 참여할 수 있는 다양한 체험처를 안내합니다.
+                            </p>
+                        </div>
+                        <a href="https://www.ggoomgil.go.kr" target="_blank" rel="noopener noreferrer" class="bg-purple-600 hover:bg-purple-700 text-white text-center py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center">
+                            <span>진로체험 꿈길 바로가기</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Link Card 4 (Updated) -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 hover:border-pink-400 transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-lg flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-images"></i>
+                                </div>
+                                <h3 class="font-bold text-slate-800 text-base">구글 - 직업 일러스트 & 픽토그램 검색</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                                직업 문자도와 픽토그램 디자인 아이디어를 얻을 수 있도록 다양한 직업 일러스트와 픽토그램 시각 자료를 바로 모아볼 수 있는 구글 검색 결과 페이지입니다.
+                            </p>
+                        </div>
+                        <a href="https://www.google.com/search?q=%EC%%86%8F%EC%97%85+%EC%9D%il%40%EC%8A%A4%ED%8A%B8+%ED%94%bd%ED%86%A0%EA%B7%[...]" target="_blank" rel="noopener noreferrer" class="bg-pink-600 hover:bg-pink-700 text-white text-center py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center">
+                            <span>구글 직업 일러스트 검색 결과 보기</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-sm text-slate-500">
+        <p>초등학교 5학년 진로와 직업 탐색 활동 지원 웹앱 | 진로 전문교사 제작</p>
+        <p class="text-xs text-slate-400 mt-1">커리어넷(CareerNet) 공식 진로정보 연계</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Tab switching function
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            const targetContent = document.getElementById('content-' + tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
+            // Update Header button styles
+            const tabs = document.querySelectorAll('header nav button');
+            tabs.forEach(btn => {
+                btn.classList.remove('bg-white/20');
+            });
+
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-white/20');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Activity 6: Job Card Generator Preview
+        function generateJobCard() {
+            const title = document.getElementById('job-title-input').value.trim();
+            const tools = document.getElementById('job-tools-input').value.trim();
+            const desc = document.getElementById('job-desc-input').value.trim();
+
+            if (!title) {
+                showToast("탐색할 직업명을 입력해 주세요!");
+                return;
+            }
+
+            document.getElementById('preview-title').innerText = title;
+            document.getElementById('preview-tools').innerText = tools ? `주요 도구: ${tools}` : "주요 도구: -";
+            document.getElementById('preview-desc').innerText = desc ? desc : "직업의 의미와 다짐이 여기에 나타납니다.";
+            
+            showToast("직업 문자도 카드 미리보기가 업데이트되었습니다!");
+        }
+
+        // Activity 7: Pictogram Ideas Storage
+        let ideasList = [];
+
+        function createPictogramProject() {
+            const job = document.getElementById('future-job-select').value;
+            const iconClass = document.getElementById('future-icon-select').value;
+            const reason = document.getElementById('future-reason-input').value.trim();
+
+            if (!reason) {
+                showToast("이 일을 하고 싶은 이유를 적어주세요!");
+                return;
+            }
+
+            const newIdea = { job, iconClass, reason };
+            ideasList.push(newIdea);
+            renderIdeas();
+            showToast("픽토그램 아이디어가 보관함에 저장되었습니다!");
+            document.getElementById('future-reason-input').value = '';
+        }
+
+        function renderIdeas() {
+            const container = document.getElementById('ideas-container');
+            if (ideasList.length === 0) {
+                container.innerHTML = `<div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-slate-500 text-sm text-center italic col-span-2">아직 저장된 아이디어가 없습니다. 위 템플릿을 작성해 보세요!</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            ideasList.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-purple-50/60 border border-purple-200 p-4 rounded-xl flex items-start space-x-3";
+                card.innerHTML = `
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-content text-xl flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid ${item.iconClass}"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-1">
+                            <h5 class="font-bold text-purple-900 jua-font text-base">${item.job}</h5>
+                            <span class="text-xs bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full font-medium">No. ${index + 1}</span>
+                        </div>
+                        <p class="text-xs text-slate-600"><strong class="text-purple-700">이유:</strong> ${item.reason}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Custom non-blocking message box toast
+        function showToast(message) {
+            const existingToast = document.getElementById('custom-toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'custom-toast';
+            toast.className = "fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl z-50 text-sm flex items-center space-x-2 transition-all duration-300";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i><span>${message}</span>`;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

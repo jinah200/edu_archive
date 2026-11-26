@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>우정 한 그릇 - 비빔밥 재료 도안 모음집</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Sans KR, Gaegu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'sans-serif'],
+            hand: ['"Gaegu"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #fbf9f4;
+      color: #334155;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .print-only {
+      display: none;
+    }
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .print-page {
+        page-break-after: always;
+        break-after: page;
+      }
+    }
+    .craft-card {
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .craft-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 28px -6px rgba(234, 88, 12, 0.16);
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-200 selection:text-amber-900">
+
+  <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/90 px-4 sm:px-8 py-3.5 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-2xl shadow-md shadow-orange-500/20 text-white">
+          🍳
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">대인관계 및 의사소통 역량 개발</span>
+            <span class="text-xs font-semibold text-amber-700 hidden sm:inline">활동 5</span>
+          </div>
+          <h1 class="text-lg sm:text-xl font-extrabold text-slate-800 tracking-tight flex items-center gap-1.5">
+            우정 한 그릇 <span class="text-orange-600 font-bold">(비빔밥 재료 도안실)</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Header Action Controls -->
+      <div class="flex items-center space-x-2 text-xs sm:text-sm">
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-white transition flex items-center gap-1.5 shadow-sm">
+          <span>🖨️</span> <span>A4 활동지 인쇄</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="max-w-7xl mx-auto px-4 sm:px-8 pt-7 pb-5 no-print">
+    <div class="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 border-2 border-dashed border-orange-200 shadow-xs relative overflow-hidden">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-orange-300 text-orange-800 text-xs font-bold mb-2.5">
+          <span>📖 교과서 활동 안내</span>
+          <span>친구들과 친밀하게 지내기 위해 어떤 마음(미덕)이 필요할까요?</span>
+        </div>
+        <h2 class="text-xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">
+          비빔밥 재료를 도화지에 그리고, 그 안에 <span class="text-orange-600 underline decoration-amber-400 decoration-wavy">우정의 미덕</span>을 적어보세요!
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mt-2 font-normal">
+          달걀, 당근, 시금치, 콩나물, 고추장 등 서로 다른 재료들이 한 그릇에 모여 최고의 맛을 내듯, 
+          친구마다 가진 고유한 개성을 존중하고 서로 돕는 마음가짐을 아래 도안을 보고 활동지나 도화지에 자유롭게 표현해 보세요.
+        </p>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-orange-200/70 flex flex-wrap items-center justify-between gap-3 text-xs font-semibold text-slate-600">
+        <span class="flex items-center gap-1.5">
+          <span>💡</span> 
+          <span><strong>안내:</strong> 원하는 음식 재료를 클릭하면 <strong>[구글 이미지]</strong>로 바로 연결되어 실물 사진과 다양한 고화질 도안을 크게 보며 따라 그릴 수 있습니다!</span>
+        </span>
+        <span class="bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+          구글 이미지 연동 모드
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 pb-16 no-print">
+    
+    <!-- Category & View Mode Switcher -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-2 border-b border-amber-200/60">
+      
+      <!-- Category Tabs -->
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2" id="category-filter-group">
+        <button onclick="filterCategory('all', this)" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-orange-500 text-white shadow-xs">
+          전체 재료 (13)
+        </button>
+        <button onclick="filterCategory('채소나물류', this)" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+          🥬 채소·나물류 (6)
+        </button>
+        <button onclick="filterCategory('달걀고기류', this)" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+          🍳 달걀·고기류 (2)
+        </button>
+        <button onclick="filterCategory('김고명류', this)" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+          🍙 김·고명류 (2)
+        </button>
+        <button onclick="filterCategory('양념밥그릇', this)" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">
+          🍲 양념·밥·그릇 (3)
+        </button>
+      </div>
+
+      <!-- Mode View Toggle (Outline Drawing vs Colored Preview) -->
+      <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-2xl border border-amber-200 shadow-xs text-xs font-semibold text-slate-700">
+        <span class="text-orange-600 font-bold">도안 모드:</span>
+        <button onclick="toggleViewMode('outline')" id="mode-btn-outline" class="px-2.5 py-1 rounded-xl bg-orange-500 text-white font-bold transition">
+          ✏️ 기본 외곽선
+        </button>
+        <button onclick="toggleViewMode('color')" id="mode-btn-color" class="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition">
+          🎨 채색 참고본
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Count Counter -->
+    <div class="flex items-center justify-between text-xs text-slate-500 mb-5 px-1">
+      <span id="result-count-label">총 13가지 비빔밥 재료 도안이 준비되어 있습니다.</span>
+      <span class="text-blue-600 font-semibold">※ 재료나 이미지를 클릭하면 <strong class="underline">구글 이미지 고화질 사진·도안</strong>으로 바로 이동합니다.</span>
+    </div>
+
+    <div id="ingredient-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Populated dynamically via JavaScript -->
+    </div>
+  </main>
+
+  <div class="print-only p-8 max-w-[210mm] mx-auto text-black">
+    <!-- Header -->
+    <div class="border-b-2 border-black pb-3 mb-6 flex justify-between items-end">
+      <div>
+        <span class="text-xs font-bold border border-black px-2 py-0.5">도덕 / 창체 활동지</span>
+        <h1 class="text-2xl font-black mt-1">활동 5: 우리들의 우정 한 그릇 (비빔밥 만들기)</h1>
+        <p class="text-xs text-gray-600">서로 다른 재료가 어울려 맛있는 비빔밥이 되듯, 친구와 좋은 관계를 맺는 미덕을 담아보세요.</p>
+      </div>
+      <div class="text-right text-xs">
+        <div class="mb-1">_____학년 _____반 _____번</div>
+        <div>이 름: ___________________</div>
+      </div>
+    </div>
+
+    <!-- Printable Big Bowl Drawing Area -->
+    <div class="border-2 border-black rounded-3xl p-6 mb-8 text-center relative h-[380px] flex flex-col justify-between">
+      <div class="text-xs font-bold bg-gray-200 inline-block px-3 py-1 rounded-full mx-auto">
+        [활동 1] 나의 비빔밥 양푼 그릇 (아래 재료 도안을 색칠하고 오려 붙이거나 직접 그려보세요!)
+      </div>
+      
+      <!-- Big Bowl Outline for Students -->
+      <div class="w-72 h-72 rounded-full border-4 border-dashed border-gray-400 mx-auto flex items-center justify-center">
+        <div class="w-24 h-24 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-[10px] text-gray-400">
+          달걀 후라이<br>또는 고추장 자리
+        </div>
+      </div>
+
+      <div class="text-xs text-gray-500 flex justify-around">
+        <span>※ 재료마다 친구에게 주고 싶은 마음(미덕)을 꼭 적어주세요.</span>
+      </div>
+    </div>
+
+    <!-- Page Break for Cutout Materials -->
+    <div class="print-page"></div>
+
+    <div class="border-b-2 border-black pb-2 mb-4 flex justify-between items-center">
+      <h2 class="text-lg font-bold">[활동 2] 오려 붙이기용 비빔밥 재료 도안 모음</h2>
+      <span class="text-xs">선을 따라 예쁘게 오려 활동 1의 그릇에 채워보세요.</span>
+    </div>
+
+    <!-- Cutout Mini Grid -->
+    <div id="print-cutouts-container" class="grid grid-cols-3 gap-4">
+      <!-- Cutout outlines dynamically inserted -->
+    </div>
+  </div>
+
+  <div id="drawing-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl border border-amber-200 flex flex-col max-h-[92vh]">
+      <div class="p-4 sm:p-5 border-b border-amber-100 flex items-center justify-between bg-amber-50/80">
+        <div class="flex items-center gap-3">
+          <span id="modal-emoji" class="text-3xl">🥕</span>
+          <div>
+            <span id="modal-category" class="text-[10px] font-bold uppercase tracking-wider text-orange-700 bg-orange-100 px-2.5 py-0.5 rounded-full">채소</span>
+            <h3 id="modal-title" class="text-lg sm:text-xl font-extrabold text-slate-800">재료 이름</h3>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Google Image Link in Modal Header -->
+          <a id="modal-google-link" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-xs transition">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span>구글 이미지 바로보기 ↗</span>
+          </a>
+          <button onclick="closeDrawingModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-bold transition">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-6 overflow-y-auto space-y-6">
+        <!-- Direct Google Image Banner -->
+        <a id="modal-google-banner" href="#" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 flex items-center justify-between hover:bg-blue-100 transition group">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg shadow-sm">
+              🔍
+            </div>
+            <div>
+              <div class="text-xs font-extrabold text-blue-900 group-hover:text-blue-700">더 많은 고화질 도안 & 실제 음식 사진 찾기</div>
+              <div id="modal-google-query-label" class="text-[11px] text-blue-700">구글 이미지 검색어로 바로 이동합니다.</div>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-blue-600 group-hover:translate-x-0.5 transition flex items-center gap-0.5">
+            구글 이미지 열기 ↗
+          </span>
+        </a>
+
+        <!-- SVG Showcase: Outline vs Color -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center bg-amber-50/50 p-4 rounded-2xl border border-amber-100">
+          <div class="text-center">
+            <span class="text-xs font-bold text-slate-600 mb-1.5 block">✏️ 따라 그릴 외곽선 도안</span>
+            <div id="modal-svg-outline" class="w-48 h-48 mx-auto flex items-center justify-center bg-white p-3 rounded-2xl border-2 border-slate-300 shadow-xs">
+              <!-- SVG outline -->
+            </div>
+          </div>
+          <div class="text-center">
+            <span class="text-xs font-bold text-slate-600 mb-1.5 block">🎨 채색 완성 예시</span>
+            <div id="modal-svg-color" class="w-48 h-48 mx-auto flex items-center justify-center bg-white p-3 rounded-2xl border-2 border-amber-200 shadow-xs">
+              <!-- SVG color -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Step Drawing Guide -->
+        <div>
+          <h4 class="text-sm font-bold text-slate-800 flex items-center gap-1.5 mb-3">
+            <span>✍️</span> 3단계 쉽게 그리는 순서
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs" id="modal-drawing-steps">
+            <!-- Steps injected -->
+          </div>
+        </div>
+
+        <!-- Friendship Virtue Box -->
+        <div class="p-4 rounded-2xl bg-orange-50 border border-orange-200">
+          <div class="flex items-center gap-1.5 mb-1">
+            <span class="text-base">💡</span>
+            <h5 class="text-xs font-bold text-orange-950">이 재료 속에 적으면 어울리는 우정의 미덕</h5>
+          </div>
+          <p id="modal-virtue-text" class="text-xs text-orange-800 leading-relaxed font-medium">
+            미덕 설명
+          </p>
+          <div class="mt-2.5 flex flex-wrap gap-1.5" id="modal-virtue-tags">
+            <!-- Virtue tags -->
+          </div>
+      <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-between items-center">
+        <a id="modal-google-bottom-link" href="#" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-blue-600 hover:text-blue-800 underline flex items-center gap-1">
+          <span>🔍</span> 구글 이미지에서 다른 그림 보기
+        </a>
+        <button onclick="closeDrawingModal()" class="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-bold shadow-sm transition">
+          닫기 (그리기 시작!)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-800 text-white text-xs px-4 py-3 rounded-xl border border-slate-700 shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform translate-y-3">
+    알림 메시지
+  </div>
+
+  <script>
+    const INGREDIENTS = [
+      {
+        id: "egg",
+        name: "달걀 후라이",
+        category: "달걀고기류",
+        categoryLabel: "달걀·고기류",
+        emoji: "🍳",
+        searchQuery: "비빔밥 계란후라이 도안 일러스트",
+        colorDesc: "탱글탱글 노란 노른자와 구름 모양 흰자",
+        meaning: "우정의 중심이자 포근하게 품어주는 배려",
+        steps: [
+          { step: 1, title: "폭신폭신 흰자 테두리", desc: "도화지 중앙에 부드러운 곡선으로 둥글넓적한 계란 흰자 테두리를 크게 그립니다." },
+          { step: 2, title: "볼록한 노른자 원", desc: "흰자의 한가운데에 동그란 보름달 모양 원을 그리고, 오른쪽 위에 반짝이는 빛(하이라이트)을 남깁니다." },
+          { step: 3, title: "미덕 글씨와 채색", desc: "노른자를 칠하고, 넓은 흰자 여백에 [배려]를 또박또박 적어 넣습니다." }
+        ],
+        virtues: ["배려", "따뜻한 포용", "친구 사랑", "소중한 중심"],
+        reason: "비빔밥 한가운데서 모든 재료를 부드럽게 감싸주듯, 친구를 따뜻하게 챙겨주고 감싸주는 마음입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <defs>
+            <radialGradient id="yolkGrad" cx="40%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#FEF08A"/>
+              <stop offset="45%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#D97706"/>
+            </radialGradient>
+          </defs>
+          <path d="M35,80 C20,55 45,25 80,28 C115,22 142,50 135,85 C145,115 118,142 85,138 C45,145 20,120 35,80 Z" fill="#FFFDF5" stroke="#CBD5E1" stroke-width="3.5"/>
+          <circle cx="82" cy="78" r="30" fill="url(#yolkGrad)" stroke="#B45309" stroke-width="2"/>
+          <ellipse cx="72" cy="68" rx="6" ry="4" fill="#FFFFFF" opacity="0.9" transform="rotate(-20 72 68)"/>
+          <circle cx="74" cy="82" r="2.5" fill="#78350F"/>
+          <circle cx="90" cy="82" r="2.5" fill="#78350F"/>
+          <path d="M80,86 Q82,90 84,86" stroke="#78350F" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <path d="M35,80 C20,55 45,25 80,28 C115,22 142,50 135,85 C145,115 118,142 85,138 C45,145 20,120 35,80 Z" fill="none" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+          <circle cx="82" cy="78" r="30" fill="none" stroke="#1E293B" stroke-width="4"/>
+          <ellipse cx="72" cy="68" rx="6" ry="4" fill="none" stroke="#1E293B" stroke-width="2" transform="rotate(-20 72 68)"/>
+          <path d="M42,118 Q82,126 122,118" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+          <text x="82" y="127" font-size="8.5" fill="#64748B" text-anchor="middle" font-weight="bold">[ 이곳에 미덕 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "carrot",
+        name: "당근 채",
+        category: "채소나물류",
+        categoryLabel: "채소·나물류",
+        emoji: "🥕",
+        searchQuery: "비빔밥 볶은 당근채 도안 일러스트",
+        colorDesc: "화사한 주황빛으로 볶아낸 달콤한 당근 채",
+        meaning: "친구에게 기운을 불어넣는 따뜻한 칭찬과 응원",
+        steps: [
+          { step: 1, title: "가지런한 채선 선", desc: "약간 휘어진 가늘고 긴 막대기 모양들을 여러 개 비스듬히 겹쳐 그립니다." },
+          { step: 2, title: "양쪽 모서리 마감", desc: "볶아져서 나긋나긋해진 당근 채의 끝을 둥글게 닫아줍니다." },
+          { step: 3, title: "주황 채색 & 미덕", desc: "밝은 주황색으로 칠하고 넓은 당근 표면에 [칭찬]을 적습니다." }
+        ],
+        virtues: ["칭찬", "비타민 활력", "응원", "다정한 격려"],
+        reason: "선명한 주황빛으로 비빔밥을 환하게 밝히듯, 풀죽은 친구의 마음에 용기를 솟아나게 하는 칭찬입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g stroke="#C2410C" stroke-width="2">
+            <rect x="25" y="38" width="105" height="15" rx="7.5" fill="#EA580C" transform="rotate(-15 75 45)"/>
+            <rect x="35" y="65" width="100" height="14" rx="7" fill="#F97316" transform="rotate(8 85 72)"/>
+            <rect x="20" y="92" width="115" height="16" rx="8" fill="#FB923C" transform="rotate(-6 77 100)"/>
+            <rect x="40" y="118" width="95" height="14" rx="7" fill="#EA580C" transform="rotate(10 87 125)"/>
+          </g>
+          <polygon points="135,32 138,40 146,43 138,46 135,54 132,46 124,43 132,40" fill="#FBBF24"/>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round">
+            <rect x="25" y="38" width="105" height="15" rx="7.5" transform="rotate(-15 75 45)"/>
+            <rect x="35" y="65" width="100" height="14" rx="7" transform="rotate(8 85 72)"/>
+            <rect x="20" y="92" width="115" height="16" rx="8" transform="rotate(-6 77 100)"/>
+            <rect x="40" y="118" width="95" height="14" rx="7" transform="rotate(10 87 125)"/>
+          </g>
+          <text x="80" y="103" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 당근에 칭찬 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "spinach",
+        name: "시금치 나물",
+        category: "채소나물류",
+        categoryLabel: "채소·나물류",
+        emoji: "🥬",
+        searchQuery: "비빔밥 시금치 나물 일러스트 도안",
+        colorDesc: "초록빛 영양과 고소한 참깨가 묻은 잎",
+        meaning: "어려운 일도 함께 이겨내는 끈기와 성실",
+        steps: [
+          { step: 1, title: "도톰한 잎사귀 모음", desc: "나뭇잎 모양의 둥근 타원들을 3~4개 겹쳐 봉긋하게 모아 그립니다." },
+          { step: 2, title: "연결 줄기와 잎맥", desc: "잎사귀 중앙에 나뭇가지처럼 부드러운 줄기 선을 뻗어줍니다." },
+          { step: 3, title: "초록 채색 & 참깨", desc: "진초록색으로 칠하고 위에 통깨 점을 콕콕 찍은 뒤 [성실]을 적습니다." }
+        ],
+        virtues: ["성실", "끈기", "변함없는 우정", "도움"],
+        reason: "깊고 튼튼하게 자라 풍부한 영양을 주는 시금치처럼, 약속을 지키고 묵묵히 곁을 지켜주는 성실함입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g stroke="#064E3B" stroke-width="2" stroke-linejoin="round">
+            <path d="M40,115 C20,75 35,45 65,35 C85,28 105,48 95,80 C90,105 65,115 40,115 Z" fill="#059669"/>
+            <path d="M75,120 C85,85 110,60 130,70 C145,80 140,110 120,122 C100,128 85,125 75,120 Z" fill="#10B981"/>
+            <path d="M68,125 Q68,75 75,48" stroke="#064E3B" stroke-width="3" fill="none"/>
+          </g>
+          <g fill="#FEF08A" stroke="#854D0E" stroke-width="1">
+            <ellipse cx="62" cy="65" rx="2.5" ry="4" transform="rotate(30 62 65)"/>
+            <ellipse cx="88" cy="85" rx="2.5" ry="4" transform="rotate(-25 88 85)"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round">
+            <path d="M40,115 C20,75 35,45 65,35 C85,28 105,48 95,80 C90,105 65,115 40,115 Z"/>
+            <path d="M75,120 C85,85 110,60 130,70 C145,80 140,110 120,122 C100,128 85,125 75,120 Z"/>
+            <path d="M68,125 Q68,75 75,48"/>
+          </g>
+          <text x="75" y="82" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 성실 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "beansprouts",
+        name: "콩나물 무침",
+        category: "채소나물류",
+        categoryLabel: "채소·나물류",
+        emoji: "🌱",
+        searchQuery: "비빔밥 콩나물 무침 도안 일러스트",
+        colorDesc: "노란 모자를 쓴 아삭아삭한 흰 줄기",
+        meaning: "바르고 거짓 없이 마음을 터놓는 솔직함",
+        steps: [
+          { step: 1, title: "노란 콩 머리", desc: "동그란 콩 두 쪽이 살짝 벌어진 귀여운 하트 모양 머리를 3개 그립니다." },
+          { step: 2, title: "춤추는 흰 줄기", desc: "콩 머리 아래로 길쭉하게 곡선으로 휘어지는 줄기를 그립니다." },
+          { step: 3, title: "연노랑 채색 & 미덕", desc: "머리는 밝은 노랑, 줄기는 연한 흰색으로 칠하고 줄기에 [솔직함]을 씁니다." }
+        ],
+        virtues: ["정직", "솔직한 대화", "맑은 순수함", "올바름"],
+        reason: "맑은 물만 먹고 곧고 투명하게 자라는 콩나물처럼, 친구에게 숨김없이 마음을 털어놓는 솔직함입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g stroke="#A16207" stroke-width="2" stroke-linecap="round">
+            <path d="M38,138 Q52,85 45,60 Q40,42 50,38 Q62,34 64,48 Q65,75 52,138" fill="#FEF9C3"/>
+            <ellipse cx="53" cy="38" rx="12" ry="9" fill="#FACC15"/>
+            <path d="M85,142 Q105,95 98,65 Q95,48 108,44 Q120,40 122,55 Q122,88 105,142" fill="#FEF9C3"/>
+            <ellipse cx="112" cy="44" rx="13" ry="9.5" fill="#EAB308"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M38,138 Q52,85 45,60 Q40,42 50,38 Q62,34 64,48 Q65,75 52,138"/>
+            <ellipse cx="53" cy="38" rx="12" ry="9"/>
+            <path d="M85,142 Q105,95 98,65 Q95,48 108,44 Q120,40 122,55 Q122,88 105,142"/>
+            <ellipse cx="112" cy="44" rx="13" ry="9.5"/>
+          </g>
+          <text x="78" y="105" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 줄기에 솔직함 쓰기 ]</text>
+        </svg>`
+      },
+      {
+        id: "beef",
+        name: "소고기 볶음",
+        category: "달걀고기류",
+        categoryLabel: "달걀·고기류",
+        emoji: "🥩",
+        searchQuery: "비빔밥 소고기 고명 볶음 도안 일러스트",
+        colorDesc: "달콤짭조름하게 볶아낸 진갈색 고기 고명",
+        meaning: "어떤 순간에도 친구를 믿고 지켜주는 든든한 신뢰",
+        steps: [
+          { step: 1, title: "소복한 언덕 덩어리", desc: "자갈이나 팝콘처럼 올록볼록한 작은 고기 덩어리들을 둥근 언덕 모양으로 모아 그립니다." },
+          { step: 2, title: "고기 결 주름", desc: "각 덩어리 안에 짧은 곡선들을 넣어 맛있게 볶아진 고기의 질감을 살립니다." },
+          { step: 3, title: "진갈색 채색 & 미덕", desc: "진한 갈색으로 칠하고 든든한 고기 언덕 위에 [신뢰]를 크게 적습니다." }
+        ],
+        virtues: ["믿음과 신뢰", "의리", "용기", "든든한 버팀목"],
+        reason: "비빔밥을 든든하게 해주는 소고기처럼, 친구가 힘들 때 기댈 수 있는 굳건한 신뢰입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g fill="#78350F" stroke="#451A03" stroke-width="2" stroke-linejoin="round">
+            <ellipse cx="55" cy="60" rx="22" ry="16"/>
+            <ellipse cx="95" cy="55" rx="24" ry="17"/>
+            <ellipse cx="78" cy="82" rx="28" ry="19" fill="#881337"/>
+            <ellipse cx="45" cy="98" rx="22" ry="15"/>
+            <ellipse cx="110" cy="90" rx="24" ry="16"/>
+            <ellipse cx="80" cy="115" rx="26" ry="17"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round">
+            <ellipse cx="55" cy="60" rx="22" ry="16"/>
+            <ellipse cx="95" cy="55" rx="24" ry="17"/>
+            <ellipse cx="78" cy="82" rx="28" ry="19"/>
+            <ellipse cx="45" cy="98" rx="22" ry="15"/>
+            <ellipse cx="110" cy="90" rx="24" ry="16"/>
+            <ellipse cx="80" cy="115" rx="26" ry="17"/>
+          </g>
+          <text x="80" y="86" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 고기에 신뢰 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "mushroom",
+        name: "표고버섯 볶음",
+        category: "채소나물류",
+        categoryLabel: "채소·나물류",
+        emoji: "🍄",
+        searchQuery: "비빔밥 표고버섯 볶음 도안 일러스트",
+        colorDesc: "향긋하고 쫄깃한 고동색 버섯 채",
+        meaning: "친구의 고민과 이야기에 귀 기울여주는 경청",
+        steps: [
+          { step: 1, title: "버섯 갓과 기둥", desc: "둥근 우산 모양의 버섯 갓과 아래로 짧게 뻗은 기둥을 그립니다." },
+          { step: 2, title: "십자 별무늬 칼집", desc: "버섯 갓 위에 별처럼 예쁜 십자(*) 칼집 무늬를 새깁니다." },
+          { step: 3, title: "고동색 채색 & 미덕", desc: "따뜻한 밤색으로 칠하고 넓은 버섯 갓 안에 [경청]을 적습니다." }
+        ],
+        virtues: ["경청", "지혜", "깊은 공감", "차분한 이해"],
+        reason: "깊고 그윽한 향으로 맛을 더하듯, 친구의 작은 속삭임도 소중히 들어주는 귀 기울임입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <path d="M68,95 L65,135 C65,142 95,142 95,135 L92,95 Z" fill="#F5EBE1" stroke="#451A03" stroke-width="2.5"/>
+          <path d="M30,95 C22,50 60,30 80,30 C105,30 138,50 130,95 C108,90 52,90 30,95 Z" fill="#6C3E1F" stroke="#381E0D" stroke-width="3" stroke-linejoin="round"/>
+          <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round">
+            <line x1="60" y1="58" x2="100" y2="58"/>
+            <line x1="80" y1="42" x2="80" y2="74"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <path d="M68,95 L65,135 C65,142 95,142 95,135 L92,95 Z" fill="none" stroke="#1E293B" stroke-width="3.5"/>
+          <path d="M30,95 C22,50 60,30 80,30 C105,30 138,50 130,95 C108,90 52,90 30,95 Z" fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+          <g stroke="#1E293B" stroke-width="2.5" stroke-linecap="round">
+            <line x1="60" y1="58" x2="100" y2="58"/>
+            <line x1="80" y1="42" x2="80" y2="74"/>
+          </g>
+          <text x="80" y="85" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 버섯에 경청 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "zucchini",
+        name: "애호박 볶음",
+        category: "채소나물류",
+        categoryLabel: "채소·나물류",
+        emoji: "🥒",
+        searchQuery: "비빔밥 애호박 볶음 도안 일러스트",
+        colorDesc: "연둣빛 부드러운 속살과 초록 껍질의 반달 호박",
+        meaning: "모나지 않고 둥글둥글 감싸주는 양보와 친절",
+        steps: [
+          { step: 1, title: "부드러운 반달 모양", desc: "둥근 수박을 썰어놓은 것처럼 예쁜 반달 부채꼴 모양을 그립니다." },
+          { step: 2, title: "이중 껍질과 씨앗", desc: "바깥 둥근 면에 나란히 껍질 선을 긋고, 가운데에 콕콕 작은 씨앗 점들을 찍습니다." },
+          { step: 3, title: "연둣빛 채색 & 미덕", desc: "속은 연두색, 껍질은 진초록으로 칠하고 넓은 속살에 [양보]를 씁니다." }
+        ],
+        virtues: ["양보", "친절한 미소", "온화함", "부드러운 말씨"],
+        reason: "익을수록 부드럽고 달콤해지는 호박처럼, 친구와 의견이 다를 때 한 걸음 물러서서 너그럽게 양보하는 마음입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g stroke="#14532D" stroke-width="2" stroke-linejoin="round">
+            <path d="M40,110 C40,55 95,35 130,55 L85,110 Z" fill="#BEF264"/>
+            <path d="M40,110 C40,55 95,35 130,55" fill="none" stroke="#15803D" stroke-width="7"/>
+            <path d="M25,125 C25,70 80,45 118,70 L72,125 Z" fill="#D9F99D"/>
+            <path d="M25,125 C25,70 80,45 118,70" fill="none" stroke="#16A34A" stroke-width="7"/>
+            <circle cx="70" cy="85" r="2.5" fill="#84CC16"/>
+            <circle cx="60" cy="95" r="2.5" fill="#84CC16"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round">
+            <path d="M25,125 C25,70 80,45 118,70 L72,125 Z"/>
+            <path d="M25,125 C25,70 80,45 118,70"/>
+            <circle cx="70" cy="85" r="2.5"/>
+            <circle cx="60" cy="95" r="2.5"/>
+          </g>
+          <text x="68" y="100" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 양보 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "radish",
+        name: "무생채 / 도라지",
+        category: "채소나물류",
+        categoryLabel: "채소·나물류",
+        emoji: "🥗",
+        searchQuery: "비빔밥 무생채 도라지나물 도안 일러스트",
+        colorDesc: "새콤달콤 빨간 무생채 또는 뽀얀 도라지",
+        meaning: "오해를 털어내고 친구를 보듬는 용서와 화해",
+        steps: [
+          { step: 1, title: "지그재그 아삭한 채", desc: "손가락 마디처럼 길쭉하고 끝이 뾰족한 직사각형 채들을 겹쳐 그립니다." },
+          { step: 2, title: "양념 결 묘사", desc: "아삭아삭한 질감이 느껴지도록 모서리를 깔끔하게 이어줍니다." },
+          { step: 3, title: "빨간 채색 & 미덕", desc: "새콤달콤한 주홍빛으로 칠하고 무채 속에 [용서]를 적습니다." }
+        ],
+        virtues: ["용서", "너그러운 화해", "새로운 시작", "솔직한 사과"],
+        reason: "텁텁한 입맛을 개운하게 씻어주는 무생채처럼, 친구와 다툰 뒤 마음의 앙금을 털어내고 먼저 건네는 화해입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g stroke="#991B1B" stroke-width="2" stroke-linejoin="round">
+            <rect x="25" y="45" width="100" height="13" rx="6.5" fill="#EF4444" transform="rotate(-12 75 51)"/>
+            <rect x="35" y="70" width="95" height="13" rx="6.5" fill="#F87171" transform="rotate(7 82 76)"/>
+            <rect x="20" y="95" width="110" height="14" rx="7" fill="#DC2626" transform="rotate(-5 75 102)"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round">
+            <rect x="25" y="45" width="100" height="13" rx="6.5" transform="rotate(-12 75 51)"/>
+            <rect x="35" y="70" width="95" height="13" rx="6.5" transform="rotate(7 82 76)"/>
+            <rect x="20" y="95" width="110" height="14" rx="7" transform="rotate(-5 75 102)"/>
+          </g>
+          <text x="80" y="103" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 무채에 용서 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "gim",
+        name: "바삭 김가루",
+        category: "김고명류",
+        categoryLabel: "김·고명류",
+        emoji: "🍙",
+        searchQuery: "비빔밥 김가루 고명 도안 일러스트",
+        colorDesc: "고소하고 짭조름하게 부숴 올린 검은 김 고명",
+        meaning: "친구가 말하지 않아도 알아채는 섬세한 배려와 비밀 지키기",
+        steps: [
+          { step: 1, title: "자잘한 종이 리본 조각", desc: "가위로 자른 종이 리본처럼 얇고 납작한 네모 조각들을 흩날리듯 그립니다." },
+          { step: 2, title: "소복한 겹침", desc: "조각들이 서로 교차하며 재미있게 겹치도록 배치합니다." },
+          { step: 3, title: "검정 채색 & 미덕", desc: "진한 흑갈색으로 칠하고 [비밀 지키기]를 적습니다." }
+        ],
+        virtues: ["비밀 지키기", "섬세함", "친구 보호", "묵묵한 응원"],
+        reason: "모든 재료 위를 살포시 덮어 맛을 완성하듯, 친구의 소중한 비밀을 지켜주고 묵묵히 덮어주는 의리입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g fill="#1E293B" stroke="#0F172A" stroke-width="1.8" stroke-linejoin="round">
+            <rect x="30" y="40" width="45" height="12" rx="3" transform="rotate(-25 52 46)"/>
+            <rect x="75" y="35" width="55" height="11" rx="3" transform="rotate(15 102 40)"/>
+            <rect x="45" y="70" width="65" height="13" rx="3" transform="rotate(-5 77 76)"/>
+            <rect x="25" y="95" width="55" height="12" rx="3" transform="rotate(20 52 101)"/>
+            <rect x="85" y="88" width="50" height="11" rx="3" transform="rotate(-15 110 93)"/>
+          </g>
+          <ellipse cx="65" cy="74" rx="2" ry="3.5" fill="#FEF08A"/>
+          <ellipse cx="100" cy="92" rx="2" ry="3.5" fill="#FEF08A"/>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round">
+            <rect x="30" y="40" width="45" height="12" rx="3" transform="rotate(-25 52 46)"/>
+            <rect x="75" y="35" width="55" height="11" rx="3" transform="rotate(15 102 40)"/>
+            <rect x="45" y="70" width="65" height="13" rx="3" transform="rotate(-5 77 76)"/>
+            <rect x="25" y="95" width="55" height="12" rx="3" transform="rotate(20 52 101)"/>
+            <rect x="85" y="88" width="50" height="11" rx="3" transform="rotate(-15 110 93)"/>
+          </g>
+          <text x="80" y="80" font-size="8.5" fill="#64748B" font-weight="bold" text-anchor="middle">[ 비밀 지키기 ]</text>
+        </svg>`
+      },
+      {
+        id: "sesame",
+        name: "볶은 통깨",
+        category: "김고명류",
+        categoryLabel: "김·고명류",
+        emoji: "✨",
+        searchQuery: "비빔밥 통깨 참기름 고명 일러스트",
+        colorDesc: "솔솔 뿌려 고소한 향을 돋우는 참깨",
+        meaning: "친구의 기분을 좋게 만드는 밝은 미소와 칭찬",
+        steps: [
+          { step: 1, title: "작은 물방울 타원", desc: "쌀알보다 작고 통통한 물방울 타원들을 여러 개 그립니다." },
+          { step: 2, title: "솔솔 흩뿌리기", desc: "바람에 날리듯 자유로운 방향으로 깨알들을 흩뿌려 배치합니다." },
+          { step: 3, title: "연노랑 채색 & 미덕", desc: "고소한 황금색으로 칠하고 큼직한 깨알 옆에 [밝은 미소]를 씁니다." }
+        ],
+        virtues: ["밝은 미소", "기쁨", "친근함", "센스 있는 한마디"],
+        reason: "작은 한 알 한 알이 모여 고소함을 풍기듯, 친구를 볼 때마다 짓는 환한 미소입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <g fill="#FEF08A" stroke="#78350F" stroke-width="1.5">
+            <ellipse cx="45" cy="50" rx="5" ry="8" transform="rotate(-30 45 50)"/>
+            <ellipse cx="80" cy="40" rx="5" ry="8" transform="rotate(20 80 40)"/>
+            <ellipse cx="115" cy="55" rx="5" ry="8" transform="rotate(-15 115 55)"/>
+            <ellipse cx="60" cy="85" rx="6" ry="9" transform="rotate(45 60 85)"/>
+            <ellipse cx="100" cy="85" rx="6" ry="9" transform="rotate(-40 100 85)"/>
+            <ellipse cx="75" cy="120" rx="5" ry="8" transform="rotate(10 75 120)"/>
+          </g>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <g fill="none" stroke="#1E293B" stroke-width="3">
+            <ellipse cx="45" cy="50" rx="5" ry="8" transform="rotate(-30 45 50)"/>
+            <ellipse cx="80" cy="40" rx="5" ry="8" transform="rotate(20 80 40)"/>
+            <ellipse cx="115" cy="55" rx="5" ry="8" transform="rotate(-15 115 55)"/>
+            <ellipse cx="60" cy="85" rx="6" ry="9" transform="rotate(45 60 85)"/>
+            <ellipse cx="100" cy="85" rx="6" ry="9" transform="rotate(-40 100 85)"/>
+            <ellipse cx="75" cy="120" rx="5" ry="8" transform="rotate(10 75 120)"/>
+          </g>
+          <text x="80" y="105" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 깨알에 미소 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "gochujang",
+        name: "약고추장 양념",
+        category: "양념밥그릇",
+        categoryLabel: "양념·밥·그릇",
+        emoji: "🌶️",
+        searchQuery: "비빔밥 고추장 양념 도안 일러스트",
+        colorDesc: "모든 재료를 하나로 비벼주는 윤기 나는 붉은 양념",
+        meaning: "서로 다른 친구들을 하나로 이어주는 화합과 협동",
+        steps: [
+          { step: 1, title: "볼록한 양념 볼", desc: "통통한 물방울이나 소용돌이 모양으로 봉긋하게 솟은 고추장을 그립니다." },
+          { step: 2, title: "찰진 윤기 광택", desc: "꿀과 참기름이 섞인 찰진 윤기를 나타내는 곡선 빛 반사를 넣어줍니다." },
+          { step: 3, title: "새빨간 채색 & 미덕", desc: "열정적인 빨간색으로 칠하고 양념 한가운데에 [협동]을 씁니다." }
+        ],
+        virtues: ["협동", "화합", "열정", "모두를 잇는 다리"],
+        reason: "제각각의 맛을 가진 재료들을 하나로 묶어주듯, 친구들이 서로 잘 어울리도록 돕는 협동심입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <path d="M80,25 C65,52 35,75 40,110 C45,138 115,138 120,110 C125,75 95,52 80,25 Z" fill="#DC2626" stroke="#991B1B" stroke-width="3" stroke-linejoin="round"/>
+          <ellipse cx="70" cy="85" rx="7" ry="18" fill="#F87171" transform="rotate(-20 70 85)" opacity="0.8"/>
+          <circle cx="72" cy="100" r="2.5" fill="#7F1D1D"/>
+          <circle cx="88" cy="100" r="2.5" fill="#7F1D1D"/>
+          <path d="M78,107 Q80,110 83,107" stroke="#7F1D1D" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <path d="M80,25 C65,52 35,75 40,110 C45,138 115,138 120,110 C125,75 95,52 80,25 Z" fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+          <ellipse cx="70" cy="85" rx="7" ry="18" fill="none" stroke="#1E293B" stroke-width="2" transform="rotate(-20 70 85)"/>
+          <text x="80" y="95" font-size="9.5" fill="#64748B" font-weight="bold" text-anchor="middle">[ 고추장에 협동 쓰기 ]</text>
+        </svg>`
+      },
+      {
+        id: "rice",
+        name: "고슬고슬 흰 쌀밥",
+        category: "양념밥그릇",
+        categoryLabel: "양념·밥·그릇",
+        emoji: "🍚",
+        searchQuery: "비빔밥 밥공기 쌀밥 도안 일러스트",
+        colorDesc: "모든 재료를 묵묵히 받쳐주는 든든한 밥알",
+        meaning: "우정의 가장 깊은 밑바탕이 되는 정직과 기본 예의",
+        steps: [
+          { step: 1, title: "소복한 밥공기 산", desc: "밥그릇 위로 둥글게 솟아오른 포근한 언덕 모양을 그립니다." },
+          { step: 2, title: "따뜻한 김 모락모락", desc: "김이 모락모락 피어오르는 부드러운 곡선 2~3줄을 올립니다." },
+          { step: 3, title: "밝은 채색 & 미덕", desc: "포근한 흰색과 연회색 음영을 칠하고 [기본 예의]를 적습니다." }
+        ],
+        virtues: ["기본 예의", "정직한 마음", "든든한 바탕", "따뜻한 온기"],
+        reason: "밥이 없으면 비빔밥이 될 수 없듯이, 서로를 존중하는 예의와 신뢰가 있어야 우정이 유지됩니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <path d="M60,25 Q65,15 60,8" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M80,23 Q85,13 80,6" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M100,25 Q105,15 100,8" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M25,100 C20,60 50,30 80,30 C110,30 140,60 135,100 Z" fill="#FFFDF8" stroke="#CBD5E1" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M22,98 C25,140 50,150 80,150 C110,150 135,140 138,98 Z" fill="#E2E8F0" stroke="#64748B" stroke-width="3"/>
+          <ellipse cx="80" cy="98" rx="58" ry="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.8"/>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <path d="M25,100 C20,60 50,30 80,30 C110,30 140,60 135,100 Z" fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+          <path d="M22,98 C25,140 50,150 80,150 C110,150 135,140 138,98 Z" fill="none" stroke="#1E293B" stroke-width="3.5"/>
+          <ellipse cx="80" cy="98" rx="58" ry="12" fill="none" stroke="#1E293B" stroke-width="2"/>
+          <text x="80" y="70" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 따뜻한 예의 적기 ]</text>
+        </svg>`
+      },
+      {
+        id: "bowl",
+        name: "우정의 큰 양푼 그릇",
+        category: "양념밥그릇",
+        categoryLabel: "양념·밥·그릇",
+        emoji: "🍲",
+        searchQuery: "비빔밥 양푼 냄비 그릇 도안 일러스트",
+        colorDesc: "요리사 모자를 쓴 교과서 삽화 속 우정 양푼 냄비",
+        meaning: "모든 친구의 다름을 차별 없이 품어주는 너른 마음",
+        steps: [
+          { step: 1, title: "넓은 냄비 테두리", desc: "가로로 길쭉한 커다란 타원을 그리고 양쪽에 손잡이 귀를 그립니다." },
+          { step: 2, title: "요리사 친구", desc: "냄비 뒤로 요리사 모자를 쓰고 주걱을 든 귀여운 친구 얼굴을 그립니다." },
+          { step: 3, title: "몸체 채색 & 미덕", desc: "냄비 몸체에 '우정 비빔밥'이라고 쓰고 우리 반의 [존중]을 씁니다." }
+        ],
+        virtues: ["존중", "너른 포용", "다양성 인정", "우리 공동체"],
+        reason: "재료의 모양이 제각각이어도 모두 품어내는 양푼처럼, 나와 다른 생각과 개성을 가진 친구도 편견 없이 존중하는 태도입니다.",
+        svgColor: `<svg viewBox="0 0 160 160" class="w-full h-full drop-shadow-md">
+          <circle cx="80" cy="40" r="16" fill="#FDE047" stroke="#713F12" stroke-width="2"/>
+          <path d="M68,26 C62,18 72,8 80,10 C88,8 98,18 92,26 Z" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+          <rect x="68" y="24" width="24" height="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.5"/>
+          <circle cx="75" cy="38" r="2" fill="#713F12"/>
+          <circle cx="85" cy="38" r="2" fill="#713F12"/>
+          <ellipse cx="80" cy="85" rx="65" ry="22" fill="#E2E8F0" stroke="#334155" stroke-width="2.5"/>
+          <path d="M15,85 C18,135 45,148 80,148 C115,148 142,135 145,85 Z" fill="#94A3B8" stroke="#1E293B" stroke-width="3"/>
+          <ellipse cx="80" cy="85" rx="55" ry="16" fill="#FFFBEB" stroke="#CBD5E1" stroke-width="1.8"/>
+          <rect x="5" y="80" width="10" height="18" rx="4" fill="#475569" stroke="#1E293B" stroke-width="1.8"/>
+          <rect x="145" y="80" width="10" height="18" rx="4" fill="#475569" stroke="#1E293B" stroke-width="1.8"/>
+          <rect x="55" y="112" width="50" height="16" rx="5" fill="#3B82F6" stroke="#1D4ED8" stroke-width="1.5"/>
+          <text x="80" y="123" font-size="8.5" fill="#FFFFFF" font-weight="extrabold" text-anchor="middle">비 빔 밥</text>
+        </svg>`,
+        svgOutline: `<svg viewBox="0 0 160 160" class="w-full h-full">
+          <circle cx="80" cy="40" r="16" fill="none" stroke="#1E293B" stroke-width="3"/>
+          <path d="M68,26 C62,18 72,8 80,10 C88,8 98,18 92,26 Z" fill="none" stroke="#1E293B" stroke-width="3"/>
+          <ellipse cx="80" cy="85" rx="65" ry="22" fill="none" stroke="#1E293B" stroke-width="3.5"/>
+          <path d="M15,85 C18,135 45,148 80,148 C115,148 142,135 145,85 Z" fill="none" stroke="#1E293B" stroke-width="3.5"/>
+          <rect x="5" y="80" width="10" height="18" rx="4" fill="none" stroke="#1E293B" stroke-width="2.5"/>
+          <rect x="145" y="80" width="10" height="18" rx="4" fill="none" stroke="#1E293B" stroke-width="2.5"/>
+          <text x="80" y="122" font-size="9" fill="#64748B" font-weight="bold" text-anchor="middle">[ 큰 양푼에 존중 적기 ]</text>
+        </svg>`
+      }
+    ];
+
+    let currentCategory = 'all';
+    let currentViewMode = 'outline'; // 'outline' default for easy drawing!
+
+    function getGoogleImageUrl(query) {
+      return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
+    }
+
+    function openGoogleImage(id) {
+      const item = INGREDIENTS.find(i => i.id === id);
+      if (!item) return;
+      const url = getGoogleImageUrl(item.searchQuery);
+      window.open(url, '_blank', 'noopener,noreferrer');
+      showToast(`🔍 '${item.name}'의 구글 이미지 검색창을 열었습니다.`);
+    }
+
+    function renderIngredients() {
+      const container = document.getElementById('ingredient-grid');
+      const countLabel = document.getElementById('result-count-label');
+      container.innerHTML = '';
+
+      const filtered = INGREDIENTS.filter(item => {
+        if (currentCategory === 'all') return true;
+        return item.category === currentCategory;
+      });
+
+      countLabel.textContent = `총 ${filtered.length}가지 비빔밥 재료 도안이 표시되고 있습니다.`;
+
+      filtered.forEach(item => {
+        const googleUrl = getGoogleImageUrl(item.searchQuery);
+        const card = document.createElement('div');
+        card.className = "craft-card bg-white rounded-3xl p-5 border-2 border-amber-200/90 shadow-sm flex flex-col justify-between group relative overflow-hidden";
+
+        const currentSvg = currentViewMode === 'color' ? item.svgColor : item.svgOutline;
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 border border-orange-200">
+                ${item.categoryLabel}
+              </span>
+              <!-- Google Image Quick Link Badge -->
+              <a 
+                href="${googleUrl}" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onclick="event.stopPropagation();"
+                class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white border border-blue-200 transition flex items-center gap-1 shadow-xs"
+                title="새 창에서 '${item.searchQuery}' 구글 이미지 검색 열기">
+                <span>🔍 구글이미지</span>
+                <span class="text-[9px]">↗</span>
+              </a>
+            </div>
+
+            <!-- SVG Illustration Container - Clicking opens Google Image directly -->
+            <div 
+              onclick="openGoogleImage('${item.id}')" 
+              title="클릭하면 구글 이미지에서 '${item.name}'의 다양한 실제 사진과 도안을 봅니다"
+              class="relative w-full aspect-square rounded-2xl bg-amber-50/60 p-4 border-2 border-dashed border-amber-300 cursor-pointer flex items-center justify-center group-hover:bg-blue-50/50 group-hover:border-blue-400 transition">
+              <div class="w-36 h-36 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
+                ${currentSvg}
+              </div>
+              <div class="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-950/15 rounded-2xl flex items-center justify-center transition">
+                <div class="bg-blue-600/95 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition flex items-center gap-1.5">
+                  <span>🔍</span> <span>구글 이미지 바로보기</span>
+                </div>
+              </div>
+              <div class="absolute bottom-2.5 right-2.5 bg-white/95 border border-amber-300 rounded-xl px-2 py-0.5 text-[10px] font-bold text-slate-700 shadow-xs flex items-center gap-1">
+                <span>🔍</span> 구글 이미지
+              </div>
+            </div>
+
+            <div class="mt-3.5">
+              <div class="flex items-center justify-between">
+                <h3 
+                  onclick="openGoogleImage('${item.id}')"
+                  class="text-base font-extrabold text-slate-800 flex items-center gap-1.5 cursor-pointer hover:text-blue-600 transition">
+                  <span class="text-xl">${item.emoji}</span>
+                  <span>${item.name}</span>
+                </h3>
+                <span class="text-[10px] text-slate-400 font-medium">${item.meaning}</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1 font-normal leading-relaxed">
+                ${item.colorDesc}
+              </p>
+            </div>
+
+            <!-- Friendship Virtues Recommendations -->
+            <div class="mt-3 p-2.5 rounded-2xl bg-orange-50 border border-orange-200 text-xs">
+              <div class="text-[11px] font-bold text-orange-950 mb-1 flex items-center gap-1">
+                <span>❤️</span> 어울리는 우정 미덕
+              </div>
+              <div class="flex flex-wrap gap-1">
+                ${item.virtues.map(v => `<span class="bg-white text-orange-800 border border-orange-300 text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs">${v}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual Action Buttons: Google Image Link + 3-Step Modal -->
+          <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+            <a 
+              href="${googleUrl}" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="py-2 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow-xs">
+              <span>🔍</span> <span>구글 이미지</span>
+            </a>
+            <button 
+              onclick="openDrawingModal('${item.id}')" 
+              class="py-2 px-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition flex items-center justify-center gap-1 shadow-xs">
+              <span>✍️</span> <span>그리기 가이드</span>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.className = "cat-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50";
+      });
+      btn.className = "cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-orange-500 text-white shadow-xs";
+      renderIngredients();
+    }
+
+    function toggleViewMode(mode) {
+      currentViewMode = mode;
+      const outlineBtn = document.getElementById('mode-btn-outline');
+      const colorBtn = document.getElementById('mode-btn-color');
+
+      if (mode === 'outline') {
+        outlineBtn.className = "px-2.5 py-1 rounded-xl bg-orange-500 text-white font-bold transition";
+        colorBtn.className = "px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition";
+        showToast("✏️ '외곽선 도안 모드'입니다. 재료를 누르면 구글 이미지로 연결됩니다.");
+      } else {
+        colorBtn.className = "px-2.5 py-1 rounded-xl bg-orange-500 text-white font-bold transition";
+        outlineBtn.className = "px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition";
+        showToast("🎨 '채색 참고본 모드'입니다. 재료를 누르면 구글 이미지로 연결됩니다.");
+      }
+
+      renderIngredients();
+    }
+
+    function openDrawingModal(id) {
+      const item = INGREDIENTS.find(i => i.id === id);
+      if (!item) return;
+
+      const googleUrl = getGoogleImageUrl(item.searchQuery);
+
+      document.getElementById('modal-emoji').textContent = item.emoji;
+      document.getElementById('modal-category').textContent = item.categoryLabel;
+      document.getElementById('modal-title').textContent = `${item.name} 도안 & 그리는 방법`;
+
+      // Update Google links in modal
+      document.getElementById('modal-google-link').href = googleUrl;
+      document.getElementById('modal-google-banner').href = googleUrl;
+      document.getElementById('modal-google-bottom-link').href = googleUrl;
+      document.getElementById('modal-google-query-label').textContent = `검색어: "${item.searchQuery}" (클릭 시 새 창 열림)`;
+
+      document.getElementById('modal-svg-outline').innerHTML = item.svgOutline;
+      document.getElementById('modal-svg-color').innerHTML = item.svgColor;
+
+      const stepsContainer = document.getElementById('modal-drawing-steps');
+      stepsContainer.innerHTML = '';
+      item.steps.forEach(st => {
+        const stepBox = document.createElement('div');
+        stepBox.className = "p-3 rounded-xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between";
+        stepBox.innerHTML = `
+          <div>
+            <span class="inline-block px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 font-extrabold text-[10px] mb-1">
+              ${st.step}단계
+            </span>
+            <strong class="block text-slate-800 text-xs mb-1">${st.title}</strong>
+            <p class="text-slate-500 text-[11px] leading-relaxed">${st.desc}</p>
+          </div>
+        `;
+        stepsContainer.appendChild(stepBox);
+      });
+
+      document.getElementById('modal-virtue-text').textContent = item.reason;
+
+      const tagsContainer = document.getElementById('modal-virtue-tags');
+      tagsContainer.innerHTML = item.virtues.map(v => `
+        <span class="px-2.5 py-1 rounded-lg bg-white border border-orange-300 text-orange-900 text-xs font-bold shadow-xs">
+          ★ ${v}
+        </span>
+      `).join('');
+
+      document.getElementById('drawing-modal').classList.remove('hidden');
+    }
+
+    function closeDrawingModal() {
+      document.getElementById('drawing-modal').classList.add('hidden');
+    }
+
+    function renderPrintCutouts() {
+      const container = document.getElementById('print-cutouts-container');
+      container.innerHTML = '';
+
+      INGREDIENTS.forEach(item => {
+        if (item.id === 'bowl') return; // Exclude big bowl from small cutout boxes
+        const box = document.createElement('div');
+        box.className = "border-2 border-dashed border-gray-400 rounded-xl p-3 text-center flex flex-col justify-between h-48";
+        box.innerHTML = `
+          <div class="text-[11px] font-bold flex justify-between items-center text-gray-700">
+            <span>✂ ${item.name}</span>
+            <span class="text-[9px] border border-gray-300 px-1 rounded">${item.categoryLabel}</span>
+          </div>
+          <div class="w-24 h-24 mx-auto my-1 flex items-center justify-center">
+            ${item.svgOutline}
+          </div>
+          <div class="text-[10px] text-gray-500 border-t border-gray-200 pt-1">
+            내 마음의 미덕: [ _________________ ]
+          </div>
+        `;
+        container.appendChild(box);
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }, 3000);
+    }
+
+    // Close modal on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawingModal();
+    });
+
+    // Initialize application on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderIngredients();
+      renderPrintCutouts();
+    });
+  </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 동네 법 이야기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #e0f2fe, #f0f8ff); /* Light blue to very light blue gradient */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .header {
+            background: linear-gradient(to right, #6366f1, #8b5cf6); /* Purple to indigo gradient */
+            color: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: rotate(-30deg);
+        }
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header p {
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        .law-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            border: 2px solid transparent; /* Initial transparent border */
+            display: flex;
+            align-items: flex-start;
+        }
+        .law-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            border-color: #8b5cf6; /* Highlight border on hover */
+        }
+        .law-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            color: #6366f1; /* Icon color */
+            flex-shrink: 0;
+        }
+        .law-content-wrapper {
+            flex-grow: 1;
+        }
+        .law-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c5282;
+            margin-bottom: 10px;
+            cursor: pointer; /* Indicate clickable */
+            transition: color 0.2s ease-in-out;
+        }
+        .law-title:hover {
+            color: #4a90e2; /* Change color on hover */
+        }
+        .law-purpose {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            cursor: pointer; /* Indicate clickable */
+            transition: color 0.2s ease-in-out;
+        }
+        .law-purpose:hover {
+            color: #444; /* Slightly darker on hover */
+        }
+        .law-detail-content {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.7;
+            display: none; /* Initially hidden */
+            padding-top: 10px;
+            border-top: 1px dashed #e0e0e0;
+            margin-top: 15px;
+            cursor: pointer; /* Indicate clickable */
+            transition: color 0.2s ease-in-out;
+        }
+        .law-detail-content:hover {
+            color: #555; /* Slightly darker on hover */
+        }
+        .toggle-button {
+            background: linear-gradient(to right, #4a90e2, #667eea); /* Blue to indigo gradient */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #777;
+            font-size: 0.95rem;
+            background-color: #f0f4f8;
+            border-top: 1px solid #e0e0e0;
+            border-radius: 12px 12px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="text-4xl font-bold mb-2">✨ 우리 동네 법 이야기 ✨</h1>
+            <p class="text-lg">초등학교 5학년 친구들을 위한 재미있는 법률 탐험!</p>
+        </header>
+
+        <main>
+            <!-- 법령 카드 목록 -->
+            <div id="law-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 각 법령은 JavaScript로 동적으로 추가됩니다. -->
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 우리 동네 법 이야기. 모든 권리 보유.</p>
+        <p>참고: 국가법령정보센터 (www.law.go.kr)</p>
+    </footer>
+
+    <script>
+        // 초등학교 5학년에게 유용한 10가지 법령 데이터
+        const laws = [
+            {
+                id: "education-basic-law",
+                icon: "📚", // Book icon
+                name: "교육기본법",
+                purpose: "교육에 관한 국민의 권리·의무 및 국가·지방자치단체의 책임을 정하고 교육제도와 그 운영에 관한 기본적 사항을 규정하여 교육의 자주성·전문성·민주성 및 공정성을 확보하고 교육의 본질적 목표를 달성함을 목적으로 합니다.",
+                content: "모든 국민은 능력에 따라 균등하게 교육을 받을 권리를 가집니다. 부모 등 보호자는 자녀 또는 아동이 바른 인성을 가지고 건강하게 성장하도록 교육할 권리와 책임을 가집니다. 학교는 학생의 교육 외에 학술 및 문화적 전통의 유지·발전과 주민의 평생교육을 위하여 노력해야 합니다."
+            },
+            {
+                id: "elementary-secondary-education-law",
+                icon: "🏫", // School icon
+                name: "초·중등교육법",
+                purpose: "초·중등교육에 관한 사항을 정하여 교육의 기회균등을 보장하고 교육의 자주성·전문성·민주성 및 공정성을 확보하며 교육의 본질적 목표를 달성함을 목적으로 합니다.",
+                content: "모든 국민은 보호하는 자녀 또는 아동이 6세가 된 날이 속하는 해의 다음 해 3월 1일에 그 자녀 또는 아동을 초등학교에 입학시켜야 하고, 초등학교를 졸업할 때까지 다니게 하여야 합니다. 학교의 장은 학생의 교육에 필요한 시설·설비를 갖추고 안전하고 쾌적한 교육환경을 조성해야 합니다."
+            },
+            {
+                id: "child-welfare-act",
+                icon: "💖", // Heart icon
+                name: "아동복지법",
+                purpose: "아동이 건강하게 출생하여 행복하고 안전하게 자라나도록 그 복지를 보장함을 목적으로 합니다.",
+                content: "모든 아동은 자신 또는 부모의 성별, 연령, 종교, 사회적 신분, 재산, 장애 유무 등에 따른 어떠한 종류의 차별도 받지 아니하고 자라나야 합니다. 누구든지 아동에게 신체적 고통이나 정신적 고통을 줄 수 있는 행위를 하여서는 아니 됩니다."
+            },
+            {
+                id: "juvenile-protection-act",
+                icon: "🛡️", // Shield icon
+                name: "청소년 보호법",
+                purpose: "청소년을 유해한 환경으로부터 보호하고 건전한 인격체로 성장하도록 함을 목적으로 합니다.",
+                content: "청소년에게 유해한 매체물과 약물 등이 유통되지 않도록 하고, 청소년이 유해한 환경에 노출되지 않도록 보호해야 합니다. 청소년은 자신을 보호받을 권리가 있으며, 건전한 인격체로 성장할 수 있도록 사회와 국가의 지원을 받아야 합니다."
+            },
+            {
+                id: "road-traffic-act",
+                icon: "🚦", // Traffic light icon
+                name: "도로교통법",
+                purpose: "도로에서 일어나는 교통상의 위험과 장해를 방지하고 제거하여 안전하고 원활한 교통을 확보함을 목적으로 합니다.",
+                content: "보행자는 보도와 차도가 구분된 도로에서는 언제나 보도로 통행해야 합니다. 횡단보도를 건널 때에는 신호등의 지시에 따르거나 좌우를 잘 살피고 안전하게 건너야 합니다. 어린이 보호구역에서는 운전자가 특별히 주의하여 운전해야 합니다."
+            },
+            {
+                id: "school-safety-act",
+                icon: "🚨", // Siren icon
+                name: "학교안전사고 예방 및 보상에 관한 법률",
+                purpose: "학교안전사고를 예방하고 학교안전사고로 인하여 발생한 피해를 보상함으로써 학생·교직원 및 교육활동참여자의 안전을 확보함을 목적으로 합니다.",
+                content: "학교의 장은 학교안전사고 예방을 위한 계획을 수립하고 시행해야 합니다. 학교안전사고가 발생했을 경우, 피해 학생은 적절한 보상을 받을 수 있습니다. 학생들은 학교에서 안전 수칙을 잘 지켜야 합니다."
+            },
+            {
+                id: "food-hygiene-act",
+                icon: "🍎", // Apple icon
+                name: "식품위생법",
+                purpose: "식품으로 인하여 생기는 위생상의 위해를 방지하고 식품영양의 질적 향상을 도모하여 국민 보건 증진에 이바지함을 목적으로 합니다.",
+                content: "안전하고 위생적인 식품을 제조·가공·유통·판매해야 합니다. 학교 급식은 위생적이고 영양 균형을 고려하여 제공되어야 합니다. 학생들은 불량식품을 사 먹지 않도록 주의해야 합니다."
+            },
+            {
+                id: "personal-information-protection-act",
+                icon: "🔒", // Lock icon
+                name: "개인정보 보호법",
+                purpose: "개인정보의 처리 및 보호에 관한 사항을 정함으로써 개인의 자유와 권리를 보호하고, 나아가 개인의 존엄과 가치를 구현함을 목적으로 합니다.",
+                content: "자신의 개인정보는 소중하게 보호되어야 합니다. 다른 사람의 개인정보를 함부로 수집하거나 이용하거나 제공해서는 안 됩니다. 인터넷에서 개인정보를 입력할 때는 항상 신중해야 합니다."
+            },
+            {
+                id: "copyright-act",
+                icon: "✍️", // Writing hand icon
+                name: "저작권법",
+                purpose: "저작자의 권리와 이에 인접하는 권리를 보호하고 저작물의 공정한 이용을 도모함으로써 문화 및 관련 산업의 향상발전에 이바지함을 목적으로 합니다.",
+                content: "다른 사람이 만든 그림, 글, 음악, 영상 등을 허락 없이 사용하면 안 됩니다. 학교 숙제를 할 때 다른 사람의 자료를 참고할 경우 반드시 출처를 밝혀야 합니다. 자신의 창작물은 저작권법에 의해 보호받을 수 있습니다."
+            },
+            {
+                id: "crime-victims-protection-act",
+                icon: "�", // Handshake icon
+                name: "범죄피해자 보호법",
+                purpose: "범죄피해자의 권익을 옹호하고 보호·지원함으로써 범죄피해자가 건강한 사회구성원으로 복귀할 수 있도록 함을 목적으로 합니다.",
+                content: "범죄 피해를 당했을 때에는 도움을 요청할 수 있는 권리가 있습니다. 학교폭력 등 범죄 피해를 당했을 경우, 선생님이나 부모님께 즉시 알리고 도움을 받아야 합니다. 피해자를 보호하고 지원하는 다양한 제도가 있습니다."
+            },
+            // 새롭게 추가된 10가지 법령
+            {
+                id: "school-violence-prevention-act",
+                icon: "👊", // Fist icon
+                name: "학교폭력예방 및 대책에 관한 법률",
+                purpose: "학교폭력을 예방하고 그 대책에 필요한 사항을 규정함으로써 피해학생의 보호, 가해학생의 선도·교육 및 분쟁조정을 통하여 학생의 인권을 보호하고 건강한 사회구성원으로 육성함을 목적으로 합니다.",
+                content: "학교폭력이 발생하면 학교는 즉시 조사하고 피해 학생을 보호하며, 가해 학생은 교육을 받거나 징계를 받을 수 있습니다. 학교폭력을 당하거나 목격하면 선생님이나 부모님께 꼭 알려야 합니다."
+            },
+            {
+                id: "info-network-act",
+                icon: "🌐", // Globe icon
+                name: "정보통신망 이용촉진 및 정보보호 등에 관한 법률",
+                purpose: "정보통신망의 이용을 촉진하고 정보통신서비스를 이용하는 자의 개인정보를 보호하며 정보통신망을 건전하고 안전하게 이용할 수 있는 환경을 조성함을 목적으로 합니다.",
+                content: "인터넷에서 다른 사람을 비방하거나 괴롭히는 행동(사이버폭력)은 해서는 안 됩니다. 자신의 개인정보를 안전하게 지키고, 다른 사람의 개인정보도 소중히 다뤄야 합니다. 건전한 인터넷 사용 습관을 길러야 합니다."
+            },
+            {
+                id: "national-health-insurance-act",
+                icon: "🏥", // Hospital icon
+                name: "국민건강보험법",
+                purpose: "국민의 질병·부상에 대한 예방·진단·치료·재활과 출산·사망 및 건강증진에 대하여 보험급여를 실시함으로써 국민보건을 향상시키고 사회보장을 증진함을 목적으로 합니다.",
+                content: "우리나라에 사는 모든 국민은 건강보험에 가입하여 병원에 갔을 때 치료비를 적게 내고 치료를 받을 수 있습니다. 아프거나 다쳤을 때 병원에 가서 진료를 받고 건강하게 생활할 수 있도록 돕는 법입니다."
+            },
+            {
+                id: "consumer-basic-act",
+                icon: "🛍️", // Shopping bags icon
+                name: "소비자 기본법",
+                purpose: "소비자의 권익을 증진하고 소비생활의 향상을 기하며 국민경제의 발전에 이바지함을 목적으로 합니다.",
+                content: "물건을 사거나 서비스를 이용할 때 안전하게 사용할 권리가 있습니다. 물건에 문제가 있거나 속아서 산 경우, 피해를 보상받을 수 있는 권리가 있습니다. 물건을 살 때는 필요한 것인지, 안전한지 꼼꼼히 확인해야 합니다."
+            },
+            {
+                id: "bicycle-use-act",
+                icon: "🚲", // Bicycle icon
+                name: "자전거 이용 활성화에 관한 법률",
+                purpose: "자전거 이용을 활성화하여 국민의 건강 증진 및 교통 편의를 증진하고 에너지 절약과 환경보전에 이바지함을 목적으로 합니다.",
+                content: "자전거를 탈 때는 안전모를 쓰고 안전 수칙을 지켜야 합니다. 자전거도로가 있는 곳에서는 자전거도로를 이용해야 하며, 보행자에게 방해가 되지 않도록 주의해야 합니다. 자전거도 자동차처럼 안전하게 타는 것이 중요합니다."
+            },
+            {
+                id: "waste-management-act",
+                icon: "♻️", // Recycling symbol icon
+                name: "폐기물관리법",
+                purpose: "폐기물을 적정하게 처리하여 자연환경 및 생활환경을 깨끗이 하고 국민건강의 증진에 이바지함을 목적으로 합니다.",
+                content: "쓰레기는 함부로 버리면 안 되고, 정해진 방법대로 분리수거를 해야 합니다. 음식물 쓰레기, 플라스틱, 종이 등은 종류별로 나누어 버려야 환경을 보호할 수 있습니다. 깨끗한 환경을 만들기 위해 모두가 노력해야 합니다."
+            },
+            {
+                id: "civil-act-promise",
+                icon: "📜", // Scroll icon
+                name: "약속 지키기 법 (민법 관련)",
+                purpose: "사람과 사람 사이의 약속과 관계를 정하여 사회 질서를 유지하고 개인의 권리를 보호함을 목적으로 합니다.",
+                content: "친구와 약속을 했으면 지켜야 합니다. 다른 사람의 물건을 빌렸으면 돌려줘야 합니다. 약속은 서로 간의 믿음을 지키는 중요한 행동이며, 법은 이러한 약속을 지키도록 돕는 역할을 합니다."
+            },
+            {
+                id: "criminal-act-respect",
+                icon: "👮‍♀️", // Police officer icon
+                name: "남의 물건 존중 법 (형법 관련)",
+                purpose: "범죄를 예방하고 처벌하여 사회의 안전과 질서를 유지함을 목적으로 합니다.",
+                content: "다른 사람의 물건을 허락 없이 가져가거나 망가뜨리는 것은 나쁜 행동입니다. 친구를 때리거나 괴롭히는 행동도 안 됩니다. 이러한 행동은 법으로 금지되어 있으며, 잘못을 저지르면 처벌을 받을 수 있습니다."
+            },
+            {
+                id: "library-act",
+                icon: "📖", // Open book icon
+                name: "도서관법",
+                purpose: "도서관의 설립·운영 및 육성에 필요한 사항을 정하여 국민의 지식정보 접근권을 보장하고 문화생활 향상에 이바지함을 목적으로 합니다.",
+                content: "도서관은 누구나 자유롭게 책을 읽고 공부할 수 있는 곳입니다. 도서관의 책은 소중히 다루고, 빌린 책은 약속한 날짜에 돌려줘야 합니다. 도서관은 우리 모두의 지식을 키우는 중요한 공간입니다."
+            },
+            {
+                id: "disaster-safety-act",
+                icon: "⚠️", // Warning sign icon
+                name: "재난 및 안전관리 기본법",
+                purpose: "각종 재난으로부터 국토를 보존하고 국민의 생명·신체 및 재산을 보호하기 위하여 재난 및 안전관리체제를 확립하고 재난의 예방·대비·대응·복구 및 재난 발생 시 피해의 신속한 지원에 필요한 사항을 규정함을 목적으로 합니다.",
+                content: "지진, 태풍, 화재 등 재난이 발생했을 때 어떻게 행동해야 하는지 알려주는 법입니다. 재난이 발생하면 침착하게 대피하고, 어른들의 지시에 따라 안전한 곳으로 이동해야 합니다. 미리 재난 대비 훈련을 하는 것이 중요합니다."
+            }
+        ];
+
+        // 법령 목록을 웹페이지에 동적으로 추가하는 함수
+        function loadLaws() {
+            const lawListDiv = document.getElementById('law-list');
+            laws.forEach(law => {
+                const lawCard = document.createElement('div');
+                lawCard.className = 'law-card';
+                lawCard.setAttribute('data-id', law.id);
+
+                lawCard.innerHTML = `
+                    <div class="law-icon">${law.icon}</div>
+                    <div class="law-content-wrapper">
+                        <h2 class="law-title" onclick="searchLawContent('${law.name}')">${law.name}</h2>
+                        <p class="law-purpose" onclick="searchLawContent('${law.name} 목적')"><strong>목적:</strong> ${law.purpose}</p>
+                        <div id="content-${law.id}" class="law-detail-content" onclick="searchLawContent('${law.name} 내용')">
+                            <p><strong>내용:</strong> ${law.content}</p>
+                        </div>
+                        <button class="toggle-button" onclick="toggleContent('${law.id}')">자세히 보기</button>
+                    </div>
+                `;
+                lawListDiv.appendChild(lawCard);
+            });
+        }
+
+        // '자세히 보기' 버튼 클릭 시 내용 토글 함수
+        function toggleContent(id) {
+            const contentDiv = document.getElementById(`content-${id}`);
+            const button = contentDiv.nextElementSibling; // Get the button after the content div
+
+            if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
+                contentDiv.style.display = 'block';
+                button.textContent = '숨기기';
+            } else {
+                contentDiv.style.display = 'none';
+                button.textContent = '자세히 보기';
+            }
+        }
+
+        // 텍스트 클릭 시 구글 검색을 수행하는 함수
+        function searchLawContent(query) {
+            const encodedQuery = encodeURIComponent(query);
+            window.open(`https://www.google.com/search?q=${encodedQuery}`, '_blank');
+        }
+
+        // 페이지 로드 시 법령 목록 로드
+        window.onload = loadLaws;
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+�

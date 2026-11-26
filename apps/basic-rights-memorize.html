@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리들의 권리와 의무!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f7fa; /* Light cyan background for a fresh feel */
+            display: flex;
+            flex-direction: column; /* Allow for a main title at the top */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .main-title {
+            font-size: 2.5rem; /* Larger title for emphasis */
+            font-weight: 800; /* Extra bold */
+            color: #00796b; /* Dark teal */
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px; /* Increased gap between cards */
+            max-width: 1200px;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 20px; /* More rounded corners */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            padding: 40px; /* Increased padding */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #b2ebf2; /* Light blue border */
+        }
+        .card:hover {
+            transform: translateY(-10px); /* More pronounced lift */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Even stronger shadow */
+        }
+        .card-title {
+            font-size: 2.25rem; /* Larger title */
+            font-weight: 700;
+            color: #004d40; /* Darker teal */
+            margin-bottom: 28px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .card-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px; /* Wider underline */
+            height: 5px; /* Thicker underline */
+            background-color: #00bcd4; /* Brighter blue accent */
+            border-radius: 3px;
+        }
+        .card-image {
+            width: 90%; /* Slightly larger image */
+            max-width: 350px; /* Max width for larger screens */
+            height: auto;
+            border-radius: 16px; /* More rounded image corners */
+            margin-bottom: 32px; /* More space below image */
+            object-fit: contain;
+            border: 3px solid #80deea; /* Image border */
+        }
+        .mnemonic-phrase {
+            font-size: 1.5rem; /* Larger mnemonic text */
+            font-weight: 700; /* Bolder */
+            color: #d32f2f; /* Stronger red */
+            margin-bottom: 24px; /* More space below mnemonic */
+            line-height: 1.6;
+            background-color: #ffebee; /* Light red background for emphasis */
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+        }
+        .explanation-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* More space between list items */
+            width: 100%; /* Ensure list takes full width */
+        }
+        .explanation-list-item {
+            font-size: 1.25rem; /* Larger list item text */
+            color: #263238; /* Very dark gray */
+            background-color: #e0f2f7; /* Very light blue for list items */
+            padding: 15px 20px; /* More padding */
+            border-radius: 10px; /* More rounded list items */
+            border-left: 6px solid #00acc1; /* Brighter blue accent on left */
+            text-align: left;
+            width: 100%;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        .footer-link {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.125rem;
+            color: #00796b;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #00796b;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .footer-link:hover {
+            background-color: #00796b;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-title">🌟 우리들의 권리와 의무를 함께 배워요! 🌟</h1>
+    <div class="container">
+        <!-- 기본권 카드 -->
+        <div class="card">
+            <h2 class="card-title">국민의 기본권 5가지</h2>
+            <div id="basic-rights-image-container" class="w-full max-w-[350px] h-[200px] flex items-center justify-center">
+                <!-- 새 이미지 URL로 대체 -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP39sZMn9oyDfy9E5-8HUNRUo1n34xYoCOHg&s" alt="기본권 사자 이미지" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/FFD700/333333?text=이미지+로드+실패';">
+            </div>
+            <p class="mnemonic-phrase">"평범한 사자가 참치와 청포도 먹어요."</p>
+            <ul class="explanation-list">
+                <li class="explanation-list-item"><b>평</b>등권: 모든 사람이 똑같이 소중해요!</li>
+                <li class="explanation-list-item"><b>사</b>회권: 행복하게 살 수 있도록 도와줘요!</li>
+                <li class="explanation-list-item"><b>자</b>유권: 내 마음대로 할 수 있는 자유가 있어요!</li>
+                <li class="explanation-list-item"><b>참</b>정권: 나라의 중요한 일에 참여할 수 있어요!</li>
+                <li class="explanation-list-item"><b>청</b>구권: 억울할 때 도와달라고 말할 수 있어요!</li>
+            </ul>
+        </div>
+
+        <!-- 의무권 카드 -->
+        <div class="card">
+            <h2 class="card-title">국민의 의무 5가지</h2>
+            <div id="duties-image-container" class="w-full max-w-[350px] h-[200px] flex items-center justify-center">
+                <!-- 직접 제공된 이미지 URL 유지 -->
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQ8wkZFcKWJtNOVsLuZDFV7P7jRQuLuZgYdmq8u1Ew_cLIdlX64hfNVQvsewKbH7SUBtZ_GoudxdFlLcEqqA3hLsbvuRhETQhxtnSb8-yS_F8mQxc-6aDwNuvxdsjbZbcHv1g9WrqGVcSo/s609/%255BKIIP+l%25E1%25BB%259Bp+5+%25EC%258B%25AC%25ED%2599%2594+s%25C3%25A1ch+m%25E1%25BB%259Bi%255D+3%25EA%25B3%25BC.+%25EB%258C%2580%25ED%2595%259C%25EB%25AF%25BC%25EA%25B5%25AD+%25EA%25B5%25AD%25EB%25AF%25BC%25EC%259D%2598+%25EC%259D%2598+%25EB%25AC%25B4+Ngh%25C4%25A9a+v%25E1%25BB%25A5+c%25C3%25B4ng+d%25C3%25A2n+H%25C3%25A0n+Qu%25E1%25BB%2591c.jpg" alt="국민의 의무 이미지" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/87CEEB/333333?text=이미지+로드+실패';">
+            </div>
+            <p class="mnemonic-phrase">"교육을 받고, 군대에 갔다가, 취직을 하고, 세금을 내고, 분리수거를 한다."</p>
+            <ul class="explanation-list">
+                <li class="explanation-list-item">교육의 의무: 열심히 공부해서 멋진 사람이 돼요!</li>
+                <li class="explanation-list-item">국방의 의무: 나라를 지키는 든든한 힘이 돼요!</li>
+                <li class="explanation-list-item">근로의 의무: 일해서 우리 사회를 발전시켜요!</li>
+                <li class="explanation-list-item">납세의 의무: 세금을 내서 나라 살림을 도와요!</li>
+                <li class="explanation-list-item">환경보전의 의무: 깨끗한 지구를 만들어요!</li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="https://kids.ccourt.go.kr/site/kids/main.do" target="_blank" class="footer-link">
+        헌법재판소 어린이 홈페이지 바로가기
+    </a>
+
+    <script>
+        // 이 스크립트 블록은 더 이상 사용되지 않습니다.
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

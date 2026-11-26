@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>신나는 축구 교실 & 2026 월드컵</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nanum Gothic', sans-serif;
+    }
+    .font-jua {
+      font-family: 'Jua', sans-serif;
+    }
+    /* 터치 및 드래그할 때 텍스트 선택 방지 */
+    .no-select {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    /* 부드러운 애니메이션 효과 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-emerald-50 text-slate-800 min-h-screen flex flex-col no-select">
+
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="bg-emerald-600 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="text-3xl">⚽</span>
+        <h1 class="text-2xl font-jua tracking-wide">5학년 축구 마스터 클래스</h1>
+      </div>
+      <div class="bg-red-500 text-white text-xs px-3 py-1.5 rounded-full font-bold animate-pulse flex items-center gap-1">
+        <span>🏆 2026 북중미 월드컵 승리기원</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 컨텐츠 영역 -->
+  <main class="flex-grow max-w-4xl w-full mx-auto p-4 pb-24">
+    
+    <!-- 메뉴 탭 조절 -->
+    <div class="grid grid-cols-5 gap-1 bg-emerald-100 p-1.5 rounded-2xl mb-6 shadow-inner">
+      <button onclick="switchTab('rules')" id="tab-rules" class="tab-btn py-3 text-center rounded-xl font-jua text-xs sm:text-base transition-all bg-emerald-600 text-white shadow">
+        📚 기본규칙
+      </button>
+      <button onclick="switchTab('offside')" id="tab-offside" class="tab-btn py-3 text-center rounded-xl font-jua text-xs sm:text-base transition-all text-emerald-800 hover:bg-emerald-200">
+        🚩 오프사이드
+      </button>
+      <button onclick="switchTab('referee')" id="tab-referee" class="tab-btn py-3 text-center rounded-xl font-jua text-xs sm:text-base transition-all text-emerald-800 hover:bg-emerald-200">
+        📢 호루라기
+      </button>
+      <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn py-3 text-center rounded-xl font-jua text-xs sm:text-base transition-all text-emerald-800 hover:bg-emerald-200">
+        🇰🇷 월드컵
+      </button>
+      <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn py-3 text-center rounded-xl font-jua text-xs sm:text-base transition-all text-emerald-800 hover:bg-emerald-200">
+        ✏️ 퀴즈왕
+      </button>
+    </div>
+
+    <!-- 1. 기본규칙 탭 -->
+    <section id="content-rules" class="tab-content block space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100">
+        <h2 class="text-2xl font-jua text-emerald-700 mb-4 flex items-center gap-2">
+          <span>🏃‍♂️</span> 경기 인원과 시간은 어떻게 될까?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-start gap-3">
+            <span class="text-3xl">👥</span>
+            <div>
+              <h3 class="font-bold text-lg text-emerald-800 mb-1">총 11명이 뛰어요!</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                각 팀당 한 번에 <strong class="text-emerald-700">11명</strong>의 선수가 경기장(피치)에 들어가요. 그중 한 명은 골대를 지키는 <strong>골키퍼</strong>랍니다.
+              </p>
+            </div>
+          </div>
+          <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-start gap-3">
+            <span class="text-3xl">⏱️</span>
+            <div>
+              <h3 class="font-bold text-lg text-emerald-800 mb-1">경기 시간은?</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                정식 경기는 <strong>전반전 45분, 후반전 45분</strong>으로 총 <strong class="text-emerald-700">90분</strong> 동안 진행돼요. 중간에 15분 동안 쉬는 시간(하프타임)이 있어요!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100">
+        <h2 class="text-2xl font-jua text-emerald-700 mb-4 flex items-center gap-2">
+          <span>❌</span> 이것만은 절대 안 돼! 주요 반칙들
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="border border-red-100 bg-red-50/50 p-4 rounded-2xl text-center">
+            <span class="text-4xl block mb-2">🖐️</span>
+            <h3 class="font-bold text-red-800 mb-1">핸들링 (Handling)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">골키퍼를 제외한 선수가 손이나 팔로 공을 건드리면 반칙이에요!</p>
+          </div>
+          <div class="border border-red-100 bg-red-50/50 p-4 rounded-2xl text-center">
+            <span class="text-4xl block mb-2">🦵</span>
+            <h3 class="font-bold text-red-800 mb-1">트리핑 (Tripping)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">상대방의 발을 걸거나 넘어뜨리려 하는 위험한 신체 접촉 반칙이에요!</p>
+          </div>
+          <div class="border border-red-100 bg-red-50/50 p-4 rounded-2xl text-center">
+            <span class="text-4xl block mb-2">👕</span>
+            <h3 class="font-bold text-red-800 mb-1">홀딩 (Holding)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">상대방 선수가 달리지 못하게 옷을 잡아당기거나 껴안으면 반칙이에요!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100 text-center">
+        <p class="text-lg font-jua text-emerald-700 mb-2">"규칙을 잘 지켜야 서로 다치지 않고 즐겁게 축구할 수 있겠죠?"</p>
+        <button onclick="switchTab('offside')" class="mt-2 inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-jua py-2.5 px-6 rounded-full transition-all shadow-md">
+          가장 헷갈리는 '오프사이드' 체험하러 가기 🚀
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. 오프사이드 탭 -->
+    <section id="content-offside" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100">
+        <h2 class="text-2xl font-jua text-emerald-700 mb-2 flex items-center gap-2">
+          <span>🚩</span> 움직이며 배우는 오프사이드!
+        </h2>
+        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+          수비수와 공격수를 좌우로 마우스나 손가락으로 드래그해 보세요! <br>
+          <strong class="text-emerald-700">"패스하는 순간"에 우리 팀 공격수가 상대방 마지막 수비수보다 골대에 더 가까이 있으면</strong> 오프사이드 반칙이에요!
+        </p>
+
+        <!-- 축구장 시뮬레이터 -->
+        <div class="relative w-full h-64 bg-emerald-800 rounded-2xl overflow-hidden border-4 border-white shadow-inner mb-6 no-select">
+          <div class="absolute inset-y-0 left-0 w-1/2 border-r-2 border-white/40"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-white/40 rounded-full"></div>
+          <div class="absolute inset-y-6 right-0 w-12 border-2 border-l-0 border-white/40"></div>
+          <div class="absolute top-1/2 right-0 -translate-y-1/2 w-4 h-12 bg-white/10 border-2 border-r-0 border-white/40"></div>
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 text-3xl z-10">🥅</div>
+
+          <!-- 가이드 라인 (오프사이드 라인 - 최후의 수비수 기준) -->
+          <div id="offside-line" class="absolute top-0 bottom-0 border-l-2 border-dashed border-yellow-300 z-10 pointer-events-none" style="left: 65%;">
+            <span class="absolute top-2 left-1 bg-yellow-300/90 text-[10px] text-emerald-950 px-1.5 py-0.5 rounded font-bold whitespace-nowrap shadow">
+              수비수 라인 (오프사이드 기준선)
+            </span>
+          </div>
+
+          <!-- 캐릭터 1: 수비수 (드래그 가능, 파란색) -->
+          <div id="player-defender" class="absolute top-[35%] -translate-y-1/2 -translate-x-1/2 cursor-pointer flex flex-col items-center z-20 group" style="left: 65%;">
+            <div class="w-10 h-10 bg-blue-600 border-2 border-white rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg group-hover:scale-110 transition-transform">
+              🏃‍♂️
+            </div>
+            <span class="bg-blue-900 text-white text-[10px] px-1.5 py-0.5 rounded mt-1 font-bold">수비수 (파랑)</span>
+          </div>
+
+          <!-- 캐릭터 2: 공격수 (드래그 가능, 빨간색) -->
+          <div id="player-attacker" class="absolute top-[65%] -translate-y-1/2 -translate-x-1/2 cursor-pointer flex flex-col items-center z-20 group" style="left: 55%;">
+            <div class="w-10 h-10 bg-red-500 border-2 border-white rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg group-hover:scale-110 transition-transform">
+              🏃‍♂️
+            </div>
+            <span class="bg-red-950 text-white text-[10px] px-1.5 py-0.5 rounded mt-1 font-bold">공격수 (빨강)</span>
+          </div>
+
+          <!-- 정적 요소: 공을 주는 패서 (우리팀) -->
+          <div class="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col items-center z-10 opacity-75">
+            <div class="w-8 h-8 bg-red-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              👟
+            </div>
+            <span class="text-white text-[9px] bg-slate-900/60 px-1 rounded mt-1">패스하는 아군</span>
+            <span class="text-xl">⚽</span>
+          </div>
+        </div>
+
+        <!-- 판정 결과 디스플레이 -->
+        <div id="decision-box" class="p-4 rounded-2xl text-center font-jua text-xl transition-all shadow-md bg-emerald-100 text-emerald-800 border-2 border-emerald-300">
+          온사이드! Safe ⚽
+        </div>
+
+        <!-- 오프사이드 핵심 설명 카드 -->
+        <div class="mt-6 bg-amber-50 rounded-2xl p-4 border border-amber-200">
+          <h3 class="font-bold text-amber-900 mb-1 flex items-center gap-1.5 text-base sm:text-lg">
+            <span>💡</span> 핵심 요약: 오프사이드는 언제 선언되나요?
+          </h3>
+          <ul class="text-sm text-slate-700 list-disc pl-5 space-y-1">
+            <li><strong>조건 1:</strong> 공격수가 상대방 진영에 있을 때</li>
+            <li><strong>조건 2:</strong> 아군이 패스를 보내는 <strong>바로 그 순간</strong>에</li>
+            <li><strong>조건 3:</strong> 공격수가 <span class="text-blue-700 font-bold">상대 수비수(골키퍼 제외 마지막에서 두번째 선수)</span>보다 골대에 더 가까이 있으면 성립!</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 호루라기 & 카드 탭 -->
+    <section id="content-referee" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100 text-center">
+        <h2 class="text-2xl font-jua text-emerald-700 mb-2">
+          <span>📢</span> 내가 바로 월드컵 심판!
+        </h2>
+        <p class="text-sm text-slate-600 mb-6">
+          선생님이나 친구가 반칙을 했을 때, 버튼을 눌러 리얼한 호루라기 소리를 울리고 카드를 날려보세요! <br>
+          (※ 스피커 볼륨을 적당히 조절해 주세요!)
+        </p>
+
+        <!-- 호루라기 불기 버튼 -->
+        <div class="mb-8">
+          <button onclick="playWhistleSound()" class="w-36 h-36 bg-gradient-to-tr from-emerald-600 to-teal-400 hover:from-emerald-700 hover:to-teal-500 text-white rounded-full shadow-2xl inline-flex flex-col items-center justify-center gap-1 transform active:scale-95 transition-all border-4 border-white">
+            <span class="text-5xl animate-bounce">📢</span>
+            <span class="font-jua text-xl">호루라기 불기!</span>
+          </button>
+        </div>
+
+        <!-- 옐로카드 / 레드카드 시뮬레이터 -->
+        <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+          <!-- 옐로 카드 -->
+          <button onclick="showCard('yellow')" class="flex flex-col items-center justify-center p-4 bg-amber-100 hover:bg-amber-200 rounded-2xl border-2 border-amber-300 transition-all shadow transform hover:-translate-y-1 active:scale-95">
+            <div class="w-16 h-24 bg-yellow-400 rounded-lg shadow-md mb-2 border border-yellow-500"></div>
+            <span class="font-jua text-amber-900 text-lg">경고! 옐로카드</span>
+            <span class="text-xs text-slate-500 mt-1">거친 반칙이나 시간 끌기!</span>
+          </button>
+
+          <!-- 레드 카드 -->
+          <button onclick="showCard('red')" class="flex flex-col items-center justify-center p-4 bg-red-100 hover:bg-red-200 rounded-2xl border-2 border-red-300 transition-all shadow transform hover:-translate-y-1 active:scale-95">
+            <div class="w-16 h-24 bg-red-500 rounded-lg shadow-md mb-2 border border-red-600"></div>
+            <span class="font-jua text-red-950 text-lg">퇴장! 레드카드</span>
+            <span class="text-xs text-slate-500 mt-1">부상 위험이 큰 과격한 행동!</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 월드컵 탭 -->
+    <section id="content-schedule" class="tab-content hidden space-y-6">
+      <!-- 월드컵 개요 배너 -->
+      <div class="bg-gradient-to-r from-red-600 to-blue-800 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="relative z-10">
+          <span class="bg-white/20 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">FIFA World Cup 2026</span>
+          <h2 class="text-3xl font-jua mt-2 mb-1">2026 북중미 월드컵 대한민국 일정</h2>
+          <p class="text-sm opacity-90 font-light">
+            우리의 붉은 악마 전사들이 역사를 쓰고 있습니다! 한마음으로 뜨겁게 응원해요!
+          </p>
+        </div>
+        <div class="absolute -right-10 -bottom-10 text-9xl opacity-15 pointer-events-none">⚽</div>
+      </div>
+
+      <!-- 경기 일정 리스트 (제공해주신 이미지 정보 100% 반영) -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100">
+        <h3 class="text-xl font-jua text-slate-800 mb-4 flex items-center gap-2 border-b pb-3 border-slate-100">
+          <span>📅</span> 대한민국 조별리그 A조 결과 및 일정
+        </h3>
+
+        <div class="space-y-4">
+          <!-- 경기 1: 체코전 (승리 완료) -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-3xl p-2 bg-emerald-100 rounded-xl shadow-sm">🎉</span>
+              <div>
+                <span class="text-xs font-bold text-white bg-slate-500 px-2 py-0.5 rounded">1차전 · 종료</span>
+                <h4 class="font-jua text-lg mt-0.5">대한민국 🇰🇷 <span class="text-red-500 font-bold mx-1">2</span> : <span class="text-slate-500 font-bold mx-1">1</span> 🇨🇿 체코</h4>
+                <p class="text-xs text-slate-500">2026년 6월 12일 (금) 오전 11:00 경기</p>
+              </div>
+            </div>
+            <div class="text-center md:text-right">
+              <span class="font-jua text-white text-xs block bg-blue-600 px-3 py-1.5 rounded-full border border-blue-700 shadow-sm animate-bounce">
+                첫 경기 짜릿한 승리! 🇰🇷✨
+              </span>
+            </div>
+          </div>
+
+          <!-- 경기 2: 멕시코전 -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-3xl p-2 bg-white rounded-xl shadow-sm">🔥</span>
+              <div>
+                <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">2차전</span>
+                <h4 class="font-jua text-lg mt-0.5">멕시코 🇲🇽 vs 대한민국 🇰🇷</h4>
+                <p class="text-xs text-slate-500">2026년 6월 19일 (금) 오전 10:00 (한국 시간)</p>
+              </div>
+            </div>
+            <div class="text-center md:text-right">
+              <span id="countdown-2" class="font-jua text-emerald-600 text-sm block bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+                카운트다운 계산 중...
+              </span>
+            </div>
+          </div>
+
+          <!-- 경기 3: 남아공전 -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-3xl p-2 bg-white rounded-xl shadow-sm">💪</span>
+              <div>
+                <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">3차전</span>
+                <h4 class="font-jua text-lg mt-0.5">남아프리카 공화국 🇿🇦 vs 대한민국 🇰🇷</h4>
+                <p class="text-xs text-slate-500">2026년 6월 25일 (목) 오전 10:00 (한국 시간)</p>
+              </div>
+            </div>
+            <div class="text-center md:text-right">
+              <span id="countdown-3" class="font-jua text-emerald-600 text-sm block bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+                카운트다운 계산 중...
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 자동 연동 상태를 확인하는 미니 배너 (선생님 확인용) -->
+      <div id="connection-status-badge" class="bg-slate-100 border border-slate-200 text-[11px] rounded-2xl p-3 flex items-center justify-between">
+        <span class="text-slate-600 flex items-center gap-1">
+          <span id="status-dot" class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+          <span id="status-text">구글 시트 연동 여부 확인 중...</span>
+        </span>
+        <span class="text-slate-400 font-mono text-[9px] hidden sm:inline" id="status-url-preview">URL 미등록</span>
+      </div>
+
+      <!-- 응원 한마디 보드 -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-xl font-jua text-slate-800 flex items-center gap-2">
+            <span>✍️</span> 붉은악마 실시간 응원 한마디!
+          </h3>
+          <button onclick="fetchCheers()" class="text-xs text-emerald-600 hover:text-emerald-800 font-bold flex items-center gap-1">
+            🔄 새로고침
+          </button>
+        </div>
+        <p class="text-xs text-slate-500 mb-4">구글 시트를 통해 우리 학교 친구들의 응원글이 실시간으로 교실 화면에 공유됩니다!</p>
+        
+        <div class="flex flex-col sm:flex-row gap-2 mb-4">
+          <input type="text" id="cheer-name" placeholder="닉네임 (예: 5-1 홍길동)" class="sm:w-1/4 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          <input type="text" id="cheer-input" placeholder="대한민국 파이팅! 꺾이지 않는 마음!" class="flex-grow border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          <button onclick="addCheer()" id="btn-cheer-submit" class="bg-red-500 hover:bg-red-600 text-white font-jua px-6 py-2 rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-1">
+            <span>등록하기</span>
+          </button>
+        </div>
+
+        <!-- 로딩 인디케이터 -->
+        <div id="cheer-loading" class="hidden text-center py-4 text-slate-400 text-xs">
+          <span class="animate-spin inline-block mr-1">⚽</span> 구글 시트에서 최신 응원을 로딩하고 있습니다...
+        </div>
+
+        <!-- 응원 메시지 목록 리스트 -->
+        <div id="cheer-list" class="space-y-2 max-h-64 overflow-y-auto pr-1">
+          <!-- 동적 로드 데이터 들어갈 자리 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 퀴즈왕 탭 -->
+    <section id="content-quiz" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100">
+        <!-- 퀴즈 인트로 화면 -->
+        <div id="quiz-intro" class="text-center py-6">
+          <span class="text-6xl block mb-4">🎓</span>
+          <h2 class="text-3xl font-jua text-emerald-700 mb-2">5학년 축구 룰 마스터 도전!</h2>
+          <p class="text-sm text-slate-600 mb-6">
+            방금 배운 규칙들을 바탕으로 흥미진진한 퀴즈를 풀어보세요. <br>
+            모두 맞히면 멋진 <strong>'국가대표 축구 룰 마스터 상장'</strong>을 받을 수 있답니다!
+          </p>
+          <button onclick="startQuiz()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-jua text-lg py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105">
+            퀴즈 도전하기! ➔
+          </button>
+        </div>
+
+        <!-- 실질적인 퀴즈 구역 -->
+        <div id="quiz-area" class="hidden">
+          <div class="flex justify-between items-center text-xs text-slate-400 mb-4 border-b pb-2">
+            <span id="quiz-progress" class="font-bold text-emerald-600">문제 1 / 3</span>
+            <span>축구 규칙 퀴즈왕</span>
+          </div>
+
+          <h3 id="quiz-question" class="text-xl font-bold text-slate-800 mb-6 leading-relaxed">
+            질문이 여기에 표시됩니다.
+          </h3>
+
+          <div id="quiz-options" class="grid grid-cols-1 gap-3">
+            <!-- 옵션들이 동적으로 생성됩니다. -->
+          </div>
+        </div>
+
+        <!-- 퀴즈 성공 상장 화면 -->
+        <div id="quiz-result" class="hidden text-center py-6">
+          <div class="max-w-md mx-auto border-4 border-double border-amber-400 p-6 rounded-2xl bg-amber-50/50 shadow-inner animate-fade-in">
+            <span class="text-6xl block mb-2">🏆</span>
+            <h2 class="text-3xl font-jua text-amber-700 mb-1">상 장</h2>
+            <h3 class="text-lg font-bold text-slate-700 mb-4">축구 룰 마스터인증서</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              위 사람은 '5학년 축구 마스터 클래스'에서 제공한 오프사이드 및 기본 축구 규칙 퀴즈의 모든 난관을 극복하고, 만점으로 훌륭히 마스터하였기에 이 상장을 수여합니다.
+            </p>
+            <p class="font-jua text-emerald-800 text-lg mb-2">2026 북중미 월드컵 대한민국 서포터즈 일동</p>
+          </div>
+          <button onclick="resetQuiz()" class="mt-6 inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-jua py-2.5 px-6 rounded-full transition-all shadow-md">
+            다시 도전하기 🔄
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 하단 옐로/레드카드 번쩍임 효과용 오버레이 -->
+  <div id="screen-flash" class="fixed inset-0 pointer-events-none z-50 transition-all duration-300 opacity-0"></div>
+
+  <!-- 간단한 알림 모달 -->
+  <div id="custom-modal" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 hidden p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border border-slate-100 animate-fade-in">
+      <span id="modal-icon" class="text-5xl block mb-2">📢</span>
+      <h3 id="modal-title" class="font-jua text-xl text-slate-800 mb-2">알림</h3>
+      <p id="modal-text" class="text-sm text-slate-600 mb-6 whitespace-pre-line leading-relaxed">알림 메시지 내용</p>
+      <button onclick="closeModal()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-jua py-2.5 rounded-xl transition-all shadow-md">
+        확인했습니다!
+      </button>
+    </div>
+  </div>
+
+  <footer class="bg-slate-900 text-slate-400 text-xs py-4 text-center mt-auto border-t border-slate-800">
+    <p>© 2026 초등학교 5학년 체육교실 - 신나는 축구와 월드컵 ⚽</p>
+    <p class="mt-1 opacity-75">선생님과 학생이 함께 가꾸는 행복한 스포츠 공간</p>
+  </footer>
+
+  <script>
+    // =========================================================================
+    // [선생님 설정 구역] 
+    // 구글 Apps Script에서 새 배포 후 발급받은 '웹 앱 URL'을 아래 큰따옴표 안에 넣어주세요!
+    // 예시: const SCRIPT_URL = "https://script.google.com/macros/s/AKfycb.../exec";
+    // =========================================================================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1WrlW201ctP-IkEe2uS4SsA86oY8BCznKxOv0LIdZ50azL6OMF8opyBGOW9fSenLgPw/exec"; 
+    // =========================================================================
+
+    // 화면 시작할 때 자동 연동 검사 및 응원 로드 진행
+    window.onload = function() {
+      checkIntegrationStatus();
+      fetchCheers();
+    }
+
+    // 연동 상태 UI 업데이트 기능 (학생들은 신경쓰지 않고, 선생님만 한눈에 확인 가능!)
+    function checkIntegrationStatus() {
+      const dot = document.getElementById('status-dot');
+      const text = document.getElementById('status-text');
+      const preview = document.getElementById('status-url-preview');
+
+      if (SCRIPT_URL && SCRIPT_URL.startsWith("https://script.google.com/")) {
+        dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block";
+        text.innerHTML = "<strong>실시간 구글 시트 자동 연동 활성화 완료!</strong>";
+        preview.textContent = SCRIPT_URL.substring(0, 45) + "...";
+        preview.classList.remove('hidden');
+      } else {
+        dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 inline-block animate-pulse";
+        text.innerHTML = "<strong>로컬 안전 모드 동작 중</strong> (index.html 파일 안에 SCRIPT_URL을 등록하면 학교 전체가 함께 실시간으로 공유됩니다!)";
+        preview.textContent = "URL 미등록";
+      }
+    }
+
+    // --- 탭 전환 스크립트 ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('content-' + tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white', 'shadow');
+        btn.classList.add('text-emerald-800', 'hover:bg-emerald-200');
+      });
+
+      const activeBtn = document.getElementById('tab-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-emerald-800', 'hover:bg-emerald-200');
+        activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow');
+      }
+
+      if (tabId === 'offside') {
+        updateOffsideDecision();
+      }
+
+      if (tabId === 'schedule') {
+        fetchCheers();
+      }
+    }
+
+    // --- 커스텀 모달 오픈/클로즈 ---
+    function showModal(title, text, icon = '📢') {
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-text').textContent = text;
+      document.getElementById('modal-icon').textContent = icon;
+      document.getElementById('custom-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
+    }
+
+    // --- Web Audio API 기반 오리지널 심판 휘슬 소리 만들기 ---
+    let audioCtx = null;
+    function playWhistleSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const osc1 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(2000, audioCtx.currentTime);
+
+        const modulator = audioCtx.createOscillator();
+        const modGain = audioCtx.createGain();
+        modulator.frequency.value = 35; 
+        modGain.gain.value = 160; 
+
+        modulator.connect(modGain);
+        modGain.connect(osc1.frequency);
+
+        osc1.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start();
+        modulator.start();
+
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+
+        osc1.stop(audioCtx.currentTime + 0.6);
+        modulator.stop(audioCtx.currentTime + 0.6);
+      } catch (e) {
+        console.warn("오디오 미지원 브라우저");
+      }
+    }
+
+    // --- 카드 경고 발송 (화면 번쩍임 효과) ---
+    function showCard(color) {
+      const flash = document.getElementById('screen-flash');
+      playWhistleSound();
+
+      if (color === 'yellow') {
+        flash.style.backgroundColor = 'rgba(251, 191, 36, 0.9)'; 
+        flash.classList.remove('opacity-0');
+        setTimeout(() => {
+          flash.classList.add('opacity-0');
+          showModal('🟨 경고 누적 조심!', '옐로카드가 나왔어요!\n심한 태클이나 시간을 일부러 끄는 행위는 경고의 대상이 됩니다.', '🟨');
+        }, 300);
+      } else {
+        flash.style.backgroundColor = 'rgba(239, 68, 68, 0.9)'; 
+        flash.classList.remove('opacity-0');
+        setTimeout(() => {
+          flash.classList.add('opacity-0');
+          showModal('🟥 퇴장! 경기장 밖으로!', '레드카드가 발급되었어요!\n다른 친구를 일부러 다치게 하는 과격한 행동은 퇴장 조치됩니다!', '🟥');
+        }, 300);
+      }
+    }
+
+    // --- 드래그 가능한 오프사이드 시뮬레이터 로직 ---
+    const defender = document.getElementById('player-defender');
+    const attacker = document.getElementById('player-attacker');
+    const offsideLine = document.getElementById('offside-line');
+
+    let state = {
+      defenderX: 65, 
+      attackerX: 55, 
+      dragTarget: null
+    };
+
+    function updateOffsideDecision() {
+      offsideLine.style.left = state.defenderX + '%';
+
+      const box = document.getElementById('decision-box');
+      if (state.attackerX > state.defenderX) {
+        box.className = "p-4 rounded-2xl text-center font-jua text-xl transition-all shadow-md bg-red-100 text-red-700 border-2 border-red-300 animate-bounce";
+        box.innerHTML = "🚩 오프사이드 반칙! (패스하면 안 돼요!)";
+      } else {
+        box.className = "p-4 rounded-2xl text-center font-jua text-xl transition-all shadow-md bg-emerald-100 text-emerald-800 border-2 border-emerald-300";
+        box.innerHTML = "🏃‍♂️ 온사이드! Safe (안전한 공간! 패스 가능!)";
+      }
+    }
+
+    function initDrag(element, propName) {
+      const handleStart = (e) => {
+        state.dragTarget = propName;
+        e.preventDefault();
+      };
+      element.addEventListener('mousedown', handleStart);
+      element.addEventListener('touchstart', handleStart, { passive: false });
+    }
+
+    initDrag(defender, 'defender');
+    initDrag(attacker, 'attacker');
+
+    const handleMove = (e) => {
+      if (!state.dragTarget) return;
+
+      const container = defender.parentElement;
+      const rect = container.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      
+      let percent = ((clientX - rect.left) / rect.width) * 100;
+      
+      if (percent < 20) percent = 20;
+      if (percent > 90) percent = 90;
+
+      if (state.dragTarget === 'defender') {
+        state.defenderX = percent;
+        defender.style.left = percent + '%';
+      } else if (state.dragTarget === 'attacker') {
+        state.attackerX = percent;
+        attacker.style.left = percent + '%';
+      }
+      updateOffsideDecision();
+    };
+
+    const handleEnd = () => {
+      state.dragTarget = null;
+    };
+
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleMove, { passive: false });
+    window.addEventListener('mouseup', handleEnd);
+    window.addEventListener('touchend', handleEnd);
+
+    // --- 월드컵 디데이 실시간 계산기 (2026년 6월 12일 기준 제공해주신 완벽 일정 기준) ---
+    const matchDates = [
+      null, // 1차전 완료
+      new Date('2026-06-19T10:00:00+09:00'), // 2차전 멕시코
+      new Date('2026-06-25T10:00:00+09:00')  // 3차전 남아공
+    ];
+
+    function updateCountdowns() {
+      const now = new Date();
+      
+      // 2차전 카운트다운
+      const el2 = document.getElementById('countdown-2');
+      if (el2) {
+        const diff2 = matchDates[1] - now;
+        if (diff2 <= 0) {
+          el2.innerText = "⚽ 경기 완료 또는 실시간 진행 중!";
+          el2.className = "font-jua text-red-600 text-sm block bg-red-50 px-3 py-1.5 rounded-full border border-red-200 animate-pulse";
+        } else {
+          const days = Math.floor(diff2 / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff2 / (1000 * 60 * 60)) % 24);
+          const mins = Math.floor((diff2 / (1000 * 60)) % 60);
+          el2.innerHTML = `🔥 시작까지 <strong>${days}일 ${hours}시간 ${mins}분</strong> 남음`;
+        }
+      }
+
+      // 3차전 남아공전 카운트다운
+      const el3 = document.getElementById('countdown-3');
+      if (el3) {
+        const diff3 = matchDates[2] - now;
+        if (diff3 <= 0) {
+          el3.innerText = "⚽ 경기 완료 또는 실시간 진행 중!";
+          el3.className = "font-jua text-red-600 text-sm block bg-red-50 px-3 py-1.5 rounded-full border border-red-200 animate-pulse";
+        } else {
+          const days = Math.floor(diff3 / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff3 / (1000 * 60 * 60)) % 24);
+          const mins = Math.floor((diff3 / (1000 * 60)) % 60);
+          el3.innerHTML = `🔥 시작까지 <strong>${days}일 ${hours}시간 ${mins}분</strong> 남음`;
+        }
+      }
+    }
+
+    setInterval(updateCountdowns, 60000);
+    updateCountdowns();
+
+    // --- 실시간 구글 시트 기반 응원판 비동기 데이터 통신 ---
+    
+    // 로컬 백업용 배열 (구글 웹앱 URL 등록 전, 테스트 단계에서 즉시 활용됨)
+    let localCheers = [
+      { timestamp: "방금 전", name: "5학년 체육선생님", message: "첫 경기를 2:1로 승리한 우리 전사들 최고! 끝까지 한마음으로 응원하자 🇰🇷⚽" }
+    ];
+
+    // 응원 목록 불러오기 (자동 호출)
+    function fetchCheers() {
+      const list = document.getElementById('cheer-list');
+      const loader = document.getElementById('cheer-loading');
+
+      if (!SCRIPT_URL) {
+        // 구글 연동 주소가 비어있으면 로컬 백업 배열 사용
+        renderCheers(localCheers);
+        return;
+      }
+
+      loader.classList.remove('hidden');
+
+      // 캐시 무효화를 위한 임시 쿼리 매개변수 삽입
+      fetch(`${SCRIPT_URL}?timestamp=${new Date().getTime()}`)
+        .then(response => response.json())
+        .then(res => {
+          loader.classList.add('hidden');
+          if (res.status === "success" && res.data) {
+            renderCheers(res.data);
+          } else {
+            console.error("데이터 응답 에러");
+          }
+        })
+        .catch(err => {
+          loader.classList.add('hidden');
+          console.error("구글 연결 장애 발생: 로컬 임시 저장소로 백업을 대체합니다.", err);
+          renderCheers(localCheers);
+        });
+    }
+
+    // 응원 데이터 화면 렌더링
+    function renderCheers(data) {
+      const list = document.getElementById('cheer-list');
+      list.innerHTML = '';
+
+      if (data.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-6 text-slate-400 text-xs">
+            남겨진 응원글이 없습니다. 첫 번째 붉은악마가 되어보세요! 🚀
+          </div>
+        `;
+        return;
+      }
+
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "bg-red-50/50 p-2.5 rounded-lg border border-red-100 text-xs flex justify-between items-start animate-fade-in gap-3";
+        div.innerHTML = `
+          <span class="text-slate-700">📣 [${escapeHTML(item.name)}] <strong>${escapeHTML(item.message)}</strong></span>
+          <span class="text-slate-400 text-[10px] shrink-0">${item.timestamp}</span>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    // 보안을 위한 이스케이프 헬퍼 함수
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // 응원 등록하기
+    function addCheer() {
+      const nameInput = document.getElementById('cheer-name');
+      const textInput = document.getElementById('cheer-input');
+      const btn = document.getElementById('btn-cheer-submit');
+
+      const name = nameInput.value.trim() || "축구소년/소녀";
+      const text = textInput.value.trim();
+
+      if (!text) {
+        showModal('알림', '응원 내용을 입력해 주세요!', '💡');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = "등록 중...";
+
+      if (!SCRIPT_URL) {
+        // 로컬 임시 데이터 추가 모드
+        const now = new Date();
+        const fakeTime = (now.getMonth() + 1) + "월 " + now.getDate() + "일 " + now.getHours() + ":" + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes());
+        localCheers.unshift({
+          timestamp: fakeTime,
+          name: name,
+          message: text
+        });
+        
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerText = "등록하기";
+          textInput.value = '';
+          fetchCheers();
+          playSuccessTone();
+        }, 300);
+        return;
+      }
+
+      // 구글 스프레드시트로 실시간 전달 (CORS 차단 방지 GET 전송)
+      const encodedName = encodeURIComponent(name);
+      const encodedMsg = encodeURIComponent(text);
+      const targetUrl = `${SCRIPT_URL}?action=add&name=${encodedName}&message=${encodedMsg}`;
+
+      fetch(targetUrl)
+        .then(response => response.json())
+        .then(res => {
+          btn.disabled = false;
+          btn.innerText = "등록하기";
+          
+          if (res.status === "success") {
+            textInput.value = '';
+            fetchCheers(); // 전송 성공 후 화면 목록 새로고침
+            playSuccessTone();
+          } else {
+            showModal('오류 발생', '등록에 실패했습니다.', '❌');
+          }
+        })
+        .catch(err => {
+          btn.disabled = false;
+          btn.innerText = "등록하기";
+          showModal('연동 완료', '네트워크 응답으로 로컬 백업 영역에 임시 추가되었습니다.', '⚠️');
+          
+          const now = new Date();
+          const fakeTime = (now.getMonth() + 1) + "월 " + now.getDate() + "일 " + now.getHours() + ":" + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes());
+          localCheers.unshift({ timestamp: fakeTime, name: name, message: text });
+          renderCheers(localCheers);
+        });
+    }
+
+    // --- 축구 퀴즈 비즈니스 로직 ---
+    const quizData = [
+      {
+        question: "1. 경기 도중, 골키퍼가 아닌 다른 포지션의 선수가 의도적으로 손으로 공을 만졌을 때 어떤 판정이 날까요?",
+        options: ["온사이드", "핸들링 반칙", "골킥"],
+        answer: 1,
+        desc: "골키퍼 외의 모든 선수는 경기장 안에서 손과 팔을 사용하면 '핸들링 반칙'을 선언받습니다!"
+      },
+      {
+        question: "2. 다음 중 골키퍼를 포함하여 한 팀에서 한 번에 뛸 수 있는 축구 선수 인원수는 몇 명일까요?",
+        options: ["5명", "9명", "11명"],
+        answer: 2,
+        desc: "축구 경기에서 한 팀의 선수는 선발 기준으로 딱 11명입니다!"
+      },
+      {
+        question: "3. 아군이 패스를 해 주는 바로 그 순간에, 우리 팀 공격수가 상대 마지막 수비수보다 더 앞(골대 쪽)에 서 있으면 선언되는 반칙은?",
+        options: ["오프사이드", "패널티킥", "코너킥"],
+        answer: 0,
+        desc: "상대 수비수의 최후 수비라인보다 먼저 공격수가 들어가서 패스를 받는 행위는 오프사이드 반칙입니다!"
+      }
+    ];
+
+    let currentQuizIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      document.getElementById('quiz-intro').classList.add('hidden');
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-area').classList.remove('hidden');
+      currentQuizIndex = 0;
+      score = 0;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = quizData[currentQuizIndex];
+      document.getElementById('quiz-progress').textContent = `문제 ${currentQuizIndex + 1} / ${quizData.length}`;
+      document.getElementById('quiz-question').textContent = q.question;
+
+      const optionsDiv = document.getElementById('quiz-options');
+      optionsDiv.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left p-4 rounded-2xl border-2 border-emerald-100 hover:border-emerald-500 hover:bg-emerald-50 transition-all font-medium text-slate-700 flex items-center justify-between text-sm sm:text-base";
+        btn.innerHTML = `<span>${opt}</span> <span class="text-emerald-300">➔</span>`;
+        btn.onclick = () => checkAnswer(idx);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selectedIdx) {
+      const q = quizData[currentQuizIndex];
+      if (selectedIdx === q.answer) {
+        score++;
+        playSuccessTone();
+        showModal('🎉 정답입니다!', q.desc, '✅');
+      } else {
+        playFailTone();
+        showModal('😢 아쉬워요!', `정답은 "${q.options[q.answer]}" 입니다.\n\n해설: ${q.desc}`, '❌');
+      }
+
+      currentQuizIndex++;
+      if (currentQuizIndex < quizData.length) {
+        showQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      document.getElementById('quiz-area').classList.add('hidden');
+      document.getElementById('quiz-result').classList.remove('hidden');
+
+      if (score === quizData.length) {
+        document.getElementById('quiz-result').innerHTML = `
+          <div class="max-w-md mx-auto border-4 border-double border-amber-400 p-6 rounded-2xl bg-amber-50/50 shadow-inner">
+            <span class="text-6xl block mb-2">🏆</span>
+            <h2 class="text-3xl font-jua text-amber-700 mb-1">상 장</h2>
+            <h3 class="text-lg font-bold text-slate-700 mb-4">축구 룰 마스터인증서</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              이름: <strong>대한민국 축구 꿈나무</strong><br><br>
+              위 학생은 '5학년 축구 마스터 클래스'의 모든 퀴즈에 100점 만점을 기록하여, 페어플레이 정신과 축구 규칙을 온전히 터득했음을 증명하였기에 이 상장을 드립니다.
+            </p>
+            <p class="font-jua text-emerald-800 text-lg mb-2">2026 북중미 월드컵 대한민국 서포터즈 일동</p>
+          </div>
+          <button onclick="startQuiz()" class="mt-6 inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-jua py-2.5 px-6 rounded-full transition-all shadow-md">
+            다시 도전하기 🔄
+          </button>
+        `;
+      } else {
+        document.getElementById('quiz-result').innerHTML = `
+          <div class="max-w-md mx-auto p-6 rounded-2xl bg-slate-100 text-center">
+            <span class="text-5xl block mb-2">⚽</span>
+            <h3 class="text-xl font-jua text-slate-800 mb-2">조금 더 노력해 볼까요?</h3>
+            <p class="text-sm text-slate-600 mb-6">
+              총 ${quizData.length}문제 중 ${score}문제를 맞혔어요!<br>
+              오프사이드 연습장과 기본 규칙을 다시 천천히 살펴보고 만점에 도전해 보세요!
+            </p>
+            <button onclick="startQuiz()" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-jua py-2.5 px-6 rounded-full transition-all shadow-md">
+              재도전하기 🔄
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function resetQuiz() {
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-intro').classList.remove('hidden');
+    }
+
+    function playSuccessTone() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.15); 
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } catch(e){}
+    }
+
+    // 간단한 실패 효과음
+    function playFailTone() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime); 
+        osc.frequency.setValueAtTime(147, audioCtx.currentTime + 0.155); 
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.35);
+      } catch(e){}
+    }
+  </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

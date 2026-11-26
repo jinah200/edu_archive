@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디폼블럭 도안 갤러리</title>
+    <!-- Tailwind CSS 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter 폰트 로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Inter 폰트와 Noto Sans KR 폰트를 기본으로 설정 */
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        }
+        /* 모달이 보일 때 스크롤 방지 (삭제됨) */
+        /* .modal-open { ... } */
+        /* 간단한 모달 페이드인 효과 (삭제됨) */
+        /* .modal { ... } */
+        /* 검색 버튼 아이콘 크기 조절 */
+        .search-btn-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body class="bg-blue-50">
+
+    <!-- 헤더 -->
+    <header class="bg-white shadow-md sticky top-0 z-20">
+        <nav class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 inline-block -mt-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                </svg>
+                디폼블럭 도안 갤러리
+            </h1>
+        </nav>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- 소개 문구 -->
+        <section class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">창의력이 자라나는 디폼블럭의 세계!</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                안녕하세요, 학생 여러분!
+                여기는 여러분의 상상력을 현실로 만들어 줄 다양한 디폼블럭 도안이 가득한 곳입니다.
+                마음에 드는 도안을 골라 멋진 작품을 완성해보세요!
+            </p>
+        </section>
+
+        <!-- 도안 갤러리 -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-6">다양한 도안을 만나보세요</h3>
+            
+            <!-- 갤러리 그리드 -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- 도안 카드는 JavaScript로 동적 생성됩니다. -->
+            </div>
+        </section>
+        
+        <!-- 참고 사이트 섹션 -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-6 text-center">더 많은 도안을 찾고 있나요?</h3>
+            <p class="text-center text-gray-600 mb-8">
+                아래 사이트에서 '디폼블럭 도안' 또는 '픽셀 아트'를 검색해보고 더 멋진 아이디어를 얻어보세요!
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://www.google.com/search?q=디폼블럭+도안&tbm=isch" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-blue-100 text-blue-700 font-semibold rounded-lg shadow-sm hover:bg-blue-200 transition-colors flex items-center gap-2">
+                    <img src="https://www.google.com/s2/favicons?domain=google.com" alt="Google" class="w-5 h-5">
+                    Google 이미지 검색
+                </a>
+                <a href="https://search.naver.com/search.naver?where=image&query=디폼블럭+도안" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-green-100 text-green-700 font-semibold rounded-lg shadow-sm hover:bg-green-200 transition-colors flex items-center gap-2">
+                    <img src="https://www.google.com/s2/favicons?domain=naver.com" alt="Naver" class="w-5 h-5">
+                    Naver 이미지 검색
+                </a>
+                <a href="https://www.youtube.com/results?search_query=디폼블럭+도안" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-red-100 text-red-700 font-semibold rounded-lg shadow-sm hover:bg-red-200 transition-colors flex items-center gap-2">
+                    <img src="https://www.google.com/s2/favicons?domain=youtube.com" alt="YouTube" class="w-5 h-5">
+                    YouTube에서 만들기
+                </a>
+                <a href="https://www.pinterest.com/search/pins/?q=pixel+art+pattern" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-red-100 text-red-700 font-semibold rounded-lg shadow-sm hover:bg-red-200 transition-colors flex items-center gap-2">
+                    <img src="https://www.google.com/s2/favicons?domain=pinterest.com" alt="Pinterest" class="w-5 h-5">
+                    Pinterest 픽셀 아트
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 모달 (도안 상세보기) -->
+    <!-- (모달 HTML 전체 삭제됨) -->
+
+    <!-- 푸터 -->
+    <footer class="bg-white mt-16 py-8 border-t">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2025 디폼블럭 도안 갤러리. 모든 학생들의 창의적인 활동을 응원합니다!</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mock Data: 신뢰할 수 있는 도안 데이터 예시 (이모지 및 배경색 클래스 사용) ---
+        const patterns = [
+            { id: 1, title: '귀여운 토끼', difficulty: '쉬움', emoji: '🐰', bgColorClass: 'bg-blue-100' },
+            { id: 2, title: '멋진 자동차', difficulty: '중간', emoji: '🚗', bgColorClass: 'bg-teal-100' },
+            { id: 3, title: '스마일 얼굴', difficulty: '쉬움', emoji: '😊', bgColorClass: 'bg-yellow-50' },
+            { id: 4, title: '무지개', difficulty: '중간', emoji: '🌈', bgColorClass: 'bg-pink-100' },
+            { id: 5, title: '우주선', difficulty: '어려움', emoji: '🚀', bgColorClass: 'bg-gray-100' },
+            { id: 6, title: '예쁜 꽃', difficulty: '쉬움', emoji: '🌸', bgColorClass: 'bg-green-100' },
+            { id: 7, title: '티라노사우루스', difficulty: '어려움', emoji: '🦖', bgColorClass: 'bg-purple-100' },
+            { id: 8, title: '커다란 하트', difficulty: '쉬움', emoji: '❤️', bgColorClass: 'bg-red-100' },
+            { id: 9, title: '해적선', difficulty: '어려움', emoji: '🏴‍☠️', bgColorClass: 'bg-indigo-100' },
+            { id: 10, title: '나비', difficulty: '중간', emoji: '🦋', bgColorClass: 'bg-orange-100' },
+            { id: 11, title: '축구공', difficulty: '중간', emoji: '⚽', bgColorClass: 'bg-gray-200' },
+            { id: 12, title: '무당벌레', difficulty: '쉬움', emoji: '🐞', bgColorClass: 'bg-red-100' },
+        ];
+        
+        // --- 난이도별 색상 매핑 ---
+        // ... (이전과 동일) ...
+        const difficultyColors = {
+            '쉬움': 'bg-green-100 text-green-800',
+            '중간': 'bg-yellow-100 text-yellow-800',
+            '어려움': 'bg-red-100 text-red-800'
+        };
+
+        // --- DOM 요소 ---
+        // ... (이전과 동일) ...
+        const galleryGrid = document.getElementById('gallery-grid');
+        /* (모달 관련 DOM 요소 삭제됨) */
+        // const modal = document.getElementById('pattern-modal');
+        // const modalTitle = document.getElementById('modal-title');
+        // const modalImage = document.getElementById('modal-image');
+        // const closeModalBtns = [ ... ];
+
+        // --- 함수: 갤러리 생성 (수정됨) ---
+        function populateGallery() {
+            galleryGrid.innerHTML = ''; // 기존 그리드 비우기
+            patterns.forEach(pattern => {
+                const difficultyColor = difficultyColors[pattern.difficulty] || 'bg-gray-100 text-gray-800';
+                
+                // 검색어 URL 인코딩
+                const encodedTitle = encodeURIComponent(`디폼블럭 ${pattern.title} 도안`);
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-lg overflow-hidden flex flex-col';
+                
+                card.innerHTML = `
+                    <div class="w-full h-48 flex items-center justify-center ${pattern.bgColorClass}">
+                        <span class="text-6xl" role="img" aria-label="${pattern.title}">${pattern.emoji}</span>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h4 class="text-xl font-bold text-gray-800 truncate">${pattern.title}</h4>
+                        <span class="inline-block px-3 py-1 text-sm font-semibold rounded-full ${difficultyColor} mt-2 mb-4 self-start">
+                            난이도: ${pattern.difficulty}
+                        </span>
+                        
+                        <!-- [도안 보기] 버튼 삭제됨 -->
+                        
+                        <div class="mt-auto pt-4 flex flex-col gap-2">
+                            <a href="https://www.google.com/search?q=${encodedTitle}&tbm=isch" target="_blank" rel="noopener noreferrer" 
+                               class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors flex items-center justify-center text-sm">
+                                <img src="https://www.google.com/s2/favicons?domain=google.com" alt="Google" class="search-btn-icon">
+                                Google 검색
+                            </a>
+                            <a href="https://search.naver.com/search.naver?query=${encodedTitle}&where=image" target="_blank" rel="noopener noreferrer" 
+                               class="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors flex items-center justify-center text-sm">
+                                <img src="https://www.google.com/s2/favicons?domain=naver.com" alt="Naver" class="search-btn-icon">
+                                Naver 검색
+                            </a>
+                        </div>
+                    </div>
+                `;
+                galleryGrid.appendChild(card);
+            });
+        }
+
+        // --- 함수: 모달 열기 --- (삭제됨)
+        /* function openModal(id) { ... } */
+
+        // --- 함수: 모달 닫기 --- (삭제됨)
+        /* function closeModal() { ... } */
+
+        // --- 이벤트 리스너 ---
+        // ... (이전과 동일) ...
+
+        // 1. 갤러리 카드 클릭 시 모달 열기 (이벤트 위임) (삭제됨)
+        /* galleryGrid.addEventListener('click', (e) => { ... }); */
+
+        // 2. 모달 닫기 버튼 클릭 (삭제됨)
+        /* closeModalBtns.forEach(btn => { ... }); */
+
+        // 3. 모달 바깥 영역 클릭 시 닫기 (삭제됨)
+        /* modal.addEventListener('click', (e) => { ... }); */
+
+        // 4. ESC 키로 모달 닫기 (삭제됨)
+        /* document.addEventListener('keydown', (e) => { ... }); */
+
+        // --- 초기화 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            populateGallery();
+        });
+
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+
+
+
+

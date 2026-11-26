@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>속력과 안전 심화 탐구</title>
+    <!-- Tailwind CSS CDN 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 'Inter' 폰트를 기본으로 사용하기 위한 Tailwind 설정 */
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        /* 활성화된 버튼 스타일 */
+        .btn-active {
+            background-color: #2563EB; /* bg-blue-600 */
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.39);
+        }
+        /* 비활성화된 버튼 스타일 */
+        .btn-inactive {
+            background-color: white;
+            color: #2563EB; /* text-blue-600 */
+        }
+        
+        /* 상황 2(도로) 활성/비활성 스타일 */
+        .btn-road-active {
+            background-color: #059669; /* bg-green-600 */
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgba(5, 150, 105, 0.39);
+        }
+        .btn-road-inactive {
+            background-color: white;
+            color: #059669; /* text-green-700 */
+        }
+        
+        /* 카테고리 부제목 스타일 */
+        .category-title {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #1F2937; /* text-gray-800 */
+            border-bottom: 2px solid #D1D5DB; /* border-b-2 border-gray-300 */
+            padding-bottom: 0.5rem; /* pb-2 */
+            margin-top: 1.5rem; /* mt-6 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6 md:p-10">
+
+    <div class="container mx-auto max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <!-- 헤더 -->
+        <header class="p-8 bg-blue-700 text-white text-center rounded-t-2xl">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">속력과 안전 심화 탐구</h1>
+            <p class="text-lg text-blue-100">각 주제에 숨겨진 과학 원리를 탐구해 봅시다!</p>
+        </header>
+
+        <!-- 메인 콘텐츠: 2단 그리드 -->
+        <main id="main-content" class="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- 상황 1: 자동차를 탈 때 -->
+            <section class="bg-blue-50 p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6 flex items-center">
+                    <span class="text-4xl mr-3">🚗</span> 
+                    상황 1: 자동차를 탈 때
+                </h2>
+                
+                <!-- 카테고리 1: 생길 수 있는 위험 -->
+                <h3 class="category-title">1. 생길 수 있는 위험</h3>
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button data-scenario="car" data-topic="speed_impact" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        속력과 충격량
+                    </button>
+                    <button data-scenario="car" data-topic="stopping_distance" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        정지 거리의 비밀
+                    </button>
+                </div>
+
+                <!-- 카테고리 2: 지켜야 할 안전 사항 -->
+                <h3 class="category-title">2. 지켜야 할 안전 사항</h3>
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button data-scenario="car" data-topic="passenger_rules" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        탑승자 안전 수칙
+                    </button>
+                </div>
+
+                <!-- 카테고리 3: 피해를 줄이기 위한 안전장치 -->
+                <h3 class="category-title">3. 피해를 줄이기 위한 안전장치</h3>
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button data-scenario="car" data-topic="seatbelt_function" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        안전벨트 (관성)
+                    </button>
+                    <button data-scenario="car" data-topic="airbag_function" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        에어백 (충격량)
+                    </button>
+                    <button data-scenario="car" data-topic="child_seat" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        카시트의 중요성
+                    </button>
+                    <button data-scenario="car" data-topic="crumple_zone" class="btn-scenario1 btn-inactive border border-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        크럼플 존 (에너지 흡수)
+                    </button>
+                </div>
+
+                <!-- 조사 내용 표시 영역 -->
+                <div id="car-display" class="bg-white p-6 rounded-lg border-2 border-blue-200 min-h-[350px] transition-all duration-300">
+                    <p class="text-gray-500 text-center pt-20">조사할 주제를 클릭해 주세요.</p>
+                </div>
+            </section>
+
+            <!-- 상황 2: 도로를 다닐 때 -->
+            <section class="bg-green-50 p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-green-800 mb-6 flex items-center">
+                    <span class="text-4xl mr-3">🚶</span> 
+                    상황 2: 도로를 다닐 때
+                </h2>
+
+                <!-- 카테고리 1: 생길 수 있는 위험 -->
+                <h3 class="category-title">1. 생길 수 있는 위험</h3>
+                <div class="flex flex-wrap gap-3 mb-6">
+                     <button data-scenario="road" data-topic="smartphone_danger" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        스몸비 (주의력 분산)
+                    </button>
+                    <button data-scenario="road" data-topic="blind_spots" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        자동차 사각지대
+                    </button>
+                </div>
+
+                <!-- 카테고리 2: 지켜야 할 안전 사항 -->
+                <h3 class="category-title">2. 지켜야 할 안전 사항</h3>
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button data-scenario="road" data-topic="pedestrian_rules" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        보행자 안전 3원칙
+                    </button>
+                    <button data-scenario="road" data-topic="crosswalk_safety" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        횡단보도와 우회전 차량
+                    </button>
+                </div>
+                
+                <!-- 카테고리 3: 피해를 줄이기 위한 안전장치 -->
+                <h3 class="category-title">3. 피해를 줄이기 위한 안전장치</h3>
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button data-scenario="road" data-topic="school_zone" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        스쿨존 (속도 제한)
+                    </button>
+                    <button data-scenario="road" data-topic="speed_bumps" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        과속방지턱 (강제 감속)
+                    </button>
+                    <button data-scenario="road" data-topic="road_signs" class="btn-scenario2 btn-road-inactive border border-green-600 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg text-sm">
+                        속도 관련 안전표지판
+                    </button>
+                </div>
+
+                <!-- 조사 내용 표시 영역 -->
+                <div id="road-display" class="bg-white p-6 rounded-lg border-2 border-green-200 min-h-[350px] transition-all duration-300">
+                    <p class="text-gray-500 text-center pt-20">조사할 주제를 클릭해 주세요.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- 1. 최종 조사 내용 (주제별로 세분화 및 과학 원리 추가) ---
+        const researchContent = {
+            car: {
+                speed_impact: `
+                    <h3 class='text-2xl font-bold text-red-600 mb-4'>속력과 충격</h3>
+                    <p class='text-lg text-gray-800 mb-4'>자동차의 속력이 빠를수록 부딪혔을 때 훨씬 더 세게 부딪혀요. 이걸 '운동 에너지'라는 힘 때문이라고 해요.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>속력이 <strong>2배</strong> 빨라지면 (예: 30km/h → 60km/h), 부딪히는 힘은 2배가 아니라 <strong>4배</strong>로 훨씬 커져요.</li>
+                        <li><strong>[비유]</strong> 시속 50km/h로 부딪히는 것은, 아파트 4층 높이에서 떨어지는 것과 같아요. 매우 위험하겠죠?</li>
+                    </ul>
+                `,
+                stopping_distance: `
+                    <h3 class='text-2xl font-bold text-red-600 mb-4'>차가 멈추는 거리</h3>
+                    <p class='text-lg text-gray-800 mb-4'>'차가 멈추는 거리'는 운전자가 위험을 발견하고 브레이크를 밟아, 차가 완전히 멈출 때까지 간 거리예요.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>이 거리는 2가지로 나눌 수 있어요:</li>
+                        <li><strong>1. 운전자가 '앗!'하고 생각하는 거리:</strong> 위험을 보고 브레이크에 발을 올릴 때까지 차는 계속 달려요.</li>
+                        <li><strong>2. 브레이크가 '끽-'하고 멈추는 거리:</strong> 브레이크를 밟아도 차는 바로 멈추지 않고 미끄러져요.</li>
+                        <li><strong>[결론]</strong> 속력이 빠르면, '생각하는 거리'와 '멈추는 거리'가 모두 길어져서, 멈추는 데 훨씬 더 긴 거리가 필요해요.</li>
+                    </ul>
+                `,
+                passenger_rules: `
+                    <h3 class='text-2xl font-bold text-blue-600 mb-4'>탑승자 안전 수칙</h3>
+                    <ul class='list-disc list-inside space-y-3 text-gray-800 text-lg'>
+                        <li><strong>전 좌석 안전벨트 착용:</strong> 뒷좌석도 필수입니다. 사고 시 뒷좌석 탑승자가 앞좌석으로 튕겨 나가 (관성) 앞좌석 승객까지 위험하게 할 수 있습니다.</li>
+                        <li><strong>조수석(앞좌석) 탑승:</strong> 만 13세 미만 어린이는 조수석 에어백이 터질 때 더 위험할 수 있어 뒷좌석에 타는 것이 원칙입니다.</li>
+                        <li><strong>운전자 방해하지 않기:</strong> 운전자의 '주의력'과 '반응 시간'은 안전과 직결됩니다.</li>
+                    </ul>
+                `,
+                seatbelt_function: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>안전벨트 (관성의 법칙)</h3>
+                    <p class='text-lg text-gray-800 mb-4'><strong>[과학 원리: 관성의 법칙]</strong> 차가 갑자기 멈추면, 차에 타고 있던 사람의 몸은 원래의 속력으로 계속 앞으로 나아가려는 '관성'이 작용합니다.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>안전벨트는 이 관성으로 몸이 튕겨 나가는 것을 막아줍니다.</li>
+                        <li>몸이 받는 충격을 가슴, 어깨, 골반 등 튼튼한 부분으로 분산시킵니다.</li>
+                        <li>몸이 멈추는 '시간'을 조금 더 길게 늘려주어, 몸이 받는 순간적인 충격의 '크기'를 줄여줍니다.</li>
+                    </ul>
+                `,
+                airbag_function: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>에어백 (충격량과 충돌 시간)</h3>
+                    <p class='text-lg text-gray-800 mb-4'><strong>[과학 원리: 충격량(Impulse)]</strong> 에어백은 안전벨트의 보조 장치입니다. (충격량 = 충격력 x 시간)</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>충돌 시 약 0.03~0.05초 만에 부풀어 오릅니다.</li>
+                        <li>사람이 딱딱한 핸들이나 대시보드에 부딪히는 대신, 푹신한 에어백에 부딪히게 합니다.</li>
+                        <li>이로 인해 충돌 '시간'이 길어지게 되고, 그 결과 사람이 받는 평균적인 '충격력(힘)'은 줄어들게 됩니다.</li>
+                        <li><strong>[주의]</strong> 안전벨트를 매지 않으면 에어백이 터지는 힘(폭발력)에 오히려 더 크게 다칠 수 있습니다.</li>
+                    </ul>
+                `,
+                child_seat: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>카시트(어린이 보호장구)의 중요성</h3>
+                    <p class='text-lg text-gray-800 mb-4'>어린이는 몸이 작고 뼈가 약해서 어른용 안전벨트가 몸에 맞지 않아 제대로 보호해 주지 못합니다.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>어른용 안전벨트는 어린이의 목이나 배를 지나가 사고 시 더 위험할 수 있습니다.</li>
+                        <li>카시트는 어린이의 몸에 맞게 튼튼하게 고정시켜, 충격을 효과적으로 흡수하고 분산시킵니다.</li>
+                    </ul>
+                `,
+                crumple_zone: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>크럼플 존 (에너지 흡수)</h3>
+                    <p class='text-lg text-gray-800 mb-4'><strong>[과학 원리: 에너지 흡수]</strong> 자동차의 앞부분과 뒷부분은 일부러 잘 찌그러지도록 설계되어 있습니다. 이 부분을 '크럼플 존'이라고 부릅니다.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>차가 찌그러지는 동안, 충돌의 '운동 에너지'가 차체를 찌그러뜨리는 '일'을 하는 데 사용됩니다.</li>
+                        <li>즉, 충격 에너지를 차가 대신 흡수하는 것입니다.</li>
+                        <li>또한, 찌그러지는 '시간'이 길어지므로 탑승자가 받는 '충격력'이 줄어듭니다. (에어백과 같은 원리)</li>
+                        <li>사람이 타는 공간(승객실)은 반대로 매우 딱딱하게 만들어 보호합니다.</li>
+                    </ul>
+                `
+            },
+            road: {
+                pedestrian_rules: `
+                    <h3 class='text-2xl font-bold text-blue-600 mb-4'>보행자 안전 3원칙</h3>
+                    <ul class='list-disc list-inside space-y-3 text-gray-800 text-lg'>
+                        <li><strong>1. 멈춘다:</strong> 길을 건너기 전, 우선 보도에서 멈춥니다.</li>
+                        <li><strong>2. 살핀다:</strong> 왼쪽과 오른쪽을 고개를 돌려 차가 오는지, 차가 멈추었는지 살핍니다.</li>
+                        <li><strong>3. 건넌다:</strong> 운전자와 눈을 맞추고, 차가 완전히 멈춘 것을 확인한 뒤 건넙니다.</li>
+                        <li><strong>[중요]</strong> 초록불이 켜져도, 차가 멈췄는지 꼭 확인해야 합니다.</li>
+                    </ul>
+                `,
+                crosswalk_safety: `
+                    <h3 class='text-2xl font-bold text-blue-600 mb-4'>횡단보도와 우회전 차량</h3>
+                    <p class='text-lg text-gray-800 mb-4'>최근 횡단보도에서 우회전하는 차량과 관련된 사고가 많습니다.</p>
+                    <ul class='list-disc list-inside space-y-3 text-gray-800 text-lg'>
+                        <li>차가 우회전할 때, 운전자는 왼쪽(차가 오는 방향)에 집중하느라 오른쪽의 보행자를 놓칠 수 있습니다.</li>
+                        <li>특히, 자동차의 A필러(앞유리창 옆 기둥)가 보행자를 가리는 '사각지대'를 만듭니다.</li>
+                        <li>길을 건널 때는 신호등만 보지 말고, 우회전하는 차가 있는지 꼭 살펴야 합니다.</li>
+                    </ul>
+                `,
+                smartphone_danger: `
+                    <h3 class='text-2xl font-bold text-red-600 mb-4'>스마트폰의 위험</h3>
+                    <p class='text-lg text-gray-800 mb-4'>'스몸비(스마트폰+좀비)'라는 말을 들어봤나요? 길을 걸으며 스마트폰을 보는 것은 정말 위험해요.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>우리 뇌는 한 번에 여러 가지 일에 집중하기 어려워요.</li>
+                        <li>스마트폰 화면에 빠져 있으면, 우리 눈과 귀가 주변의 위험을 알아채지 못해요.</li>
+                        <li>차가 다가오는 소리나, 다른 사람이 부르는 소리를 못 듣게 돼요.</li>
+                        <li>앞을 보지 못해 사람이나 기둥에 부딪힐 수도 있고, 다가오는 차를 보지 못해 큰 사고가 날 수 있어요.</li>
+                    </ul>
+                `,
+                blind_spots: `
+                    <h3 class='text-2xl font-bold text-red-600 mb-4'>자동차 사각지대</h3>
+                    <p class='text-lg text-gray-800 mb-4'>'사각지대'는 운전자가 차에 앉아서 거울(백미러, 사이드미러)을 통해서도 볼 수 없는 영역입니다.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>특히 버스나 트럭 같은 큰 차는 사각지대가 훨씬 넓습니다.</li>
+                        <li>차의 바로 앞(운전석이 높아 안 보임), 뒤, 그리고 대각선 옆쪽이 위험합니다.</li>
+                        <li>주차된 차 사이에서 갑자기 나오거나, 차 바로 뒤에서 놀면 운전자가 보행자를 절대 볼 수 없습니다.</li>
+                        <li><strong>[기억하세요]</strong> 내가 운전자를 볼 수 있어도, 운전자는 나를 못 볼 수 있습니다.</li>
+                    </ul>
+                `,
+                school_zone: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>스쿨존 (속도 제한의 원리)</h3>
+                    <p class='text-lg text-gray-800 mb-4'>스쿨존(어린이 보호 구역)의 핵심은 자동차의 속도를 <strong>시속 30km/h 이하</strong>로 제한하는 것입니다.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li><strong>[이유 1] 정지 거리:</strong> 시속 30km/h일 때의 정지 거리는 약 12m입니다. 하지만 60km/h일 때는 약 34m로 3배 가까이 길어집니다. 30km/h로 달려야 어린이가 갑자기 나타났을 때 멈출 수 있습니다.</li>
+                        <li><strong>[이유 2] 시야각:</strong> 속도가 빠르면 운전자의 시야가 좁아져 주변을 살피기 어렵습니다. 30km/h로 천천히 달려야 넓은 시야로 어린이를 발견할 수 있습니다.</li>
+                    </ul>
+                `,
+                speed_bumps: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>과속방지턱 (강제 감속)</h3>
+                    <p class='text-lg text-gray-800 mb-4'>과속방지턱은 운전자가 스스로 속도를 줄이도록 '강제'하는 물리적인 안전 시설물입니다.</p>
+                    <ul class='list-disc list-inside space-y-2 text-gray-800 text-lg'>
+                        <li>속도를 줄이지 않고 지나가면 차에 강한 충격(진동)이 발생하고 차가 손상될 수 있습니다.</li>
+                        <li>운전자는 이 불편함을 피하기 위해 스스로 속도를 줄이게 됩니다.</li>
+                        <li>주로 스쿨존, 아파트 단지, 골목길 등 보행자의 안전이 최우선인 곳에 설치됩니다.</li>
+                    </ul>
+                `,
+                road_signs: `
+                    <h3 class='text-2xl font-bold text-green-600 mb-4'>속도 관련 안전 표지판</h3>
+                    <p class='text-lg text-gray-800 mb-4'>표지판은 모든 운전자와 보행자가 지켜야 하는 '약속'입니다.</p>
+                    <ul class='list-disc list-inside space-y-3 text-gray-800 text-lg'>
+                        <li><span class='inline-block w-12 h-12 text-center leading-12 text-2xl font-bold text-white bg-red-600 border-4 border-red-600 rounded-full'>50</span> <strong>최고 속도 제한:</strong> 이 숫자(예: 50km/h)보다 빨리 달리면 안 된다는 뜻입니다. (빨간색 원)</li>
+                        <li><span class='inline-block w-12 h-12 text-center leading-12 text-2xl font-bold text-white bg-blue-600 rounded-full'>30</span> <strong>최저 속도 제한:</strong> 이 숫자(예: 30km/h)보다 느리게 달리면 안 된다는 뜻입니다. (파란색 원, 주로 고속도로)</li>
+                        <li><span class='inline-block w-12 h-12 text-center leading-12 text-2xl font-bold text-black bg-yellow-400 transform rotate-45'> </span> <strong>어린이 보호 (주의):</strong> 노란색 다이아몬드 표지판에 어린이 그림이 있으면, 스쿨존이 시작되니 천천히 운전하라는 '주의' 표지입니다.</li>
+                    </ul>
+                `
+            }
+        };
+
+        // --- 2. 스크립트 로직 (기존 로직과 동일) ---
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 주제 버튼 클릭 핸들러
+            function handleTopicButtonClick(event) {
+                const button = event.currentTarget;
+                const scenario = button.dataset.scenario; // 'car' 또는 'road'
+                const topic = button.dataset.topic;     // 'speed_impact', 'pedestrian_rules', ...
+
+                // 1. 해당 시나리오의 모든 버튼 스타일 초기화
+                const allButtons = document.querySelectorAll(`.btn-scenario${scenario === 'car' ? '1' : '2'}`);
+                allButtons.forEach(btn => {
+                    if (scenario === 'car') {
+                        btn.classList.remove('btn-active');
+                        btn.classList.add('btn-inactive');
+                    } else {
+                        btn.classList.remove('btn-road-active');
+                        btn.classList.add('btn-road-inactive');
+                    }
+                });
+
+                // 2. 클릭된 버튼에 '활성' 스타일 적용
+                if (scenario === 'car') {
+                    button.classList.add('btn-active');
+                    button.classList.remove('btn-inactive');
+                } else {
+                    button.classList.add('btn-road-active');
+                    button.classList.remove('btn-road-inactive');
+                }
+
+                // 3. 해당 시나리오의 내용 표시 영역 찾기
+                const displayArea = document.getElementById(`${scenario}-display`);
+
+                // 4. 내용 표시
+                if (displayArea && researchContent[scenario] && researchContent[scenario][topic]) {
+                    displayArea.innerHTML = researchContent[scenario][topic];
+                } else {
+                    displayArea.innerHTML = '<p class="text-red-500">내용을 불러오는 데 실패했습니다.</p>';
+                }
+            }
+
+            // --- 3. 이벤트 리스너 등록 ---
+
+            // 각 시나리오의 버튼들에 이벤트 리스너 등록
+            const buttons1 = document.querySelectorAll('.btn-scenario1');
+            buttons1.forEach(button => {
+                button.addEventListener('click', handleTopicButtonClick);
+            });
+
+            const buttons2 = document.querySelectorAll('.btn-scenario2');
+            buttons2.forEach(button => {
+                button.addEventListener('click', handleTopicButtonClick);
+            });
+        });
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

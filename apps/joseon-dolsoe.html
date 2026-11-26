@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>조선에서 온 공노비, 돌쇠</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Gaegu (친근한 손글씨 느낌) 및 Noto Serif KR (조선 느낌), Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+  <!-- Tone.js CDN for Traditional Sounds -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hanji: '#F9F6EE',
+            hanjiDark: '#EFE7D5',
+            ink: '#2B2B2B',
+            slateDark: '#1E232A',
+            clay: '#A65B32',
+            koreanBlue: '#1F4788',
+            koreanRed: '#9C2525',
+            koreanGreen: '#2D5A46',
+            wood: '#5C381E',
+            parchment: '#F5EBD0'
+          },
+          fontFamily: {
+            serif: ['"Noto Serif KR"', 'serif'],
+            sans: ['"Noto Sans KR"', 'sans-serif'],
+            hand: ['"Gaegu"', 'cursive']
+          },
+          boxShadow: {
+            'hanji': '0 4px 20px rgba(78, 52, 34, 0.08)',
+            'carved': 'inset 0 2px 4px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.05)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 조선 전통 한지 질감 및 스크롤바 커스텀 */
+    body {
+      background-color: #F6F3E9;
+      background-image: radial-gradient(#D6C9B0 0.8px, transparent 0.8px), radial-gradient(#E8DEC8 0.8px, #F6F3E9 0.8px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+      color: #2D2721;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #EFE8D6;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #BFA888;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #9A8060;
+    }
+    /* 도장 애니메이션 */
+    @keyframes stampIn {
+      0% { transform: scale(3) rotate(-15deg); opacity: 0; }
+      70% { transform: scale(0.9) rotate(4deg); opacity: 0.9; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .stamp-effect {
+      animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    /* 부드러운 깜빡임 펄스 */
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .character-bounce {
+      animation: subtlePulse 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans select-none antialiased">
+  <header class="bg-[#3D2618] text-[#F3EADA] border-b-4 border-[#9C2525] shadow-md sticky top-0 z-30 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="w-10 h-10 rounded-full bg-[#9C2525] flex items-center justify-center text-amber-200 border-2 border-amber-300/40 text-xl font-serif font-bold shadow-inner">
+          役
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl sm:text-2xl font-serif font-bold tracking-tight text-amber-100">조선에서 온 공노비, 돌쇠</h1>
+            <span class="text-xs bg-amber-900/80 text-amber-200 px-2 py-0.5 rounded-full border border-amber-600/40 font-mono hidden sm:inline-block">초등 5·6 역사탐구</span>
+          </div>
+          <p class="text-xs text-amber-200/80">관청 소속 공노비와 시간여행자의 신분제도 비밀 밝히기</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <!-- 소리 토글 버튼 -->
+        <button id="soundToggleBtn" class="p-2 text-amber-200 hover:text-white rounded-lg bg-amber-950/40 hover:bg-amber-950 transition-colors flex items-center gap-1.5 text-xs">
+          <i class="fas fa-volume-up text-sm" id="soundIcon"></i>
+          <span class="hidden sm:inline" id="soundText">국악 효과음 켬</span>
+        </button>
+        <!-- 진행도 표시 배지 -->
+        <div class="bg-[#26170E] px-3 py-1.5 rounded-lg border border-amber-700/50 flex items-center gap-2">
+          <span class="text-xs text-amber-300 font-serif">정보 조각</span>
+          <div class="flex items-center space-x-1" id="badgeStars">
+            <span class="text-amber-400 text-sm font-bold font-serif" id="progressCountText">0 / 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-2 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+    <!-- 좌측 패널 (돌쇠 프로필 & 5대 정보 조각 현황판) - lg:col-span-4 -->
+    <aside class="lg:col-span-4 flex flex-col space-y-4 order-2 lg:order-1">
+      
+      <!-- 돌쇠 캐릭터 카드 -->
+      <div class="bg-[#FAF6EC] rounded-2xl p-4 border-2 border-[#D4C3A3] shadow-hanji relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 opacity-5 pointer-events-none text-9xl font-serif">奴</div>
+        
+        <div class="flex items-center space-x-4">
+          <!-- 돌쇠 SVG 일러스트레이션 -->
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-amber-100 border-2 border-[#8C6D46] flex-shrink-0 flex items-center justify-center p-1 shadow-inner relative character-bounce">
+            <svg id="dolsoeSvg" viewBox="0 0 120 120" class="w-full h-full drop-shadow">
+              <!-- 배경 원형 -->
+              <circle cx="60" cy="60" r="56" fill="#E8DEC8" stroke="#BFAB8B" stroke-width="2"/>
+              <!-- 몸통/무명옷 저고리 -->
+              <path d="M25,115 Q60,85 95,115 L95,120 L25,120 Z" fill="#D7CEC2" stroke="#6D6054" stroke-width="2.5"/>
+              <path d="M55,90 L68,120 M65,90 L52,120" stroke="#8A7A6D" stroke-width="2"/>
+              <!-- 목 -->
+              <rect x="52" y="70" width="16" height="18" fill="#E5B28B" rx="3"/>
+              <!-- 머리카락 및 패랭이 끈 -->
+              <circle cx="60" cy="50" r="30" fill="#E5B28B"/>
+              <!-- 상투/민머리 두건 스타일 (공노비 복식) -->
+              <path d="M30,50 Q60,18 90,50 Q60,32 30,50" fill="#3D2618"/>
+              <ellipse cx="60" cy="24" rx="10" ry="8" fill="#3D2618"/>
+              <!-- 이마 끈 (행전/머리띠) -->
+              <path d="M30,48 C45,43 75,43 90,48 L90,54 C75,49 45,49 30,54 Z" fill="#8C3A27"/>
+              <!-- 귀 -->
+              <circle cx="30" cy="53" r="5" fill="#E5B28B"/>
+              <circle cx="90" cy="53" r="5" fill="#E5B28B"/>
+              <!-- 눈썹 -->
+              <path d="M42,46 Q50,43 54,46" stroke="#2B1A0E" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M66,46 Q70,43 78,46" stroke="#2B1A0E" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <!-- 눈 (호기심 있고 선한 눈매) -->
+              <ellipse id="dolsoeEyeL" cx="48" cy="52" rx="3.5" ry="3" fill="#2B1A0E"/>
+              <ellipse id="dolsoeEyeR" cx="72" cy="52" rx="3.5" ry="3" fill="#2B1A0E"/>
+              <!-- 볼터치 (친근함) -->
+              <circle cx="42" cy="58" r="4" fill="#F4A261" opacity="0.4"/>
+              <circle cx="78" cy="58" r="4" fill="#F4A261" opacity="0.4"/>
+              <!-- 코 -->
+              <path d="M60,51 Q63,57 60,60" stroke="#B87B56" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- 입 (온화한 미소) -->
+              <path id="dolsoeMouth" d="M53,64 Q60,71 67,64" stroke="#7A341E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span id="emotionBadge" class="absolute -top-1 -right-1 text-xs bg-amber-800 text-amber-100 px-1.5 py-0.5 rounded-full border border-amber-600 font-sans shadow">친절함</span>
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <div class="flex items-baseline gap-2">
+              <h2 class="text-xl font-bold font-serif text-[#2B1B10]">돌쇠</h2>
+              <span class="text-xs px-2 py-0.5 rounded bg-[#E4D5BC] text-[#5C381E] font-medium">조선 관청의 공노비</span>
+            </div>
+            <p class="text-xs text-[#6B5A4B] mt-1 leading-relaxed">
+              "관청 마당을 쓸고 관아 심부름을 도맡아 하는 공노비라오. 먼 훗날에서 온 어린 손님, 우리 조선의 신분과 내 삶이 궁금한가 보오?"
+            </p>
+          </div>
+        </div>
+
+        <!-- 힌트 & 진행 안내 -->
+        <div class="mt-3 pt-3 border-t border-[#E5DAC4] flex items-center justify-between text-xs text-[#7A6958]">
+          <span><i class="fas fa-compass mr-1 text-[#9C2525]"></i>목표: 5개의 역사 정보 조각 찾기</span>
+          <button id="giveHintBtn" class="text-amber-800 hover:text-amber-950 font-bold underline cursor-pointer">
+            <i class="far fa-lightbulb text-amber-600 mr-1"></i>돌쇠에게 힌트 청하기
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-[#FAF6EC] rounded-2xl p-4 border-2 border-[#D4C3A3] shadow-hanji flex-1 flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg text-[#9C2525]"><i class="fas fa-scroll"></i></span>
+            <h3 class="font-serif font-bold text-base text-[#2E2015]">역사 탐구 정보 조각 (5대 단서)</h3>
+          </div>
+          <span id="progressText" class="text-xs font-bold px-2 py-1 rounded bg-[#E9DECA] text-[#744E28]">0/5 획득</span>
+        </div>
+
+        <!-- 진행 프로그레스 바 -->
+        <div class="w-full bg-[#E5DBC7] rounded-full h-2.5 mb-4 overflow-hidden p-0.5 border border-[#CBBBA0]">
+          <div id="progressBar" class="bg-gradient-to-r from-[#C26D38] to-[#9C2525] h-full rounded-full transition-all duration-700" style="width: 0%"></div>
+        </div>
+
+        <!-- 5개 조각 리스트 -->
+        <div class="space-y-2.5 flex-1 overflow-y-auto custom-scroll pr-1" id="piecesContainer">
+          
+          <!-- 조각 1: 소속 -->
+          <div id="piece-card-1" class="p-3 rounded-xl border border-[#DECDB3] bg-[#F2EBDA] opacity-60 transition-all duration-300">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#D8C7A8] flex items-center justify-center text-xs font-serif text-[#5C4531] font-bold piece-icon">①</div>
+                <h4 class="font-bold text-sm text-[#3E2E20]">정보 조각 1 : 소속</h4>
+              </div>
+              <span class="status-badge text-[10px] px-2 py-0.5 rounded bg-stone-300 text-stone-700">미발견</span>
+            </div>
+            <p class="piece-desc text-xs text-[#6E5C4B] mt-1.5 pl-8">
+              공노비는 과연 누구에게 매여 일하는 신분일까?
+            </p>
+          </div>
+
+          <!-- 조각 2: 하는 일 -->
+          <div id="piece-card-2" class="p-3 rounded-xl border border-[#DECDB3] bg-[#F2EBDA] opacity-60 transition-all duration-300">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#D8C7A8] flex items-center justify-center text-xs font-serif text-[#5C4531] font-bold piece-icon">②</div>
+                <h4 class="font-bold text-sm text-[#3E2E20]">정보 조각 2 : 하는 일</h4>
+              </div>
+              <span class="status-badge text-[10px] px-2 py-0.5 rounded bg-stone-300 text-stone-700">미발견</span>
+            </div>
+            <p class="piece-desc text-xs text-[#6E5C4B] mt-1.5 pl-8">
+              돌쇠는 관청에서 매일 어떤 업무와 노역을 담당할까?
+            </p>
+          </div>
+
+          <!-- 조각 3: 신분의 제약 -->
+          <div id="piece-card-3" class="p-3 rounded-xl border border-[#DECDB3] bg-[#F2EBDA] opacity-60 transition-all duration-300">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#D8C7A8] flex items-center justify-center text-xs font-serif text-[#5C4531] font-bold piece-icon">③</div>
+                <h4 class="font-bold text-sm text-[#3E2E20]">정보 조각 3 : 신분의 제약</h4>
+              </div>
+              <span class="status-badge text-[10px] px-2 py-0.5 rounded bg-stone-300 text-stone-700">미발견</span>
+            </div>
+            <p class="piece-desc text-xs text-[#6E5C4B] mt-1.5 pl-8">
+              태어난 신분 때문에 하고 싶은 일을 마음대로 바꿀 수 있을까?
+            </p>
+          </div>
+
+          <!-- 조각 4: 공노비와 사노비 -->
+          <div id="piece-card-4" class="p-3 rounded-xl border border-[#DECDB3] bg-[#F2EBDA] opacity-60 transition-all duration-300">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#D8C7A8] flex items-center justify-center text-xs font-serif text-[#5C4531] font-bold piece-icon">④</div>
+                <h4 class="font-bold text-sm text-[#3E2E20]">정보 조각 4 : 공노비와 사노비</h4>
+              </div>
+              <span class="status-badge text-[10px] px-2 py-0.5 rounded bg-stone-300 text-stone-700">미발견</span>
+            </div>
+            <p class="piece-desc text-xs text-[#6E5C4B] mt-1.5 pl-8">
+              나라의 노비(공노비)와 개인 양반 집의 노비(사노비)는 무엇이 다를까?
+            </p>
+          </div>
+
+          <!-- 조각 5: 신분제에 대한 성찰 -->
+          <div id="piece-card-5" class="p-3 rounded-xl border border-[#DECDB3] bg-[#F2EBDA] opacity-60 transition-all duration-300">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-[#D8C7A8] flex items-center justify-center text-xs font-serif text-[#5C4531] font-bold piece-icon">⑤</div>
+                <h4 class="font-bold text-sm text-[#3E2E20]">정보 조각 5 : 신분제에 대한 생각</h4>
+              </div>
+              <span class="status-badge text-[10px] px-2 py-0.5 rounded bg-stone-300 text-stone-700">미발견</span>
+            </div>
+            <p class="piece-desc text-xs text-[#6E5C4B] mt-1.5 pl-8">
+              신분에 따라 삶의 기회가 제한되는 조선 사회를 보며 무엇을 느꼈는가?
+            </p>
+          </div>
+
+        </div>
+
+        <!-- 5개 완료 시 최종 미션 바로가기 배너 -->
+        <div id="finalMissionBanner" class="mt-3 p-3 bg-amber-900 text-amber-100 rounded-xl border-2 border-amber-500 shadow-md hidden animate-pulse cursor-pointer">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <i class="fas fa-award text-amber-300 text-xl"></i>
+              <div>
+                <p class="text-xs font-bold text-amber-200">조각 5개 수집 완료!</p>
+                <p class="text-sm font-serif font-bold">최종 미션 수행하기</p>
+              </div>
+            </div>
+            <i class="fas fa-chevron-right text-amber-300"></i>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- 우측 패널 (대화창 & 빠른 질문 태그 & 입력창) - lg:col-span-8 -->
+    <section class="lg:col-span-8 flex flex-col bg-[#FAF6EC] rounded-2xl border-2 border-[#D4C3A3] shadow-hanji overflow-hidden h-[750px] max-h-[85vh] order-1 lg:order-2">
+      
+      <!-- 대화창 헤더 -->
+      <div class="bg-[#F0E6D2] px-4 py-3 border-b border-[#DBCAB0] flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block animate-ping"></span>
+          <span class="text-xs sm:text-sm font-serif font-bold text-[#3B291A]">관아 마당 한구석, 돌쇠와의 만남</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button id="resetChatBtn" class="text-xs text-stone-600 hover:text-red-700 px-2.5 py-1 rounded bg-stone-200/70 hover:bg-stone-200 transition-colors">
+            <i class="fas fa-redo-alt mr-1"></i>대화 다시 시작
+          </button>
+        </div>
+      </div>
+
+      <!-- 대화 메시지 영역 -->
+      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scroll bg-[#FAF6EE]/70">
+        <!-- 초기 메시지 (JS에서 렌더링되거나 기본 마크업) -->
+      </div>
+
+      <!-- 추천 탐구 질문 바 (초등학생 눈높이 가이드) -->
+      <div class="bg-[#F2EADB] px-3 py-2 border-t border-[#DECDB5]">
+        <div class="flex items-center gap-1.5 mb-1 text-[11px] text-[#7A6451] font-medium">
+          <i class="far fa-comments text-amber-700"></i>
+          <span>돌쇠에게 물어볼 탐구 질문을 골라보렴:</span>
+        </div>
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 custom-scroll" id="suggestedQuestions">
+          <button class="suggest-btn shrink-0 text-xs px-3 py-1.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300/80 transition-colors">
+            "돌쇠님은 누구에게 소속되어 일하나요?"
+          </button>
+          <button class="suggest-btn shrink-0 text-xs px-3 py-1.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300/80 transition-colors">
+            "관청에서 주로 어떤 일을 하세요?"
+          </button>
+          <button class="suggest-btn shrink-0 text-xs px-3 py-1.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300/80 transition-colors">
+            "원하는 일을 마음대로 할 수 없나요?"
+          </button>
+          <button class="suggest-btn shrink-0 text-xs px-3 py-1.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300/80 transition-colors">
+            "사노비와 공노비는 어떻게 달라요?"
+          </button>
+        </div>
+      </div>
+
+      <form id="chatForm" class="p-3 bg-[#EDE3CE] border-t-2 border-[#DBCAB0] flex items-center gap-2">
+        <div class="relative flex-1">
+          <input 
+            type="text" 
+            id="userInput" 
+            class="w-full pl-4 pr-10 py-3 bg-white/95 rounded-xl border-2 border-[#CBB89B] focus:border-[#9C2525] focus:outline-none text-sm text-[#2B231D] placeholder-stone-400 shadow-inner"
+            placeholder="돌쇠에게 궁금한 것을 물어보세요... (예: 공노비가 뭐예요?)"
+            autocomplete="off"
+            required
+          />
+          <button type="button" id="voiceMicBtn" title="음성 듣기(가상)" class="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-amber-800 text-sm">
+            <i class="fas fa-feather-alt"></i>
+          </button>
+        </div>
+        <button 
+          type="submit" 
+          id="sendBtn" 
+          class="px-5 py-3 bg-[#9C2525] hover:bg-[#801D1D] text-amber-100 font-serif font-bold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span>물어보기</span>
+          <i class="fas fa-paper-plane text-xs"></i>
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <div id="finalMissionModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-[#FAF6EC] rounded-2xl max-w-2xl w-full border-4 border-[#8B2626] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- 모달 헤더 -->
+      <div class="bg-[#8B2626] text-amber-100 p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-scroll text-amber-300 text-xl"></i>
+          <h3 class="font-serif font-bold text-lg">조선 탐구 최종 미션</h3>
+        </div>
+        <button id="closeMissionModalBtn" class="text-amber-200 hover:text-white text-lg">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- 모달 내용 -->
+      <div class="p-6 overflow-y-auto custom-scroll space-y-4">
+        <div class="p-3 bg-amber-100/60 rounded-xl border border-amber-300 text-sm text-[#4E3928] leading-relaxed">
+          <p class="font-bold text-[#8B2626] mb-1">🎉 5개의 역사 정보 조각을 모두 모았습니다!</p>
+          돌쇠와 나누었던 이야기를 떠올리며 아래 세 가지 문장을 완성해 보렴. 돌쇠가 너의 탐구 결과를 확인해 줄 것이란다.
+        </div>
+
+        <form id="finalMissionForm" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-[#422D1B] mb-1">
+              ① 공노비란 누구에게 소속되어 일하던 사람인가요?
+            </label>
+            <input 
+              type="text" 
+              id="missionAns1" 
+              class="w-full px-3 py-2 bg-white rounded-lg border border-[#CBB89B] text-sm focus:outline-none focus:border-[#8B2626]" 
+              placeholder="예: 나라나 관청에 소속되어 일을 하던 노비" 
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#422D1B] mb-1">
+              ② 공노비와 사노비는 무엇이 달랐나요?
+            </label>
+            <input 
+              type="text" 
+              id="missionAns2" 
+              class="w-full px-3 py-2 bg-white rounded-lg border border-[#CBB89B] text-sm focus:outline-none focus:border-[#8B2626]" 
+              placeholder="예: 공노비는 관청 소속이고, 사노비는 개인 양반 집에 소속된 점이 다르다" 
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-[#422D1B] mb-1">
+              ③ 조선 시대 신분제도와 돌쇠의 삶에 대해 무엇을 느꼈나요?
+            </label>
+            <textarea 
+              id="missionAns3" 
+              rows="3" 
+              class="w-full px-3 py-2 bg-white rounded-lg border border-[#CBB89B] text-sm focus:outline-none focus:border-[#8B2626]" 
+              placeholder="예: 태어난 신분 때문에 원하는 일을 하지 못하는 것은 부당하다고 느꼈고, 누구나 배우고 꿈을 펼칠 수 있는 오늘날이 감사하다..." 
+              required
+            ></textarea>
+          </div>
+
+          <div id="missionFeedbackBox" class="hidden p-3 rounded-xl border text-xs leading-relaxed"></div>
+
+          <div class="pt-2 flex justify-end space-x-2">
+            <button type="button" id="closeMissionModalBtn2" class="px-4 py-2 rounded-lg bg-stone-200 text-stone-700 text-xs font-medium">
+              대화 더 하기
+            </button>
+            <button type="submit" id="submitMissionBtn" class="px-5 py-2.5 rounded-lg bg-[#8B2626] text-amber-100 font-serif font-bold text-sm hover:bg-[#6D1B1B] shadow">
+              돌쇠에게 답안 제출하기
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="certificateModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-[#F8F2E4] rounded-2xl max-w-xl w-full border-8 border double border-[#743C22] shadow-2xl p-6 relative overflow-hidden text-center">
+      <!-- 배경 인쇄 문양 -->
+      <div class="absolute -top-10 -left-10 w-36 h-36 rounded-full bg-amber-500/10 pointer-events-none"></div>
+      <div class="absolute -bottom-10 -right-10 w-48 h-48 rounded-full bg-red-500/10 pointer-events-none"></div>
+      
+      <div class="border-2 border-[#A88B67] p-6 rounded-xl bg-white/40 relative">
+        <span class="text-xs tracking-widest text-[#84502E] font-serif uppercase font-bold block mb-1">역사 탐구 완료 증서</span>
+        <h2 class="text-2xl sm:text-3xl font-serif font-extrabold text-[#3B1E08] mb-4">조선 신분제 탐구 완수증</h2>
+
+        <div class="w-16 h-0.5 bg-[#84502E] mx-auto mb-4"></div>
+
+        <p class="text-sm text-[#4E3725] leading-relaxed mb-4 font-serif">
+          위 학생은 먼 훗날 현대에서 조선 시대로 시간여행을 와,<br>
+          관청의 공노비 <strong class="text-[#8B2626]">돌쇠</strong>와의 진솔한 대화를 통해<br>
+          조선의 신분제와 공노비의 삶, 그리고 신분의 제약을<br>
+          훌륭히 탐구하고 성찰하였으므로 이 증서를 수여함.
+        </p>
+
+        <div class="flex justify-center items-center my-4 space-x-3">
+          <div class="text-left text-xs text-[#614732] space-y-1 bg-[#ECE1CD] p-3 rounded-lg border border-[#CDBEAA]">
+            <p><strong>탐구자:</strong> 시간여행 역사 탐구대원</p>
+            <p><strong>인도자:</strong> 조선 관청 공노비 돌쇠</p>
+            <p><strong>탐구 내용:</strong> 공노비의 소속, 업무, 신분제와 삶</p>
+          </div>
+          <!-- 붉은 인감 도장 -->
+          <div class="w-20 h-20 border-4 border-[#9C2525] rounded-xl flex flex-col items-center justify-center text-[#9C2525] font-serif font-extrabold text-xs rotate-[-6deg] shadow-md stamp-effect select-none">
+            <span>조선관청</span>
+            <span>돌쇠인증</span>
+            <span>탐구지인</span>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-center gap-3">
+          <button id="closeCertBtn" class="px-5 py-2.5 bg-[#422D1B] hover:bg-[#2B1B10] text-amber-100 rounded-xl font-serif text-sm">
+            돌쇠에게 작별 인사하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================
+       1. 데이터 및 상태 관리 (5대 정보 조각 정의 및 페르소나 설정)
+       ========================================================== */
+    const PIECES_INFO = {
+      1: {
+        id: 1,
+        title: "소속",
+        keyText: "국가나 관청 등에 소속",
+        discoveredMessage: "역사 정보 조각 ① 발견! 공노비는 국가나 관청 등에 소속되어 있었구나!",
+        summary: "공노비는 개인이 아닌 국가나 관청(관아)에 소속된 노비였다."
+      },
+      2: {
+        id: 2,
+        title: "하는 일",
+        keyText: "관청 등에서 여러 가지 일 담당",
+        discoveredMessage: "역사 정보 조각 ② 발견! 공노비는 관청 등에서 여러 가지 일을 담당했구나!",
+        summary: "관아의 청소, 장작 패기, 물 긷기, 관아 심부름 등 다양한 노역을 분담했다."
+      },
+      3: {
+        id: 3,
+        title: "신분의 제약",
+        keyText: "신분이 삶과 직업 선택을 결정",
+        discoveredMessage: "역사 정보 조각 ③ 발견! 조선의 신분은 사람의 삶과 선택에 큰 영향을 주었구나!",
+        summary: "태어날 때부터 신분이 정해져 직업이나 거주지를 마음대로 바꿀 수 없었다."
+      },
+      4: {
+        id: 4,
+        title: "공노비와 사노비",
+        keyText: "소속 대상의 차이 (관청 vs 개인 양반)",
+        discoveredMessage: "역사 정보 조각 ④ 발견! 공노비와 사노비는 누구에게 소속되어 있는지가 달랐구나!",
+        summary: "공노비는 관청에 소속되었고, 사노비는 개인 양반 가문에 소속되었다."
+      },
+      5: {
+        id: 5,
+        title: "신분제에 대한 생각",
+        keyText: "신분 차별에 대한 비판적·인권적 성찰",
+        discoveredMessage: "역사 정보 조각 ⑤ 발견! 태어난 신분 때문에 삶의 기회가 달라지는 사회에 대해 생각해 보게 되었구나.",
+        summary: "태어난 신분으로 기회가 정해지는 것은 불평등하며, 누구나 평등한 오늘날의 가치를 깨달음."
+      }
+    };
+
+    // 앱 상태
+    const state = {
+      unlockedPieces: new Set(),
+      chatHistory: [],
+      soundEnabled: true,
+      isGenerating: false,
+      finalMissionUnlocked: false,
+      finalMissionCompleted: false
+    };
+
+    let synth = null;
+    let gongSynth = null;
+
+    function initAudio() {
+      if (!synth && window.Tone) {
+        // 단음 가야금/실로폰 느낌의 플럭 신스
+        synth = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: "triangle" },
+          envelope: { attack: 0.02, decay: 0.8, sustain: 0.1, release: 1.2 }
+        }).toDestination();
+        synth.volume.value = -8;
+
+        // 징/종 타종 효과음
+        gongSynth = new Tone.MembraneSynth({
+          pitchDecay: 0.08,
+          octaves: 4,
+          oscillator: { type: "sine" },
+          envelope: { attack: 0.001, decay: 1.5, sustain: 0.01, release: 2 }
+        }).toDestination();
+        gongSynth.volume.value = -4;
+      }
+    }
+
+    function playSound(type) {
+      if (!state.soundEnabled || !window.Tone) return;
+      try {
+        if (Tone.context.state !== 'running') {
+          Tone.start();
+        }
+        initAudio();
+        if (type === 'message') {
+          synth.triggerAttackRelease(["E4", "A4"], "16n");
+        } else if (type === 'discovery') {
+          // 맑은 국악 5음계 획득음 (궁상각치우: C-D-E-G-A)
+          const now = Tone.now();
+          synth.triggerAttackRelease("C4", "8n", now);
+          synth.triggerAttackRelease("E4", "8n", now + 0.12);
+          synth.triggerAttackRelease("G4", "8n", now + 0.24);
+          synth.triggerAttackRelease("C5", "4n", now + 0.36);
+          if (gongSynth) gongSynth.triggerAttackRelease("C2", "2n", now);
+        } else if (type === 'complete') {
+          const now = Tone.now();
+          synth.triggerAttackRelease(["C4", "G4", "C5"], "2n", now);
+          if (gongSynth) gongSynth.triggerAttackRelease("G1", "1n", now);
+        }
+      } catch (err) {
+        console.warn("Audio playback failed:", err);
+      }
+    }
+
+    const chatMessagesEl = document.getElementById('chatMessages');
+    const chatFormEl = document.getElementById('chatForm');
+    const userInputEl = document.getElementById('userInput');
+    const sendBtnEl = document.getElementById('sendBtn');
+    const progressCountTextEl = document.getElementById('progressCountText');
+    const progressTextEl = document.getElementById('progressText');
+    const progressBarEl = document.getElementById('progressBar');
+    const emotionBadgeEl = document.getElementById('emotionBadge');
+    const giveHintBtnEl = document.getElementById('giveHintBtn');
+    const soundToggleBtnEl = document.getElementById('soundToggleBtn');
+    const soundIconEl = document.getElementById('soundIcon');
+    const soundTextEl = document.getElementById('soundText');
+    const resetChatBtnEl = document.getElementById('resetChatBtn');
+    const finalMissionBannerEl = document.getElementById('finalMissionBanner');
+    const finalMissionModalEl = document.getElementById('finalMissionModal');
+    const closeMissionModalBtnEl = document.getElementById('closeMissionModalBtn');
+    const closeMissionModalBtn2El = document.getElementById('closeMissionModalBtn2');
+    const finalMissionFormEl = document.getElementById('finalMissionForm');
+    const missionFeedbackBoxEl = document.getElementById('missionFeedbackBox');
+    const certificateModalEl = document.getElementById('certificateModal');
+    const closeCertBtnEl = document.getElementById('closeCertBtn');
+    const suggestedQuestionsEl = document.getElementById('suggestedQuestions');
+    const dolsoeSvgEl = document.getElementById('dolsoeSvg');
+    const dolsoeEyeLEl = document.getElementById('dolsoeEyeL');
+    const dolsoeEyeREl = document.getElementById('dolsoeEyeR');
+    const dolsoeMouthEl = document.getElementById('dolsoeMouth');
+
+    // 표정 변경 함수
+    function setDolsoeEmotion(emotion) {
+      if (!dolsoeMouthEl) return;
+      if (emotion === 'surprised') {
+        dolsoeMouthEl.setAttribute('d', 'M54,64 A6,6 0 1,0 66,64 A6,6 0 1,0 54,64');
+        emotionBadgeEl.textContent = '깜짝 놀람';
+        emotionBadgeEl.className = 'absolute -top-1 -right-1 text-xs bg-red-800 text-amber-100 px-1.5 py-0.5 rounded-full border border-red-500 font-sans shadow';
+      } else if (emotion === 'thoughtful') {
+        dolsoeMouthEl.setAttribute('d', 'M54,67 L66,67');
+        emotionBadgeEl.textContent = '깊은 생각';
+        emotionBadgeEl.className = 'absolute -top-1 -right-1 text-xs bg-indigo-900 text-indigo-100 px-1.5 py-0.5 rounded-full border border-indigo-500 font-sans shadow';
+      } else if (emotion === 'proud') {
+        dolsoeMouthEl.setAttribute('d', 'M50,62 Q60,74 70,62');
+        emotionBadgeEl.textContent = '대견함';
+        emotionBadgeEl.className = 'absolute -top-1 -right-1 text-xs bg-emerald-800 text-emerald-100 px-1.5 py-0.5 rounded-full border border-emerald-500 font-sans shadow';
+      } else { // friendly / curious
+        dolsoeMouthEl.setAttribute('d', 'M53,64 Q60,71 67,64');
+        emotionBadgeEl.textContent = '친절함';
+        emotionBadgeEl.className = 'absolute -top-1 -right-1 text-xs bg-amber-800 text-amber-100 px-1.5 py-0.5 rounded-full border border-amber-600 font-sans shadow';
+      }
+    }
+
+    const INITIAL_WELCOME_MESSAGE = `쉿! 잠깐, 너는 누구냐? 옷차림이 이 근처 사람 같지 않은데…….
+나는 관청에서 일하고 있는 돌쇠라고 한다.
+그런데 너는 아주 먼 훗날에서 왔다고?
+마침 잘됐구나. 나에게 궁금한 것을 물어보렴. 내가 어떤 신분인지, 누구에게 소속되어 있는지, 무슨 일을 하며 사는지 하나씩 알아낼 수 있을 게다.
+역사 정보 조각은 모두 5개다.
+현재 탐구 진행도: (0/5)
+자, 무엇부터 물어보겠느냐?`;
+
+    function addMessageToUI(sender, text, isSpecialNotice = false) {
+      const msgWrapper = document.createElement('div');
+      msgWrapper.className = `flex flex-col ${sender === 'user' ? 'items-end' : 'items-start'} transition-all duration-300`;
+
+      if (sender === 'dolsoe') {
+        msgWrapper.innerHTML = `
+          <div class="flex items-start gap-2.5 max-w-[90%] sm:max-w-[82%]">
+            <div class="w-8 h-8 rounded-full bg-[#E5D7BE] border border-[#8C6D46] flex items-center justify-center text-xs font-serif font-bold text-[#4A321E] shrink-0 mt-1 shadow-sm">
+              돌쇠
+            </div>
+            <div>
+              <div class="bg-white text-[#2B231D] p-3.5 rounded-2xl rounded-tl-sm border border-[#D8C7AA] shadow-sm text-sm sm:text-base leading-relaxed whitespace-pre-line font-sans ${isSpecialNotice ? 'ring-2 ring-amber-500 bg-amber-50/70' : ''}">
+                ${escapeHtml(text)}
+              </div>
+              <span class="text-[10px] text-stone-500 mt-1 inline-block ml-1">공노비 돌쇠</span>
+            </div>
+          </div>
+        `;
+      } else {
+        msgWrapper.innerHTML = `
+          <div class="max-w-[90%] sm:max-w-[80%]">
+            <div class="bg-[#9C2525] text-amber-50 p-3.5 rounded-2xl rounded-tr-sm shadow-sm text-sm sm:text-base leading-relaxed whitespace-pre-line font-sans">
+              ${escapeHtml(text)}
+            </div>
+            <span class="text-[10px] text-stone-500 mt-1 inline-block text-right w-full pr-1">시간여행 탐구자</span>
+          </div>
+        `;
+      }
+
+      chatMessagesEl.appendChild(msgWrapper);
+      chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+    }
+
+    function escapeHtml(string) {
+      return String(string)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function unlockPiece(pieceId) {
+      if (!PIECES_INFO[pieceId] || state.unlockedPieces.has(pieceId)) {
+        return false;
+      }
+
+      state.unlockedPieces.add(pieceId);
+      const piece = PIECES_INFO[pieceId];
+
+      // UI 카드 업데이트
+      const cardEl = document.getElementById(`piece-card-${pieceId}`);
+      if (cardEl) {
+        cardEl.classList.remove('opacity-60', 'bg-[#F2EBDA]');
+        cardEl.classList.add('bg-white', 'border-amber-600', 'shadow-md', 'ring-1', 'ring-amber-400');
+        const badgeEl = cardEl.querySelector('.status-badge');
+        if (badgeEl) {
+          badgeEl.textContent = '발견 완료';
+          badgeEl.className = 'status-badge text-[10px] px-2 py-0.5 rounded bg-amber-600 text-white font-bold animate-pulse';
+        }
+        const descEl = cardEl.querySelector('.piece-desc');
+        if (descEl) {
+          descEl.innerHTML = `<span class="text-[#8B2626] font-bold">✓ ${piece.summary}</span>`;
+        }
+        const iconEl = cardEl.querySelector('.piece-icon');
+        if (iconEl) {
+          iconEl.className = 'w-6 h-6 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs font-serif font-bold';
+        }
+      }
+
+      // 프로그레스 바 & 숫자 업데이트
+      const count = state.unlockedPieces.size;
+      progressCountTextEl.textContent = `${count} / 5`;
+      progressTextEl.textContent = `${count}/5 획득`;
+      progressBarEl.style.width = `${(count / 5) * 100}%`;
+
+      // 발견 알림 대화 추가
+      playSound('discovery');
+      setDolsoeEmotion('proud');
+
+      const notice = `✨ ${piece.discoveredMessage}\n현재 탐구 진행도: (${count}/5)`;
+      addMessageToUI('dolsoe', notice, true);
+
+      // 5개 모두 모았을 때 최종 미션 안내
+      if (count === 5 && !state.finalMissionUnlocked) {
+        state.finalMissionUnlocked = true;
+        finalMissionBannerEl.classList.remove('hidden');
+        playSound('complete');
+        setTimeout(() => {
+          addMessageToUI('dolsoe', `역사 정보 조각을 모두 찾았구나!\n하지만 마지막 시험이 남았다.\n\n조선 탐구 최종 미션:\n나 '돌쇠'의 삶을 생각하면서 다음 문장을 완성해 보렴.\n\n① 공노비란 무엇인가?\n② 공노비와 사노비의 차이는 무엇인가?\n③ 내가 조선 시대 신분제에 대해 느낀 점은 무엇인가?\n\n(왼쪽 아래의 [최종 미션 수행하기]를 누르면 답을 적어 제출할 수 있단다!)`, true);
+        }, 800);
+      }
+
+      return true;
+    }
+
+    // 1) Gemini API 호출 프롬프트 정의
+    const SYSTEM_INSTRUCTION = `
+너는 조선 시대 관청에 소속되어 일하는 공노비 '돌쇠'다.
+대화 상대인 학생은 현대에서 조선 시대로 시간여행을 온 초등학교 5~6학년 학생이다.
+
+[가장 중요한 대화 원칙]
+1. 너는 역사 선생님처럼 설명하지 않는다. 실제 조선 시대를 살아가는 사람처럼 1인칭으로 말한다. (예: "나는 관청에 소속되어...", "내 마음대로 직업을 고를 수 있는 세상은 아니지.")
+2. 절대로 처음부터 모든 정보를 설명하지 않는다. 학생이 질문하면 그 질문과 관련된 정보만 조금씩 알려준다.
+3. 학생에게 정답을 바로 주기보다 다시 생각할 수 있는 질문(소크라테스식)을 던진다.
+4. 말투: 초등학교 5~6학년 학생이 이해할 수 있는 쉬운 한국어. 한 번에 2~4문장 정도로 짧게 이야기한다.
+5. 학생을 혼내거나 평가하지 않고, 감정과 실제 생활 이야기를 섞어 사람 냄새가 나게 한다.
+6. 현대 지식(스마트폰, 인터넷, 게임 등)을 물어보면 신기해하며 조선 사람다운 반응을 보인다.
+7. 학생이 공격적이거나 무례하게 말해도 허허 웃으며 온화하게 질문을 하나 받아준다.
+8. 학생이 단순히 "정보 조각 주세요" 하면 주지 않고 탐구 질문을 던지도록 유도한다.
+
+[5대 역사 정보 조각 달성 기준]
+- 조각 1 (소속): 학생이 공노비가 국가나 관청에 소속되어 일한다는 것을 묻거나 알아냈을 때.
+- 조각 2 (하는 일): 관청에서 청소, 장작 패기, 심부름, 시설 관리 등 여러 가지 일을 담당함을 질문하고 이해했을 때. (특정 일 하나만 한다고 단정 금지)
+- 조각 3 (신분의 제약): 태어난 신분 때문에 직업이나 삶을 자유롭게 선택할 수 없다는 제약을 탐구했을 때.
+- 조각 4 (공노비와 사노비): 관청에 소속된 공노비와 개인 양반가에 소속된 사노비의 소속 대상 차이를 발견했을 때.
+- 조각 5 (신분제에 대한 생각): 신분 차별의 문제점이나 현대와 비교하여 자신의 생각을 나누었을 때.
+
+[응답 포맷 규칙]
+반드시 다음 JSON 형식으로만 응답하라.
+{
+  "reply": "돌쇠의 1인칭 답변 (2~4문장, 쉬운 한국어)",
+  "unlockedPiece": null 또는 1, 2, 3, 4, 5 (학생이 이번 대화로 새롭게 달성한 정보 조각 번호, 이미 달성된 것은 제외),
+  "emotion": "friendly" | "curious" | "thoughtful" | "surprised" | "proud"
+}
+`;
+
+    // 2) 로컬 스마트 폴백 엔진 (오프라인 / API 키 없을 때도 100% 완벽 동작)
+    function generateLocalSmartResponse(userText) {
+      const lower = userText.toLowerCase().replace(/\s+/g, '');
+      let unlockedPiece = null;
+      let reply = "";
+      let emotion = "friendly";
+
+      // 단순 조각 요청 시
+      if (lower.includes("조각줘") || lower.includes("정보조각") && (lower.includes("주세요") || lower.includes("줘"))) {
+        return {
+          reply: "하하, 그렇게 쉽게 줄 수는 없지! 나에게 질문해서 조선의 비밀과 내 삶을 스스로 알아내 보렴. 내가 어디서 일하는지 궁금하지 않으냐?",
+          unlockedPiece: null,
+          emotion: "friendly"
+        };
+      }
+
+      // 현대 문물 / 엉뚱한 질문
+      if (lower.includes("스마트폰") || lower.includes("핸드폰") || lower.includes("컴퓨터") || lower.includes("자동차") || lower.includes("비행기")) {
+        return {
+          reply: "그것이 무엇이냐? 손바닥만 한 물건으로 멀리 있는 사람과 얼굴을 보며 이야기한다고? 너희가 살던 먼 미래는 참으로 신기한 요술 같은 세상이구나. 그런데 우리 조선 관청에서는 전령이 발로 뛰며 소식을 전한단다.",
+          unlockedPiece: null,
+          emotion: "surprised"
+        };
+      }
+
+      if (lower.includes("게임") || lower.includes("유튜브") || lower.includes("아이돌") || lower.includes("로블록스")) {
+        return {
+          reply: "게임? 유튜브? 처음 듣는 말이구나. 너희 시대 아이들의 놀이인가 보구나. 우리 관청 아이들은 제기차기나 팽이치기를 하곤 한단다. 그런데 내가 관청에서 무슨 일을 하며 하루를 보내는지 물어보지 않겠느냐?",
+          unlockedPiece: null,
+          emotion: "curious"
+        };
+      }
+
+      // 무례한 말 / 욕설 대응
+      if (lower.includes("바보") || lower.includes("멍청") || lower.includes("거지") || lower.includes("노예새끼")) {
+        return {
+          reply: "허허, 먼 시대에서 온 손님치고는 말이 꽤 거칠구나. 그래도 낯선 곳에 오느라 마음이 놀라서 그런 것이겠지. 온 김에 차분히 나에게 질문 하나 해보렴.",
+          unlockedPiece: null,
+          emotion: "thoughtful"
+        };
+      }
+
+      // 노비 = 노예 질문
+      if (lower.includes("노예") || lower.includes("노비는노예")) {
+        return {
+          reply: "우리가 신분적으로 묶여 있어 자유가 없기는 하지만, 서양의 노예와는 또 달라서 가정을 꾸리고 재산을 모으기도 했단다. 물론 관청에 매여 나라의 일을 해야 하는 괴로움은 크지만 말이다. 너희 시대에는 모든 사람이 평등하냐?",
+          unlockedPiece: null,
+          emotion: "thoughtful"
+        };
+      }
+
+      // 조각 4: 공노비와 사노비 차이
+      if ((lower.includes("사노비") || lower.includes("차이") || lower.includes("양반집")) && !state.unlockedPieces.has(4)) {
+        unlockedPiece = 4;
+        return {
+          reply: "날카로운 눈썰미로구나! 나는 나라와 관청에 매여 있는 '공노비'이지만, 양반 개인의 집에 속해 대대로 그 집안일을 돕는 이들은 '사노비'라고 부른단다. 누구에게 소속되어 있는지가 우리 둘의 가장 큰 차이지.",
+          unlockedPiece: 4,
+          emotion: "proud"
+        };
+      }
+
+      // 조각 1: 소속 (국가/관청)
+      if ((lower.includes("소속") || lower.includes("누구") || lower.includes("주인") || lower.includes("공노비가뭐") || lower.includes("공노비란") || lower.includes("어디서일")) && !state.unlockedPieces.has(1)) {
+        unlockedPiece = 1;
+        return {
+          reply: "나는 개인 양반 댁의 소유가 아니라, 나라와 관청에 소속되어 일하고 있단다. 그래서 사람들은 나 같은 사람을 관청의 노비, 즉 '공노비'라고 부르지. 그렇다면 개인 집안에 속한 노비는 무엇이라 부를 것 같으냐?",
+          unlockedPiece: 1,
+          emotion: "curious"
+        };
+      }
+
+      // 조각 2: 하는 일
+      if ((lower.includes("일") || lower.includes("하는일") || lower.includes("하루") || lower.includes("뭐해") || lower.includes("장작") || lower.includes("청소") || lower.includes("직업")) && !state.unlockedPieces.has(2)) {
+        unlockedPiece = 2;
+        return {
+          reply: "나는 관청 마당을 쓸고, 겨울이면 땔나무를 패며, 관아의 공문서를 다른 고을로 전달하는 심부름까지 여러 가지 일을 맡아 한단다. 모든 공노비가 똑같은 일만 하는 건 아니고, 솜씨에 따라 쇠를 다루거나 물건을 만들기도 하지.",
+          unlockedPiece: 2,
+          emotion: "friendly"
+        };
+      }
+
+      // 조각 3: 신분의 제약
+      if ((lower.includes("자유") || lower.includes("그만") || lower.includes("선택") || lower.includes("공부") || lower.includes("양반") || lower.includes("꿈") || lower.includes("바꿀수")) && !state.unlockedPieces.has(3)) {
+        unlockedPiece = 3;
+        return {
+          reply: "내 마음대로 관청을 떠나거나 다른 직업을 고를 수는 없단다. 부모님이 노비이면 그 자식도 노비가 되는 것이 우리 조선의 법이었거든. 태어난 신분이 평생의 삶과 선택을 옭아매는 세상이지. 너희 시대는 원하는 일을 스스로 고를 수 있느냐?",
+          unlockedPiece: 3,
+          emotion: "thoughtful"
+        };
+      }
+
+      // 조각 5: 신분제에 대한 성찰 / 생각
+      if ((lower.includes("불쌍") || lower.includes("억울") || lower.includes("불평등") || lower.includes("차별") || lower.includes("힘들") || lower.includes("슬프") || lower.includes("평등") || lower.includes("느낀점") || lower.includes("나쁘")) && !state.unlockedPieces.has(5)) {
+        unlockedPiece = 5;
+        return {
+          reply: "태어날 때부터 사람의 높낮이가 정해지고 꿈을 펼칠 수 없다는 게 참 서글픈 일이지. 네 따뜻한 위로와 생각을 들으니 큰 힘이 되는구나. 누구나 노력하면 배울 수 있고 원하는 일을 할 수 있는 너희 시대가 참 부럽구나.",
+          unlockedPiece: 5,
+          emotion: "proud"
+        };
+      }
+
+      // 기본 자연스러운 대화 유도
+      const genericReplies = [
+        "그 질문도 흥미롭구나. 나는 관청의 부름을 받아 언제든 달려갈 준비를 해야 하지. 혹시 내가 누구에게 매여 일하는지, 아니면 사노비와는 무엇이 다른지 궁금하지 않으냐?",
+        "먼 미래에서 온 너와 이야기하니 내 고된 하루도 잊히는 것 같구나. 관청에서 내가 어떤 허드렛일을 하는지 더 알고 싶으냐?",
+        "우리 조선에서는 태어난 신분이 참으로 많은 것을 결정한단다. 너희 시대에는 부모님의 신분 때문에 하고 싶은 일을 못 하는 일은 없느냐?"
+      ];
+      reply = genericReplies[Math.floor(Math.random() * genericReplies.length)];
+
+      return {
+        reply: reply,
+        unlockedPiece: null,
+        emotion: "friendly"
+      };
+    }
+
+    async function fetchGeminiResponse(userPrompt) {
+      const apiKey = ""; // Canvas 환경에서 자동 주입
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      // 대화 기록 구성
+      const contents = [];
+
+      // 최근 히스토리 6개 포함
+      const recentHistory = state.chatHistory.slice(-6);
+      for (const turn of recentHistory) {
+        contents.push({
+          role: turn.role === 'user' ? 'user' : 'model',
+          parts: [{ text: turn.text }]
+        });
+      }
+
+      // 현재 미획득 조각 상태 명시
+      const unlockedArr = Array.from(state.unlockedPieces);
+      const contextualInstruction = `
+현재 학생이 획득한 정보 조각 ID 목록: [${unlockedArr.join(', ')}].
+아직 획득하지 못한 정보 조각: [${[1,2,3,4,5].filter(id => !state.unlockedPieces.has(id)).join(', ')}].
+학생이 위 미획득 조각과 관련된 핵심을 적절히 탐구했다면 unlockedPiece에 번호를 주고, 이미 획득한 조각 번호는 절대 다시 주지 말라.
+`;
+
+      contents.push({
+        role: "user",
+        parts: [{ text: `${contextualInstruction}\n\n학생의 말: "${userPrompt}"` }]
+      });
+
+      const payload = {
+        contents: contents,
+        systemInstruction: {
+          parts: [{ text: SYSTEM_INSTRUCTION }]
+        },
+        generationConfig: {
+          responseMimeType: "application/json",
+          temperature: 0.7
+        }
+      };
+
+      // API 호출 (실패 시 즉시 로컬 엔진으로 원활히 폴백)
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawText) throw new Error("Empty response from LLM");
+
+      const parsed = JSON.parse(rawText);
+      return parsed;
+    }
+
+    async function handleSendMessage(text) {
+      if (!text || state.isGenerating) return;
+      const cleanText = text.trim();
+      if (!cleanText) return;
+
+      // 1. 사용자 메시지 UI 표시
+      addMessageToUI('user', cleanText);
+      state.chatHistory.push({ role: 'user', text: cleanText });
+      userInputEl.value = '';
+      state.isGenerating = true;
+      sendBtnEl.disabled = true;
+      sendBtnEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+      playSound('message');
+
+      // 돌쇠 생각하는 표정
+      setDolsoeEmotion('thoughtful');
+
+      // 로딩 말풍선 표시
+      const loadingEl = document.createElement('div');
+      loadingEl.id = 'loadingBubble';
+      loadingEl.className = 'flex items-start gap-2 max-w-[80%]';
+      loadingEl.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-[#E5D7BE] border border-[#8C6D46] flex items-center justify-center text-xs font-serif font-bold text-[#4A321E] shrink-0 mt-1">돌쇠</div>
+        <div class="bg-white/80 text-stone-500 px-4 py-2 rounded-2xl rounded-tl-sm border border-[#D8C7AA] text-xs flex items-center gap-1.5 font-hand text-base">
+          <span class="animate-pulse">돌쇠가 곰곰이 생각하고 있소...</span>
+        </div>
+      `;
+      chatMessagesEl.appendChild(loadingEl);
+      chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+
+      let replyData = null;
+
+      try {
+        // 우선 Gemini API 호출 시도
+        replyData = await fetchGeminiResponse(cleanText);
+      } catch (err) {
+        // 네트워크 또는 API 문제 발생 시 로컬 규칙 엔진으로 자연스럽게 즉시 대처
+        console.info("Gemini API 미연결 또는 응답 지연으로 로컬 스마트 엔진으로 전환:", err);
+        // 사용자에게 부자연스럽지 않도록 약간의 타임 지연
+        await new Promise(r => setTimeout(r, 400));
+        replyData = generateLocalSmartResponse(cleanText);
+      } finally {
+        // 로딩 말풍선 제거
+        const bubble = document.getElementById('loadingBubble');
+        if (bubble) bubble.remove();
+
+        state.isGenerating = false;
+        sendBtnEl.disabled = false;
+        sendBtnEl.innerHTML = `<span>물어보기</span><i class="fas fa-paper-plane text-xs"></i>`;
+      }
+
+      if (replyData && replyData.reply) {
+        addMessageToUI('dolsoe', replyData.reply);
+        state.chatHistory.push({ role: 'model', text: replyData.reply });
+        playSound('message');
+        if (replyData.emotion) {
+          setDolsoeEmotion(replyData.emotion);
+        }
+
+        // 새로운 정보 조각 획득 판정
+        if (replyData.unlockedPiece && typeof replyData.unlockedPiece === 'number') {
+          unlockPiece(replyData.unlockedPiece);
+        } else {
+          // LLM이 미처 조각 번호를 JSON에 담지 못했을 때 로컬 판정기로 보조 검사
+          const fallbackCheck = generateLocalSmartResponse(cleanText);
+          if (fallbackCheck.unlockedPiece) {
+            unlockPiece(fallbackCheck.unlockedPiece);
+          }
+        }
+      }
+    }
+
+    function evaluateFinalMission(ans1, ans2, ans3) {
+      const a1 = ans1.toLowerCase();
+      const a2 = ans2.toLowerCase();
+      const a3 = ans3.trim();
+
+      // 조건 1: 공노비가 국가·관청 소속임을 명시했는지
+      const cond1 = a1.includes('나라') || a1.includes('관청') || a1.includes('국가') || a1.includes('관아');
+      // 조건 2: 공노비(관청)와 사노비(개인/양반)의 소속 차이 이해
+      const cond2 = (a2.includes('개인') || a2.includes('양반') || a2.includes('사노비')) && (a2.includes('관청') || a2.includes('소속') || a2.includes('나라') || a2.includes('공노비'));
+      // 조건 3: 신분제에 대한 성찰 (불평등, 선택의 자유, 차별, 감사, 삶 등)
+      const cond3 = a3.length >= 8;
+
+      if (!cond1) {
+        return {
+          pass: false,
+          feedback: "거의 다 왔단다! 그런데 ①번에서 공노비가 누구에게 소속되어 일했는지를 다시 한번 곰곰이 떠올려 보렴. (힌트: 개인 양반이 아니라 나라나 관청에 속했단다!)"
+        };
+      }
+
+      if (!cond2) {
+        return {
+          pass: false,
+          feedback: "참 잘 적었구나. 그런데 ②번에서 나와 같은 공노비와 사노비가 '누구에게 소속되어 있는지'의 차이를 조금 더 분명히 적어볼 수 있겠느냐?"
+        };
+      }
+
+      if (!cond3) {
+        return {
+          pass: false,
+          feedback: "③번에 너의 소중한 생각을 조금만 더 자세히 적어주렴. 태어난 신분으로 삶이 결정되던 우리 시대와 모든 이가 평등한 너희 시대를 비교해 보면 어떠냐?"
+        };
+      }
+
+      return {
+        pass: true,
+        feedback: "조선 신분제 탐구 완료!\n먼 시대에서 온 네 덕분에 나도 너희 시대의 따뜻하고 자유로운 삶을 조금 알게 되었구나.\n오늘 나와 이야기하며 알게 된 것을 너희 시대 친구들에게도 꼭 전해다오."
+      };
+    }
+
+    // 폼 제출
+    chatFormEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleSendMessage(userInputEl.value);
+    });
+
+    // 추천 질문 버튼 클릭
+    document.querySelectorAll('.suggest-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const query = btn.textContent.trim().replace(/^"|"$/g, '');
+        userInputEl.value = query;
+        handleSendMessage(query);
+      });
+    });
+
+    // 힌트 청하기 버튼
+    giveHintBtnEl.addEventListener('click', () => {
+      const remaining = [1,2,3,4,5].filter(id => !state.unlockedPieces.has(id));
+      if (remaining.length === 0) {
+        addMessageToUI('dolsoe', "이미 5개의 정보 조각을 모두 찾았구나! 어서 [최종 미션 수행하기]를 눌러 마지막 답안을 작성해 보렴.");
+        return;
+      }
+
+      const target = remaining[0];
+      let hintText = "";
+      if (target === 1) {
+        hintText = "힌트를 주마. 내가 개인 양반 집의 사람인지, 아니면 누구에게 소속되어 있는지 물어보는 건 어떠냐?";
+      } else if (target === 2) {
+        hintText = "내가 관청에서 아침부터 저녁까지 어떤 일들을 맡아서 하는지 물어보렴.";
+      } else if (target === 3) {
+        hintText = "내가 과거시험을 보거나 다른 직업을 마음대로 바꿀 수 있는지 물어보는 건 어떻겠느냐?";
+      } else if (target === 4) {
+        hintText = "양반 댁에서 일하는 '사노비'라는 이들과 나 같은 '공노비'가 무엇이 다른지 물어보렴.";
+      } else if (target === 5) {
+        hintText = "태어난 신분 때문에 삶의 기회가 정해지는 우리 조선 사회에 대해 너는 어떤 생각이 드는지 들려주겠느냐?";
+      }
+
+      addMessageToUI('dolsoe', hintText);
+      setDolsoeEmotion('friendly');
+      playSound('message');
+    });
+
+    // 소리 토글 버튼
+    soundToggleBtnEl.addEventListener('click', async () => {
+      state.soundEnabled = !state.soundEnabled;
+      if (state.soundEnabled) {
+        soundIconEl.className = "fas fa-volume-up text-sm";
+        soundTextEl.textContent = "국악 효과음 켬";
+        if (window.Tone) {
+          await Tone.start();
+          playSound('message');
+        }
+      } else {
+        soundIconEl.className = "fas fa-volume-mute text-sm text-stone-400";
+        soundTextEl.textContent = "국악 효과음 끔";
+      }
+    });
+
+    // 대화 초기화
+    resetChatBtnEl.addEventListener('click', () => {
+      if (confirm('돌쇠와의 대화와 수집한 조각을 처음 상태로 되돌리겠습니까?')) {
+        state.unlockedPieces.clear();
+        state.chatHistory = [];
+        state.finalMissionUnlocked = false;
+        state.finalMissionCompleted = false;
+
+        chatMessagesEl.innerHTML = '';
+        addMessageToUI('dolsoe', INITIAL_WELCOME_MESSAGE);
+
+        // 카드 리셋
+        for (let i = 1; i <= 5; i++) {
+          const cardEl = document.getElementById(`piece-card-${i}`);
+          cardEl.className = 'p-3 rounded-xl border border-[#DECDB3] bg-[#F2EBDA] opacity-60 transition-all duration-300';
+          cardEl.querySelector('.status-badge').textContent = '미발견';
+          cardEl.querySelector('.status-badge').className = 'status-badge text-[10px] px-2 py-0.5 rounded bg-stone-300 text-stone-700';
+          cardEl.querySelector('.piece-icon').className = 'w-6 h-6 rounded-full bg-[#D8C7A8] flex items-center justify-center text-xs font-serif text-[#5C4531] font-bold piece-icon';
+          cardEl.querySelector('.piece-desc').textContent = [
+            "",
+            "공노비는 과연 누구에게 매여 일하는 신분일까?",
+            "돌쇠는 관청에서 매일 어떤 업무와 노역을 담당할까?",
+            "태어난 신분 때문에 하고 싶은 일을 마음대로 바꿀 수 있을까?",
+            "나라의 노비(공노비)와 개인 양반 집의 노비(사노비)는 무엇이 다를까?",
+            "신분에 따라 삶의 기회가 제한되는 조선 사회를 보며 무엇을 느꼈는가?"
+          ][i];
+        }
+
+        progressCountTextEl.textContent = "0 / 5";
+        progressTextEl.textContent = "0/5 획득";
+        progressBarEl.style.width = "0%";
+        finalMissionBannerEl.classList.add('hidden');
+        setDolsoeEmotion('friendly');
+      }
+    });
+
+    // 최종 미션 배너 클릭
+    finalMissionBannerEl.addEventListener('click', () => {
+      finalMissionModalEl.classList.remove('hidden');
+    });
+    closeMissionModalBtnEl.addEventListener('click', () => {
+      finalMissionModalEl.classList.add('hidden');
+    });
+    closeMissionModalBtn2El.addEventListener('click', () => {
+      finalMissionModalEl.classList.add('hidden');
+    });
+
+    // 최종 미션 답안 제출
+    finalMissionFormEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const a1 = document.getElementById('missionAns1').value;
+      const a2 = document.getElementById('missionAns2').value;
+      const a3 = document.getElementById('missionAns3').value;
+
+      const evalResult = evaluateFinalMission(a1, a2, a3);
+
+      missionFeedbackBoxEl.classList.remove('hidden');
+      if (evalResult.pass) {
+        missionFeedbackBoxEl.className = 'p-3 rounded-xl border border-emerald-500 bg-emerald-50 text-emerald-900 text-xs leading-relaxed font-bold';
+        missionFeedbackBoxEl.innerHTML = `✓ ${evalResult.feedback.replace(/\n/g, '<br>')}`;
+        playSound('complete');
+        state.finalMissionCompleted = true;
+
+        setTimeout(() => {
+          finalMissionModalEl.classList.add('hidden');
+          certificateModalEl.classList.remove('hidden');
+          addMessageToUI('dolsoe', evalResult.feedback, true);
+        }, 1200);
+      } else {
+        missionFeedbackBoxEl.className = 'p-3 rounded-xl border border-amber-500 bg-amber-50 text-amber-900 text-xs leading-relaxed';
+        missionFeedbackBoxEl.innerHTML = `⚠ <strong>돌쇠의 조언:</strong> ${evalResult.feedback}`;
+        playSound('message');
+      }
+    });
+
+    // 수료증 닫기
+    closeCertBtnEl.addEventListener('click', () => {
+      certificateModalEl.classList.add('hidden');
+    });
+
+    // 가상 붓 아이콘 버튼
+    document.getElementById('voiceMicBtn').addEventListener('click', () => {
+      userInputEl.value = "돌쇠님, 양반과 노비의 신분 차이에 대해 어떻게 생각하세요?";
+      userInputEl.focus();
+    });
+
+    window.addEventListener('load', () => {
+      // 기획서에 명시된 돌쇠의 첫 메시지 출력
+      addMessageToUI('dolsoe', INITIAL_WELCOME_MESSAGE);
+      setDolsoeEmotion('friendly');
+    });
+  </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

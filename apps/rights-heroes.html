@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위대한 인권 운동가들</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* 부드러운 배경색 */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header {
+            background-color: #4a5568; /* 다크 그레이 헤더 */
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            border-bottom-left-radius: 25px; /* 더 둥글게 */
+            border-bottom-right-radius: 25px; /* 더 둥글게 */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 그림자 강조 */
+        }
+        .section-title {
+            font-size: 2.5rem; /* 글씨 크기 키움 */
+            font-weight: 800; /* 더 굵게 */
+            color: #2d3748; /* 진한 글씨색 */
+            margin-bottom: 2.5rem; /* 여백 증가 */
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.75rem; /* 밑줄과의 간격 증가 */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px; /* 밑줄 길이 증가 */
+            height: 5px; /* 밑줄 두께 증가 */
+            background-color: #4299e1; /* 강조색 */
+            border-radius: 3px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 20px; /* 더 둥글게 */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12); /* 그림자 강조 */
+            padding: 2rem; /* 패딩 증가 */
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-8px); /* 더 많이 올라가게 */
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2); /* 호버시 그림자 강조 */
+        }
+        .card-title {
+            font-size: 1.75rem; /* 카드 제목 크기 키움 */
+            font-weight: 700; /* 더 굵게 */
+            color: #2c5282; /* 카드 제목색 */
+            margin-bottom: 1rem;
+        }
+        .card-subtitle {
+            font-size: 1.25rem; /* 카드 부제목 크기 키움 */
+            font-weight: 600; /* 더 굵게 */
+            color: #4a5568; /* 카드 부제목색 */
+            margin-bottom: 0.75rem;
+        }
+        .card-description {
+            color: #4a5568;
+            line-height: 1.7; /* 줄 간격 넓힘 */
+            flex-grow: 1;
+            margin-bottom: 1rem; /* 설명과 버튼 사이 간격 */
+        }
+        .filter-buttons button {
+            background-color: #a0aec0; /* 필터 버튼 기본색 */
+            color: white;
+            padding: 0.85rem 1.75rem; /* 패딩 증가 */
+            border-radius: 30px; /* 더 둥글게 */
+            font-weight: 700; /* 더 굵게 */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin: 0.6rem; /* 여백 증가 */
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+        }
+        .filter-buttons button:hover {
+            background-color: #718096; /* 호버시 진하게 */
+            transform: translateY(-3px); /* 더 많이 올라가게 */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .filter-buttons button.active {
+            background-color: #4299e1; /* 활성화된 필터 버튼색 */
+            box-shadow: 0 8px 12px rgba(66, 153, 225, 0.4); /* 활성화시 그림자 강조 */
+            transform: translateY(-1px);
+        }
+        .footer {
+            background-color: #2d3748; /* 푸터색 */
+            color: white;
+            text-align: center;
+            padding: 1.75rem 0; /* 패딩 증가 */
+            margin-top: 4rem; /* 마진 증가 */
+            border-top-left-radius: 25px; /* 더 둥글게 */
+            border-top-right-radius: 25px; /* 더 둥글게 */
+            box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15);
+        }
+        .learn-more-button {
+            background-color: #48bb78; /* 초록색 버튼 */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            display: inline-block; /* 텍스트 크기에 맞게 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .learn-more-button:hover {
+            background-color: #38a169; /* 호버시 진하게 */
+            transform: translateY(-2px);
+        }
+        .image-container {
+            position: relative;
+            width: 100%; /* 카드 너비에 맞춤 */
+            max-width: 200px; /* 최대 너비 설정 */
+            height: 200px; /* 높이 고정 */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            overflow: hidden; /* 오버레이가 컨테이너 밖으로 나가지 않도록 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .activist-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+            border-radius: 15px;
+            display: block; /* 중앙 정렬을 위해 */
+        }
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4); /* 반투명 오버레이 */
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 15px;
+            opacity: 1; /* 항상 보이도록 설정 */
+            transition: opacity 0.3s ease;
+            padding: 10px; /* 텍스트가 잘리지 않도록 패딩 추가 */
+            box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .filter-buttons button {
+                width: 90%; /* 모바일에서 버튼 너비 증가 */
+                margin: 0.4rem 0;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .card-title {
+                font-size: 1.5rem;
+            }
+            .card-subtitle {
+                font-size: 1.1rem;
+            }
+            .image-container {
+                max-width: 150px; /* 모바일에서 이미지 크기 조정 */
+                height: 150px;
+            }
+            .image-overlay {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="text-5xl font-extrabold mb-3">✨ 위대한 인권 운동가들 ✨</h1>
+        <p class="text-2xl font-light">세상을 바꾼 용기 있는 영웅들 이야기</p>
+    </div>
+
+    <div class="container my-10">
+        <h2 class="section-title">🌟 인권 운동가 탐색 🌟</h2>
+
+        <div class="filter-buttons flex flex-wrap justify-center mb-10">
+            <button class="active" data-filter="모두">모두 보기</button>
+            <button data-filter="미국">🇺🇸 미국</button>
+            <button data-filter="남아프리카 공화국">🇿🇦 남아프리카 공화국</button>
+            <button data-filter="인도">🇮🇳 인도</button>
+            <button data-filter="대한민국">🇰🇷 대한민국</button>
+            <button data-filter="파키스탄">🇵🇰 파키스탄</button>
+            <button data-filter="미얀마">🇲🇲 미얀마</button>
+            <button data-filter="글로벌">🌍 글로벌</button>
+            <button data-filter="19세기 이전">🕰️ 19세기 이전</button>
+            <button data-filter="20세기 초">⏳ 20세기 초</button>
+            <button data-filter="20세기 중반">🗓️ 20세기 중반</button>
+            <button data-filter="20세기 후반">📅 20세기 후반</button>
+            <button data-filter="21세기">🚀 21세기</button>
+        </div>
+
+        <div id="activist-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 위대한 인권 운동가들. 모든 권리 보유. ✨</p>
+    </div>
+
+    <script>
+        const activists = [
+            {
+                name: "마틴 루터 킹 주니어",
+                country: "미국",
+                era: "20세기 중반",
+                tags: ["미국", "20세기 중반"],
+                description: "미국의 침례교 목사이자 아프리카계 미국인 민권 운동의 가장 눈에 띄는 대변인이자 지도자입니다. 비폭력 시민 불복종을 통해 인종 차별에 맞서 싸웠습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%A7%88%ED%8B%B4_%EB%A3%A8%ED%84%B0_%ED%82%B9_%EC%A3%BC%EB%8B%88%EC%96%B4",
+                imageUrl: "https://placehold.co/200x200/4299e1/ffffff" // 텍스트 제거
+            },
+            {
+                name: "넬슨 만델라",
+                country: "남아프리카 공화국",
+                era: "20세기 후반",
+                tags: ["남아프리카 공화국", "20세기 후반"],
+                description: "남아프리카 공화국의 반아파르트헤이트 혁명가, 정치인, 자선가로, 1994년부터 1999년까지 남아프리카 공화국의 대통령을 지냈습니다. 그는 남아프리카 공화국 최초의 흑인 대통령이자 완전한 대표 민주주의 선거에서 선출된 최초의 대통령이었습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%84%AC%EC%8A%A8_%EB%A7%8C%EB%8D%B8%EB%9D%BC",
+                imageUrl: "https://placehold.co/200x200/48bb78/ffffff"
+            },
+            {
+                name: "마하트마 간디",
+                country: "인도",
+                era: "20세기 초",
+                tags: ["인도", "20세기 초"],
+                description: "인도의 독립 운동을 이끈 지도자로, 비폭력 저항 운동을 통해 인도의 독립에 크게 기여했습니다. 그의 철학은 전 세계 인권 운동에 큰 영향을 미쳤습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%A7%88%ED%95%98%ED%8A%B8%EB%A7%88_%EA%B0%84%EB%94%94",
+                imageUrl: "https://placehold.co/200x200/ed8936/ffffff"
+            },
+            {
+                name: "로자 파크스",
+                country: "미국",
+                era: "20세기 중반",
+                tags: ["미국", "20세기 중반"],
+                description: "미국의 민권 운동가로, 몽고메리 버스 보이콧 운동의 시작을 알린 인물입니다. 버스에서 백인에게 자리를 양보하기를 거부하여 체포되었으며, 이는 민권 운동의 상징이 되었습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%A1%9C%EC%9E%90_%ED%8C%8C%ED%81%AC%EC%8A%A4",
+                imageUrl: "https://placehold.co/200x200/ecc94b/ffffff"
+            },
+            {
+                name: "헬렌 켈러",
+                country: "미국",
+                era: "20세기 초",
+                tags: ["미국", "20세기 초"],
+                description: "미국의 작가, 정치 운동가, 강사로, 시각과 청각 장애를 극복하고 장애인 인권 신장에 크게 기여했습니다. 그녀의 삶은 많은 사람들에게 영감을 주었습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%ED%97%AC%EB%A0%8C_%EC%BC%88%EB%9F%AC",
+                imageUrl: "https://placehold.co/200x200/9f7aea/ffffff"
+            },
+            {
+                name: "방정환",
+                country: "대한민국",
+                era: "20세기 초",
+                tags: ["대한민국", "20세기 초"],
+                description: "한국의 아동 문학가이자 아동 인권 운동가로, '어린이'라는 호칭을 만들고 어린이날을 제정하여 어린이의 인권을 옹호하고 존중받는 사회를 만들기 위해 노력했습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%B0%A9%EC%A0%95%ED%99%98",
+                imageUrl: "https://placehold.co/200x200/f6ad55/ffffff"
+            },
+            {
+                name: "박두성",
+                country: "대한민국",
+                era: "20세기 초",
+                tags: ["대한민국", "20세기 초"],
+                description: "한국의 맹인 교육자이자 한글 점자(훈맹정음)를 창안한 인물입니다. 시각 장애인들이 글을 읽고 쓸 수 있도록 하여 그들의 교육권과 정보 접근권을 신장하는 데 크게 기여했습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%B0%95%EB%91%90%EC%84%B1",
+                imageUrl: "https://placehold.co/200x200/667eea/ffffff"
+            },
+            {
+                name: "말랄라 유사프자이",
+                country: "파키스탄",
+                era: "21세기",
+                tags: ["파키스탄", "21세기"],
+                description: "파키스탄의 여성 교육 운동가로, 탈레반의 여성 교육 금지에 맞서 싸우다 총격을 당했습니다. 이후에도 여성과 아동의 교육권을 옹호하며 최연소 노벨 평화상 수상자가 되었습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%A7%90%EB%9D%BC%EB%9D%BC_%EC%9C%A0%EC%82%AC%ED%94%84%EC%9E%90%EC%9D%B4",
+                imageUrl: "https://placehold.co/200x200/d53f8c/ffffff"
+            },
+            {
+                name: "아웅산 수치",
+                country: "미얀마",
+                era: "20세기 후반",
+                tags: ["미얀마", "20세기 후반"],
+                description: "미얀마의 정치인이자 민주화 운동가로, 군부 독재에 맞서 비폭력 저항 운동을 이끌었습니다. 오랜 기간 가택 연금 상태에 있었으며, 미얀마 민주화의 상징적인 인물입니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EC%95%84%EC%9B%85%EC%82%B0_%EC%88%98%EC%B9%98",
+                imageUrl: "https://placehold.co/200x200/805ad5/ffffff"
+            },
+            {
+                name: "테레사 수녀",
+                country: "글로벌",
+                era: "20세기 후반",
+                tags: ["글로벌", "20세기 후반"],
+                description: "알바니아계 인도인 로마 가톨릭 수녀이자 선교사로, 인도의 가난하고 병든 사람들을 위해 헌신적인 봉사 활동을 펼쳤습니다. 그녀의 활동은 전 세계적인 인권과 자선 활동의 모범이 되었습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EB%A7%88%ED%84%B0_%ED%85%8C%EB%A0%88%EC%82%AC",
+                imageUrl: "https://placehold.co/200x200/319795/ffffff"
+            },
+            {
+                name: "올림프 드 구주",
+                country: "프랑스",
+                era: "19세기 이전",
+                tags: ["글로벌", "19세기 이전"],
+                description: "프랑스 혁명 시기의 작가이자 여성 인권 운동가로, '여성 및 여성 시민의 권리 선언'을 발표하며 여성의 동등한 권리를 주장했습니다.",
+                learnMoreLink: "https://ko.wikipedia.org/wiki/%EC%98%AC%EB%A6%BC%ED%94%84_%EB%93%9C_%EA%B5%AC%EC%A3%BC",
+                imageUrl: "https://placehold.co/200x200/7b341e/ffffff"
+            }
+        ];
+
+        const activistList = document.getElementById('activist-list');
+        const filterButtons = document.querySelectorAll('.filter-buttons button');
+
+        function displayActivists(filteredActivists) {
+            activistList.innerHTML = ''; // 기존 카드 삭제
+            filteredActivists.forEach(activist => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'flex', 'flex-col', 'justify-between', 'p-6', 'rounded-xl', 'shadow-lg', 'transform', 'transition-all', 'duration-300', 'hover:scale-105', 'hover:shadow-2xl');
+                card.innerHTML = `
+                    <div>
+                        <div class="image-container">
+                            <img src="${activist.imageUrl}" alt="${activist.name} 이미지" class="activist-image">
+                            <div class="image-overlay">${activist.name}</div>
+                        </div>
+                        <h3 class="card-title text-2xl font-bold text-blue-800 mb-2">${activist.name}</h3>
+                        <p class="card-subtitle text-lg font-semibold text-gray-700 mb-1">나라: ${activist.country}</p>
+                        <p class="card-subtitle text-lg font-semibold text-gray-700 mb-4">시대: ${activist.era}</p>
+                        <p class="card-description text-gray-700 leading-relaxed">${activist.description}</p>
+                    </div>
+                    <a href="${activist.learnMoreLink}" target="_blank" class="learn-more-button mt-4">더 알아보기 📚</a>
+                `;
+                activistList.appendChild(card);
+            });
+        }
+
+        // 초기 로드 시 모든 인권 운동가 표시
+        displayActivists(activists);
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 모든 버튼의 active 클래스 제거
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // 클릭된 버튼에 active 클래스 추가
+                button.classList.add('active');
+
+                const filter = button.dataset.filter;
+                let filteredActivists = [];
+
+                if (filter === '모두') {
+                    filteredActivists = activists;
+                } else {
+                    // 나라 또는 시대로 필터링
+                    filteredActivists = activists.filter(activist => activist.tags.includes(filter));
+                }
+                displayActivists(filteredActivists);
+            });
+        });
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

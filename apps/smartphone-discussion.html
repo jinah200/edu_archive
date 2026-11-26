@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토의 근거 자료 찾기 도우미 (5학년용)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Jua 폰트 (초등학생에게 친근한 폰트) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Jua', sans-serif; /* 폰트 적용 */
+        }
+        /* Jua 폰트는 Inter보다 클 수 있으므로, 기본 크기 조절 */
+        .text-lg { font-size: 1.20rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.35rem; line-height: 1.85rem; }
+        .text-2xl { font-size: 1.65rem; line-height: 2rem; }
+        .text-3xl { font-size: 2rem; line-height: 2.25rem; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <!-- 가로 폭을 max-w-4xl (896px) 에서 max-w-6xl (1152px) 로 늘림 -->
+    <div class="bg-white rounded-2xl shadow-xl max-w-6xl w-full p-6 md:p-10 border-4 border-blue-500">
+        
+        <!-- 헤더: 교사 아이콘 및 제목 -->
+        <div class="flex flex-col items-center text-center">
+            <!-- 교사 아이콘 (SVG) -->
+            <div class="bg-blue-100 rounded-full p-3 mb-4 border-2 border-blue-300">
+                <svg class="w-12 h-12 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                </svg>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">토의 근거 자료 찾기 도우미</h1>
+            <p class="text-lg md:text-xl font-semibold text-blue-700 bg-blue-50 rounded-lg px-4 py-2">
+                토의 주제: 스마트폰 중독을 줄이는 방법
+            </p>
+        </div>
+
+        <!-- 설명 (토의의 목적 강조) -->
+        <div class="text-center text-gray-700 mt-4 mb-6 md:mb-8 text-lg md:text-xl leading-relaxed">
+            <p class="mb-3">
+                5학년 여러분! 토의는 '누가 이기나' 겨루는 시합이 아니에요.<br>
+                <span class="bg-yellow-200 px-1 rounded font-bold">'함께 힘을 합쳐 더 좋은 해결 방법'</span>을 찾아가는 <span class="text-blue-600 font-bold">'팀 활동'</span>이랍니다!
+            </p>
+            <p>
+                친구의 다른 의견도 잘 듣고, "어? 저 생각도 좋네?" 하는 부분이 있다면<br class="hidden sm:block">
+                내 생각과 합쳐서 <span class="text-green-600 font-bold">'모두를 위한 더 멋진 의견'</span>으로 발전시켜 보세요.<br>
+                튼튼한 근거를 찾는 것은 바로 이 '멋진 의견'을 만들기 위한 준비 과정이에요!
+            </p>
+        </div>
+
+        <!-- 1. 문제점 찾기 -->
+        <div class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-red-700 mb-4 flex items-center justify-center space-x-2">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.008v.008H12v-.008z" /></svg>
+                <span>먼저, 우리가 '함께 해결할 문제'가 뭘까요?</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- ... (기존 버튼 코드와 동일) ... -->
+                <a href="https://www.google.com/search?q=%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0+%EC%A4%91%EB%8F%85+%EB%8B%A8%EC%A0%90+%EC%B4%88%EB%93%B1%ED%95%99%EC%83%9D" target="_blank" rel="noopener noreferrer" class="bg-red-50 p-5 rounded-lg shadow-md border-2 border-red-200 transition-all duration-200 hover:shadow-lg hover:border-red-500 hover:scale-[1.03]">
+                    <h3 class="text-lg font-semibold text-gray-800">인터넷 검색 (Google)</h3>
+                    <p class="text-sm text-gray-700 mt-1">스마트폰 중독의 나쁜 점 (단점, 폐해) 찾기</p>
+                </a>
+                <a href="https://www.google.com/search?tbm=nws&q=%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0+%EC%A4%91%EB%8F%85+%EB%AC%B8%EC%A0%9C%EC%A0%90+%EB%89%B4%EC%8A%A4" target="_blank" rel="noopener noreferrer" class="bg-red-50 p-5 rounded-lg shadow-md border-2 border-red-200 transition-all duration-200 hover:shadow-lg hover:border-red-500 hover:scale-[1.03]">
+                    <h3 class="text-lg font-semibold text-gray-800">뉴스 검색</h3>
+                    <p class="text-sm text-gray-700 mt-1">최근에 어떤 문제들이 생겼는지 뉴스 보기</p>
+                </a>
+                <a href="https://terms.naver.com/search.naver?query=%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0+%EC%A4%91%EB%8F%85&searchType=text&target=child" target="_blank" rel="noopener noreferrer" class="bg-red-50 p-5 rounded-lg shadow-md border-2 border-red-200 transition-all duration-200 hover:shadow-lg hover:border-red-500 hover:scale-[1.03]">
+                    <h3 class="text-lg font-semibold text-gray-800">어린이 백과 (네이버)</h3>
+                    <p class="text-sm text-gray-700 mt-1">'스마트폰 중독'이 무엇인지 쉽게 이해하기</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. 해결 방법 찾기 -->
+        <div class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-blue-700 mb-4 flex items-center justify-center space-x-2">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>그럼, '더 좋은 해결 방법'은 뭘까요?</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- ... (기존 버튼 코드와 동일) ... -->
+                <a href="https://www.google.com/search?q=%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0+%EC%A4%91%EB%8F%85+%EC%A4%84%EC%9D%B4%EB%8A%94+%EB%B0%A9%EB%B2%95+%EC%B4%88%EB%93%B1%ED%95%99%EC%83%9D" target="_blank" rel="noopener noreferrer" class="bg-blue-50 p-5 rounded-lg shadow-md border-2 border-blue-200 transition-all duration-200 hover:shadow-lg hover:border-blue-500 hover:scale-[1.03]">
+                    <h3 class="text-lg font-semibold text-gray-800">인터넷 검색 (Google)</h3>
+                    <p class="text-sm text-gray-700 mt-1">스스로 실천할 수 있는 해결 방법 찾기</p>
+                </a>
+                <a href="https://www.yes24.com/Product/Search?domain=ALL&query=%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0+%EC%A4%91%EB%8F%85+%EC%98%88%EB%B0%A9+%EC%B1%85" target="_blank" rel="noopener noreferrer" class="bg-blue-50 p-5 rounded-lg shadow-md border-2 border-blue-200 transition-all duration-200 hover:shadow-lg hover:border-blue-500 hover:scale-[1.03]">
+                    <h3 class="text-lg font-semibold text-gray-800">도서 검색 (Yes24)</h3>
+                    <p class="text-sm text-gray-700 mt-1">전문가 선생님들이 쓴 책 내용 살펴보기</p>
+                </a>
+                <!-- '어린이 통계청' 링크와 설명을 요청하신 새 주소로 수정 -->
+                <a href="https://kosis.kr/edu/index/index.do?sso=ok" target="_blank" rel="noopener noreferrer" class="bg-blue-50 p-5 rounded-lg shadow-md border-2 border-blue-200 transition-all duration-200 hover:shadow-lg hover:border-blue-500 hover:scale-[1.03]">
+                    <h3 class="text-lg font-semibold text-gray-800">KOSIS 통계교육 (통계 자료)</h3>
+                    <p class="text-sm text-gray-700 mt-1">통계청 공식 교육 자료 찾아보기</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 3. 근거 문장 만들기 예시 (협력적 토의 반영) -->
+        <div class="mt-8 md:mt-10 pt-6 border-t-2 border-dashed border-gray-300">
+            <h2 class="text-xl md:text-2xl font-bold text-green-700 mb-4 text-center">
+                💡 찾은 자료로 '토의 의견' 만들기 (예시)
+            </h2>
+            <div class="bg-gray-50 p-6 rounded-lg border">
+                <h3 class="text-lg font-semibold text-red-600 mb-2">😲 문제점을 말할 때 (예시)</h3>
+                <ul class="list-disc list-outside pl-5 space-y-2 text-gray-800 text-base md:text-lg">
+                    <li>"제가 찾은 OOO 뉴스 기사에 따르면, 스마트폰을 너무 오래 보면 거북목이 되거나 시력이 나빠질 수 있다고 합니다."</li>
+                    <li>"네이버 어린이 백과에서는 스마트폰 중독이 공부에 집중하는 힘을 빼앗아간다고 설명합니다."</li>
+                    <li>"정부의 2024년 통계 자료를 보니, 우리나라 청소년 10명 중 3명 이상이 스마트폰 중독 위험군이라고 합니다. 이것은 우리 반만의 문제가 아니라 <span class="font-bold">우리 모두가 함께</span> 해결해야 할 심각한 문제라고 생각합니다."</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold text-blue-600 mt-6 mb-2">👍 해결 방법을 제안할 때 (예시)</h3>
+                <ul class="list-disc list-outside pl-5 space-y-2 text-gray-800 text-base md:text-lg">
+                    <li>"저는 '스마트폰 사용 규칙'을 스스로 정하는 것이 좋은 방법이라고 생각합니다. 왜냐하면 OOO 전문가가 쓴 책에서 스스로 계획하고 지키는 것이 가장 중요하다고 했기 때문입니다."</li>
+                    <li>"제 생각에는 운동이나 그림 그리기 같은 다른 재미있는 취미를 만드는 것도 좋습니다. 그 근거로, 한 인터넷 기사에서 스마트폰 말고 다른 곳에 집중하는 것이 중독을 벗어나는 데 도움이 된다고 읽었습니다."</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold text-purple-600 mt-6 mb-2">🤝 친구 의견을 듣고 내 생각을 '발전'시킬 때 (예시)</h3>
+                <ul class="list-disc list-outside pl-5 space-y-2 text-gray-800 text-base md:text-lg">
+                    <li>"OO 친구가 말한 '스마트폰 사용 규칙 정하기' 의견에 <span class="font-bold">저도 동의합니다.</span> <span class="font-bold">거기에 더해서,</span> OOO 책에서 읽은 '스마트폰 보관함 만들기'도 함께 실천하면 더 효과적일 것 같습니다."</li>
+                    <li>"아까 OO 친구가 '운동 같은 취미'를 말했는데, <span class="font-bold">그 의견이 정말 좋은 것 같습니다.</span> 왜냐하면 제가 찾은 뉴스에서도 스마트폰 대신 몸을 움직이는 활동이 뇌 건강에 좋다고 했기 때문입니다. <span class="font-bold">그래서</span> 우리 반 다 같이 '점심시간 10분 산책하기'를 정하는 것도 좋은 해결 방법이라고 생각합니다."</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 마무리: 출처 밝히기 강조 -->
+        <div class="text-center mt-8 md:mt-10 pt-6 border-t-2 border-dashed border-gray-300">
+            <p class="text-lg font-semibold text-red-600">
+                ⭐ 가장 중요! 꼭 기억하세요! ⭐
+            </p>
+            <p class="text-xl font-bold text-gray-800 mt-2">
+                튼튼한 근거를 댈 때와 친구 의견을 존중할 때<br>
+                <span class="bg-yellow-200 px-2 py-1 rounded">'출처'와 '친구 이름'</span>을 밝혀주면 더 멋져요!
+            </p>
+            <p class="text-base text-gray-600 mt-2">
+                (예: OOO 뉴스 기사, OOO 책, 그리고 OO 친구의 의견에 따르면...)
+            </p>
+        </div>
+    </div>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+
+
+

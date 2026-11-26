@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>학생을 위한 음악 탐구실 - 친숙한 동요 & OST 단조(Minor) 명곡 20선</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Prettify with Inter and Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            midnight: '#0b1120',
+            navyCard: '#151f32',
+            accentGold: '#f59e0b',
+            accentCyan: '#38bdf8',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at 10% 20%, #0f172a 0%, #030712 100%);
+      color: #f1f5f9;
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(21, 31, 50, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card-hover {
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 30px -10px rgba(56, 189, 248, 0.22);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b1120;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-500 selection:text-black">
+
+  <nav class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-lg">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+        </svg>
+      </div>
+      <div>
+        <span class="text-xs uppercase tracking-widest font-semibold text-amber-400">Classroom EduLab</span>
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          동요·OST 단조(Minor) 명곡 20선 
+          <span class="text-[11px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded-full font-medium hidden sm:inline">교육용 아카이브</span>
+        </h1>
+      </div>
+    </div>
+    <!-- Quick Action Navigation -->
+    <div class="flex items-center space-x-2 sm:space-x-3 text-sm">
+      <button onclick="scrollToSection('theory-section')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition flex items-center gap-1.5">
+        <span>📖</span> 단조의 원리
+      </button>
+      <button onclick="scrollToSection('quiz-section')" class="px-3 py-1.5 rounded-lg bg-indigo-900/60 hover:bg-indigo-800 text-indigo-200 border border-indigo-500/40 text-xs sm:text-sm font-medium transition flex items-center gap-1.5">
+        <span>✏️</span> 감상 퀴즈
+      </button>
+      <button onclick="openEmbedGuide()" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs sm:text-sm font-medium transition flex items-center gap-1.5">
+        <span>🔗</span> 구글사이트 연동
+      </button>
+    </div>
+  </nav>
+
+  <header class="relative px-4 sm:px-8 pt-10 pb-8 max-w-7xl mx-auto">
+    <div class="p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950/70 to-slate-900 border border-slate-700/60 shadow-2xl relative overflow-hidden">
+      <!-- Background decorative circle -->
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-3xl relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-semibold mb-4">
+          <span>🎵 학생 맞춤형 음악과 교육과정 연계 콘텐츠</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-3 font-serif">
+          우리가 사랑하는 애니메이션과 영화, 동요 속 단조(Minor)의 비밀!
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-light">
+          장조(Major)가 밝고 명랑한 느낌이라면, 단조(Minor)는 신비로움, 웅장한 긴장감, 아련한 서정성을 연출합니다. 
+          하울의 움직이는 성, 캐리비안의 해적, 해리 포터, 섬집 아기 등 <span class="text-amber-300 font-semibold">학생들에게 가장 친숙한 단조 명곡 20선</span>을 듣고 그 음악적 원리를 직접 탐구해보세요.
+        </p>
+
+        <!-- Audio compare interactive pill widget -->
+        <div class="p-4 rounded-2xl bg-black/40 border border-slate-700/70 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🎹</span>
+            <div>
+              <div class="text-xs text-slate-400 font-medium">직접 귀로 비교해보기</div>
+              <div class="text-sm font-semibold text-white">장조(Major) vs 단조(Minor) 3화음 소리 비교</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button onclick="playChord('major')" class="flex-1 sm:flex-none px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3.5v13l11-6.5-11-6.5z"/></svg>
+              C장조(도-미-솔) 밝음
+            </button>
+            <button onclick="playChord('minor')" class="flex-1 sm:flex-none px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3.5v13l11-6.5-11-6.5z"/></svg>
+              C단조(도-미♭-솔) 어두움
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 pb-16">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <!-- Search Input -->
+      <div class="relative flex-1 max-w-lg">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </span>
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="곡명, 작곡가, 조성(예: D단조, 쇼팽, 운명) 검색..." 
+          onkeyup="filterMusics()"
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-sm text-white placeholder-slate-400 outline-none transition"
+        />
+      </div>
+
+      <!-- Filter Buttons by Era / Genre -->
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <button class="filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 transition" onclick="setEraFilter('all', this)">
+          전체 (20)
+        </button>
+        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition" onclick="setEraFilter('지브리/애니', this)">
+          지브리/애니
+        </button>
+        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition" onclick="setEraFilter('영화/디즈니', this)">
+          영화/디즈니
+        </button>
+        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition" onclick="setEraFilter('게임/드라마', this)">
+          게임/드라마
+        </button>
+        <button class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition" onclick="setEraFilter('동요/민요/캐럴', this)">
+          동요/민요/캐럴
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Count Counter -->
+    <div class="flex items-center justify-between text-xs text-slate-400 mb-4 px-1">
+      <span id="result-count-label">총 20곡의 친숙한 단조 명곡이 등록되어 있습니다.</span>
+      <span class="text-slate-500">※ 카드를 누르면 해설과 함께 재생되며, '유튜브 바로열기'로 고음질 감상이 가능합니다.</span>
+    </div>
+
+    <div id="music-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <!-- Cards will be populated dynamically via JavaScript -->
+    </div>
+
+    <!-- Empty State Message -->
+    <div id="no-results" class="hidden text-center py-16">
+      <div class="text-5xl mb-3">🔍</div>
+      <p class="text-lg font-bold text-slate-300">검색된 음악이 없습니다.</p>
+      <p class="text-xs text-slate-500 mt-1">곡명(인생의 회전목마, 해리포터 등)이나 장르를 다시 입력해보세요.</p>
+    </div>
+
+    <section id="theory-section" class="mt-20 pt-8 border-t border-slate-800">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Classroom Lecture</span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">학생을 위한 단조(Minor Scale) 음악 이론실</h3>
+        <p class="text-xs sm:text-sm text-slate-400 mt-2">
+          영화 음악 감독들과 작곡가들이 긴장감과 신비로움을 연출할 때 왜 단조를 쓸까요?
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Theory 1 -->
+        <div class="glass-panel p-6 rounded-2xl border border-slate-700/70 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg mb-4">
+              1
+            </div>
+            <h4 class="text-base font-bold text-white mb-2">장조와 단조의 결정적 차이: 단3도</h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              장음계는 으뜸음에서 3번째 음까지가 <span class="text-amber-300 font-semibold">‘장3도(온음 2개)’</span> 거리이지만, 단음계는 <span class="text-sky-300 font-semibold">‘단3도(온음 1개 + 반음 1개)’</span>로 반음이 더 가깝습니다. 이 반음 차이가 사람의 뇌에 서정적이고 긴장된 음향 색채를 인식하게 만듭니다.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>핵심 포인트</span>
+            <span class="text-amber-400">3번째 음(Mediant)의 반음 내림</span>
+          </div>
+        </div>
+
+        <!-- Theory 2 -->
+        <div class="glass-panel p-6 rounded-2xl border border-slate-700/70 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+              2
+            </div>
+            <h4 class="text-base font-bold text-white mb-2">단음계의 3가지 변신</h4>
+            <ul class="text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed">
+              <li>• <strong class="text-indigo-300">자연단음계:</strong> 조표 그대로 (라-시-도-레-미-파-솔-라)</li>
+              <li>• <strong class="text-indigo-300">화성단음계:</strong> 종지감을 위해 제7음을 반음 올림</li>
+              <li>• <strong class="text-indigo-300">선율단음계:</strong> 상행 시 제6·7음을 올리고 하행 시 제자리로 복귀</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>핵심 포인트</span>
+            <span class="text-indigo-300">이끈음(Leading tone) 형성</span>
+          </div>
+        </div>
+
+        <!-- Theory 3 -->
+        <div class="glass-panel p-6 rounded-2xl border border-slate-700/70 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-lg mb-4">
+              3
+            </div>
+            <h4 class="text-base font-bold text-white mb-2">단조 음악이 사랑받는 심리학적 이유</h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              단조는 단순한 ‘슬픔’에 머물지 않습니다. 쇼팽의 격정적인 분노, 베토벤의 운명에 대한 투쟁, 차이콥스키의 아련한 백조의 비극처럼 
+              인간이 느끼는 <strong>숭고함(Sublime)과 카타르시스(정화)</strong>를 이끌어내는 힘이 있습니다.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>감상 지도 팁</span>
+            <span class="text-sky-300">감정 이입과 심리적 해소</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz-section" class="mt-16 pt-8 border-t border-slate-800">
+      <div class="p-6 sm:p-8 rounded-3xl bg-slate-900 border border-indigo-900/50 shadow-xl max-w-3xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="p-2.5 rounded-xl bg-indigo-600/30 text-indigo-400 font-bold">🧠</span>
+          <div>
+            <h4 class="text-lg font-bold text-white">단조 음악 이해도 자가진단 퀴즈</h4>
+            <p class="text-xs text-slate-400">선생님과 학생이 수업 마무리 활동으로 풀 수 있는 3단계 퀴즈입니다.</p>
+          </div>
+        </div>
+
+        <div id="quiz-container" class="space-y-4">
+          <!-- Quiz Question Card 1 -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <span class="text-xs font-bold text-amber-400">Q1. OST & 미디어 음악 상식</span>
+            <p class="text-sm font-semibold text-white mt-1">영화 &lt;캐리비안의 해적&gt;의 'He's a Pirate'이나 &lt;해리 포터&gt;의 '헤드위그 테마'처럼 비장함과 신비로운 마법 분위기를 만들기 위해 주로 사용된 음악적 조성은 무엇일까요?</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs">
+              <button onclick="checkQuizAnswer(1, 0, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">① 밝고 경쾌한 장조 (Major Key)</button>
+              <button onclick="checkQuizAnswer(1, 1, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">② 긴장감과 비장미를 주는 단조 (Minor Key) ★</button>
+              <button onclick="checkQuizAnswer(1, 2, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">③ 조성이 전혀 없는 무조음악</button>
+              <button onclick="checkQuizAnswer(1, 3, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">④ 12음 기법 음악</button>
+            </div>
+            <div id="quiz-feedback-1" class="text-xs mt-2.5 hidden"></div>
+          </div>
+
+          <!-- Quiz Question Card 2 -->
+          <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <span class="text-xs font-bold text-amber-400">Q2. 음계와 화음 이론</span>
+            <p class="text-sm font-semibold text-white mt-1">동요 &lt;섬집 아기&gt;나 지브리 &lt;인생의 회전목마&gt;의 애틋한 울림처럼 단조 3화음을 결정짓는 으뜸음(1음)과 제3음 사이의 음정 거리는?</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs">
+              <button onclick="checkQuizAnswer(2, 0, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">① 장3도 (온음 2개 - C에서 E)</button>
+              <button onclick="checkQuizAnswer(2, 1, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">② 단3도 (온음 1개 + 반음 1개 - C에서 E♭) ★</button>
+              <button onclick="checkQuizAnswer(2, 2, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">③ 완전5도</button>
+              <button onclick="checkQuizAnswer(2, 3, this)" class="quiz-btn p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-left text-slate-200 transition">④ 옥타브</button>
+            </div>
+            <div id="quiz-feedback-2" class="text-xs mt-2.5 hidden"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="player-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="glass-panel w-full max-w-4xl rounded-2xl sm:rounded-3xl border border-slate-700 bg-slate-900 shadow-2xl overflow-hidden flex flex-col max-h-[95vh]">
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-red-600/20 text-red-500 flex items-center justify-center">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div>
+            <h3 id="modal-title" class="text-base sm:text-lg font-bold text-white truncate max-w-xs sm:max-w-md">곡 제목</h3>
+            <p id="modal-composer" class="text-xs text-amber-400 font-medium">작곡가 및 시대</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <!-- Direct High-Reliability YouTube Action Button -->
+          <a id="modal-external-link" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md transition" title="유튜브 공식 웹사이트에서 원본 고음질로 감상하기">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+            <span>새 창 유튜브로 바로 감상</span>
+          </a>
+          <button onclick="closeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-red-500/20 text-slate-400 hover:text-red-400 flex items-center justify-center transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- School/Google Sites Embed Fallback Guidance Banner -->
+      <div class="px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-amber-300">
+        <div class="flex items-center gap-1.5">
+          <span>💡</span>
+          <span>학교망 또는 구글 사이트 보안 정책으로 <strong>'동영상 소유자가 사용 중지'</strong> 오류가 뜰 경우:</span>
+        </div>
+        <a id="modal-fallback-link" href="#" target="_blank" rel="noopener noreferrer" class="underline hover:text-white font-semibold flex items-center gap-1">
+          여기를 눌러 유튜브에서 제한 없이 바로 열기 ↗
+        </a>
+      </div>
+
+      <!-- Video Embed Frame Area -->
+      <div class="relative w-full aspect-video bg-black">
+        <iframe 
+          id="modal-iframe" 
+          class="w-full h-full" 
+          src="" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- Educational Commentary and Appreciation Guide -->
+      <div class="p-5 overflow-y-auto space-y-4 bg-slate-900/95 flex-1">
+        <div class="flex flex-wrap items-center gap-2">
+          <span id="modal-key-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">D단조</span>
+          <span id="modal-era-badge" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">바로크</span>
+          <span id="modal-tempo" class="px-2.5 py-1 rounded-full text-xs bg-slate-800 text-slate-300">템포: Allegro</span>
+        </div>
+
+        <div>
+          <h5 class="text-xs uppercase tracking-wider font-semibold text-slate-400 mb-1">💡 학생 감상 포인트 (Listening Guide)</h5>
+          <p id="modal-guide" class="text-sm text-slate-200 leading-relaxed font-light">
+            음악 감상 포인트 안내
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 leading-relaxed">
+          <strong class="text-amber-400">교과서 연계 해설: </strong>
+          <span id="modal-edu-note">교과서 해설</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="embed-guide-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-xl rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h4 class="text-base font-bold text-white flex items-center gap-2">
+          <span>🌐 구글 사이트 도구(Google Sites) 연동 가이드</span>
+        </h4>
+        <button onclick="closeEmbedGuide()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        이 웹앱은 외부 프레임워크 의존성을 배제한 <strong>완전 독립형 단일 파일</strong>로 제작되어 구글 사이트 도구에 즉시 삽입할 수 있습니다.
+      </p>
+
+      <div class="space-y-2 text-xs text-slate-300">
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+          <strong class="text-amber-400">방법 1: HTML 직접 삽입 (가장 권장)</strong>
+          <ol class="list-decimal pl-5 mt-1.5 space-y-1 text-slate-400">
+            <li>구글 사이트 도구 편집기 우측 패널에서 <strong>[삽입]</strong> ➔ <strong>[임베드(Embed)]</strong> 클릭</li>
+            <li><strong>[코드 삽입(Embed code)]</strong> 탭 선택</li>
+            <li>본 HTML 전체 코드를 붙여넣고 [다음] ➔ [삽입] 완료</li>
+          </ol>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+          <strong class="text-sky-400">방법 2: GitHub Pages / 무료 웹 호스팅 후 URL 임베드</strong>
+          <p class="mt-1 text-slate-400">GitHub Pages나 Vercel에 단일 HTML로 배포한 뒤 해당 링크를 [URL 삽입]에 넣으면 사이트 전체 화면 비율로 깔끔하게 렌더링됩니다.</p>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="closeEmbedGuide()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold">
+          확인 완료
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-800 text-white text-xs px-4 py-3 rounded-xl border border-slate-700 shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform translate-y-3">
+    알림 메시지
+  </div>
+
+  <script>
+    // 20 Familiar Minor Key Songs: Anime, Ghibli, Movies, Disney, Games, and Nursery Rhymes
+    const MINOR_COLLECTION = [
+      {
+        id: 1,
+        title: "인생의 회전목마 (하울의 움직이는 성 OST)",
+        composer: "히사이시 조 (Joe Hisaishi)",
+        key: "G단조 (G minor)",
+        era: "지브리/애니",
+        tempo: "Allegretto (왈츠)",
+        youtubeId: "Pa5Rff7L5OM",
+        desc: "하울과 소피의 만남과 시간의 덧없음을 애수 어린 왈츠 3박자로 풀어낸 전 세계적인 지브리 명곡.",
+        guide: "피아노의 아련한 아르페지오로 시작해 오케스트라 튜티로 장엄하게 폭발하는 G단조 특유의 애잔한 선율에 귀 기울여보세요.",
+        eduNote: "왈츠는 보통 궁정 무도회의 화려한 춤곡이지만, 단조 선율과 만났을 때 겪게 되는 독특한 '노스탤지어(향수)'와 낭만적 쓸쓸함을 보여줍니다."
+      },
+      {
+        id: 2,
+        title: "He's a Pirate (그는 해적이다 - 캐리비안의 해적 OST)",
+        composer: "클라우스 바델트 / 한스 짐머",
+        key: "D단조 (D minor)",
+        era: "영화/디즈니",
+        tempo: "Presto (12/8박자 리듬)",
+        youtubeId: "jtGUQFky0KI",
+        desc: "거친 바다를 가르는 블랙펄 호와 잭 스패로우 선장의 용맹한 모험을 상징하는 시네마틱 액션 테마.",
+        guide: "당김음(Syncopation)과 금관악기의 거친 포효, 첼로·더블베이스의 강렬한 리듬 모티프가 만들어내는 스릴을 느껴보세요.",
+        eduNote: "D단조는 전통적으로 비장함과 결단을 상징하는 조성으로, 헐리우드 블록버스터에서 영웅적이고 위태로운 모험을 표현할 때 핵심적으로 쓰입니다."
+      },
+      {
+        id: 3,
+        title: "헤드위그의 테마 (Hedwig's Theme - 해리 포터 OST)",
+        composer: "존 윌리엄스 (John Williams)",
+        key: "E단조 (E minor)",
+        era: "영화/디즈니",
+        tempo: "Andante misterioso",
+        youtubeId: "GTXBLyp7_Dw",
+        desc: "호그와트 마법 세계의 신비롭고 서늘한 문을 여는 영화 역사상 가장 유명한 첼레스타 오프닝 테마.",
+        guide: "영롱한 종소리 같은 건반악기 '첼레스타(Celesta)'가 반음계적으로 아슬아슬하게 움직이는 신비로운 단조 멜로디에 집중해보세요.",
+        eduNote: "E단조의 어두운 마법적 색채와 첼레스타의 차가운 금속성 음색이 어우러져 관객을 호그와트의 환상적인 미스터리 속으로 안내합니다."
+      },
+      {
+        id: 4,
+        title: "제국의 행진 (The Imperial March - 스타워즈 다스 베이더 테마)",
+        composer: "존 윌리엄스 (John Williams / 빈 필)",
+        key: "G단조 (G minor)",
+        era: "영화/디즈니",
+        tempo: "Tempo di Marcia",
+        youtubeId: "vsMWVW4xtwI",
+        desc: "은하 제국의 공포와 악의 화신 다스 베이더의 위압감을 군대 행진곡 리듬으로 표현한 걸작.",
+        guide: "규칙적으로 전진하는 셋잇단음표의 엄격한 밀리터리 리듬과 트럼펫·트롬본의 묵직한 단조 화음 악센트를 들어보세요.",
+        eduNote: "장조 행진곡이 조국의 승리를 상징한다면, 단조 행진곡은 거스를 수 없는 거대한 악의 위협과 절대적인 권력을 묘사하는 데 탁월합니다."
+      },
+      {
+        id: 5,
+        title: "어느 여름날 (One Summer's Day - 센과 치히로의 행방불명 OST)",
+        composer: "히사이시 조 (Joe Hisaishi)",
+        key: "C단조 (C minor)",
+        era: "지브리/애니",
+        tempo: "Andante espressivo",
+        youtubeId: "TK1Ij_-mank",
+        desc: "신들의 세계에 발을 들인 치히로의 불안감과 지나간 어린 시절에 대한 아련한 그리움을 담은 서정 소품.",
+        guide: "피아노 독주 건반의 맑고 투명한 타건 뒤로 밀려오는 현악기의 서글픈 단조 화음의 호흡을 음미해보세요.",
+        eduNote: "C단조의 깊이 있는 울림을 통해 동화적인 신비감과 성장통의 쓸쓸함을 동시에 전하는 현대 서정 음악의 표본입니다."
+      },
+      {
+        id: 6,
+        title: "명탐정 코난 메인 테마 (Detective Conan Main Theme)",
+        composer: "오노 카츠오 (Katsuo Ohno)",
+        key: "C단조 (C minor)",
+        era: "지브리/애니",
+        tempo: "Allegro vivace (퓨전 재즈)",
+        youtubeId: "F7jTXstSkhc",
+        desc: "사건의 진실을 파헤치는 코난의 추리 순간마다 울려 퍼지는 박진감 넘치는 알토 색소폰 명곡.",
+        guide: "화려한 브라스 섹션의 리듬 커팅과 울부짖는 듯한 단조 색소폰 독주의 화려한 솔로 라인에 귀 기울여보세요.",
+        eduNote: "재즈 블루스 스케일과 C단조의 결합으로 위험한 사건 현장의 서스펜스와 탐정의 날카로운 지적 긴장감을 표현합니다."
+      },
+      {
+        id: 7,
+        title: "너를 태우고 (君をのせて - 천공의 성 라퓨타 OST)",
+        composer: "히사이시 조 (Joe Hisaishi)",
+        key: "E단조 (E minor)",
+        era: "지브리/애니",
+        tempo: "Andante maestoso",
+        youtubeId: "UtvxvvREpuQ",
+        desc: "사라져 버린 하늘의 유토피아 라퓨타를 향한 주인공들의 순수한 열망과 슬픈 모험을 노래한 대서사시.",
+        guide: "소박한 코러스 합창으로 시작해 웅장한 오케스트라로 도약하는 멜로디의 가슴 벅찬 감동을 체험해보세요.",
+        eduNote: "슬픔을 단순히 눈물에 그치지 않고, 웅장한 극복과 희망으로 승화시키는 단조 멜로디의 힘을 배울 수 있는 대표곡입니다."
+      },
+      {
+        id: 8,
+        title: "The Avengers 메인 테마 (어벤져스 OST)",
+        composer: "앨런 실베스트리 (Alan Silvestri)",
+        key: "D단조 (D minor)",
+        era: "영화/디즈니",
+        tempo: "Allegro risoluto",
+        youtubeId: "mnWtCkdzFIQ",
+        desc: "지구의 절체절명 위기 속에서 히어로들이 마침내 하나로 집결하는 순간의 비장한 전율.",
+        guide: "현악기의 긴장감 넘치는 16분음표 오스티나토 위에 호른과 트럼펫이 선언하는 영웅적 팡파르를 들어보세요.",
+        eduNote: "D단조 조성에서 영웅들의 비장한 고뇌와 희생을 먼저 표현한 후, 후반부 장조적 화음으로 승리의 카타르시스를 터뜨리는 구조입니다."
+      },
+      {
+        id: 9,
+        title: "미션 임파서블 메인 테마 (Mission: Impossible Theme)",
+        composer: "랄로 시프린 (Lalo Schifrin)",
+        key: "G단조 (G minor)",
+        era: "영화/디즈니",
+        tempo: "Presto (5/4박자 변박)",
+        youtubeId: "XAYhNHhxN0A",
+        desc: "시한폭탄의 도화선이 타들어 가는 듯한 5/4박자의 불안한 긴박감과 첩보 스릴러의 상징.",
+        guide: "3+2로 쪼개지는 독특한 5/4박자 단조 리듬과 베이스라인의 반복(Riff)이 주는 팽팽한 심장 박동을 느껴보세요.",
+        eduNote: "G단조 음계와 불규칙한 5박자가 결합하여 관객에게 한 치 앞도 예상할 수 없는 고도의 서스펜스를 불어넣습니다."
+      },
+      {
+        id: 10,
+        title: "Way Back Then (오징어 게임 메인 테마)",
+        composer: "정재일 (Jung Jaeil)",
+        key: "D단조 (D minor)",
+        era: "게임/드라마",
+        tempo: "Moderato",
+        youtubeId: "81hTGbPIXx4",
+        desc: "어린 시절 순수한 골목길 놀이가 생존을 건 비극적 게임으로 변질된 역설을 리코더 선율로 담아낸 수작.",
+        guide: "학창 시절 누구나 불어본 소박한 플라스틱 리코더 소리와 징·장구 등 한국적 타악기가 자아내는 기괴한 단조 화음을 관찰해보세요.",
+        eduNote: "동심의 악기인 리코더를 단조 멜로디로 연주하여 섬뜩함과 비극적 서사를 극대화한 현대 미디어 음악의 탁월한 사례입니다."
+      },
+      {
+        id: 11,
+        title: "폭풍의 노래 (Song of Storms - 젤다의 전설 OST)",
+        composer: "콘도 코지 (Koji Kondo)",
+        key: "D단조 (D minor)",
+        era: "게임/드라마",
+        tempo: "Allegro misterioso (3/4박자)",
+        youtubeId: "UtgHZaq0EGs",
+        desc: "풍차가 돌아가는 카카리코 마을에서 오카리나를 불면 비바람이 몰아치게 만드는 전설적인 게임 멜로디.",
+        guide: "‘레-파-높은레, 레-파-높은레’로 이어지는 중독성 강한 3박자 회전 모티프와 서늘한 오카리나 음색을 감상해보세요.",
+        eduNote: "짧은 8마디 단조 선율의 무한 반복만으로도 신비롭고 불안정한 날씨의 마법을 훌륭하게 청각화했습니다."
+      },
+      {
+        id: 12,
+        title: "테트리스 테마 (코로베이니키 - Korobeiniki)",
+        composer: "러시아 민요 / 편곡 (WDR 오케스트라 실황)",
+        key: "A단조 (A minor)",
+        era: "게임/드라마",
+        tempo: "Vivace -> Accelerando",
+        youtubeId: "Y1TUS-yz5Yw",
+        desc: "블록이 한 칸씩 쌓여갈 때마다 플레이어를 긴장시키는 전 세계 게임 역사의 불멸의 배경음악.",
+        guide: "러시아 행상인의 슬픈 민요 선율이 점점 속도를 높여(가속도: Accelerando) 폭발하는 유쾌한 열정을 느껴보세요.",
+        eduNote: "A단조(자연단음계)의 경쾌한 스텝과 빨라지는 템포가 조화를 이루며 슬픔 속에서도 신명 나는 춤을 추게 만듭니다."
+      },
+      {
+        id: 13,
+        title: "Carol of the Bells (종소리 캐럴)",
+        composer: "우크라이나 민요 / 펜타토닉스 (Pentatonix)",
+        key: "G단조 (G minor)",
+        era: "동요/민요/캐럴",
+        tempo: "Allegro con spirito",
+        youtubeId: "WSUFzC6_fp8",
+        desc: "밝고 따뜻한 다른 캐럴과 달리, 한겨울 눈보라와 신비로운 성야의 종소리를 그린 단조 캐럴의 최고봉.",
+        guide: "4개의 음(시♭-라-시♭-솔)이 쉴 새 없이 빙글빙글 도는 오스티나토 모티프와 환상적인 아카펠라 화음을 감상하세요.",
+        eduNote: "겨울의 시린 바람과 신성한 밤의 분위기를 묘사하기 위해 왜 장조가 아닌 G단조가 선택되었는지 관찰할 수 있습니다."
+      },
+      {
+        id: 14,
+        title: "섬집 아기 (엄마가 섬그늘에 굴 따러 가면)",
+        composer: "이흥렬 작곡 / 한인현 작사",
+        key: "C단조 (C minor)",
+        era: "동요/민요/캐럴",
+        tempo: "Andante tranquillo",
+        youtubeId: "zJv_IgY6DNs",
+        desc: "홀로 잠든 아기와 일터에 나간 어머니의 모정을 그린 한국인이 가장 사랑하는 서정적 단조 동요.",
+        guide: "파도 소리처럼 고요하게 일렁이는 6/8박자 자장가 리듬과 단3도의 애틋한 선율선을 가사와 함께 음미해보세요.",
+        eduNote: "초등학교 음악 교과서의 대표적인 단조 제재곡으로, 어린 시절의 따스한 안식과 한국 특유의 '정(情)'을 단음계로 표현합니다."
+      },
+      {
+        id: 15,
+        title: "그린슬리브스 (푸른 옷소매 - Greensleeves)",
+        composer: "영국 전통 민요 / 클래식 기타 명곡",
+        key: "A단조 (A minor / 도리안)",
+        era: "동요/민요/캐럴",
+        tempo: "Andante con moto",
+        youtubeId: "MT9NN7f-CKY",
+        desc: "르네상스 시대부터 음유시인들이 노래해 온 고풍스럽고 아련한 귀족적 선율의 대명사.",
+        guide: "클래식 기타의 은은한 나일론 줄에서 튕겨 나오는 애수 어린 분산화음과 고풍스러운 선법의 매력을 들어보세요.",
+        eduNote: "화성단음계와 도리안(Dorian) 선법이 공존하여 중세 성곽의 신비롭고 서늘한 로맨스를 고스란히 담아냅니다."
+      },
+      {
+        id: 16,
+        title: "바람이 지나가는 길 (이웃집 토토로 OST)",
+        composer: "히사이시 조 (Joe Hisaishi)",
+        key: "C단조 (C minor)",
+        era: "지브리/애니",
+        tempo: "Moderato misterioso",
+        youtubeId: "MZgBjQFMPvk",
+        desc: "토토로가 살고 있는 울창한 비밀 숲속에서 살랑이는 바람결과 신비로운 요정의 숨결을 그린 테마.",
+        guide: "동양적인 5음 음계적 느낌을 단조 화성 위에 녹여낸 독특하고 영롱한 신디사이저·피아노 선율을 느껴보세요.",
+        eduNote: "단조가 마냥 슬픈 곡에만 쓰이는 것이 아니라, 자연의 신령함과 동심의 비밀스러운 설렘을 묘사하는 데 얼마나 뛰어난지 보여줍니다."
+      },
+      {
+        id: 17,
+        title: "카마도 탄지로의 노래 (귀멸의 칼날 OST)",
+        composer: "시이나 고 (Go Shiina / 오케스트라 실황)",
+        key: "E단조 (E minor)",
+        era: "지브리/애니",
+        tempo: "Lento drammatico",
+        youtubeId: "uFcPSHv4BZc",
+        desc: "가족을 잃은 슬픔과 여동생을 구하기 위해 칼을 쥐고 일어서는 주인공 탄지로의 처절한 투지를 노래한 곡.",
+        guide: "전통 피리 소리 같은 애절한 도입부에서 출발해 가슴을 울리는 오케스트라의 장대한 단조 합창으로 승화되는 전개를 살펴보세요.",
+        eduNote: "동양 민속적 단음계 선율과 현대 심포니 오케스트라가 결합하여 영웅의 슬픈 운명과 결연한 의지를 드라마틱하게 표출합니다."
+      },
+      {
+        id: 18,
+        title: "새야 새야 파랑새야 (한국 전래동요 / 민요)",
+        composer: "작자 미상 (전래 민요 / 편곡 합창)",
+        key: "A단조 느낌의 계면조 (Gyemyeonjo)",
+        era: "동요/민요/캐럴",
+        tempo: "Andante doloroso",
+        youtubeId: "ap3PBUQJMOE",
+        desc: "동학농민운동의 역사적 한(恨)과 녹두장군 전봉준을 향한 백성들의 애끓는 마음을 담은 전통 가락.",
+        guide: "‘새야 새야 파랑새야 녹두밭에 앉지 마라’로 이어지는 꺾는 목과 서양의 자연단음계와 일치하는 서글픈 음계를 비교해보세요.",
+        eduNote: "우리나라 전통 음악의 ‘계면조(라-도-레-미-솔)’가 서양 음악의 ‘자연단음계(A minor)’와 어떻게 감정적 유사성을 띠는지 탐구합니다."
+      },
+      {
+        id: 19,
+        title: "Arabian Nights (알라딘 오프닝 OST)",
+        composer: "앨런 멘켄 / 윌 스미스 (Alan Menken)",
+        key: "B단조 (B minor / 프리지안)",
+        era: "영화/디즈니",
+        tempo: "Allegro moderato",
+        youtubeId: "T9GmO_WFhjQ",
+        desc: "사막의 신비로운 밤바람과 마법의 램프가 숨겨진 아그라바 왕국의 이국적인 전설로 초대하는 곡.",
+        guide: "아랍 전통 악기(오우드, 다부카)의 리듬과 반음이 많이 섞인 독특한 중동풍 단조 스케일의 마법 같은 매력을 느껴보세요.",
+        eduNote: "단음계의 변형인 '하모닉 마이너(Harmonic Minor)' 스케일이 어떻게 사막과 아라비안나이트의 신비로운 오리엔탈 분위기를 자아내는지 배웁니다."
+      },
+      {
+        id: 20,
+        title: "Into the Unknown (겨울왕국 2 메인 테마)",
+        composer: "로버트 & 크리스틴 로페즈 (Idina Menzel)",
+        key: "D단조 (D minor)",
+        era: "영화/디즈니",
+        tempo: "Allegro agitato",
+        youtubeId: "gIOyB9ZXn8s",
+        desc: "알 수 없는 북쪽의 신비로운 목소리에 이끌리는 엘사의 두려움과 거대한 모험을 향한 용기.",
+        guide: "오로라(AURORA)의 아련한 신비의 부름(아~아~아~아)과 엘사의 파워풀한 단조 보컬이 충돌하며 상승하는 폭발력을 들어보세요.",
+        eduNote: "미지의 세계로 나아갈 때 느끼는 인간의 원초적 두려움과 매혹을 D단조의 긴장감 넘치는 전조와 보컬 테크닉으로 극대화했습니다."
+      }
+    ];
+
+    let currentEraFilter = 'all';
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playChord(type) {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        
+        // C4 = 261.63Hz, G4 = 392.00Hz
+        // Major: E4 = 329.63Hz (장3도)
+        // Minor: Eb4 = 311.13Hz (단3도 - 반음 낮음)
+        const root = 261.63; // C
+        const third = type === 'major' ? 329.63 : 311.13; // E vs Eb
+        const fifth = 392.00; // G
+
+        const notes = [root, third, fifth];
+
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = 'triangle'; // warm acoustic feel
+          osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+
+          // Envelope
+          gain.gain.setValueAtTime(0, now + idx * 0.05);
+          gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.05 + 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.2);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(now + idx * 0.05);
+          osc.stop(now + 2.3);
+        });
+
+        showToast(type === 'major' 
+          ? "밝고 안정적인 'C장조 화음(도-미-솔)'이 재생되었습니다." 
+          : "단3도로 어둡고 애수 어린 'C단조 화음(도-미♭-솔)'이 재생되었습니다."
+        );
+      } catch (err) {
+        console.error("Audio playback error:", err);
+      }
+    }
+
+    function handleThumbnailError(imgElement, youtubeId, title) {
+      // Step 1: Try mqdefault if hqdefault fails
+      if (!imgElement.dataset.fallbackTried) {
+        imgElement.dataset.fallbackTried = "true";
+        imgElement.src = `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
+      } else {
+        // Step 2: If both fail or network blocks images, switch to an aesthetic classical music placeholder
+        imgElement.onerror = null;
+        imgElement.parentElement.classList.add('bg-gradient-to-br', 'from-slate-800', 'to-indigo-950', 'flex', 'items-center', 'justify-center', 'p-4');
+        imgElement.parentElement.innerHTML = `
+          <div class="text-center p-3 select-none">
+            <div class="text-3xl mb-1">🎼</div>
+            <div class="text-xs font-bold text-amber-300 tracking-wide">${title}</div>
+            <div class="text-[10px] text-slate-400 mt-1">클릭하여 연주 감상하기</div>
+          </div>
+        `;
+      }
+    }
+
+    function renderMusicGrid(list) {
+      const grid = document.getElementById('music-grid');
+      const countLabel = document.getElementById('result-count-label');
+      const emptyState = document.getElementById('no-results');
+
+      grid.innerHTML = '';
+      countLabel.textContent = `총 ${list.length}곡의 단조 명곡이 표시되고 있습니다.`;
+
+      if (list.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      list.forEach((item) => {
+        const directYoutubeUrl = `https://www.youtube.com/watch?v=${item.youtubeId}`;
+        const card = document.createElement('div');
+        card.className = "card-hover glass-panel rounded-2xl p-5 border border-slate-700/60 flex flex-col justify-between group relative overflow-hidden";
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-3">
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-slate-800/90 text-amber-300 border border-amber-500/20">
+                #${item.id} ${item.key}
+              </span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-slate-800 text-slate-300">
+                ${item.era}
+              </span>
+            </div>
+
+            <!-- YouTube Video Thumbnail Preview with Click-to-Play -->
+            <div 
+              onclick="openMusicModal(${item.id})"
+              class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-950 mb-3.5 border border-slate-800 cursor-pointer group-hover:border-amber-500/40 transition">
+              <img 
+                src="https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg" 
+                alt="${item.title}" 
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                loading="lazy"
+                onerror="handleThumbnailError(this, '${item.youtubeId}', '${item.title.replace(/'/g, "\\'")}')"
+              />
+              <div class="absolute inset-0 bg-black/35 group-hover:bg-black/10 flex items-center justify-center transition">
+                <div class="w-11 h-11 rounded-full bg-red-600/90 group-hover:bg-red-600 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition">
+                  <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <h3 
+              onclick="openMusicModal(${item.id})"
+              class="text-base font-bold text-white group-hover:text-amber-300 transition line-clamp-1 mb-1 cursor-pointer">
+              ${item.title}
+            </h3>
+            <p class="text-xs font-medium text-slate-400 mb-2">
+              ${item.composer}
+            </p>
+            <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed font-light mb-3">
+              ${item.desc}
+            </p>
+          </div>
+
+          <div class="mt-3 pt-3 border-t border-slate-800/80 space-y-2">
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span class="text-amber-400 font-semibold">템포: ${item.tempo}</span>
+              <span class="text-slate-500">감상평 & 악곡분석</span>
+            </div>
+
+            <!-- Dual Action Buttons: In-App Player vs Direct YouTube New Tab -->
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              <button 
+                onclick="openMusicModal(${item.id})"
+                class="py-2 px-2.5 rounded-xl bg-indigo-600/80 hover:bg-indigo-600 text-white text-[11px] font-semibold flex items-center justify-center gap-1 transition shadow-sm">
+                <span>🎧</span> 해설&영상
+              </button>
+              <a 
+                href="${directYoutubeUrl}" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="py-2 px-2.5 rounded-xl bg-red-600/20 hover:bg-red-600 text-red-300 hover:text-white border border-red-500/40 text-[11px] font-semibold flex items-center justify-center gap-1 transition shadow-sm"
+                title="새 탭에서 공식 유튜브 영상 바로 시청하기">
+                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 22c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+                <span>유튜브 바로열기</span>
+              </a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterMusics() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+
+      const filtered = MINOR_COLLECTION.filter(item => {
+        const matchesQuery = 
+          item.title.toLowerCase().includes(query) ||
+          item.composer.toLowerCase().includes(query) ||
+          item.key.toLowerCase().includes(query) ||
+          item.desc.toLowerCase().includes(query);
+
+        const matchesEra = (currentEraFilter === 'all') || (item.era === currentEraFilter);
+
+        return matchesQuery && matchesEra;
+      });
+
+      renderMusicGrid(filtered);
+    }
+
+    function setEraFilter(era, btnElement) {
+      currentEraFilter = era;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-slate-950');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+
+      btnElement.classList.remove('bg-slate-800', 'text-slate-300');
+      btnElement.classList.add('bg-amber-500', 'text-slate-950');
+
+      filterMusics();
+    }
+
+    function openMusicModal(id) {
+      const item = MINOR_COLLECTION.find(m => m.id === id);
+      if (!item) return;
+
+      document.getElementById('modal-title').textContent = item.title;
+      document.getElementById('modal-composer').textContent = `${item.composer} • ${item.era}`;
+      document.getElementById('modal-key-badge').textContent = item.key;
+      document.getElementById('modal-era-badge').textContent = item.era;
+      document.getElementById('modal-tempo').textContent = `템포: ${item.tempo}`;
+      document.getElementById('modal-guide').textContent = item.guide;
+      document.getElementById('modal-edu-note').textContent = item.eduNote;
+
+      const directYoutubeUrl = `https://www.youtube.com/watch?v=${item.youtubeId}`;
+      const extLink = document.getElementById('modal-external-link');
+      const fallbackLink = document.getElementById('modal-fallback-link');
+      
+      extLink.href = directYoutubeUrl;
+      fallbackLink.href = directYoutubeUrl;
+
+      const iframe = document.getElementById('modal-iframe');
+      // Use standard youtube-nocookie embed with strict referrer and parameters
+      iframe.src = `https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&rel=0&playsinline=1&modestbranding=1`;
+
+      const modal = document.getElementById('player-modal');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+      }, 10);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('player-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        // Stop YouTube playback by resetting src
+        document.getElementById('modal-iframe').src = '';
+      }, 250);
+    }
+
+    // Close modal on escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeEmbedGuide();
+      }
+    });
+
+    const QUIZ_ANSWERS = {
+      1: 1, // index 1 (단조 - Minor Key)
+      2: 1  // index 1 (단3도)
+    };
+
+    function checkQuizAnswer(questionNum, selectedOption, btn) {
+      const feedback = document.getElementById(`quiz-feedback-${questionNum}`);
+      const parent = btn.parentElement;
+      const buttons = parent.querySelectorAll('.quiz-btn');
+
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('bg-emerald-600', 'bg-rose-600', 'hover:bg-slate-700');
+        b.classList.add('opacity-75');
+      });
+
+      if (selectedOption === QUIZ_ANSWERS[questionNum]) {
+        btn.classList.add('bg-emerald-600', 'text-white', '!opacity-100');
+        feedback.innerHTML = `<span class="text-emerald-400 font-bold">✓ 정답입니다!</span> 긴장감과 신비로움을 조성하는 단조의 역할과 으뜸음-3음 간의 단3도 거리를 완벽히 이해하셨습니다!`;
+        feedback.classList.remove('hidden', 'text-rose-400');
+        feedback.classList.add('text-emerald-400');
+      } else {
+        btn.classList.add('bg-rose-600', 'text-white', '!opacity-100');
+        buttons[QUIZ_ANSWERS[questionNum]].classList.add('border-2', 'border-emerald-400', '!opacity-100');
+        feedback.innerHTML = `<span class="text-rose-400 font-bold">✕ 아쉽습니다!</span> 초록색 테두리로 표시된 보기가 정답입니다.`;
+        feedback.classList.remove('hidden', 'text-emerald-400');
+        feedback.classList.add('text-rose-400');
+      }
+    }
+
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function openEmbedGuide() {
+      document.getElementById('embed-guide-modal').classList.remove('hidden');
+    }
+
+    function closeEmbedGuide() {
+      document.getElementById('embed-guide-modal').classList.add('hidden');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }, 3200);
+    }
+
+    // Initialize list on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMusicGrid(MINOR_COLLECTION);
+    });
+  </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

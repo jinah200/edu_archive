@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리반 로고송 만들기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #f87171, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .step-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #60a5fa;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="container mx-auto px-6 py-12 max-w-4xl">
+
+        <!-- 페이지 제목 -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black mb-4">
+                <span class="gradient-text">🎵 우리반 로고송 만들기</span>
+            </h1>
+            <p class="text-lg text-gray-600">
+                우리의 목소리로 세상에 단 하나뿐인 우리반의 노래를 만들어봐요!
+            </p>
+        </header>
+
+        <main>
+            <!-- 로고송 만들기 단계 -->
+            <div id="steps">
+                <!-- STEP 1: 아이디어 내기 -->
+                <div class="step-card">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="bg-red-100 text-red-600 rounded-full h-12 w-12 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">STEP 1. 아이디어 찾기 (브레인스토밍)</h2>
+                            <p class="text-gray-700">
+                                우리반을 생각하면 어떤 단어들이 떠오르나요? 친구들과 함께 우리반만의 특별한 점, 자랑거리, 재미있는 추억, 급훈 등을 자유롭게 이야기하며 종이에 적어보세요.<br>
+                                <span class="text-sm text-blue-500 font-semibold mt-2 block">예시: "최고의 팀워크", "웃음 가득", "서로 돕는", "도전하는 우리"</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: 핵심 단어 고르기 -->
+                <div class="step-card">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="bg-blue-100 text-blue-600 rounded-full h-12 w-12 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">STEP 2. 핵심 단어 고르기 (키워드 선택)</h2>
+                            <p class="text-gray-700">
+                                1단계에서 나온 다양한 아이디어 중에서 우리반을 가장 잘 나타내는 핵심 단어(키워드) 3~5개를 골라보세요. 이 단어들이 로고송 가사의 중심이 될 거예요.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: 가사 만들고 멜로디 붙이기 -->
+                <div class="step-card">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="bg-green-100 text-green-600 rounded-full h-12 w-12 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">STEP 3. 가사 만들고 멜로디 붙이기</h2>
+                            <p class="text-gray-700 mb-4">
+                                2단계에서 고른 핵심 단어를 사용해서 짧고 반복적인 가사를 만들어 보세요. 운율을 맞추면 더 재미있어요! 그 다음, 모두가 잘 아는 동요 멜로디에 가사를 붙여 불러보세요.
+                            </p>
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-700 mb-2">� 멜로디로 사용하기 좋은 동요</h4>
+                                <ul class="list-disc list-inside text-gray-600">
+                                    <li>'학교 종이 땡땡땡'</li>
+                                    <li>'산토끼'</li>
+                                    <li>'비행기'</li>
+                                    <li>'반짝반짝 작은 별'</li>
+                                    <li>'곰 세 마리'</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 4: 녹음하고 공유하기 -->
+                <div class="step-card">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div class="bg-purple-100 text-purple-600 rounded-full h-12 w-12 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">STEP 4. 다 함께 부르고 녹음하기</h2>
+                            <p class="text-gray-700">
+                                완성된 로고송을 다 함께 신나게 불러보세요! 스마트폰이나 컴퓨터를 사용해서 우리들의 목소리를 녹음해 멋진 작품으로 남겨봅시다. 완성된 로고송은 반 친구들, 다른 반 친구들, 부모님께도 자랑해 보세요!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 로고송 예시 -->
+            <section class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">🎵 로고송 예시 살펴보기</h2>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-yellow-400">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">예시: 1학년 3반 로고송 (멜로디: '비행기')</h3>
+                    <div class="bg-yellow-50 p-6 rounded-lg">
+                        <p class="text-lg text-gray-700 leading-relaxed font-mono">
+                            도전해 봐 우리 함께<br>
+                            매일매일 성장해<br>
+                            사랑 넘친 3반 친구<br>
+                            최고야 우리 반!
+                        </p>
+                    </div>
+                    <p class="mt-4 text-gray-600">
+                        <span class="font-bold text-gray-700">[키워드]</span> 도전, 함께, 성장, 사랑
+                    </p>
+                </div>
+            </section>
+
+            <!-- 도움이 되는 사이트 -->
+            <section class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">💡 활동에 도움이 되는 사이트</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- 온라인 녹음기 -->
+                    <a href="https://online-voice-recorder.com/ko/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+                        <h3 class="font-bold text-xl text-green-600 mb-2">온라인 보이스 레코더</h3>
+                        <p class="text-gray-600">별도 프로그램 설치 없이 웹사이트에서 바로 목소리를 녹음하고 파일을 저장할 수 있어요.</p>
+                    </a>
+                    <!-- 크롬 뮤직 랩 -->
+                     <a href="https://musiclab.chromeexperiments.com/Song-Maker/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+                        <h3 class="font-bold text-xl text-red-600 mb-2">크롬 뮤직 랩 (송 메이커)</h3>
+                        <p class="text-gray-600">직접 멜로디를 만들고 싶은 친구들을 위한 온라인 작곡 프로그램이에요.</p>
+                    </a>
+                     <!-- 네이버 국어사전 -->
+                    <a href="https://ko.dict.naver.com/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow md:col-span-2">
+                        <h3 class="font-bold text-xl text-purple-600 mb-2">네이버 국어사전</h3>
+                        <p class="text-gray-600">가사를 만들 때 다양한 단어의 뜻을 찾아보거나, 새로운 표현을 참고할 때 유용해요.</p>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- 꼬리말 -->
+        <footer class="text-center mt-16 py-8 border-t">
+            <p class="text-gray-600 font-semibold">우리반만의 개성 넘치는 로고송 탄생을 응원합니다! 🎉</p>
+        </footer>
+
+    </div>
+
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+�

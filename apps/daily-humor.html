@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 유머 - 확장</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles for Inter font and general layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* 더 따뜻하고 부드러운 그라데이션 배경 */
+            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%); /* Light creamy yellow gradient */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 작은 화면에서 콘텐츠가 너무 중앙에 오지 않도록 상단 정렬 */
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #4a4a4a; /* 기본 텍스트 색상 */
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1.75rem; /* 더 둥근 모서리 */
+            /* 더 깊고 부드러운 그림자 */
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3), 0 18px 36px -18px rgba(0, 0, 0, 0.25);
+            padding: 3.5rem; /* 패딩 증가 */
+            max-width: 900px;
+            width: 100%;
+            margin-top: 50px; /* 상단 여백 증가 */
+            border: 1px solid rgba(255, 255, 255, 0.8); /* 밝은 테두리 */
+            /* 글래스모피즘 효과 */
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.8s ease-out; /* 컨테이너 진입 애니메이션 */
+        }
+        .humor-card {
+            background-color: #fffdf5; /* 매우 밝은 크림색 배경 */
+            border-radius: 1.5rem; /* 더 둥근 모서리 */
+            padding: 3rem; /* 패딩 증가 */
+            margin-bottom: 3rem;
+            text-align: center;
+            min-height: 200px; /* 높이 증가 */
+            display: flex;
+            flex-direction: column; /* 세로 콘텐츠 흐름을 위해 컬럼으로 변경 */
+            align-items: center; /* 콘텐츠 가로 중앙 정렬 */
+            justify-content: center; /* 콘텐츠 세로 중앙 정렬 */
+            font-size: 1.75rem; /* 더 큰 글꼴 */
+            font-weight: 600; /* 세미 볼드 */
+            color: #3d3d3d; /* 더 전문적인 텍스트 색상 */
+            line-height: 1.8;
+            /* 정교하고 따뜻한 그림자 */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0e6d6; /* 따뜻한 밝은 회색 테두리 */
+            /* 애니메이션 전환 효과 */
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            position: relative; /* 로딩 스피너 위치 지정을 위해 */
+        }
+        .humor-card img {
+            max-width: 350px; /* 이미지 크기 약간 증가 */
+            height: auto;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 1.25rem; /* 이미지 모서리 더 둥글게 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 이미지 그림자 강화 */
+            border: 1px solid #f5f5f5;
+            animation: fadeIn 0.6s ease-out; /* 이미지 진입 애니메이션 */
+        }
+        .btn {
+            @apply px-10 py-4 rounded-full font-bold transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl active:translate-y-0 active:shadow-md focus:outline-none focus:ring-4 focus:ring-opacity-75;
+            letter-spacing: 0.05em; /* 스타일을 위한 약간의 자간 */
+            text-transform: uppercase; /* 버튼 텍스트 대문자 */
+        }
+        .btn-primary {
+            /* 따뜻한 오렌지-핑크 그라데이션 */
+            @apply bg-gradient-to-br from-orange-500 to-rose-600 text-white hover:from-orange-600 hover:to-rose-700 focus:ring-orange-400;
+            box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4); /* 기본 버튼을 위한 사용자 정의 그림자 */
+        }
+        .btn-secondary {
+            @apply bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 focus:ring-amber-300;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .btn-social {
+            @apply text-white hover:opacity-90 focus:ring-opacity-75;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .btn-social.bg-black { /* X (트위터) */
+            @apply focus:ring-gray-700;
+        }
+        .btn-social.bg-blue-800 { /* 페이스북 */
+            @apply focus:ring-blue-600;
+        }
+        .btn-kakao {
+            background-color: #FEE500;
+            color: #3C1E1E; /* 카카오톡을 위한 더 어두운 텍스트 */
+            @apply hover:bg-yellow-400 focus:ring-yellow-300;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            @apply hover:bg-green-600 focus:ring-green-400;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 4rem; /* 더 큰 제목 */
+            font-weight: 900; /* 매우 굵게 */
+            color: #2c3e50; /* 더 어두운 제목 색상 */
+            letter-spacing: -0.07em; /* 제목을 위한 더 좁은 자간 */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05); /* 미묘한 텍스트 그림자 */
+        }
+        h2 {
+            font-size: 2.5rem; /* 더 큰 부제목 */
+            font-weight: 700; /* 굵게 */
+            color: #4a4a4a; /* 더 어두운 부제목 색상 */
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 4rem; /* 더 많은 패딩 */
+            border-radius: 2.5rem; /* 훨씬 더 둥글게 */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); /* 더 강한 모달 그림자 */
+            animation: fadeInScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 모달 진입 애니메이션 */
+        }
+        .close-button {
+            color: #b0b0b0; /* 더 부드러운 닫기 버튼 색상 */
+            font-size: 40px; /* 더 큰 닫기 버튼 */
+            top: 25px;
+            right: 30px;
+            transition: color 0.2s;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #777;
+        }
+        .feedback-buttons button {
+            font-size: 5.5rem; /* 더 큰 아이콘 */
+            /* 바운스 효과를 위한 큐빅 베지어 */
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s;
+        }
+        .feedback-buttons .text-green-500:hover {
+            color: #16a34a; /* 호버 시 더 진한 녹색 */
+        }
+        .feedback-buttons .text-red-500:hover {
+            color: #dc2626; /* 호버 시 더 진한 빨간색 */
+        }
+
+        /* 애니메이션 키프레임 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #ff8c00; /* 따뜻한 주황색 스피너 */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8">오늘의 유머</h1>
+
+        <!-- 오늘의 유머 표시 영역 -->
+        <div id="currentHumor" class="humor-card">
+            <p>유머를 불러오는 중...</p>
+            <div id="loadingSpinner" class="hidden spinner"></div>
+            <p id="loadingText" class="hidden loading-text"></p>
+            <img id="generatedImage" class="hidden" alt="생성된 유머 이미지">
+        </div>
+
+        <!-- 유머 제어 버튼 (정답 보기, 다음 유머) -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+            <button id="showAnswerBtn" class="btn btn-primary hidden">
+                <i class="fas fa-lightbulb mr-2"></i>정답 보기
+            </button>
+            <button id="nextHumorBtn" class="btn btn-primary">
+                <i class="fas fa-arrow-right mr-2"></i>다음 유머
+            </button>
+        </div>
+
+        <!-- 유머 이미지 생성 버튼 -->
+        <div class="flex justify-center mb-6">
+            <button id="generateImageBtn" class="btn btn-secondary">
+                <i class="fas fa-image mr-2"></i>유머 이미지 생성
+            </button>
+        </div>
+
+        <!-- 유머 등록 및 보기 버튼 -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+            <button id="registerHumorBtn" class="btn btn-primary">
+                <i class="fas fa-plus-circle mr-2"></i>유머 등록
+            </button>
+            <button id="viewSavedHumorsBtn" class="btn btn-secondary">
+                <i class="fas fa-list-alt mr-2"></i>저장된 유머 보기
+            </button>
+        </div>
+
+        <!-- 공유 및 복사 버튼 -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button id="copyHumorBtn" class="btn btn-secondary">
+                <i class="fas fa-copy mr-2"></i>복사
+            </button>
+            <button id="shareXBtn" class="btn btn-social bg-black">
+                <i class="fab fa-x-twitter mr-2"></i>X (트위터)
+            </button>
+            <button id="shareFacebookBtn" class="btn btn-social bg-blue-800">
+                <i class="fab fa-facebook-f mr-2"></i>페이스북
+            </button>
+            <button id="shareKakaoBtn" class="btn btn-kakao">
+                <i class="fas fa-comment mr-2"></i>카카오톡
+            </button>
+            <button id="shareWhatsAppBtn" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+            </button>
+        </div>
+
+        <!-- 피드백 기능 (UI만) -->
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">이 유머는 어떠셨나요?</h2>
+            <div class="flex justify-center gap-6 feedback-buttons">
+                <button id="likeBtn" class="text-green-500 text-6xl hover:text-green-600 focus:outline-none">
+                    <i class="far fa-smile-beam"></i>
+                </button>
+                <button id="dislikeBtn" class="text-red-500 text-6xl hover:text-red-600 focus:outline-none">
+                    <i class="far fa-frown"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 저장된 유머 목록 모달 -->
+        <div id="savedHumorsModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">저장된 유머 목록</h2>
+                <ul id="savedHumorsList" class="list-disc pl-5 text-gray-700">
+                    <!-- 유머 목록이 여기에 동적으로 추가됩니다 -->
+                </ul>
+                <div class="flex justify-center mt-6">
+                    <button id="clearAllHumorsBtn" class="btn btn-secondary bg-red-500 text-white hover:bg-red-600">
+                        <i class="fas fa-trash-alt mr-2"></i>모든 유머 삭제
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Confirmation Modal -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">확인</h2>
+                <p id="confirmationMessage" class="text-center text-gray-700 mb-8"></p>
+                <div class="flex justify-center gap-4">
+                    <button id="confirmYesBtn" class="btn btn-primary bg-red-600 hover:bg-red-700">예</button>
+                    <button id="confirmNoBtn" class="btn btn-secondary">아니오</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM 요소 가져오기
+        const currentHumorEl = document.getElementById('currentHumor');
+        const registerHumorBtn = document.getElementById('registerHumorBtn');
+        const viewSavedHumorsBtn = document.getElementById('viewSavedHumorsBtn');
+        const copyHumorBtn = document.getElementById('copyHumorBtn');
+        const shareXBtn = document.getElementById('shareXBtn');
+        const shareFacebookBtn = document.getElementById('shareFacebookBtn');
+        const shareKakaoBtn = document.getElementById('shareKakaoBtn');
+        const shareWhatsAppBtn = document.getElementById('shareWhatsAppBtn');
+        const likeBtn = document.getElementById('likeBtn');
+        const dislikeBtn = document.getElementById('dislikeBtn');
+        const savedHumorsModal = document.getElementById('savedHumorsModal');
+        const closeButton = document.querySelector('.close-button');
+        const savedHumorsList = document.getElementById('savedHumorsList');
+        const clearAllHumorsBtn = document.getElementById('clearAllHumorsBtn');
+
+        // New DOM elements for riddle functionality and custom modal
+        const showAnswerBtn = document.getElementById('showAnswerBtn');
+        const nextHumorBtn = document.getElementById('nextHumorBtn');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        const confirmYesBtn = document.getElementById('confirmYesBtn');
+        const confirmNoBtn = document.getElementById('confirmNoBtn');
+
+        // Image generation elements
+        const generateImageBtn = document.getElementById('generateImageBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const loadingText = document.getElementById('loadingText');
+        const generatedImageEl = document.getElementById('generatedImage');
+
+        // 초기 유머 데이터 (예시) - 발등튀김 문제 포함 및 객체 형식으로 변환
+        const uniqueHumors = [
+            {
+                type: 'riddle',
+                question: '발등에 불이 자주 떨어지는 사람을 비유하는 말은?',
+                answer: '발등튀김',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnbdIFUhJFghBq4YRTc02C53TpysSPOKDftA&s'
+            },
+            { type: 'riddle', question: '세상에서 가장 뜨거운 바다는?', answer: '열바다!' },
+            { type: 'riddle', question: '세상에서 가장 추운 바다는?', answer: '썰렁해!' },
+            { type: 'riddle', question: '세상에서 가장 추운 강은?', answer: '콧물!' },
+            { type: 'riddle', question: '바나나가 웃으면?', answer: '바나나킥!' },
+            { type: 'riddle', question: '우유가 넘어지면?', answer: '아야!' },
+            { type: 'riddle', question: '세상에서 가장 긴 음식은?', answer: '참기름!' }
+        ];
+
+        // 유머 목록을 길게 만들기 위해 중복 추가
+        let initialHumors = [];
+        for (let i = 0; i < 10; i++) {
+            initialHumors = initialHumors.concat(uniqueHumors);
+        }
+
+        // 유머 데이터를 localStorage에서 가져오거나 초기 데이터로 설정
+        let humors = JSON.parse(localStorage.getItem('humors')) || initialHumors;
+
+        // 현재 표시되는 유머 (객체 또는 문자열)
+        let displayedHumor = null;
+
+        // Custom Confirmation Modal logic
+        let onConfirmCallback = null;
+
+        /**
+         * 사용자 정의 확인 모달을 표시합니다.
+         * @param {string} message - 표시할 메시지
+         * @param {function} callback - 사용자가 '예' 또는 '아니오'를 선택했을 때 호출될 콜백 함수 (인자로 true/false 전달)
+         */
+        function showConfirmationModal(message, callback) {
+            confirmationMessage.textContent = message;
+            onConfirmCallback = callback;
+            confirmationModal.style.display = 'flex';
+        }
+
+        confirmYesBtn.addEventListener('click', () => {
+            confirmationModal.style.display = 'none';
+            if (onConfirmCallback) {
+                onConfirmCallback(true);
+            }
+        });
+
+        confirmNoBtn.addEventListener('click', () => {
+            confirmationModal.style.display = 'none';
+            if (onConfirmCallback) {
+                onConfirmCallback(false);
+            }
+        });
+
+
+        /**
+         * 임시 메시지 박스를 표시합니다. (alert 대신 사용)
+         * @param {string} message - 표시할 메시지
+         * @param {string} type - 'success', 'error', 'info' 등의 타입 (스타일링에 사용될 수 있음)
+         */
+        function showMessageBox(message, type = 'info') {
+            const messageBox = document.createElement('div');
+            messageBox.textContent = message;
+            messageBox.style.cssText = `
+                position: fixed;
+                bottom: 30px; /* Slightly higher */
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: ${type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : '#3B82F6'}; /* Tailwind colors */
+                color: white;
+                padding: 18px 25px; /* More padding */
+                border-radius: 12px; /* More rounded */
+                z-index: 1001;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+                font-size: 1.1rem; /* Slightly larger font */
+                box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* Stronger shadow */
+            `;
+            document.body.appendChild(messageBox);
+
+            // Fade in
+            setTimeout(() => {
+                messageBox.style.opacity = 1;
+                messageBox.style.transform = 'translateX(-50%) translateY(-10px)'; // Slight upward movement
+            }, 10);
+
+            // Fade out and remove
+            setTimeout(() => {
+                messageBox.style.opacity = 0;
+                messageBox.style.transform = 'translateX(-50%) translateY(20px)'; // Move down as it fades
+                messageBox.addEventListener('transitionend', () => messageBox.remove());
+            }, 3000);
+        }
+
+        /**
+         * 저장된 유머 중 하나를 무작위로 불러와 표시합니다.
+         */
+        function loadRandomHumor() {
+            // Start fade-out effect
+            currentHumorEl.style.opacity = '0';
+            currentHumorEl.style.transform = 'translateY(20px)';
+            generatedImageEl.classList.add('hidden'); // Hide previously generated image
+            generatedImageEl.src = ''; // Clear image source
+
+            setTimeout(() => {
+                if (humors.length === 0) {
+                    currentHumorEl.innerHTML = '<p>저장된 유머가 없습니다. 새로운 유머를 등록해주세요!</p>';
+                    displayedHumor = null;
+                    showAnswerBtn.classList.add('hidden');
+                } else {
+                    const randomIndex = Math.floor(Math.random() * humors.length);
+                    displayedHumor = humors[randomIndex];
+
+                    currentHumorEl.innerHTML = ''; // Clear previous content
+                    showAnswerBtn.classList.add('hidden'); // Hide answer button by default
+
+                    if (typeof displayedHumor === 'object' && displayedHumor.type === 'riddle') {
+                        const questionP = document.createElement('p');
+                        questionP.textContent = displayedHumor.question;
+                        currentHumorEl.appendChild(questionP);
+
+                        if (displayedHumor.image) {
+                            const img = document.createElement('img');
+                            img.src = displayedHumor.image;
+                            img.alt = '유머 이미지';
+                            img.className = 'mt-4 max-w-full h-auto rounded-lg shadow-md mx-auto';
+                            currentHumorEl.appendChild(img);
+                        }
+                        showAnswerBtn.classList.remove('hidden');
+                        currentHumorEl.dataset.answer = displayedHumor.answer;
+                        currentHumorEl.dataset.isRiddle = 'true';
+                    } else {
+                        const humorP = document.createElement('p');
+                        humorP.textContent = displayedHumor;
+                        currentHumorEl.appendChild(humorP);
+                        currentHumorEl.dataset.isRiddle = 'false';
+                    }
+                    // Re-append loading elements, hidden by default
+                    currentHumorEl.appendChild(loadingSpinner);
+                    currentHumorEl.appendChild(loadingText);
+                    currentHumorEl.appendChild(generatedImageEl);
+                }
+                // Trigger fade-in effect after content update
+                setTimeout(() => {
+                    currentHumorEl.style.opacity = '1';
+                    currentHumorEl.style.transform = 'translateY(0)';
+                }, 50);
+            }, 400); // Increased delay for smoother transition
+        }
+
+        /**
+         * 유머의 정답을 표시합니다.
+         */
+        function showAnswer() {
+            if (currentHumorEl.dataset.isRiddle === 'true' && currentHumorEl.dataset.answer) {
+                // Apply a quick fade-out/scale-down effect to the question
+                currentHumorEl.style.opacity = '0';
+                currentHumorEl.style.transform = 'scale(0.9)';
+                generatedImageEl.classList.add('hidden'); // Hide generated image when showing answer
+
+                setTimeout(() => {
+                    currentHumorEl.innerHTML = `<p>${currentHumorEl.dataset.answer}</p>`;
+                    showAnswerBtn.classList.add('hidden'); // "정답 보기" 버튼 숨김
+
+                    // Re-append loading elements, hidden by default
+                    currentHumorEl.appendChild(loadingSpinner);
+                    currentHumorEl.appendChild(loadingText);
+                    currentHumorEl.appendChild(generatedImageEl);
+
+                    // Apply fade-in/scale-up effect to the answer
+                    currentHumorEl.style.opacity = '1';
+                    currentHumorEl.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+
+        /**
+         * 유머를 localStorage에 저장합니다.
+         * @param {object|string} humorData - 저장할 유머 데이터 (객체 또는 문자열)
+         */
+        function saveHumor(humorData) {
+            // Check if the humor already exists to prevent duplicates
+            const isDuplicate = humors.some(h => {
+                if (typeof h === 'object' && typeof humorData === 'object') {
+                    return h.question === humorData.question && h.answer === humorData.answer;
+                }
+                return h === humorData;
+            });
+
+            if (!humorData || isDuplicate) {
+                showMessageBox('이미 저장되었거나 유효하지 않은 유머입니다.', 'info');
+                return;
+            }
+            humors.push(humorData);
+            localStorage.setItem('humors', JSON.stringify(humors));
+            showMessageBox('유머가 성공적으로 저장되었습니다!', 'success');
+        }
+
+        /**
+         * 저장된 유머 목록을 모달에 표시합니다.
+         */
+        function displaySavedHumors() {
+            savedHumorsList.innerHTML = ''; // 기존 목록 초기화
+            if (humors.length === 0) {
+                savedHumorsList.innerHTML = '<li class="text-center text-gray-500">저장된 유머가 없습니다.</li>';
+            } else {
+                humors.forEach((humor, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'mb-2 p-2 border-b border-gray-200 last:border-b-0 flex justify-between items-center';
+                    let humorContent = '';
+                    if (typeof humor === 'object' && humor.type === 'riddle') {
+                        humorContent = `<strong>Q:</strong> ${humor.question} <br> <strong>A:</strong> ${humor.answer}`;
+                    } else {
+                        humorContent = humor;
+                    }
+                    li.innerHTML = `
+                        <span>${humorContent}</span>
+                        <button data-index="${index}" class="text-red-500 hover:text-red-700 ml-4 delete-humor-btn">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    `;
+                    savedHumorsList.appendChild(li);
+                });
+            }
+            savedHumorsModal.style.display = 'flex'; // 모달 표시
+        }
+
+        /**
+         * 특정 유머를 삭제합니다.
+         * @param {number} index - 삭제할 유머의 인덱스
+         */
+        function deleteHumor(index) {
+            if (index > -1 && index < humors.length) {
+                humors.splice(index, 1);
+                localStorage.setItem('humors', JSON.stringify(humors));
+                displaySavedHumors(); // 목록 새로고침
+                showMessageBox('유머가 삭제되었습니다.', 'success');
+                // 삭제 후 목록이 비어있지 않다면 새로운 유머 로드
+                if (humors.length > 0) {
+                    loadRandomHumor();
+                } else {
+                    currentHumorEl.innerHTML = '<p>저장된 유머가 없습니다. 새로운 유머를 등록해주세요!</p>';
+                    displayedHumor = null;
+                    showAnswerBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        /**
+         * 모든 유머를 삭제합니다.
+         */
+        function clearAllHumors() {
+            showConfirmationModal('정말로 모든 유머를 삭제하시겠습니까?', (confirmed) => {
+                if (confirmed) {
+                    humors = [];
+                    localStorage.removeItem('humors');
+                    displaySavedHumors(); // 목록 새로고침
+                    loadRandomHumor(); // 현재 유머도 새로고침
+                    showMessageBox('모든 유머가 삭제되었습니다.', 'success');
+                }
+            });
+        }
+
+        /**
+         * 현재 유머를 공유 가능한 텍스트 형태로 반환합니다.
+         */
+        function getShareableText() {
+            if (!displayedHumor) return "";
+            if (typeof displayedHumor === 'object' && displayedHumor.type === 'riddle') {
+                return `Q: ${displayedHumor.question}\nA: ${displayedHumor.answer}`;
+            }
+            return displayedHumor;
+        }
+
+        /**
+         * 현재 유머를 클립보드에 복사합니다.
+         */
+        function copyHumorToClipboard() {
+            const textToCopy = getShareableText();
+            if (!textToCopy) {
+                showMessageBox('복사할 유머가 없습니다.', 'info');
+                return;
+            }
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                showMessageBox('유머가 클립보드에 복사되었습니다!', 'success');
+            } catch (err) {
+                showMessageBox('클립보드 복사에 실패했습니다.', 'error');
+                console.error('Failed to copy: ', err);
+            } finally {
+                document.body.removeChild(tempTextArea);
+            }
+        }
+
+        /**
+         * X (트위터)로 유머를 공유합니다.
+         */
+        function shareToX() {
+            const textToShare = getShareableText();
+            if (!textToShare) {
+                showMessageBox('공유할 유머가 없습니다.', 'info');
+                return;
+            }
+            const text = encodeURIComponent(textToShare + " #오늘의유머");
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+
+        /**
+         * 페이스북으로 유머를 공유합니다.
+         */
+        function shareToFacebook() {
+            const textToShare = getShareableText();
+            if (!textToShare) {
+                showMessageBox('공유할 유머가 없습니다.', 'info');
+                return;
+            }
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(textToShare)}`, '_blank');
+        }
+
+        /**
+         * 카카오톡으로 유머를 공유합니다.
+         */
+        function shareToKakao() {
+            const textToShare = getShareableText();
+            if (!textToShare) {
+                showMessageBox('공유할 유머가 없습니다.', 'info');
+                return;
+            }
+            showMessageBox('카카오톡 공유는 Kakao Developers 설정이 필요합니다.', 'info');
+            // 실제 Kakao JS SDK 연동 시 textToShare 사용
+        }
+
+        /**
+         * WhatsApp으로 유머를 공유합니다.
+         */
+        function shareToWhatsApp() {
+            const textToShare = getShareableText();
+            if (!textToShare) {
+                showMessageBox('공유할 유머가 없습니다.', 'info');
+                return;
+            }
+            const text = encodeURIComponent(textToShare + "\n\n" + window.location.href);
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        /**
+         * 현재 유머에 기반한 이미지를 생성합니다.
+         */
+        async function generateHumorImage() {
+            if (!displayedHumor) {
+                showMessageBox('이미지를 생성할 유머가 없습니다.', 'info');
+                return;
+            }
+
+            // Determine the prompt for image generation
+            let prompt = "";
+            if (typeof displayedHumor === 'object' && displayedHumor.type === 'riddle') {
+                prompt = `A humorous illustration for the riddle: "${displayedHumor.question}" with the answer "${displayedHumor.answer}". Make it visually witty and engaging.`;
+            } else {
+                prompt = `A humorous illustration for the joke: "${displayedHumor}". Make it visually witty and engaging.`;
+            }
+
+            // Show loading spinner and text
+            loadingSpinner.classList.remove('hidden');
+            loadingText.classList.remove('hidden');
+            loadingText.textContent = '이미지 생성 중... 잠시만 기다려주세요!';
+            generatedImageEl.classList.add('hidden'); // Hide previous image
+            generatedImageEl.src = ''; // Clear previous image source
+
+            try {
+                const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
+                const apiKey = ""; // If you want to use models other than imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+                const response = await fetch(apiUrl, {
+                           method: 'POST',
+                           headers: { 'Content-Type': 'application/json' },
+                           body: JSON.stringify(payload)
+                       });
+                const result = await response.json();
+
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    generatedImageEl.src = imageUrl;
+                    generatedImageEl.classList.remove('hidden'); // Show generated image
+                    showMessageBox('이미지가 성공적으로 생성되었습니다!', 'success');
+                } else {
+                    showMessageBox('이미지 생성에 실패했습니다. 다시 시도해주세요.', 'error');
+                    console.error('Image generation failed:', result);
+                }
+            } catch (error) {
+                showMessageBox('이미지 생성 중 오류가 발생했습니다.', 'error');
+                console.error('Error generating image:', error);
+            } finally {
+                loadingSpinner.classList.add('hidden');
+                loadingText.classList.add('hidden');
+            }
+        }
+
+
+        // 이벤트 리스너
+        registerHumorBtn.addEventListener('click', () => {
+            if (displayedHumor) {
+                saveHumor(displayedHumor);
+            } else {
+                showMessageBox('저장할 유머가 없습니다. 먼저 유머를 불러오세요.', 'info');
+            }
+        });
+
+        viewSavedHumorsBtn.addEventListener('click', displaySavedHumors);
+        closeButton.addEventListener('click', () => {
+            savedHumorsModal.style.display = 'none';
+        });
+        window.addEventListener('click', (event) => {
+            if (event.target === savedHumorsModal) {
+                savedHumorsModal.style.display = 'none';
+            }
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none'; // Close confirmation modal if clicked outside
+            }
+        });
+        savedHumorsList.addEventListener('click', (event) => {
+            if (event.target.classList.contains('delete-humor-btn') || event.target.closest('.delete-humor-btn')) {
+                const button = event.target.closest('.delete-humor-btn');
+                const index = parseInt(button.dataset.index);
+                deleteHumor(index);
+            }
+        });
+        clearAllHumorsBtn.addEventListener('click', clearAllHumors);
+
+        copyHumorBtn.addEventListener('click', copyHumorToClipboard);
+        shareXBtn.addEventListener('click', shareToX);
+        shareFacebookBtn.addEventListener('click', shareToFacebook);
+        shareKakaoBtn.addEventListener('click', shareToKakao);
+        shareWhatsAppBtn.addEventListener('click', shareToWhatsApp);
+
+        likeBtn.addEventListener('click', () => {
+            showMessageBox('👍 유머에 좋아요를 눌렀습니다!', 'success');
+            // 실제 데이터 저장 로직은 여기에 추가될 수 있습니다.
+        });
+
+        dislikeBtn.addEventListener('click', () => {
+            showMessageBox('👎 유머에 싫어요를 눌렀습니다.', 'info');
+            // 실제 데이터 저장 로직은 여기에 추가될 수 있습니다.
+        });
+
+        // Riddle specific event listeners
+        showAnswerBtn.addEventListener('click', showAnswer);
+        nextHumorBtn.addEventListener('click', loadRandomHumor);
+        generateImageBtn.addEventListener('click', generateHumorImage); // New image generation button event listener
+
+        // 페이지 로드 시 무작위 유머 불러오기
+        window.onload = loadRandomHumor;
+
+        // Google Trends 유머 생성 로직 (제안만)
+        async function generateGoogleTrendsHumor(keyword) {
+            // 실제 환경에서는 여기에 Gemini API 호출 로직이 들어갑니다.
+            // const prompt = `"${keyword}" 키워드를 사용하여 짧고 재치 있는 유머를 만들어주세요.`;
+            // const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+            // const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            // const response = await fetch(apiUrl, {
+            //            method: 'POST',
+            //            headers: { 'Content-Type': 'application/json' },
+            //            body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }] })
+            //        });
+            // const result = await response.json();
+            // if (result.candidates && result.candidates.length > 0 &&
+            //     result.candidates[0].content && result.candidates[0].content.parts &&
+            //     result.candidates[0].content.parts.length > 0) {
+            //   return result.candidates[0].content.parts[0].text;
+            // } else {
+            //   console.error("Failed to generate humor:", result);
+            //   return `"${keyword}"에 대한 유머 생성에 실패했습니다.`;
+            // }
+
+            // 현재는 더미 데이터 반환
+            const dummyHumors = {
+                '바나나맛 우유': '바나나맛 우유를 마시면... 힘이 바나나!',
+                '월드컵': '월드컵에서 가장 싫어하는 술은? 꼴등!',
+                '인공지능': '인공지능이 가장 좋아하는 옷은? 가운!',
+                '여름휴가': '여름휴가 때 가장 듣기 싫은 말은? 일해라 절해라!'
+            };
+            return dummyHumors[keyword] || `"${keyword}"에 대한 유머를 생성했습니다! (AI 제안)`;
+        }
+
+        // 예시: Google Trends 유머 생성 시뮬레이션 (주석 처리됨)
+        // setTimeout(async () => {
+        //     const trendKeyword = '바나나맛 우유'; // 가정된 Google Trends 키워드
+        //     const aiHumor = await generateGoogleTrendsHumor(trendKeyword);
+        //     console.log(`Google Trends(${trendKeyword}) 유머: ${aiHumor}`);
+        //     // currentHumorEl.innerHTML = `<p>${aiHumor}</p>`; // 필요하다면 표시
+        // }, 3000);
+
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

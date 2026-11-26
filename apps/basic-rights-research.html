@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본권 조사 활동</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            padding: 24px;
+        }
+        .clickable-example {
+            cursor: pointer;
+            color: #2563eb; /* Blue for clickable text */
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+            display: inline-block; /* Ensures padding/margin work correctly */
+            padding: 2px 0;
+        }
+        .clickable-example:hover {
+            color: #1d4ed8; /* Darker blue on hover */
+            text-decoration: underline;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center py-8 mb-8 bg-blue-600 text-white rounded-lg shadow-md">
+            <h1 class="text-4xl font-bold mb-2">기본권 조사 활동</h1>
+            <p class="text-xl">일상생활 속 기본권의 모습을 찾아보세요!</p>
+        </header>
+
+        <!-- 평등권 (Equality Right) -->
+        <div class="card">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-700">평등권 (Equality Right)</h2>
+            <p class="mb-4 leading-relaxed">
+                모든 사람이 성별, 종교, 사회적 신분 등에 관계없이 동등하게 대우받을 권리입니다.
+                누구도 차별받지 않고 동등한 기회를 누리며, 법 앞에 평등하게 대우받아야 한다는 원칙을 담고 있습니다.
+            </p>
+            <h3 class="text-xl font-medium mb-3 text-gray-800">[일상생활에서 나타내는 모습]</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="clickable-example" onclick="searchWeb('모든 시민은 법 앞에서 동등하다 평등권')">모든 시민은 법 앞에서 동등하다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('누구나 학교에 다닐 수 있다 평등권')">누구나 학교에 다닐 수 있다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('성별에 관계없이 직업을 선택할 수 있다 평등권')">성별에 관계없이 직업을 선택할 수 있다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('장애인도 대중교통을 이용할 수 있다 평등권')">장애인도 대중교통을 이용할 수 있다.</span></li>
+            </ul>
+        </div>
+
+        <!-- 자유권 (Freedom Right) -->
+        <div class="card">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-700">자유권 (Freedom Right)</h2>
+            <p class="mb-4 leading-relaxed">
+                국가의 간섭 없이 자유롭게 생각하고 행동할 수 있는 권리입니다.
+                개인의 의사에 따라 삶을 결정하고, 사생활을 보호받으며, 다양한 활동을 자유롭게 할 수 있음을 의미합니다.
+            </p>
+            <h3 class="text-xl font-medium mb-3 text-gray-800">[일상생활에서 나타내는 모습]</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="clickable-example" onclick="searchWeb('원하는 종교를 믿을 수 있다 자유권')">원하는 종교를 믿을 수 있다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('자유롭게 의견을 표현할 수 있다 자유권')">자유롭게 의견을 표현할 수 있다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('어디든 이사 가서 살 수 있다 자유권')">어디든 이사 가서 살 수 있다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('내 재산을 자유롭게 사용할 수 있다 자유권')">내 재산을 자유롭게 사용할 수 있다.</span></li>
+            </ul>
+        </div>
+
+        <!-- 참정권 (Participation Right) -->
+        <div class="card">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-700">참정권 (Participation Right)</h2>
+            <p class="mb-4 leading-relaxed">
+                국민이 국가의 정치 과정에 참여할 수 있는 권리입니다.
+                국가의 의사 결정에 직접 또는 간접적으로 참여하여 자신의 의견을 반영하고, 국가 운영에 영향을 미칠 수 있는 권리입니다.
+            </p>
+            <h3 class="text-xl font-medium mb-3 text-gray-800">[일상생활에서 나타내는 모습]</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="clickable-example" onclick="searchWeb('선거에서 투표를 한다 참정권')">선거에서 투표를 한다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('국민청원에 참여한다 참정권')">국민청원에 참여한다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('정당에 가입하여 활동한다 참정권')">정당에 가입하여 활동한다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('공무원이 될 수 있다 참정권')">공무원이 될 수 있다.</span></li>
+            </ul>
+        </div>
+
+        <!-- 사회권 (Social Right) -->
+        <div class="card">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-700">사회권 (Social Right)</h2>
+            <p class="mb-4 leading-relaxed">
+                인간다운 생활을 할 수 있도록 국가에 요구할 수 있는 권리입니다.
+                건강하고 문화적인 생활을 누리기 위해 필요한 최소한의 조건을 국가가 보장해 줄 것을 요구할 수 있는 권리입니다.
+            </p>
+            <h3 class="text-xl font-medium mb-3 text-gray-800">[일상생활에서 나타내는 모습]</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="clickable-example" onclick="searchWeb('아프면 병원에서 치료받을 수 있다 사회권')">아프면 병원에서 치료받을 수 있다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('생활이 어려울 때 국가의 도움을 받는다 사회권')">생활이 어려울 때 국가의 도움을 받는다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('쾌적한 환경에서 살 권리 사회권')">쾌적한 환경에서 살 권리.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('교육을 받을 권리 사회권')">교육을 받을 권리.</span></li>
+            </ul>
+        </div>
+
+        <!-- 청구권 (Claim Right) -->
+        <div class="card">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-700">청구권 (Claim Right)</h2>
+            <p class="mb-4 leading-relaxed">
+                국가에 대해 특정한 행위를 요구하거나, 부당한 대우를 받았을 때 구제를 요청할 수 있는 권리입니다.
+                국민의 기본권이 침해되었을 때 국가에 대해 적극적인 조치를 요구하거나, 피해를 구제받을 수 있는 권리입니다.
+            </p>
+            <h3 class="text-xl font-medium mb-3 text-gray-800">[일상생활에서 나타내는 모습]</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="clickable-example" onclick="searchWeb('억울한 일을 당했을 때 재판을 청구한다 청구권')">억울한 일을 당했을 때 재판을 청구한다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('국가에 정보를 공개해달라고 요구한다 청구권')">국가에 정보를 공개해달라고 요구한다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('국가의 잘못으로 피해를 입었을 때 보상을 요구한다 청구권')">국가의 잘못으로 피해를 입었을 때 보상을 요구한다.</span></li>
+                <li><span class="clickable-example" onclick="searchWeb('경찰에 도움을 요청한다 청구권')">경찰에 도움을 요청한다.</span></li>
+            </ul>
+        </div>
+
+        <footer class="text-center py-6 mt-8 text-gray-600 text-sm">
+            <p>&copy; 2025 기본권 조사 활동. 모든 권리 보유.</p>
+        </footer>
+    </div>
+
+    <script>
+        /**
+         * 웹 검색을 수행하는 함수.
+         * 주어진 쿼리 문자열로 새 탭에서 Google 검색을 엽니다.
+         * @param {string} query - 검색할 문자열.
+         */
+        function searchWeb(query) {
+            // Google 검색 URL을 생성합니다.
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            // 새 탭에서 검색 결과를 엽니다.
+            window.open(searchUrl, '_blank');
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

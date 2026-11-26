@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>슬기로운 자원 탐구소 - 천연·자연 자원의 종류</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts (Jua, Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'sans-serif'],
+            jua: ['"Jua"', 'sans-serif'],
+          },
+          colors: {
+            nature: {
+              50: '#f4fbf4',
+              100: '#e5f6e5',
+              200: '#cbebc9',
+              300: '#9edaa0',
+              400: '#6dc171',
+              500: '#4aa44e',
+              600: '#39843c',
+              700: '#306833',
+            },
+            corgi: {
+              orange: '#f39c12',
+              light: '#fef5e7',
+              dark: '#d35400'
+            }
+          },
+          boxShadow: {
+            'card': '0 8px 24px -4px rgba(74, 164, 78, 0.15)',
+            'card-hover': '0 16px 32px -4px rgba(74, 164, 78, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f7faf7;
+      color: #2d3748;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .font-title {
+      font-family: 'Jua', cursive, sans-serif;
+    }
+    .bounce-gentle {
+      animation: bounceGentle 2.5s infinite ease-in-out;
+    }
+    @keyframes bounceGentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+    .card-transition {
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .card-transition:hover {
+      transform: translateY(-6px);
+    }
+    /* Hide scrollbars for neat embed */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-green-200 selection:text-green-900">
+
+  <!-- Navigation / Top Banner -->
+  <header class="bg-white border-b border-green-100 shadow-sm sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <span class="text-3xl">🌱</span>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-title text-green-800 tracking-wide flex items-center gap-2">
+            슬기로운 5학년 자원 탐구소
+            <span class="text-xs bg-nature-100 text-nature-700 px-2.5 py-0.5 rounded-full font-sans font-bold">안전 검색 연동</span>
+          </h1>
+          <p class="text-xs text-gray-500">초등학교 5학년 과학·사회 탐구 수업용 웹앱</p>
+        </div>
+      </div>
+      
+      <!-- Quick Info Pill -->
+      <div class="flex items-center space-x-2 bg-amber-50 border border-amber-200 text-amber-800 text-xs px-3 py-1.5 rounded-full font-medium">
+        <i class="fa-solid fa-lightbulb text-amber-500"></i>
+        <span>자원 카드를 클릭하면 네이버/구글 검색창이 바로 열려요!</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 w-full flex-grow space-y-8">
+
+    <!-- 교과서 활동 안내 & 캐릭터 배너 -->
+    <section class="bg-gradient-to-r from-emerald-50 via-teal-50 to-amber-50 rounded-3xl p-5 sm:p-7 border-2 border-nature-200 shadow-sm relative overflow-hidden">
+      <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        
+        <!-- 좌측: 교과서 미션 안내 -->
+        <div class="md:col-span-8 space-y-3">
+          <div class="inline-flex items-center gap-2 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-emerald-800 border border-emerald-200 shadow-xs">
+            <i class="fa-solid fa-book-open text-emerald-600"></i> 1. 함께 활동해요 : 문제 인식 및 협업
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-title text-gray-800 leading-tight">
+            우리가 생활에서 이용하는 <span class="text-emerald-700 underline decoration-wavy decoration-nature-400">자원의 종류</span>를 탐구해요!
+          </h2>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+            아래에 있는 <strong class="text-emerald-800">8가지 자연·천연 자원 카드</strong>를 눌러 궁금한 내용을 스스로 검색하고, 
+            우리 주변에서 어떻게 활용되는지 조사해 봅시다!
+          </p>
+
+          <!-- 꿀팁 & 디지털 윤리 카드 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <!-- 검색 팁 말풍선 (로봇) -->
+            <div class="bg-white/95 p-3 rounded-2xl border border-sky-200 shadow-xs flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 shrink-0 text-base">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+              <div class="text-xs">
+                <span class="font-bold text-sky-800 block mb-0.5">검색 꿀팁 도우미</span>
+                검색창에 <span class="text-sky-600 font-semibold">'자연 자원의 종류'</span>, <span class="text-sky-600 font-semibold">'천연 자원의 종류'</span>를 검색해 보세요!
+              </div>
+            </div>
+
+            <!-- 디지털 윤리 말풍선 -->
+            <div class="bg-white/95 p-3 rounded-2xl border border-rose-200 shadow-xs flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 shrink-0 text-base">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div class="text-xs">
+                <span class="font-bold text-rose-800 block mb-0.5">디지털 윤리 수칙</span>
+                인터넷에서 찾은 소중한 자료를 사용할 때는 꼭 <strong class="underline text-rose-700">출처를 밝혀요!</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 코기 박사님 캐릭터 일러스트 (SVG) -->
+        <div class="md:col-span-4 flex justify-center items-center">
+          <div class="relative text-center bounce-gentle">
+            <!-- SVG 코기 박사님 -->
+            <svg class="w-44 h-44 sm:w-52 sm:h-52 drop-shadow-md mx-auto" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- 귀 -->
+              <polygon points="50,90 30,30 85,60" fill="#E67E22" stroke="#BA4A00" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="50,85 40,45 75,65" fill="#FAD7A0"/>
+              <polygon points="150,90 170,30 115,60" fill="#E67E22" stroke="#BA4A00" stroke-width="3" stroke-linejoin="round"/>
+              <polygon points="150,85 160,45 125,65" fill="#FAD7A0"/>
+              <!-- 머리 -->
+              <ellipse cx="100" cy="100" rx="55" ry="48" fill="#F39C12"/>
+              <!-- 흰색 주둥이/얼굴 털 -->
+              <path d="M 85 85 Q 100 95 115 85 Q 125 125 100 135 Q 75 125 85 85 Z" fill="#FFFFFF"/>
+              <!-- 코 -->
+              <ellipse cx="100" cy="115" rx="8" ry="6" fill="#2C3E50"/>
+              <path d="M 100 121 L 100 126 M 96 126 Q 100 130 104 126" stroke="#2C3E50" stroke-width="2" stroke-linecap="round"/>
+              <!-- 안경 -->
+              <circle cx="82" cy="96" r="14" fill="none" stroke="#2C3E50" stroke-width="3.5"/>
+              <circle cx="118" cy="96" r="14" fill="none" stroke="#2C3E50" stroke-width="3.5"/>
+              <line x1="96" y1="96" x2="104" y2="96" stroke="#2C3E50" stroke-width="3.5"/>
+              <!-- 눈동자 -->
+              <circle cx="82" cy="96" r="4" fill="#2C3E50"/>
+              <circle cx="84" cy="94" r="1.5" fill="#FFFFFF"/>
+              <circle cx="118" cy="96" r="4" fill="#2C3E50"/>
+              <circle cx="120" cy="94" r="1.5" fill="#FFFFFF"/>
+              <!-- 볼터치 -->
+              <ellipse cx="65" cy="108" rx="7" ry="4" fill="#FF8A80" opacity="0.6"/>
+              <ellipse cx="135" cy="108" rx="7" ry="4" fill="#FF8A80" opacity="0.6"/>
+              <!-- 박사님 가운 / 옷 -->
+              <path d="M 60 142 Q 100 150 140 142 L 155 190 L 45 190 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+              <!-- 넥타이 -->
+              <polygon points="100,147 106,160 100,180 94,160" fill="#27AE60"/>
+              <!-- 손 -->
+              <ellipse cx="65" cy="170" rx="10" ry="8" fill="#F39C12"/>
+              <ellipse cx="135" cy="170" rx="10" ry="8" fill="#F39C12"/>
+            </svg>
+            <div class="bg-amber-100/90 text-amber-900 border border-amber-300 font-title text-sm px-3 py-1 rounded-full inline-block mt-[-10px] shadow-sm">
+              코기 박사와 함께 탐구해요! 🐾
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 직접 검색창 바 (Google / 네이버 즉시 안전 검색) -->
+    <section class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+      <div class="max-w-3xl mx-auto space-y-3">
+        <label for="customSearchInput" class="block text-sm font-bold text-gray-700 flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-magnifying-glass text-emerald-600"></i>
+            내가 직접 검색어로 찾아보기
+          </span>
+          <span class="text-xs text-gray-400 font-normal">초등학생 안심 검색 새 창 열림</span>
+        </label>
+        
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input 
+            type="text" 
+            id="customSearchInput" 
+            placeholder="예: 천연 자원의 종류, 재생 에너지, 희토류" 
+            value="천연 자원의 종류"
+            class="flex-1 px-4 py-3 border-2 border-emerald-300 rounded-xl focus:outline-none focus:border-emerald-600 text-sm transition"
+            onkeypress="if(event.key === 'Enter') executeDirectSearch('naver')"
+          />
+          <div class="flex gap-2">
+            <!-- 네이버 검색 버튼 -->
+            <button 
+              onclick="executeDirectSearch('naver')" 
+              class="flex-1 sm:flex-none px-4 py-3 bg-[#03C75A] hover:bg-[#02b150] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 transition shadow-xs active:scale-95">
+              <span class="font-extrabold text-base">N</span> 네이버 검색
+            </button>
+            <!-- 구글 검색 버튼 -->
+            <button 
+              onclick="executeDirectSearch('google')" 
+              class="flex-1 sm:flex-none px-4 py-3 bg-white hover:bg-gray-50 text-gray-700 font-bold border border-gray-300 rounded-xl text-sm flex items-center justify-center gap-2 transition shadow-xs active:scale-95">
+              <svg class="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+              </svg>
+              구글 검색
+            </button>
+          </div>
+        </div>
+
+        <!-- 추천 검색어 태그 버튼들 -->
+        <div class="flex items-center flex-wrap gap-1.5 pt-1 text-xs">
+          <span class="text-gray-500 font-medium mr-1"><i class="fa-solid fa-tags text-gray-400"></i> 추천 검색어:</span>
+          <button onclick="setKeyword('자연 자원의 종류')" class="bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 text-gray-700 px-2.5 py-1 rounded-lg transition">#자연 자원의 종류</button>
+          <button onclick="setKeyword('천연 자원의 종류')" class="bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 text-gray-700 px-2.5 py-1 rounded-lg transition">#천연 자원의 종류</button>
+          <button onclick="setKeyword('생활 속 천연자원 활용')" class="bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 text-gray-700 px-2.5 py-1 rounded-lg transition">#생활 속 천연자원</button>
+          <button onclick="setKeyword('재생 가능 자원과 고갈 자원')" class="bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 text-gray-700 px-2.5 py-1 rounded-lg transition">#재생·고갈자원</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 분류 탭 필터 (교과서 1~4번 / 5~8번 / 전체보기) -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-xl font-title text-gray-800 flex items-center gap-2">
+          <span>📚 교과서 자원 탐구 카드</span>
+          <span class="text-xs bg-nature-500 text-white font-sans font-bold px-2 py-0.5 rounded-full">총 8종</span>
+        </h3>
+        <p class="text-xs text-gray-500">교과서 페이지에 수록된 천연 자원을 누르면 바로 검색해볼 수 있어요.</p>
+      </div>
+
+      <!-- 탭 버튼 모음 -->
+      <div class="flex items-center bg-gray-200/80 p-1 rounded-xl text-xs font-bold text-gray-600 w-full sm:w-auto">
+        <button id="tab-all" onclick="filterCards('all')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg bg-white text-emerald-800 shadow-xs transition">전체 보기</button>
+        <button id="tab-p1" onclick="filterCards('p1')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg hover:text-emerald-800 transition">활동 ① (기본 자연)</button>
+        <button id="tab-p2" onclick="filterCards('p2')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg hover:text-emerald-800 transition">활동 ② (생물·지하자원)</button>
+      </div>
+    </div>
+
+    <!-- 자원 카드 그리드 섹션 -->
+    <section id="resourceGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <!-- 1. 햇빛 -->
+      <article class="card-p1 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <!-- 카드 상단 이미지 영역 -->
+          <div class="relative h-44 bg-sky-100 overflow-hidden cursor-pointer" onclick="quickSearch('햇빛 자원 이용')">
+            <img 
+              src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=600&q=80" 
+              alt="햇빛" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/fef3c7/d97706?text=햇빛(Sunlight)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <!-- 교과서 스타일 명찰 태그 -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-5 py-1 rounded-full shadow-md text-center">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">햇빛</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-yellow-400/90 text-yellow-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              재생 가능 자원
+            </span>
+          </div>
+          <!-- 카드 설명 -->
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-sun text-yellow-500"></i>
+              <span>태양광 에너지 & 식물 광합성</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              지구를 따뜻하게 비추고, 식물이 자라게 하며 태양광 발전으로 전기를 만듭니다.
+            </p>
+          </div>
+        </div>
+        <!-- 검색 버튼 영역 -->
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('햇빛 자연 자원', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('햇빛 자연 자원', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 2. 흙(토양) -->
+      <article class="card-p1 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-amber-100 overflow-hidden cursor-pointer" onclick="quickSearch('토양 자원 이용')">
+            <img 
+              src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80" 
+              alt="흙(토양)" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/d7ccc8/4e342e?text=흙(토양)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-4 py-1 rounded-full shadow-md text-center whitespace-nowrap">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">흙(토양)</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-amber-200/90 text-amber-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              생태계의 터전
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-seedling text-emerald-600"></i>
+              <span>농작물 재배 & 다양한 생물 서식</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              우리가 먹는 쌀과 채소가 자라는 바탕이며 수많은 작은 생물들의 보금자리입니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('흙 토양 자원 종류', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('흙 토양 자원 종류', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 3. 물 -->
+      <article class="card-p1 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-sky-100 overflow-hidden cursor-pointer" onclick="quickSearch('물 수자원 이용')">
+            <img 
+              src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=600&q=80" 
+              alt="물" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/e0f2fe/0369a1?text=물(Water)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-6 py-1 rounded-full shadow-md text-center">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">물</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-blue-200/90 text-blue-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              수자원
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-droplet text-blue-500"></i>
+              <span>생명 유지 & 수력 발전 & 생활용수</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              마시는 물, 농사와 공장에서 쓰는 물, 그리고 수력 발전으로 에너지를 만듭니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('물 수자원 이용', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('물 수자원 이용', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 4. 공기 -->
+      <article class="card-p1 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-cyan-50 overflow-hidden cursor-pointer" onclick="quickSearch('공기 대기 자원 풍력')">
+            <img 
+              src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=600&q=80" 
+              alt="공기" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/ecfeff/0e7490?text=공기(Air)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-6 py-1 rounded-full shadow-md text-center">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">공기</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-cyan-100 text-cyan-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              대기 자원
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-wind text-cyan-500"></i>
+              <span>호흡(산소) & 풍력 발전</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              숨을 쉴 수 있는 산소를 공급하고, 바람(공기의 흐름)을 통해 풍력 발전을 합니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('공기 대기 자원 바람', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('공기 대기 자원 바람', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 5. 나무(산림) -->
+      <article class="card-p2 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-green-100 overflow-hidden cursor-pointer" onclick="quickSearch('나무 산림 자원 이용')">
+            <img 
+              src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80" 
+              alt="나무(산림)" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/dcfce7/166534?text=나무(산림)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-4 py-1 rounded-full shadow-md text-center whitespace-nowrap">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">나무(산림)</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-green-200 text-green-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              산림 자원
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-tree text-green-600"></i>
+              <span>목재, 종이, 맑은 산소 공급</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              가구와 집을 짓는 목재, 공책을 만드는 종이의 원료가 되며 숲을 이룹니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('나무 산림 자원의 종류', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('나무 산림 자원의 종류', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 6. 동물 -->
+      <article class="card-p2 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-lime-100 overflow-hidden cursor-pointer" onclick="quickSearch('동물 생물 자원 이용')">
+            <img 
+              src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=600&q=80" 
+              alt="동물" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/f0fdf4/15803d?text=동물(Animals)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-6 py-1 rounded-full shadow-md text-center">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">동물</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-lime-200 text-lime-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              생물 자원
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-paw text-amber-600"></i>
+              <span>음식(우유, 고기), 털/가죽 의복</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              우리의 식량이 되어주고, 양털이나 가죽처럼 옷과 생활용품의 재료가 됩니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('동물 생물 자원의 이용', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('동물 생물 자원의 이용', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 7. 석유(화석연료) -->
+      <article class="card-p2 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-zinc-200 overflow-hidden cursor-pointer" onclick="quickSearch('석유 화석연료 플라스틱')">
+            <img 
+              src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" 
+              alt="석유(화석연료)" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/3f3f46/f4f4f5?text=석유(화석연료)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-3 py-0.5 rounded-full shadow-md text-center leading-tight">
+              <span class="font-title text-red-600 text-base sm:text-lg block">석유</span>
+              <span class="text-[11px] font-bold text-red-500 block -mt-1">(화석연료)</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-zinc-800 text-zinc-100 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              고갈 자원
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-gas-pump text-zinc-700"></i>
+              <span>자동차 연료 & 플라스틱, 섬유</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              자동차와 비행기를 움직이고, 우리가 쓰는 플라스틱과 합성섬유 옷의 재료입니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('석유 화석연료 천연자원', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('석유 화석연료 천연자원', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+      <!-- 8. 철(광물) -->
+      <article class="card-p2 bg-white rounded-2xl border-2 border-emerald-100 shadow-card card-transition overflow-hidden flex flex-col justify-between group">
+        <div>
+          <div class="relative h-44 bg-amber-950/20 overflow-hidden cursor-pointer" onclick="quickSearch('철 광물 자원 이용')">
+            <img 
+              src="https://images.unsplash.com/photo-1533240332313-0db49b459ad0?auto=format&fit=crop&w=600&q=80" 
+              alt="철(광물)" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              loading="lazy"
+              onerror="this.src='https://placehold.co/600x400/52525b/fafafa?text=철(광물)';"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-red-500 px-4 py-1 rounded-full shadow-md text-center whitespace-nowrap">
+              <span class="font-title text-red-600 text-lg sm:text-xl tracking-wider">철(광물)</span>
+            </div>
+            <span class="absolute top-2.5 right-2.5 bg-slate-200 text-slate-900 text-[11px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+              광물 자원
+            </span>
+          </div>
+          <div class="p-4 space-y-2 text-left">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+              <i class="fa-solid fa-gem text-stone-600"></i>
+              <span>건물 철근, 자동차, 다리 건설</span>
+            </div>
+            <p class="text-xs text-gray-600 line-clamp-2">
+              튼튼한 철골 구조물, 배, 자동차를 만들 때 없어서는 안 될 귀중한 금속 자원입니다.
+            </p>
+          </div>
+        </div>
+        <div class="px-4 pb-4 pt-1 grid grid-cols-2 gap-2 border-t border-gray-100 bg-gray-50/50">
+          <button onclick="searchResource('철 광물 자원 종류', 'naver')" class="py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <span class="font-extrabold text-xs">N</span> 네이버
+          </button>
+          <button onclick="searchResource('철 광물 자원 종류', 'google')" class="py-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition shadow-xs">
+            <i class="fa-brands fa-google text-blue-500"></i> 구글
+          </button>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 인터랙티브 미션: 5학년 자원 카드 빈칸 퀴즈 (교과서 연계) -->
+    <section class="bg-white rounded-3xl p-6 sm:p-7 border-2 border-nature-300 shadow-sm">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gray-100 pb-4 mb-5">
+        <div>
+          <span class="text-xs font-bold text-emerald-700 uppercase bg-emerald-100 px-2.5 py-1 rounded-md">교과서 빈칸 채우기 도전!</span>
+          <h3 class="text-xl sm:text-2xl font-title text-gray-800 mt-1">
+            🎯 자원 척척박사 퀴즈! 어떤 자원일까요?
+          </h3>
+        </div>
+        <span class="text-xs text-gray-500"><i class="fa-solid fa-star text-amber-400"></i> 5학년 친구들을 위한 문제예요</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 퀴즈 1 -->
+        <div class="bg-nature-50 p-4 rounded-2xl border border-nature-200 flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+              <h4 class="font-bold text-sm text-gray-800">식물이 자라게 하고 우리가 숨 쉬는 데 꼭 필요해요!</h4>
+            </div>
+            <p class="text-xs text-gray-600 pl-8">
+              지구를 둘러싸고 있는 기체로, 움직이면 '바람'이 되어 전기를 만들기도 하는 자원은?
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-nature-200/60 flex items-center justify-between">
+            <div id="quiz1-reveal" class="text-xs font-bold text-emerald-800 bg-white px-3 py-1.5 rounded-lg border border-emerald-300 hidden">
+              정답: <span class="text-emerald-600 font-extrabold text-sm">공기 (바람)</span>
+            </div>
+            <button onclick="toggleQuizAnswer('quiz1-reveal', this)" class="text-xs bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-emerald-700 transition">
+              정답 확인하기
+            </button>
+          </div>
+        </div>
+
+        <!-- 퀴즈 2 -->
+        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+              <h4 class="font-bold text-sm text-gray-800">한 번 쓰고 나면 다시 생기기까지 수억 년이 걸려요!</h4>
+            </div>
+            <p class="text-xs text-gray-600 pl-8">
+              오래전 생물의 유해가 묻혀 만들어진 화석연료로, 자동차 기름이나 플라스틱을 만드는 자원은?
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-200/60 flex items-center justify-between">
+            <div id="quiz2-reveal" class="text-xs font-bold text-amber-900 bg-white px-3 py-1.5 rounded-lg border border-amber-300 hidden">
+              정답: <span class="text-amber-600 font-extrabold text-sm">석유 (화석연료)</span>
+            </div>
+            <button onclick="toggleQuizAnswer('quiz2-reveal', this)" class="text-xs bg-amber-600 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-amber-700 transition">
+              정답 확인하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 디지털 윤리 & 올바른 검색 안내 섹션 -->
+    <section class="bg-slate-800 text-white rounded-3xl p-6 sm:p-7 shadow-md">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>5학년 학생을 위한 슬기로운 디지털 윤리 교실</span>
+          </div>
+          <h4 class="text-xl font-title tracking-wide">인터넷 자료를 활용할 때 꼭 지켜요!</h4>
+          <ul class="text-xs sm:text-sm text-slate-300 space-y-1.5 list-disc list-inside">
+            <li><strong>출처 밝히기:</strong> 글이나 사진을 발표 자료에 넣을 때는 <span class="text-emerald-300">[사이트 이름, 검색 일자]</span>를 꼭 기록해요.</li>
+            <li><strong>내 생각으로 바꾸어 쓰기:</strong> 검색한 내용을 그대로 베끼지 않고, 나의 말로 요약해서 정리해요.</li>
+            <li><strong>안전한 검색:</strong> 호기심을 갖고 공부와 관련된 단어로 건전하고 바르게 탐구해요.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-700/60 p-4 rounded-2xl border border-slate-600 text-center shrink-0 w-full md:w-64">
+          <p class="text-xs text-slate-300 mb-2">선생님 & 학생 공유용</p>
+          <button 
+            onclick="copyCurrentUrl()" 
+            class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl text-xs transition flex items-center justify-center gap-2">
+            <i class="fa-regular fa-copy"></i>
+            <span id="copyBtnText">웹앱 주소 복사하기</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 하단 Footer -->
+  <footer class="bg-white border-t border-gray-200 py-6 text-center text-xs text-gray-500">
+    <div class="max-w-6xl mx-auto px-4 space-y-1">
+      <p class="font-medium text-gray-600">초등학교 5학년 '천연 자원의 종류와 이용' 탐구 수업 웹앱</p>
+      <p class="text-gray-400">Google Sites 삽입(Embed) 지원 | Google & Naver 안심 검색 연동</p>
+    </div>
+  </footer>
+
+  <!-- 알림 토스트 모달 (alert 대체) -->
+  <div id="toastMessage" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-900/90 text-white text-xs px-4 py-2.5 rounded-full shadow-lg pointer-events-none opacity-0 transition-opacity duration-300 z-50 flex items-center gap-2">
+    <i class="fa-solid fa-check text-emerald-400"></i>
+    <span id="toastText">알림 내용</span>
+  </div>
+
+  <script>
+    /**
+     * 네이버 및 구글 안전 검색 링크 생성 함수
+     * Google Sites iframe 환경을 고려하여 window.open('', '_blank') 형태로 호출합니다.
+     */
+    function searchResource(query, engine) {
+      if (!query || query.trim() === "") {
+        showToast("검색어를 입력해 주세요!");
+        return;
+      }
+      
+      const encodedQuery = encodeURIComponent(query.trim());
+      let url = "";
+
+      if (engine === 'naver') {
+        // 네이버 검색 (새 창)
+        url = `https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=${encodedQuery}`;
+      } else if (engine === 'google') {
+        // 구글 세이프서치(safe=active) 적용 검색
+        url = `https://www.google.com/search?q=${encodedQuery}&safe=active`;
+      }
+
+      window.open(url, '_blank', 'noopener,noreferrer');
+      showToast(`'${query}'을(를) ${engine === 'naver' ? '네이버' : '구글'}에서 검색합니다!`);
+    }
+
+    /**
+     * 상단 직접 검색창에서 실행하는 함수
+     */
+    function executeDirectSearch(engine) {
+      const input = document.getElementById('customSearchInput');
+      const val = input.value;
+      if (!val || val.trim() === '') {
+        showToast("궁금한 자원 이름을 입력해 보세요!");
+        input.focus();
+        return;
+      }
+      searchResource(val, engine);
+    }
+
+    /**
+     * 추천 키워드 클릭 시 검색창 채우기
+     */
+    function setKeyword(word) {
+      const input = document.getElementById('customSearchInput');
+      input.value = word;
+      showToast(`검색어에 '${word}'이(가) 입력되었어요!`);
+    }
+
+    /**
+     * 이미지 클릭 시 빠른 네이버 검색
+     */
+    function quickSearch(query) {
+      searchResource(query, 'naver');
+    }
+
+    /**
+     * 카드 필터링 (전체 / 활동 1 / 활동 2)
+     */
+    function filterCards(type) {
+      const p1Cards = document.querySelectorAll('.card-p1');
+      const p2Cards = document.querySelectorAll('.card-p2');
+      
+      const btnAll = document.getElementById('tab-all');
+      const btnP1 = document.getElementById('tab-p1');
+      const btnP2 = document.getElementById('tab-p2');
+
+      // 탭 스타일 초기화
+      [btnAll, btnP1, btnP2].forEach(btn => {
+        btn.className = "flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg hover:text-emerald-800 transition text-gray-600";
+      });
+
+      if (type === 'all') {
+        p1Cards.forEach(c => c.classList.remove('hidden'));
+        p2Cards.forEach(c => c.classList.remove('hidden'));
+        btnAll.className = "flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg bg-white text-emerald-800 shadow-xs font-bold";
+      } else if (type === 'p1') {
+        p1Cards.forEach(c => c.classList.remove('hidden'));
+        p2Cards.forEach(c => c.classList.add('hidden'));
+        btnP1.className = "flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg bg-white text-emerald-800 shadow-xs font-bold";
+      } else if (type === 'p2') {
+        p1Cards.forEach(c => c.classList.add('hidden'));
+        p2Cards.forEach(c => c.classList.remove('hidden'));
+        btnP2.className = "flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg bg-white text-emerald-800 shadow-xs font-bold";
+      }
+    }
+
+    /**
+     * 퀴즈 정답 토글
+     */
+    function toggleQuizAnswer(id, btn) {
+      const el = document.getElementById(id);
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        btn.textContent = "정답 숨기기";
+        btn.classList.replace('bg-emerald-600', 'bg-gray-500');
+        btn.classList.replace('bg-amber-600', 'bg-gray-500');
+      } else {
+        el.classList.add('hidden');
+        btn.textContent = "정답 확인하기";
+        if (id.includes('1')) {
+          btn.classList.replace('bg-gray-500', 'bg-emerald-600');
+        } else {
+          btn.classList.replace('bg-gray-500', 'bg-amber-600');
+        }
+      }
+    }
+
+    /**
+     * 복사하기 기능 (iFrame 호환)
+     */
+    function copyCurrentUrl() {
+      const dummy = document.createElement('input');
+      const text = window.location.href;
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+
+      const btnText = document.getElementById('copyBtnText');
+      btnText.textContent = "주소가 복사되었습니다!";
+      showToast("웹앱 주소가 클립보드에 복사되었어요!");
+
+      setTimeout(() => {
+        btnText.textContent = "웹앱 주소 복사하기";
+      }, 2500);
+    }
+
+    /**
+     * 토스트 메시지 안내 (alert() 금지 준수)
+     */
+    function showToast(message) {
+      const toast = document.getElementById('toastMessage');
+      const toastText = document.getElementById('toastText');
+      toastText.textContent = message;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2500);
+    }
+  </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

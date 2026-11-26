@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 한 달 이야기</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better content flow */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 1200px; /* Increased max-width for combined content */
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 80vh; /* Ensure it's tall enough */
+        }
+        .nav-button {
+            padding: 12px 24px;
+            border-radius: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1; /* Distribute space evenly */
+            min-width: 120px; /* Ensure buttons don't get too small */
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button.active {
+            background-color: #818cf8; /* Indigo 400 */
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .nav-button:not(.active) {
+            background-color: #e0e7ff; /* Indigo 100 */
+            color: #4338ca; /* Indigo 700 */
+        }
+        .section-content {
+            padding: 24px;
+            flex-grow: 1; /* Allow content to take available space */
+            overflow-y: auto; /* Enable scrolling for content */
+        }
+        .drawing-canvas {
+            border: 2px dashed #a78bfa; /* Purple 300 */
+            border-radius: 10px;
+            background-color: #fefcbf; /* Yellow 100 */
+            cursor: crosshair;
+            touch-action: none; /* Prevent scrolling/zooming on canvas */
+            width: 100%; /* Make canvas responsive */
+            max-width: 600px; /* Max width for canvas */
+            height: 300px; /* Fixed height for drawing area */
+            margin: 0 auto; /* Center the canvas */
+            display: block;
+        }
+        .tool-button {
+            padding: 8px 12px;
+            border-radius: 10px;
+            background-color: #a78bfa; /* Purple 300 */
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .tool-button:hover {
+            background-color: #8b5cf6; /* Purple 500 */
+        }
+        .emotion-icon {
+            font-size: 3rem; /* Larger icons */
+            cursor: pointer;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            filter: grayscale(100%); /* Desaturate when not selected */
+        }
+        .emotion-icon.selected {
+            filter: grayscale(0%); /* Full color when selected */
+            transform: scale(1.1);
+        }
+        .emotion-label {
+            font-size: 0.9rem;
+            color: #4b5563; /* Gray 700 */
+            font-weight: 500;
+        }
+        /* Style for the content to be downloaded */
+        #memoryContent {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+            min-height: 400px; /* Ensure it has some height for capture */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative; /* For absolutely positioned stickers */
+            overflow: hidden; /* Hide overflow from stickers */
+        }
+        #memoryContent h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3b82f6; /* Blue 500 */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        #memoryContent p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #374151; /* Gray 700 */
+        }
+        #memoryContent .captured-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* The preview drawing canvas will now always be visible */
+        #memoryContent .captured-drawing {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fefcbf; /* Match drawing canvas background */
+            display: block; /* Ensure it's always block to be rendered */
+        }
+        .sticker-option, .background-option {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: border-color 0.2s ease;
+        }
+        .sticker-option:hover, .background-option:hover {
+            border-color: #818cf8; /* Indigo 400 */
+        }
+        .sticker-option.selected, .background-option.selected {
+            border-color: #4f46e5; /* Indigo 600 */
+            box-shadow: 0 0 0 3px #c7d2fe; /* Indigo 200 */
+        }
+        /* New styles for sticker and background previews */
+        .sticker-preview {
+            width: 60px; /* Slightly larger for emojis */
+            height: 60px;
+            font-size: 2.5rem; /* Make emoji larger */
+            background-color: #f0f4f8; /* A light background for the emoji circle */
+            object-fit: contain;
+            display: flex; /* To center the emoji */
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%; /* Make them circular */
+        }
+        .background-preview {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: flex; /* To center the emoji */
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem; /* Make emoji larger */
+        }
+        .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        input[type="color"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="color"]::-webkit-color-swatch {
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+        input[type="color"]::-moz-color-swatch {
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+        .sticker-on-canvas {
+            position: absolute;
+            cursor: grab;
+            touch-action: none; /* Allow dragging on touch devices */
+            font-size: 3rem; /* Size of the emoji on the canvas */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px; /* Explicit size for draggable sticker */
+            height: 80px;
+        }
+        .sticker-on-canvas:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="font-inter">
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="flex justify-around p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-t-2xl shadow-md">
+            <button id="homeBtn" class="nav-button active">
+                <i class="fas fa-home"></i> 홈
+            </button>
+            <button id="myStoryBtn" class="nav-button">
+                <i class="fas fa-book-open"></i> 나의 이야기
+            </button>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="home-section" class="section-content flex flex-col items-center justify-center text-center">
+            <h2 class="text-4xl font-bold text-indigo-700 mb-6">
+                <i class="fas fa-star text-yellow-400 mr-2"></i> 나의 한 달 이야기 <i class="fas fa-star text-yellow-400 ml-2"></i>
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                안녕, 친구들! 이번 한 달도 정말 멋진 일들이 가득했지? <br>
+                가장 기억에 남는 추억을 만들고, 내 마음의 색깔을 찾아보자!
+            </p>
+            <button onclick="showSection('my-story-section')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fas fa-book-open text-2xl"></i> 나의 이야기 시작하기
+            </button>
+            <img src="https://placehold.co/300x200/a78bfa/ffffff?text=Happy+Kids" alt="Happy Kids Illustration" class="mt-10 rounded-xl shadow-md">
+        </section>
+
+        <!-- My Story Section (Combined Memory Creation and Emotion Tracking) -->
+        <section id="my-story-section" class="section-content hidden">
+            <h2 class="text-3xl font-bold text-purple-700 mb-6 text-center">
+                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> 나의 한 달 이야기 만들기
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Input and Tools Column -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-sm">
+                        <label for="memoryTitle" class="block text-gray-700 text-lg font-semibold mb-2">추억의 제목:</label>
+                        <input type="text" id="memoryTitle" placeholder="예: 친구들과의 즐거운 소풍" class="w-full p-3 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent">
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-sm">
+                        <label for="memoryContentText" class="block text-gray-700 text-lg font-semibold mb-2">추억 이야기:</label>
+                        <textarea id="memoryContentText" rows="6" placeholder="언제, 어디서, 누구와, 무엇을 했고 왜 기억에 남는지 자세히 써보자!" class="w-full p-3 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent"></textarea>
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-sm">
+                        <h4 class="text-gray-700 text-lg font-semibold mb-3">그림 그리기:</h4>
+                        <div class="flex flex-wrap gap-3 mb-4 items-center">
+                            <div class="color-picker-wrapper">
+                                <label for="drawingColor" class="text-gray-600">색상:</label>
+                                <input type="color" id="drawingColor" value="#4f46e5">
+                            </div>
+                            <label for="brushSize" class="text-gray-600">굵기:</label>
+                            <input type="range" id="brushSize" min="1" max="10" value="3" class="w-24">
+                            <button id="clearCanvasBtn" class="tool-button flex items-center gap-1">
+                                <i class="fas fa-eraser"></i> 지우기
+                            </button>
+                        </div>
+                        <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-sm">
+                        <h4 class="text-gray-700 text-lg font-semibold mb-3">사진 추가하기:</h4>
+                        <input type="file" id="imageUpload" accept="image/*" class="w-full p-3 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent bg-white">
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-sm">
+                        <h4 class="text-gray-700 text-lg font-semibold mb-3">스티커 붙이기:</h4>
+                        <div id="stickerOptions" class="flex flex-wrap gap-4 justify-center">
+                            <span class="sticker-option sticker-preview" data-emoji="⭐">⭐</span>
+                            <span class="sticker-option sticker-preview" data-emoji="💖">💖</span>
+                            <span class="sticker-option sticker-preview" data-emoji="😊">😊</span>
+                            <span class="sticker-option sticker-preview" data-emoji="🥳">🥳</span>
+                            <span class="sticker-option sticker-preview" data-emoji="🎈">🎈</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-xl shadow-sm">
+                        <h4 class="text-gray-700 text-lg font-semibold mb-3">배경 꾸미기:</h4>
+                        <div id="backgroundOptions" class="flex flex-wrap gap-4 justify-center">
+                            <div class="background-option background-preview" data-background-color="#fefcbf" style="background-color: #fefcbf;">☀️</div>
+                            <div class="background-option background-preview" data-background-color="#d1fae5" style="background-color: #d1fae5;">🌳</div>
+                            <div class="background-option background-preview" data-background-color="#bfdbfe" style="background-color: #bfdbfe;">☁️</div>
+                            <div class="background-option background-preview" data-background-color="#ffe4e1" style="background-color: #ffe4e1;">💖</div>
+                        </div>
+                    </div>
+
+                    <!-- Emotion Tracking Section - Integrated -->
+                    <div class="bg-pink-50 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">내 마음은 지금 어떤 색깔일까?</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center">
+                            <!-- Emotion Icons -->
+                            <div class="flex flex-col items-center emotion-option" data-emotion="기쁨" data-icon="�">
+                                <span class="emotion-icon">😊</span>
+                                <span class="emotion-label">행복해요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="신남" data-icon="🥳">
+                                <span class="emotion-icon">🥳</span>
+                                <span class="emotion-label">신나요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="뿌듯함" data-icon="🏆">
+                                <span class="emotion-icon">🏆</span>
+                                <span class="emotion-label">뿌듯해요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="슬픔" data-icon="😢">
+                                <span class="emotion-icon">😢</span>
+                                <span class="emotion-label">슬퍼요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="화남" data-icon="😡">
+                                <span class="emotion-icon">😡</span>
+                                <span class="emotion-label">화나요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="놀람" data-icon="😲">
+                                <span class="emotion-icon">😲</span>
+                                <span class="emotion-label">깜짝 놀랐어요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="걱정" data-icon="😟">
+                                <span class="emotion-icon">😟</span>
+                                <span class="emotion-label">걱정돼요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="편안함" data-icon="😌">
+                                <span class="emotion-icon">😌</span>
+                                <span class="emotion-label">편안해요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="호기심" data-icon="🤔">
+                                <span class="emotion-icon">🤔</span>
+                                <span class="emotion-label">궁금해요</span>
+                            </div>
+                            <div class="flex flex-col items-center emotion-option" data-emotion="사랑" data-icon="💖">
+                                <span class="emotion-icon">💖</span>
+                                <span class="emotion-label">따뜻해요</span>
+                            </div>
+                        </div>
+                        <label for="emotionDetail" class="block text-gray-700 text-lg font-semibold mb-2 mt-6">왜 이런 감정을 느꼈는지 이야기해봐!</label>
+                        <textarea id="emotionDetail" rows="6" placeholder="예: 오늘 친구와 재미있는 게임을 해서 신났어요! 또는 숙제가 어려워서 조금 걱정돼요." class="w-full p-3 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent"></textarea>
+                    </div>
+                </div>
+
+                <!-- Preview and Download Column -->
+                <div class="flex flex-col gap-6">
+                    <h3 class="text-2xl font-bold text-purple-700 mb-2 text-center">
+                        <i class="fas fa-eye mr-2"></i> 나의 이야기 미리보기
+                    </h3>
+                    <div id="memoryContent" class="relative">
+                        <h3 id="previewTitle">나의 멋진 추억</h3>
+                        <p id="previewText">여기에 너의 소중한 추억 이야기가 나타날 거야!</p>
+                        <!-- previewDrawingCanvas is now always visible -->
+                        <canvas id="previewDrawingCanvas" class="captured-drawing" width="600" height="300"></canvas>
+                        <div id="previewImages" class="flex flex-col gap-3"></div>
+                        <div id="previewStickers" class="absolute inset-0"></div>
+                        <!-- New section for emotion display within memoryContent -->
+                        <div id="previewEmotion" class="mt-4 p-3 bg-pink-50 rounded-lg hidden">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span id="selectedEmotionIcon" class="text-4xl"></span>
+                                <span id="selectedEmotionLabel" class="text-xl font-semibold text-gray-700"></span>
+                            </div>
+                            <p id="selectedEmotionDetail" class="text-gray-600 text-base"></p>
+                        </div>
+                    </div>
+                    <button id="downloadMemoryBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-download"></i> 이미지로 다운로드
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- html2canvas library for image download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        // --- Global Variables and Initial Setup ---
+        const sections = document.querySelectorAll('section');
+        const navButtons = document.querySelectorAll('.nav-button');
+        const memoryContentDiv = document.getElementById('memoryContent');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewText = document.getElementById('previewText');
+        const previewImagesDiv = document.getElementById('previewImages');
+        const previewStickersDiv = document.getElementById('previewStickers');
+        const previewDrawingCanvas = document.getElementById('previewDrawingCanvas');
+        const previewDrawingCtx = previewDrawingCanvas.getContext('2d');
+        const previewEmotionDiv = document.getElementById('previewEmotion');
+        const selectedEmotionIconSpan = document.getElementById('selectedEmotionIcon');
+        const selectedEmotionLabelSpan = document.getElementById('selectedEmotionLabel');
+        const selectedEmotionDetailP = document.getElementById('selectedEmotionDetail');
+
+
+        // --- Navigation Logic ---
+        function showSection(sectionId) {
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            // Update active state for the correct button
+            const targetButtonId = sectionId === 'home-section' ? 'homeBtn' : 'myStoryBtn';
+            document.getElementById(targetButtonId).classList.add('active');
+
+            // Reset drawing canvas and preview when switching sections
+            if (sectionId !== 'my-story-section') {
+                clearCanvas(); // Clears both drawingCanvas and previewDrawingCanvas
+                memoryContentDiv.style.backgroundColor = '#fff'; // Reset background
+                previewImagesDiv.innerHTML = ''; // Clear uploaded images
+                previewStickersDiv.innerHTML = ''; // Clear stickers
+                // previewDrawingCtx.clearRect(0, 0, previewDrawingCanvas.width, previewDrawingCanvas.height); // Already handled by clearCanvas
+                // previewDrawingCanvas.classList.add('hidden'); // No longer hidden by default
+                // Also clear emotion preview
+                previewEmotionDiv.classList.add('hidden');
+                selectedEmotionIconSpan.textContent = '';
+                selectedEmotionLabelSpan.textContent = '';
+                emotionDetailTextarea.value = ''; // Clear emotion text area
+            }
+        }
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                showSection(button.id.replace('Btn', '-section'));
+            });
+        });
+
+        // --- Memory Creation Logic ---
+        const memoryTitleInput = document.getElementById('memoryTitle');
+        const memoryContentTextInput = document.getElementById('memoryContentText');
+        const imageUploadInput = document.getElementById('imageUpload');
+        const stickerOptions = document.getElementById('stickerOptions');
+        const backgroundOptions = document.getElementById('backgroundOptions');
+        const downloadMemoryBtn = document.getElementById('downloadMemoryBtn');
+
+        // Update preview dynamically
+        memoryTitleInput.addEventListener('input', () => {
+            previewTitle.textContent = memoryTitleInput.value || '나의 멋진 추억';
+        });
+
+        memoryContentTextInput.addEventListener('input', () => {
+            previewText.textContent = memoryContentTextInput.value || '여기에 너의 소중한 추억 이야기가 나타날 거야!';
+        });
+
+        // Image Upload
+        imageUploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('captured-image');
+                    previewImagesDiv.innerHTML = ''; // Clear previous images
+                    previewImagesDiv.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Stickers
+        let activeSticker = null;
+        let initialX, initialY; // Offset from mouse to sticker's top-left corner
+
+        stickerOptions.addEventListener('click', (event) => {
+            // Use .closest to ensure the click is on the .sticker-option itself, not its child text node
+            const target = event.target.closest('.sticker-option');
+            if (target) {
+                // Remove selected class from all sticker options
+                document.querySelectorAll('.sticker-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                // Add selected class to the clicked sticker option
+                target.classList.add('selected');
+
+                const stickerEmoji = target.dataset.emoji;
+                const stickerDiv = document.createElement('div');
+                stickerDiv.classList.add('sticker-on-canvas');
+                stickerDiv.textContent = stickerEmoji; // Set the emoji as text content
+
+                // Initial position (center of the preview area)
+                stickerDiv.style.left = '50%';
+                stickerDiv.style.top = '50%';
+                stickerDiv.style.transform = 'translate(-50%, -50%)'; // Center it initially
+                previewStickersDiv.appendChild(stickerDiv);
+
+                // Make sticker draggable
+                stickerDiv.addEventListener('mousedown', dragStart);
+                stickerDiv.addEventListener('mouseup', dragEnd);
+                stickerDiv.addEventListener('mousemove', drag);
+                stickerDiv.addEventListener('touchstart', dragStart);
+                stickerDiv.addEventListener('touchend', dragEnd);
+                stickerDiv.addEventListener('touchmove', drag);
+            }
+        });
+
+        function dragStart(e) {
+            activeSticker = e.target;
+            const rect = activeSticker.getBoundingClientRect();
+            let clientX, clientY;
+
+            if (e.type === "touchstart") {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            // Calculate initial offset from mouse/touch to the sticker's top-left corner
+            initialX = clientX - rect.left;
+            initialY = clientY - rect.top;
+
+            activeSticker.style.cursor = 'grabbing'; // Visual feedback
+        }
+
+        function dragEnd(e) {
+            if (activeSticker) {
+                activeSticker.style.cursor = 'grab'; // Restore cursor
+            }
+            activeSticker = null;
+        }
+
+        function drag(e) {
+            if (activeSticker) {
+                e.preventDefault(); // Prevent default touch actions like scrolling
+
+                let clientX, clientY;
+                if (e.type === "touchmove") {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                const parentRect = memoryContentDiv.getBoundingClientRect(); // Get parent's position
+                // Calculate new position relative to memoryContentDiv's top-left
+                const newX = clientX - parentRect.left - initialX;
+                const newY = clientY - parentRect.top - initialY;
+
+                // Get sticker dimensions (after it's rendered in the DOM)
+                const stickerWidth = activeSticker.offsetWidth;
+                const stickerHeight = activeSticker.offsetHeight;
+
+                // Constrain movement within parent bounds
+                const maxX = parentRect.width - stickerWidth;
+                const maxY = parentRect.height - stickerHeight;
+
+                activeSticker.style.left = `${Math.max(0, Math.min(newX, maxX))}px`;
+                activeSticker.style.top = `${Math.max(0, Math.min(newY, maxY))}px`;
+                activeSticker.style.transform = 'none'; // Remove translate to use direct left/top
+            }
+        }
+
+
+        // Backgrounds
+        backgroundOptions.addEventListener('click', (event) => {
+            const target = event.target.closest('.background-option'); // Use closest
+            if (target) {
+                // Remove selected class from all background options
+                document.querySelectorAll('.background-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                // Add selected class to the clicked background option
+                target.classList.add('selected');
+
+                const bgColor = target.dataset.backgroundColor;
+                memoryContentDiv.style.backgroundColor = bgColor;
+            }
+        });
+
+        // --- Drawing Canvas Logic ---
+        const drawingCanvas = document.getElementById('drawingCanvas');
+        const ctx = drawingCanvas.getContext('2d');
+        const drawingColorInput = document.getElementById('drawingColor');
+        const brushSizeInput = document.getElementById('brushSize');
+        const clearCanvasBtn = document.getElementById('clearCanvasBtn');
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Set initial canvas size
+        function resizeCanvas() {
+            // Only resize if the canvas has been initialized and is visible
+            if (drawingCanvas.offsetWidth > 0 && drawingCanvas.offsetHeight > 0) {
+                const imageData = ctx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height); // Save current drawing
+                drawingCanvas.width = drawingCanvas.offsetWidth;
+                drawingCanvas.height = drawingCanvas.offsetHeight;
+                ctx.putImageData(imageData, 0, 0); // Restore drawing
+            } else {
+                // Initial setup if not visible yet
+                drawingCanvas.width = drawingCanvas.offsetWidth || 600; // Default width if not rendered
+                drawingCanvas.height = drawingCanvas.offsetHeight || 300; // Default height if not rendered
+            }
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = drawingColorInput.value;
+            ctx.lineWidth = brushSizeInput.value;
+
+            // Also resize and clear the preview canvas
+            previewDrawingCanvas.width = drawingCanvas.width;
+            previewDrawingCanvas.height = drawingCanvas.height;
+            previewDrawingCtx.clearRect(0, 0, previewDrawingCanvas.width, previewDrawingCanvas.height);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        // Call resizeCanvas on initial load and when the story section becomes visible
+        // This ensures the canvas is correctly sized when the user navigates to the story page.
+        document.addEventListener('DOMContentLoaded', resizeCanvas);
+        document.getElementById('myStoryBtn').addEventListener('click', resizeCanvas);
+
+
+        drawingCanvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+
+        drawingCanvas.addEventListener('mousemove', draw);
+        drawingCanvas.addEventListener('mouseup', () => isDrawing = false);
+        drawingCanvas.addEventListener('mouseout', () => isDrawing = false);
+
+        // Touch events for drawing
+        drawingCanvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent scrolling
+            isDrawing = true;
+            const touch = e.touches[0];
+            const rect = drawingCanvas.getBoundingClientRect();
+            [lastX, lastY] = [touch.clientX - rect.left, touch.clientY - rect.top];
+        });
+
+        drawingCanvas.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent scrolling
+            if (!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = drawingCanvas.getBoundingClientRect();
+            draw({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
+        });
+
+        drawingCanvas.addEventListener('touchend', () => isDrawing = false);
+
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.strokeStyle = drawingColorInput.value;
+            ctx.lineWidth = brushSizeInput.value;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            // Fix: Corrected e.oy to e.offsetY to ensure drawing works correctly
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+
+            // Draw the same stroke on the preview canvas
+            previewDrawingCtx.strokeStyle = drawingColorInput.value;
+            previewDrawingCtx.lineWidth = brushSizeInput.value;
+            previewDrawingCtx.beginPath();
+            previewDrawingCtx.moveTo(lastX, lastY);
+            previewDrawingCtx.lineTo(e.offsetX, e.offsetY);
+            previewDrawingCtx.stroke();
+        }
+
+        drawingColorInput.addEventListener('input', () => {
+            ctx.strokeStyle = drawingColorInput.value;
+            previewDrawingCtx.strokeStyle = drawingColorInput.value; // Keep preview in sync
+        });
+
+        brushSizeInput.addEventListener('input', () => {
+            ctx.lineWidth = brushSizeInput.value;
+            previewDrawingCtx.lineWidth = brushSizeInput.value; // Keep preview in sync
+        });
+
+        clearCanvasBtn.addEventListener('click', () => {
+            clearCanvas();
+        });
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+            previewDrawingCtx.clearRect(0, 0, previewDrawingCanvas.width, previewDrawingCanvas.height); // Clear preview canvas too
+        }
+
+        // --- Image Download Logic ---
+        downloadMemoryBtn.addEventListener('click', () => {
+            // The drawing is now already on previewDrawingCanvas, so no need to redraw here.
+            // Just ensure it's visible (which it now always is) and html2canvas will capture it.
+
+            // Temporarily hide drawing canvas border and background for cleaner capture
+            const originalCanvasBorder = drawingCanvas.style.border;
+            const originalCanvasBackground = drawingCanvas.style.backgroundColor;
+            drawingCanvas.style.border = 'none';
+            drawingCanvas.style.backgroundColor = 'transparent';
+
+            // Use html2canvas to capture the memory content div
+            html2canvas(memoryContentDiv, {
+                useCORS: true, // Important for images loaded from external URLs if any
+                scale: 2, // Increase scale for better quality
+                scrollY: -window.scrollY, // Adjust for scroll position
+                windowWidth: document.documentElement.offsetWidth,
+                windowHeight: document.documentElement.offsetHeight
+            }).then(canvas => {
+                // Restore original canvas styles
+                drawingCanvas.style.border = originalCanvasBorder;
+                drawingCanvas.style.backgroundColor = originalCanvasBackground;
+                // previewDrawingCanvas.classList.add('hidden'); // No longer needed as it's always visible
+
+                const link = document.createElement('a');
+                link.download = '나의_한_달_이야기.png';
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                alert('추억 이미지가 다운로드되었어요!');
+            }).catch(error => {
+                console.error('Error capturing image:', error);
+                alert('이미지 다운로드에 실패했어요. 다시 시도해주세요.');
+            });
+        });
+
+        // --- Emotion Tracking Logic ---
+        const emotionOptions = document.querySelectorAll('.emotion-option');
+        const emotionDetailTextarea = document.getElementById('emotionDetail');
+
+        emotionOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove 'selected' class from all emotion icons
+                emotionOptions.forEach(opt => {
+                    opt.querySelector('.emotion-icon').classList.remove('selected');
+                });
+                // Add 'selected' class to the clicked emotion icon
+                option.querySelector('.emotion-icon').classList.add('selected');
+
+                const selectedEmotionText = option.dataset.emotion;
+                const selectedEmotionEmoji = option.dataset.icon;
+
+                // Update preview emotion section
+                previewEmotionDiv.classList.remove('hidden');
+                selectedEmotionIconSpan.textContent = selectedEmotionEmoji;
+                selectedEmotionLabelSpan.textContent = selectedEmotionText;
+
+                let placeholderText = '';
+                switch (selectedEmotionText) {
+                    case '기쁨':
+                        placeholderText = '무엇이 너를 행복하게 했니?';
+                        break;
+                    case '신남':
+                        placeholderText = '어떤 일이 너를 신나게 했니?';
+                        break;
+                    case '뿌듯함':
+                        placeholderText = '언제 가장 뿌듯했니?';
+                        break;
+                    case '슬픔':
+                        placeholderText = '무엇 때문에 슬펐니? 괜찮아, 다 괜찮아.';
+                        break;
+                    case '화남':
+                        placeholderText = '무엇이 너를 화나게 했니?';
+                        break;
+                    case '놀람':
+                        placeholderText = '어떤 일에 깜짝 놀랐니?';
+                        break;
+                    case '걱정':
+                        placeholderText = '무엇이 너를 걱정하게 했니?';
+                        break;
+                    case '편안함':
+                        placeholderText = '언제 가장 편안함을 느꼈니?';
+                        break;
+                    case '호기심':
+                        placeholderText = '무엇이 가장 궁금했니?';
+                        break;
+                    case '사랑':
+                        placeholderText = '누구에게 또는 무엇에 대해 따뜻한 마음을 느꼈니?';
+                        break;
+                    default:
+                        placeholderText = '왜 이런 감정을 느꼈는지 이야기해봐!';
+                }
+                emotionDetailTextarea.placeholder = placeholderText;
+                selectedEmotionDetailP.textContent = emotionDetailTextarea.value; // Update preview if text already exists
+            });
+        });
+
+        emotionDetailTextarea.addEventListener('input', () => {
+            selectedEmotionDetailP.textContent = emotionDetailTextarea.value;
+        });
+
+
+        // Initial view
+        showSection('home-section');
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>
+�

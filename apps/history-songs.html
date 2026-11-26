@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노래와 함께 떠나는 한국사 여행 🎵</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Poor+Story&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif; /* 기본 글꼴 */
+            background-color: #fdf8e1; /* 따뜻한 노란색 계열 배경 */
+            color: #4a3b31; /* 부드러운 갈색 텍스트 */
+        }
+        .container {
+            max-width: 800px; /* 콘텐츠 너비 약간 줄임 */
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header-title {
+            font-family: 'Poor Story', cursive; /* 귀여운 손글씨 느낌 글꼴 */
+            font-size: 3rem; /* 48px, 제목 크기 키움 */
+            font-weight: 700;
+            color: #d97706; /* 주황색 계열 */
+            text-align: center;
+            margin-bottom: 2rem; /* 32px */
+            padding: 1rem 0;
+            background-color: #fef3c7; /* 밝은 노란색 배경 */
+            border-radius: 1rem; /* 16px, 더 둥글게 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .intro-text {
+            font-size: 1.125rem; /* 18px */
+            color: #78350f; /* 진한 주황색/갈색 */
+            text-align: center;
+            margin-bottom: 2.5rem; /* 40px */
+            background-color: #fffbeb; /* 매우 밝은 노란색 */
+            padding: 1.5rem;
+            border-radius: 0.75rem; /* 12px */
+            line-height: 1.8;
+        }
+        .section-title {
+            font-family: 'Poor Story', cursive;
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            color: #c2410c; /* 진한 주황색 */
+            margin-top: 2.5rem; /* 40px */
+            margin-bottom: 1.5rem; /* 24px */
+            border-bottom: 3px dashed #fde68a; /* 점선 밑줄 */
+            padding-bottom: 0.75rem; /* 12px */
+            text-align: center;
+        }
+        .subsection-title {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-weight: 800; /* 굵게 */
+            font-size: 1.5rem; /* 24px */
+            color: #9a3412; /* 더 진한 주황색/갈색 */
+            margin-top: 2rem; /* 32px */
+            margin-bottom: 1rem; /* 16px */
+            padding-left: 1rem;
+            border-left: 5px solid #fbbf24; /* 노란색 왼쪽 테두리 */
+        }
+        .content-box {
+            background-color: #ffffff;
+            padding: 1.5rem; /* 24px */
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem; /* 24px */
+            border: 1px solid #fef3c7;
+        }
+        .content-box p, .content-box ul {
+            color: #57534e; /* 차분한 회갈색 */
+            line-height: 1.8; /* 줄 간격 넓힘 */
+            font-size: 1rem; /* 16px */
+        }
+        .content-box ul {
+            list-style-type: '👉'; /* 귀여운 이모지 리스트 마커 */
+            padding-left: 0.5rem; /* 안쪽 여백 조정 */
+        }
+        .content-box li {
+            margin-bottom: 0.75rem; /* 12px */
+            padding-left: 0.5rem; /* 마커와 텍스트 간격 */
+        }
+        .youtube-button { /* 유튜브 링크를 버튼처럼 보이게 */
+            display: inline-block;
+            background-color: #ff4e4e; /* 밝은 빨간색 */
+            color: white;
+            padding: 0.5rem 1rem; /* 8px 16px */
+            border-radius: 2rem; /* 완전 둥근 버튼 */
+            text-decoration: none;
+            font-weight: 700; /* 글꼴 굵게 */
+            font-size: 0.875rem; /* 14px */
+            margin-left: 0.5rem; /* 8px */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .youtube-button:hover {
+            background-color: #e60000; /* 더 진한 빨간색 */
+            transform: translateY(-2px); /* 살짝 위로 이동 */
+        }
+        .highlight { /* 중요한 단어 강조 */
+            font-weight: 700;
+            color: #c2410c; /* 주황색 강조 */
+            background-color: #fff7e6; /* 연한 노란색 배경 */
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.25rem;
+        }
+        .historical-figure {
+            font-weight: 800; /* 더 굵게 */
+            color: #92400e; /* 진한 갈색 */
+        }
+        .cultural-asset {
+            font-weight: 700;
+            color: #7c2d12; /* 갈색 계열 */
+            border-bottom: 2px dotted #facc15; /* 점선 밑줄 */
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 3rem; /* 48px */
+            padding-bottom: 2rem; /* 32px */
+            color: #78716c; /* 중간 회색 */
+            font-size: 0.9rem; /* 14.4px */
+        }
+        /* 모바일 반응형 */
+        @media (max-width: 640px) {
+            .header-title {
+                font-size: 2.25rem; /* 모바일에서 제목 약간 작게 */
+            }
+            .section-title {
+                font-size: 1.875rem; /* 모바일에서 섹션 제목 약간 작게 */
+            }
+            .subsection-title {
+                font-size: 1.25rem; /* 모바일에서 소제목 약간 작게 */
+            }
+            .content-box p, .content-box ul, .intro-text {
+                font-size: 0.95rem; /* 모바일에서 본문 텍스트 약간 작게 */
+            }
+            .youtube-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header-title">📜 노래와 함께 떠나는 한국사 여행 🎶</h1>
+
+        <p class="intro-text">
+            안녕, 용감한 역사 탐험가 친구들! 👋<br>
+            옛날이야기처럼 재미있는 한국사 시간이야! 노래도 듣고, 신기한 유물도 보면서 시간 여행을 떠나보자! 준비됐지? 출발! 🚀
+        </p>
+
+        <section id="songs">
+            <h2 class="section-title">🎧 역사 노래방 OPEN! 🎤</h2>
+            <div class="content-box">
+                <p>노래로 역사를 만나면 더 신나고 기억에도 쏙쏙 남을 거야! 아래 노래들을 찾아 들어보자!</p>
+                <ul>
+                    <li>
+                        <strong>"아리랑":</strong> 우리나라 대표 노래! 슬플 때나 기쁠 때나 함께 불렀대.
+                        <a href="https://www.youtube.com/results?search_query=초등학생+아리랑+노래" target="_blank" class="youtube-button">아리랑 들어보기 🎵</a>
+                        <a href="https://www.youtube.com/results?search_query=영화+귀향+OST+아리랑" target="_blank" class="youtube-button">'귀향' 아리랑 🎬</a>
+                    </li>
+                    <li>
+                        <strong>"독도는 우리땅":</strong> 신나게 따라 부르며 독도가 왜 우리 땅인지 알아보자!
+                        <a href="https://www.youtube.com/results?search_query=초등학생+독도는+우리땅+플래시몹" target="_blank" class="youtube-button">독도는 우리땅! 🇰🇷</a>
+                    </li>
+                    <li>
+                        <strong>"광개토대왕 노래":</strong> 넓은 땅을 다스린 고구려 <span class="historical-figure">광개토대왕</span>의 이야기!
+                        <a href="https://www.youtube.com/results?search_query=어린이+광개토대왕+노래+또는+이야기" target="_blank" class="youtube-button">광개토대왕 이야기 🐎</a>
+                    </li>
+                    <li>
+                        <strong>"선덕여왕 노래":</strong> 지혜로운 신라의 첫 번째 여왕님, <span class="historical-figure">선덕여왕</span> 이야기!
+                        <a href="https://www.youtube.com/results?search_query=어린이+선덕여왕+노래+또는+이야기" target="_blank" class="youtube-button">선덕여왕 이야기 👑</a>
+                    </li>
+                    <li>
+                        <strong>"안중근 의사 노래":</strong> 우리나라를 위해 용감하게 싸운 <span class="historical-figure">안중근 의사</span>를 기억하자!
+                        <a href="https://www.youtube.com/results?search_query=초등학생+안중근+노래+또는+이야기" target="_blank" class="youtube-button">안중근 의사 기리기 🙏</a>
+                    </li>
+                     <li>
+                        <strong>"홀로 아리랑":</strong> 우리나라를 되찾고 싶은 마음을 담은 노래야.
+                        <a href="https://www.youtube.com/results?search_query=초등학생+홀로아리랑+합창" target="_blank" class="youtube-button">홀로 아리랑 듣기 😢</a>
+                    </li>
+                    <li>
+                        <strong>"아름다운 나라":</strong> 우리나라가 얼마나 아름다운지 노래로 느껴보자!
+                        <a href="https://www.youtube.com/results?search_query=어린이+아름다운+나라+노래" target="_blank" class="youtube-button">아름다운 우리나라 🌳</a>
+                    </li>
+                </ul>
+                <p class="mt-4">✨ <strong>더 찾아볼까?</strong> 유튜브에서 '어린이 역사 노래', '초등 한국사 동요' 라고 검색하면 더 많은 노래를 찾을 수 있어!</p>
+            </div>
+        </section>
+
+        <section id="gojoseon">
+            <h2 class="section-title">🐻 우리나라 첫 번째 나라, 고조선!</h2>
+            <div class="content-box">
+                <p>우리나라 역사는 <strong class="highlight">고조선</strong>에서 시작됐어. (옛날 옛날 아주 먼 옛날~ 기원전 2333년)</p>
+                <ul>
+                    <li>
+                        <strong>곰이 사람으로? 단군 신화:</strong> 하늘 신의 아들 <span class="historical-figure">환웅</span>과 곰이 사람으로 변한 <span class="historical-figure">웅녀</span> 사이에서 <strong class="historical-figure">단군왕검</strong>이 태어나 고조선을 세웠대! 🐻👩‍🦰➡️🤴
+                        <a href="https://www.youtube.com/results?search_query=어린이+단군신화+애니메이션" target="_blank" class="youtube-button">단군신화 애니 보기 🎞️</a>
+                        <ul>
+                            <li><strong class="highlight">홍익인간:</strong> "널리 사람들을 이롭게 한다"는 멋진 뜻을 가진 고조선의 다짐이었어! 🤗</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>반짝반짝 청동기 시대:</strong> 고조선 사람들은 <span class="cultural-asset">비파처럼 생긴 칼(비파형 동검)</span>, <span class="cultural-asset">특별한 모양의 그릇(미송리식 토기)</span> 같은 청동 도구를 썼어. 커다란 <span class="cultural-asset">고인돌 무덤</span>도 만들었지!
+                        <a href="https://www.youtube.com/results?search_query=어린이+고조선+유물+이야기" target="_blank" class="youtube-button">고조선 유물 탐험 🔍</a>
+                    </li>
+                    <li>
+                        <strong>딱! 정해진 규칙, 8조법:</strong> "사람을 다치게 하면 벌을 받는다!" 처럼 규칙을 정해서 나라를 다스렸어. 📜
+                    </li>
+                    <li>
+                        <strong>위만조선과 멸망:</strong> <span class="historical-figure">위만</span>이라는 사람이 왕이 된 후 더 강해졌지만, 중국 한나라에게 결국 지고 말았어. (기원전 108년) 😥
+                    </li>
+                </ul>
+                <p class="mt-2">고조선은 우리나라의 첫 시작! 아주 중요한 나라야! 👍</p>
+            </div>
+        </section>
+
+        <section id="three-kingdoms">
+            <h2 class="section-title">⚔️ 힘을 겨루던 세 나라: 고구려, 백제, 신라!</h2>
+            <div class="content-box">
+                <p>고조선 다음엔 <strong class="highlight">고구려, 백제, 신라</strong> 세 나라가 서로 힘을 겨루며 발전했어. 삼국시대라고 부르지! 🦁🐯🦅</p>
+                <a href="https://www.youtube.com/results?search_query=초등학생+삼국시대+노래+또는+이야기" target="_blank" class="youtube-button">삼국시대 이야기 출발! 🗺️</a>
+                
+                <h3 class="subsection-title">1) 🌊 예술과 바다의 나라, 백제! (기원전 18년 ~ 660년)</h3>
+                <ul>
+                    <li>
+                        <strong>누가 세웠을까?:</strong> 고구려 <span class="historical-figure">주몽</span>의 아들 <span class="historical-figure">온조</span>가 한강 근처에 세웠어. 물고기도 잘 잡히고 농사도 잘 되는 좋은 땅이었지! 🌾
+                        <a href="https://www.youtube.com/results?search_query=어린이+백제+건국+이야기" target="_blank" class="youtube-button">백제 건국 이야기 보기 🎬</a>
+                    </li>
+                    <li>
+                        <strong>바다 건너 친구들:</strong> 백제는 배를 타고 중국, 일본과 친하게 지내면서 멋진 물건과 기술을 전해줬어. (예: <span class="cultural-asset">칠지도 칼</span>, 똑똑한 <span class="historical-figure">왕인 박사</span>) 🚢
+                    </li>
+                    <li>
+                        <strong>아름다운 보물들:</strong>
+                        <ul>
+                            <li><strong class="cultural-asset">백제금동대향로:</strong> 아주 정교하고 아름다운 향로! 용과 봉황이 새겨져 있대. ✨
+                                <a href="https://www.youtube.com/results?search_query=어린이+백제금동대향로+설명" target="_blank" class="youtube-button">금동대향로 구경하기 👀</a>
+                            </li>
+                            <li><strong class="cultural-asset">정림사지 5층 석탑:</strong> 부드럽고 예쁜 탑이야.
+                                <a href="https://www.youtube.com/results?search_query=어린이+정림사지5층석탑+이야기" target="_blank" class="youtube-button">정림사지 석탑 보기 🗼</a>
+                            </li>
+                            <li><strong class="cultural-asset">무령왕릉:</strong> 도둑맞지 않고 발견된 왕의 무덤! 신기한 물건이 가득 나왔어. 👑
+                                <a href="https://www.youtube.com/results?search_query=어린이+무령왕릉+이야기" target="_blank" class="youtube-button">무령왕릉 탐험! 🗺️</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>슬픈 마지막:</strong> 수도를 여러 번 옮기며 힘을 키웠지만, 신라와 당나라 군대에게 지고 말았어. (<span class="historical-figure">계백 장군</span>의 <span class="highlight">황산벌 전투</span>를 기억해줘! 😭)
+                    </li>
+                </ul>
+
+                <h3 class="subsection-title">2) 🐎 용감하고 씩씩한 나라, 고구려! (기원전 37년 ~ 668년)</h3>
+                <ul>
+                    <li>
+                        <strong>누가 세웠을까?:</strong> 활을 아주 잘 쏘는 <span class="historical-figure">주몽</span>이 세웠어! 말 타고 넓은 땅을 달리는 용감한 나라였지! 🏹
+                        <a href="https://www.youtube.com/results?search_query=어린이+고구려+건국+주몽+이야기" target="_blank" class="youtube-button">주몽 이야기 보기 🎯</a>
+                    </li>
+                    <li>
+                        <strong>최고의 왕들!:</strong> <strong class="historical-figure">광개토대왕</strong>과 아들 <strong class="historical-figure">장수왕</strong> 때 가장 힘이 셌어! 우리나라 역사상 가장 넓은 땅을 가졌지! 🗺️
+                        <ul>
+                            <li><strong class="cultural-asset">광개토대왕릉비:</strong> 엄청나게 큰 돌에 광개토대왕의 멋진 업적을 새겼어.
+                            <a href="https://www.youtube.com/results?search_query=어린이+광개토대왕릉비+이야기" target="_blank" class="youtube-button">광개토대왕릉비 보기 🗿</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>고구려의 보물, 고분 벽화:</strong> 옛날 무덤 벽에 그림을 그렸는데, 춤추는 모습, 사냥하는 모습이 생생하게 남아있어! 🎨
+                        <a href="https://www.youtube.com/results?search_query=어린이+고구려+고분벽화+이야기" target="_blank" class="youtube-button">고구려 벽화 구경 🖼️</a>
+                    </li>
+                    <li>
+                        <strong>강한 나라, 고구려!:</strong> 중국 수나라, 당나라 군대가 여러 번 쳐들어왔지만, <span class="historical-figure">을지문덕 장군</span>(살수대첩), <span class="historical-figure">양만춘 장군</span>(안시성 싸움) 등이 용감하게 막아냈어! 💪 하지만 결국 신라와 당나라 군대에게 지고 말았지.
+                    </li>
+                </ul>
+
+                <h3 class="subsection-title">3) 👑 천년 동안 이어진 나라, 신라! (기원전 57년 ~ 935년)</h3>
+                <ul>
+                    <li>
+                        <strong>누가 세웠을까?:</strong> <span class="historical-figure">박혁거세</span>가 알에서 태어나 신라를 세웠다는 신기한 이야기가 있어! 🥚
+                        <a href="https://www.youtube.com/results?search_query=어린이+신라+건국+박혁거세+이야기" target="_blank" class="youtube-button">박혁거세 이야기 보기 ✨</a>
+                    </li>
+                    <li>
+                        <strong>멋진 청년들, 화랑도:</strong> <span class="highlight">화랑도</span>는 신라의 멋진 청년들이 모여 몸과 마음을 튼튼하게 하고, 나라를 위해 힘썼던 단체야! 👨‍🎓⚔️
+                    </li>
+                    <li>
+                        <strong>반짝이는 불교 문화:</strong> 신라는 불교를 받아들여 아름다운 절과 탑을 많이 만들었어.
+                        <ul>
+                            <li><strong class="cultural-asset">황룡사 9층 목탑:</strong> "이 탑을 만들면 아홉 나라가 신라에 항복할 것이다!" 라고 생각하며 지은 아주 높은 나무 탑이었대. (지금은 불타 없어졌어 😥)</li>
+                            <li><strong class="cultural-asset">분황사 모전석탑:</strong> 돌을 벽돌처럼 깎아 만든 특별한 탑이야.</li>
+                            <li><strong class="cultural-asset">석굴암과 불국사:</strong> 세계적으로도 유명한 아름다운 절과 석굴! 조상들의 뛰어난 솜씨를 볼 수 있어. 🌟
+                                <a href="https://www.youtube.com/results?search_query=어린이+석굴암+불국사+이야기" target="_blank" class="youtube-button">석굴암과 불국사 보기 🏯</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>드디어 하나로! 삼국 통일:</strong> 신라는 당나라와 힘을 합쳐 백제와 고구려를 이기고, 당나라까지 물리쳐서 <strong class="highlight">세 나라를 하나로 합쳤어</strong> (676년)! 🇰🇷
+                    </li>
+                    <li>
+                        <strong>천년 왕국:</strong> 그 후로도 신라는 천 년 가까이 이어지며 멋진 문화를 만들었단다.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="footer-text">
+            <p>친구들, 오늘 역사 여행 어땠어? 재미있었니? 😊</p>
+            <p>노래와 이야기로 배우니 역사가 더 가깝게 느껴지지? 앞으로도 신나는 역사 탐험은 계속될 거야! 궁금한 게 있으면 언제든 물어봐! 🧐</p>
+            <p class="mt-4"><strong>옛날이야기 속 지혜를 배우며, 우리는 더 멋진 미래를 만들 수 있어!</strong> 모두모두 역사 박사가 되어보자! 💡</p>
+        </footer>
+
+    </div>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

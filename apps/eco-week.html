@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생태 환경 교육 주간 행사</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general aesthetics */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f2f7; /* Light blue background */
+            color: #263238; /* Dark grey text */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section-title {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: bold;
+            color: #00796b; /* Teal color */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem; /* rounded-xl */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            background-color: #66BB6A; /* Lighter green on hover */
+        }
+        textarea {
+            border: 2px solid #b0bec5; /* Light grey border */
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+            min-height: 150px;
+            resize: vertical;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #37474f; /* Darker grey text */
+        }
+        canvas {
+            border: 2px solid #b0bec5;
+            border-radius: 0.5rem;
+            background-color: #f0f4f8; /* Light grey background for canvas */
+            cursor: crosshair;
+            touch-action: none; /* Prevent scrolling on touch devices while drawing */
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.75rem; /* text-3xl for smaller screens */
+            }
+            .card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center py-8 bg-white rounded-b-xl shadow-md mb-8">
+            <h1 class="text-5xl font-extrabold text-green-700">생태 환경 교육 주간 행사</h1>
+            <p class="text-xl text-gray-600 mt-2">지구를 사랑하는 5학년 친구들을 환영합니다!</p>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav class="bg-green-600 p-4 rounded-xl shadow-lg mb-8">
+            <ul class="flex flex-wrap justify-center gap-4">
+                <li><a href="#earth-character" class="text-white hover:text-green-200 font-semibold text-lg py-2 px-4 rounded-md transition duration-300">나만의 지구 캐릭터</a></li>
+                <li><a href="#recommended-sites" class="text-white hover:text-green-200 font-semibold text-lg py-2 px-4 rounded-md transition duration-300">추천 사이트</a></li>
+                <li><a href="#eco-tumbler-bag" class="text-white hover:text-green-200 font-semibold text-lg py-2 px-4 rounded-md transition duration-300">에코 텀블러백 소감 및 다짐</a></li>
+                <li><a href="#event-impressions" class="text-white hover:text-green-200 font-semibold text-lg py-2 px-4 rounded-md transition duration-300">행사 소감</a></li>
+            </ul>
+        </nav>
+
+        <!-- New Section: 나만의 지구 캐릭터 -->
+        <section id="earth-character" class="card">
+            <h2 class="section-title">🎨 나만의 지구 캐릭터</h2>
+            <p class="text-gray-700 mb-6 text-center">지구를 상징하는 나만의 멋진 캐릭터를 그려보세요!</p>
+            <div class="flex flex-col items-center">
+                <canvas id="drawingCanvas" width="600" height="400" class="w-full max-w-xl"></canvas>
+                <div class="mt-4 space-x-4">
+                    <button onclick="clearCanvas()" class="btn bg-red-500 hover:bg-red-600">
+                        모두 지우기
+                    </button>
+                    <button onclick="downloadCanvasImage('나만의_지구캐릭터')" class="btn">
+                        이미지로 다운로드
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. [생태 환경 교육 주간]과 관련하여 사이트 추천 -->
+        <section id="recommended-sites" class="card">
+            <h2 class="section-title">📚 추천 교육 사이트</h2>
+            <p class="text-gray-700 mb-6 text-center">환경 교육에 도움이 되는 유익한 웹사이트들을 소개합니다.</p>
+            <ul class="list-disc list-inside space-y-4 text-gray-800 text-lg">
+                <li>
+                    <a href="https://www.keep.go.kr/" target="_blank" class="text-blue-600 hover:underline font-semibold">환경교육포털</a>
+                    <p class="text-gray-600 text-base ml-4">환경부에서 운영하는 환경 교육 전문 포털입니다. 다양한 자료와 프로그램을 찾아볼 수 있어요.</p>
+                </li>
+                <li>
+                    <a href="https://www.keco.or.kr/kr/open/education/index.do" target="_blank" class="text-blue-600 hover:underline font-semibold">한국환경공단 환경교육</a>
+                    <p class="text-gray-600 text-base ml-4">한국환경공단에서 제공하는 환경 관련 교육 정보와 자료들을 확인해 보세요.</p>
+                </li>
+                <li>
+                    <a href="http://www.climatechangecenter.kr/" target="_blank" class="text-blue-600 hover:underline font-semibold">기후변화센터</a>
+                    <p class="text-gray-600 text-base ml-4">기후 변화에 대한 정보를 얻고, 기후 행동에 참여할 수 있는 방법을 배울 수 있습니다.</p>
+                </li>
+                <li>
+                    <!-- Added Google Earth Name Generator Website -->
+                    <a href="https://googlemapsmania.blogspot.com/2024/09/write-your-name-in-landsat.html" target="_blank" class="text-blue-600 hover:underline font-semibold">내 이름을 구글 어스에서! (Your Name in Landsat)</a>
+                    <p class="text-gray-600 text-base ml-4">자신의 이름을 구글 어스 위에서 발견하고 이미지로 다운로드할 수 있는 재미있는 사이트입니다.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. 학생들이 [에코 텀블러백]을 받은 소감과 [환경 보전을 위해 할 수 있는 일, 다짐] 등을 적을 수 있는 공간 -->
+        <section id="eco-tumbler-bag" class="card">
+            <h2 class="section-title">💚 에코 텀블러백 소감 및 환경 보전 다짐</h2>
+            <p class="text-gray-700 mb-6 text-center">에코 텀블러백을 받은 소감과 환경 보전을 위해 어떤 일을 할지 다짐을 적어주세요.</p>
+            <div class="mb-6">
+                <label for="tumblerBagFeeling" class="block text-gray-700 text-lg font-semibold mb-2">에코 텀블러백을 받은 소감:</label>
+                <textarea id="tumblerBagFeeling" class="focus:ring-green-500 focus:border-green-500" placeholder="에코 텀블러백을 받고 어떤 생각이 들었나요?"></textarea>
+            </div>
+            <div class="mb-6">
+                <label for="environmentalCommitment" class="block text-gray-700 text-lg font-semibold mb-2">환경 보전을 위해 할 수 있는 일, 다짐:</label>
+                <textarea id="environmentalCommitment" class="focus:ring-green-500 focus:border-green-500" placeholder="지구를 위해 어떤 작은 실천을 할 수 있을까요? 다짐을 적어주세요!"></textarea>
+            </div>
+            <div class="text-center">
+                <button onclick="downloadTextAsImage('tumblerBagFeeling', 'environmentalCommitment', '에코텀블러백_소감_다짐')" class="btn">
+                    이미지로 다운로드
+                </button>
+            </div>
+        </section>
+
+        <!-- 4. 학생들이 자유롭게 [생태 환경 교육 주간 행사]의 소감을 남길 수 있는 공간 -->
+        <section id="event-impressions" class="card">
+            <h2 class="section-title">📝 행사 소감 남기기</h2>
+            <p class="text-gray-700 mb-6 text-center">생태 환경 교육 주간 행사에 참여한 소감을 자유롭게 남겨주세요!</p>
+            <div class="mb-6">
+                <label for="eventImpression" class="block text-gray-700 text-lg font-semibold mb-2">행사 소감:</label>
+                <textarea id="eventImpression" class="focus:ring-green-500 focus:border-green-500" placeholder="이번 행사를 통해 무엇을 느끼고 배웠나요?"></textarea>
+            </div>
+            <div class="text-center">
+                <button onclick="downloadTextAsImage('eventImpression', null, '생태환경교육주간_행사소감')" class="btn">
+                    이미지로 다운로드
+                </button>
+            </div>
+        </section>
+
+        <footer class="text-center py-6 text-gray-600 text-sm mt-8">
+            <p>&copy; 2025 생태 환경 교육 주간. 지구를 사랑하는 우리 모두의 노력으로 더 푸른 미래를 만들어요!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Canvas drawing functionality
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Set initial drawing properties
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#00796b'; // Teal color for drawing
+
+        // Function to get mouse/touch coordinates relative to the canvas
+        function getCoordinates(event) {
+            const rect = canvas.getBoundingClientRect();
+            let clientX, clientY;
+
+            if (event.touches) { // Handle touch events
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
+            } else { // Handle mouse events
+                clientX = event.clientX;
+                clientY = event.clientY;
+            }
+
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        // Mouse/Touch Down Event
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            const coords = getCoordinates(e);
+            [lastX, lastY] = [coords.x, coords.y];
+        });
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent scrolling
+            isDrawing = true;
+            const coords = getCoordinates(e);
+            [lastX, lastY] = [coords.x, coords.y];
+        });
+
+        // Mouse/Touch Move Event
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            const coords = getCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(coords.x, coords.y);
+            ctx.stroke();
+            [lastX, lastY] = [coords.x, coords.y];
+        });
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent scrolling
+            if (!isDrawing) return;
+            const coords = getCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(coords.x, coords.y);
+            ctx.stroke();
+            [lastX, lastY] = [coords.x, coords.y];
+        });
+
+        // Mouse/Touch Up and Leave Events
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+        canvas.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('touchcancel', () => isDrawing = false);
+
+
+        // Function to clear the canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Optionally, redraw the background if it's not transparent
+            ctx.fillStyle = '#f0f4f8'; // Match canvas background color
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Function to download the canvas content as an image
+        function downloadCanvasImage(filename) {
+            const image = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = filename + '.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Function to download content from textareas as an image
+        function downloadTextAsImage(textareaId1, textareaId2, filename) {
+            const text1 = document.getElementById(textareaId1).value;
+            let text2 = '';
+            if (textareaId2) {
+                text2 = document.getElementById(textareaId2).value;
+            }
+
+            if (!text1 && !text2) {
+                showMessageBox('내용을 입력해주세요!');
+                return;
+            }
+
+            const textCanvas = document.createElement('canvas');
+            const textCtx = textCanvas.getContext('2d');
+
+            const padding = 30;
+            const lineHeight = 30;
+            const maxWidth = 700;
+            const backgroundColor = '#e0f2f7';
+            const textColor = '#263238';
+
+            textCtx.font = '24px Inter, sans-serif';
+
+            const wrapText = (context, text, x, y, maxWidth, lineHeight) => {
+                const words = text.split(' ');
+                let line = '';
+                let lines = [];
+
+                for (let n = 0; n < words.length; n++) {
+                    const testLine = line + words[n] + ' ';
+                    const metrics = context.measureText(testLine);
+                    const testWidth = metrics.width;
+                    if (testWidth > maxWidth && n > 0) {
+                        lines.push(line);
+                        line = words[n] + ' ';
+                    } else {
+                        line = testLine;
+                    }
+                }
+                lines.push(line);
+
+                let currentY = y;
+                for (let i = 0; i < lines.length; i++) {
+                    context.fillText(lines[i], x, currentY);
+                    currentY += lineHeight;
+                }
+                return currentY;
+            };
+
+            let tempCanvas = document.createElement('canvas');
+            let tempCtx = tempCanvas.getContext('2d');
+            tempCtx.font = '24px Inter, sans-serif';
+            const lines1 = text1.split('\n');
+            let text1Height = 0;
+            for (const line of lines1) {
+                const words = line.split(' ');
+                let currentLine = '';
+                for (let n = 0; n < words.length; n++) {
+                    const testLine = currentLine + words[n] + ' ';
+                    const metrics = tempCtx.measureText(testLine);
+                    if (metrics.width > maxWidth && n > 0) {
+                        text1Height += lineHeight;
+                        currentLine = words[n] + ' ';
+                    } else {
+                        currentLine = testLine;
+                    }
+                }
+                text1Height += lineHeight;
+            }
+
+            let text2Height = 0;
+            if (text2) {
+                const lines2 = text2.split('\n');
+                for (const line of lines2) {
+                    const words = line.split(' ');
+                    let currentLine = '';
+                    for (let n = 0; n < words.length; n++) {
+                        const testLine = currentLine + words[n] + ' ';
+                        const metrics = tempCtx.measureText(testLine);
+                        if (metrics.width > maxWidth && n > 0) {
+                            text2Height += lineHeight;
+                            currentLine = words[n] + ' ';
+                        } else {
+                            currentLine = testLine;
+                        }
+                    }
+                    text2Height += lineHeight;
+                }
+            }
+
+            textCanvas.width = maxWidth + padding * 2;
+            textCanvas.height = padding * 2 + text1Height + (text2 ? text2Height + lineHeight * 2 : 0);
+
+            textCtx.fillStyle = backgroundColor;
+            textCtx.fillRect(0, 0, textCanvas.width, textCanvas.height);
+
+            textCtx.fillStyle = textColor;
+            textCtx.textBaseline = 'top';
+
+            let currentY = padding;
+
+            textCtx.font = 'bold 28px Inter, sans-serif';
+            if (textareaId1 === 'tumblerBagFeeling') {
+                textCtx.fillText('에코 텀블러백 소감:', padding, currentY);
+                currentY += lineHeight + 10;
+            } else if (textareaId1 === 'eventImpression') {
+                textCtx.fillText('행사 소감:', padding, currentY);
+                currentY += lineHeight + 10;
+            }
+            textCtx.font = '24px Inter, sans-serif';
+            currentY = wrapText(textCtx, text1, padding, currentY, maxWidth, lineHeight);
+
+            if (text2) {
+                currentY += lineHeight * 2;
+                textCtx.font = 'bold 28px Inter, sans-serif';
+                textCtx.fillText('환경 보전 다짐:', padding, currentY);
+                currentY += lineHeight + 10;
+                textCtx.font = '24px Inter, sans-serif';
+                wrapText(textCtx, text2, padding, currentY, maxWidth, lineHeight);
+            }
+
+            const image = textCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = filename + '.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Custom Message Box function (replaces alert())
+        function showMessageBox(message) {
+            const existingMessageBox = document.getElementById('customMessageBox');
+            if (existingMessageBox) {
+                existingMessageBox.remove();
+            }
+
+            const messageBox = document.createElement('div');
+            messageBox.id = 'customMessageBox';
+            messageBox.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50';
+            messageBox.innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center">
+                    <p class="text-lg font-semibold text-gray-800 mb-6">${message}</p>
+                    <button id="closeMessageBox" class="btn">확인</button>
+                </div>
+            `;
+            document.body.appendChild(messageBox);
+
+            document.getElementById('closeMessageBox').onclick = () => {
+                messageBox.remove();
+            };
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

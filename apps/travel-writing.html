@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기행문 작성 도우미</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background-color: #4f46e5;
+            color: white;
+            padding: 1rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .country-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .country-item:hover {
+            background-color: #e0e7ff;
+        }
+        .schedule-item {
+            background-color: #f9fafb;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .schedule-item:hover {
+            background-color: #eff6ff;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 2.5rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px; /* Adjusted max-width for more content */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            color: #666;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        .essay-section {
+            background-color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border: 1px dashed #e0e7ff;
+        }
+        .essay-section h3 {
+            color: #4f46e5;
+            margin-bottom: 1rem;
+        }
+        .essay-output pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #e0e7ff;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-extrabold text-center text-indigo-700 mb-10 mt-5">
+            📝 기행문 작성 도우미 🗺️
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card" id="countryListCard">
+                <div class="card-header">
+                    추천 국내 여행지
+                </div>
+                <div class="card-content">
+                    <ul id="countryList" class="space-y-3">
+                        </ul>
+                </div>
+            </div>
+
+            <div class="card" id="travelScheduleCard">
+                <div class="card-header">
+                    선택된 지역의 1박 2일 여행 일정
+                </div>
+                <div class="card-content">
+                    <h2 id="selectedCountryName" class="text-2xl font-bold text-gray-800 mb-4">지역을 선택해주세요.</h2>
+                    <div id="scheduleDetails" class="space-y-4">
+                        <p id="noScheduleMessage" class="text-gray-500">왼쪽에서 지역을 선택하면 해당 지역의 추천 여행 일정이 표시됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="essay-section mt-8">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-6">기행문 작성하기</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold">1. 여정 (일정)</h3>
+                    <p class="text-gray-700">선택한 여행지의 1박 2일 일정이 자동으로 채워집니다.</p>
+                    <textarea id="essayJourney" readonly class="bg-gray-100"></textarea>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">2. 견문 (보고 들은 것)</h3>
+                    <p class="text-gray-700">각 장소에서 보고 들은 것을 자세히 기록해보세요.</p>
+                    <textarea id="essaySights" placeholder="예: 경복궁의 웅장한 건축물과 한복을 입은 관광객들, 북촌 한옥마을의 고즈넉한 골목길과 전통찻집의 분위기..."></textarea>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">3. 감상 (느낀 점)</h3>
+                    <p class="text-gray-700">여행하며 느낀 생각과 감정을 솔직하게 표현해보세요.</p>
+                    <textarea id="essayFeelings" placeholder="예: 고즈넉한 한옥의 아름다움에 감탄했고, 역사적인 장소에서 선조들의 지혜를 느낄 수 있었습니다. 복잡한 도심 속에서 평화로운 여유를 찾은 기분입니다..."></textarea>
+                </div>
+            </div>
+
+            <button onclick="generateEssay()" class="mt-8 w-full bg-indigo-600 text-white py-3 rounded-lg text-xl font-bold hover:bg-indigo-700 transition-colors">
+                기행문 초안 생성하기
+            </button>
+        </div>
+
+        <div class="essay-section mt-8 essay-output" style="display: none;" id="essayOutputSection">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-6">✍️ 기행문 초안</h2>
+            <pre id="generatedEssay" class="whitespace-pre-wrap"></pre>
+            <button onclick="copyToClipboard()" class="mt-4 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                <i class="fas fa-copy mr-2"></i> 초안 복사하기
+            </button>
+        </div>
+    </div>
+
+    <div id="naverMapModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-4"></h3>
+            <div id="mapLinks" class="flex flex-col space-y-4">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // 여행 데이터 정의 (국내 여행지)
+        const travelData = [
+            {
+                name: "서울",
+                schedules: [
+                    {
+                        title: "서울 도심 핵심 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "경복궁", query: "경복궁" },
+                                { name: "북촌 한옥마을", query: "북촌 한옥마을" },
+                                { name: "명동 쇼핑 및 먹거리", query: "명동" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "남산타워", query: "남산타워" },
+                                { name: "홍대/이대 (젊음의 거리)", query: "홍대 거리" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "부산",
+                schedules: [
+                    {
+                        title: "부산 바다 & 문화 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "해운대 해변", query: "해운대" },
+                                { name: "동백섬", query: "부산 동백섬" },
+                                { name: "더베이101 야경", query: "더베이101" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "감천문화마을", query: "감천문화마을" },
+                                { name: "자갈치 시장", query: "자갈치 시장" },
+                                { name: "국제시장", query: "부산 국제시장" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "제주",
+                schedules: [
+                    {
+                        title: "제주 자연 & 힐링 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "성산일출봉", query: "성산일출봉" },
+                                { name: "섭지코지", query: "섭지코지" },
+                                { name: "카멜리아힐", query: "카멜리아힐" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "한라산 어리목 코스", query: "한라산 어리목 코스" },
+                                { name: "이호테우 해변", query: "이호테우 해변" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "경주",
+                schedules: [
+                    {
+                        title: "경주 역사 & 야경 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "불국사", query: "불국사" },
+                                { name: "석굴암", query: "석굴암" },
+                                { name: "동궁과 월지 (안압지)", query: "동궁과 월지" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "대릉원 (천마총)", query: "대릉원" },
+                                { name: "첨성대", query: "첨성대" },
+                                { name: "황리단길", query: "황리단길" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "강릉",
+                schedules: [
+                    {
+                        title: "강릉 바다 & 문화 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "경포대", query: "경포대" },
+                                { name: "오죽헌", query: "오죽헌" },
+                                { name: "안목해변 카페거리", query: "안목해변 카페거리" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "주문진 수산시장", query: "주문진 수산시장" },
+                                { name: "영진해변 (도깨비 촬영지)", query: "영진해변" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "전주",
+                schedules: [
+                    {
+                        title: "전주 한옥 & 먹방 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "전주 한옥마을", query: "전주 한옥마을" },
+                                { name: "전동성당", query: "전동성당" },
+                                { name: "경기전", query: "경기전" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "남부시장 야시장", query: "전주 남부시장 야시장" },
+                                { name: "자만벽화마을", query: "자만벽화마을" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "속초",
+                schedules: [
+                    {
+                        title: "속초 설악 & 바다 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "속초 해변", query: "속초 해변" },
+                                { name: "아바이마을", query: "아바이마을" },
+                                { name: "갯배", query: "속초 갯배" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "설악산 국립공원 (권금성)", query: "설악산 권금성" },
+                                { name: "속초 중앙시장", query: "속초 중앙시장" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "여수",
+                schedules: [
+                    {
+                        title: "여수 밤바다 & 해상 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "여수 해상 케이블카", query: "여수 해상 케이블카" },
+                                { name: "오동도", query: "여수 오동도" },
+                                { name: "이순신 광장", query: "여수 이순신 광장" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "낭만포차 거리", query: "여수 낭만포차" },
+                                { name: "돌산공원", query: "여수 돌산공원" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "대구",
+                schedules: [
+                    {
+                        title: "대구 도심 & 전망 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "동성로", query: "대구 동성로" },
+                                { name: "김광석 다시 그리기 길", query: "김광석 다시 그리기 길" },
+                                { name: "서문시장", query: "대구 서문시장" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "앞산 전망대", query: "대구 앞산 전망대" },
+                                { name: "이월드", query: "대구 이월드" }
+                            ] }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "인천",
+                schedules: [
+                    {
+                        title: "인천 개항장 & 송도 투어",
+                        days: [
+                            { day: "1일차", activities: [
+                                { name: "차이나타운", query: "인천 차이나타운" },
+                                { name: "동화마을", query: "인천 동화마을" },
+                                { name: "월미도", query: "월미도" }
+                            ] },
+                            { day: "2일차", activities: [
+                                { name: "송도 센트럴파크", query: "송도 센트럴파크" },
+                                { name: "트리플스트리트", query: "송도 트리플스트리트" }
+                            ] }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        let selectedCountrySchedule = null; // 선택된 국가의 스케줄 저장
+
+        // 페이지 로드 시 지역 목록 초기화
+        window.onload = function() {
+            displayCountries();
+        };
+
+        // 지역 목록을 표시하는 함수
+        function displayCountries() {
+            const countryList = document.getElementById('countryList');
+            countryList.innerHTML = ''; // 기존 목록 초기화
+
+            travelData.forEach(country => {
+                const li = document.createElement('li');
+                li.className = 'country-item flex items-center p-3 rounded-lg cursor-pointer hover:bg-indigo-50';
+                li.innerHTML = `
+                    <svg class="w-6 h-6 text-indigo-600 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-lg font-medium text-gray-800">${country.name}</span>
+                `;
+                li.onclick = () => displaySchedules(country);
+                countryList.appendChild(li);
+            });
+        }
+
+        // 선택된 지역의 여행 일정을 표시하는 함수
+        function displaySchedules(country) {
+            document.getElementById('selectedCountryName').innerText = country.name;
+            const scheduleDetails = document.getElementById('scheduleDetails');
+            scheduleDetails.innerHTML = ''; // 기존 일정 초기화
+
+            const noScheduleMessage = document.getElementById('noScheduleMessage');
+            if (noScheduleMessage) {
+                noScheduleMessage.style.display = 'none'; // 메시지 숨기기
+            }
+            
+            if (country.schedules.length === 0) {
+                scheduleDetails.innerHTML = `<p class="text-gray-500">이 지역에 대한 추천 일정이 아직 없습니다.</p>`;
+                selectedCountrySchedule = null;
+                document.getElementById('essayJourney').value = '';
+                return;
+            }
+
+            // 첫 번째 스케줄을 기본으로 선택
+            selectedCountrySchedule = country.schedules[0];
+
+            country.schedules.forEach(schedule => {
+                const scheduleDiv = document.createElement('div');
+                scheduleDiv.className = 'schedule-item bg-gray-50 p-4 rounded-lg shadow-sm hover:bg-gray-100';
+                scheduleDiv.innerHTML = `
+                    <h4 class="text-xl font-semibold text-indigo-700 mb-3">${schedule.title}</h4>
+                    <div class="space-y-2">
+                        ${schedule.days.map(day => `
+                            <div>
+                                <p class="font-bold text-gray-700">${day.day}</p>
+                                <ul class="list-disc list-inside ml-4 text-gray-600">
+                                    ${day.activities.map(activity => `
+                                        <li class="py-1 cursor-pointer hover:text-indigo-600"
+                                            onclick="openMapModal('${schedule.title} - ${activity.name}', '${activity.query}')">
+                                            ${activity.name}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                scheduleDetails.appendChild(scheduleDiv);
+            });
+
+            updateJourneyTextarea(); // 여정 텍스트 영역 업데이트
+        }
+
+        // 여정 텍스트 영역을 업데이트하는 함수
+        function updateJourneyTextarea() {
+            let journeyText = '';
+            if (selectedCountrySchedule) {
+                journeyText += `[${document.getElementById('selectedCountryName').innerText} 여행 여정]\n\n`;
+                selectedCountrySchedule.days.forEach(day => {
+                    journeyText += `${day.day}:\n`;
+                    day.activities.forEach(activity => {
+                        journeyText += `- ${activity.name}\n`;
+                    });
+                    journeyText += '\n';
+                });
+            }
+            document.getElementById('essayJourney').value = journeyText.trim();
+        }
+
+        // 모달을 열고 지도, 스트리트뷰, 이미지 검색 링크를 표시하는 함수
+        function openMapModal(title, query) {
+            document.getElementById('modalTitle').innerText = title;
+            const mapLinksDiv = document.getElementById('mapLinks');
+            mapLinksDiv.innerHTML = ''; // 기존 내용 초기화
+
+            // 네이버 지도 검색 링크
+            const naverMapSearchUrl = `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
+            // 네이버 스트리트뷰 검색 링크 (검색 후 스트리트뷰 옵션 선택 유도)
+            const naverStreetViewSearchUrl = `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
+            // 네이버 이미지 검색 링크
+            const naverImageSearchUrl = `https://search.naver.com/search.naver?where=image&query=${encodeURIComponent(query)}`;
+
+            mapLinksDiv.innerHTML = `
+                <a href="${naverMapSearchUrl}" target="_blank" class="block bg-green-500 text-white py-3 px-6 rounded-lg text-center text-lg font-bold hover:bg-green-600 transition-colors">
+                    <i class="fas fa-map-marker-alt mr-2"></i> 네이버 지도에서 보기
+                </a>
+                <a href="${naverStreetViewSearchUrl}" target="_blank" class="block bg-blue-500 text-white py-3 px-6 rounded-lg text-center text-lg font-bold hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-street-view mr-2"></i> 네이버 스트리트뷰 보기
+                </a>
+                <a href="${naverImageSearchUrl}" target="_blank" class="block bg-purple-500 text-white py-3 px-6 rounded-lg text-center text-lg font-bold hover:bg-purple-600 transition-colors">
+                    <i class="fas fa-image mr-2"></i> 네이버 이미지 검색 결과 보기
+                </a>
+            `;
+            document.getElementById('naverMapModal').style.display = 'flex';
+        }
+
+        // 모달을 닫는 함수
+        function closeModal() {
+            document.getElementById('naverMapModal').style.display = 'none';
+        }
+
+        // 기행문 초안을 생성하는 함수
+        function generateEssay() {
+            const journey = document.getElementById('essayJourney').value;
+            const sights = document.getElementById('essaySights').value;
+            const feelings = document.getElementById('essayFeelings').value;
+            const selectedRegion = document.getElementById('selectedCountryName').innerText;
+
+            let essayContent = `## ${selectedRegion} 1박 2일 여행 기행문\n\n`;
+
+            if (journey) {
+                essayContent += `### 1. 여정 (일정)\n${journey}\n\n`;
+            } else {
+                essayContent += `### 1. 여정 (일정)\n선택된 지역의 여행 일정을 참고하세요.\n\n`;
+            }
+
+            if (sights) {
+                essayContent += `### 2. 견문 (보고 들은 것)\n${sights}\n\n`;
+            } else {
+                essayContent += `### 2. 견문 (보고 들은 것)\n이곳에 여행지에서 보고 들은 것을 기록해주세요.\n\n`;
+            }
+
+            if (feelings) {
+                essayContent += `### 3. 감상 (느낀 점)\n${feelings}\n\n`;
+            } else {
+                essayContent += `### 3. 감상 (느낀 점)\n이곳에 여행하며 느낀 생각과 감정을 기록해주세요.\n\n`;
+            }
+
+            const generatedEssayElement = document.getElementById('generatedEssay');
+            generatedEssayElement.innerText = essayContent;
+            document.getElementById('essayOutputSection').style.display = 'block';
+
+            // 생성된 기행문이 보이도록 스크롤 이동
+            generatedEssayElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 생성된 기행문 내용을 클립보드에 복사하는 함수
+        function copyToClipboard() {
+            const generatedEssay = document.getElementById('generatedEssay');
+            const textToCopy = generatedEssay.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert('기행문 초안이 클립보드에 복사되었습니다.');
+            }).catch(err => {
+                console.error('클립보드 복사 실패:', err);
+                alert('클립보드 복사에 실패했습니다.');
+            });
+        }
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

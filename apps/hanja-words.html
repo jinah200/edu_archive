@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 한자 단어</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        .font-noto-serif {
+            font-family: 'Noto Serif KR', serif;
+        }
+        /* 스크롤바 숨기기 (선택 사항) */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sky-100 to-indigo-200 flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white p-6 sm:p-8 rounded-xl shadow-2xl max-w-md sm:max-w-lg w-full text-center">
+        <h1 class="text-3xl sm:text-4xl font-bold text-indigo-700 mb-6 sm:mb-8 font-noto-serif">
+            오늘의 한자 단어 📖
+        </h1>
+
+        <div id="hanjaDisplay" class="mb-6">
+            <p id="hanjaWord" class="text-5xl sm:text-7xl font-noto-serif font-bold text-slate-800 tracking-wider"></p>
+            <p id="hangulWord" class="text-xl sm:text-2xl text-indigo-600 mt-2"></p>
+        </div>
+
+        <div id="charBreakdownContainer" class="mb-6 sm:mb-8">
+            <h2 class="text-xl sm:text-2xl font-semibold text-slate-700 mb-3 sm:mb-4">🔍 한자 자세히 보기</h2>
+            <div id="charBreakdown" class="space-y-3 text-left bg-slate-50 p-4 sm:p-6 rounded-lg border border-slate-200 shadow-inner">
+                </div>
+        </div>
+        
+
+        <div class="bg-indigo-50 p-4 sm:p-6 rounded-lg border border-indigo-100 shadow-inner">
+            <h2 class="text-lg sm:text-xl font-semibold text-indigo-800 mb-2">✏️ 예문 살펴보기</h2>
+            <p id="exampleSentence" class="text-base sm:text-lg text-slate-700 leading-relaxed">
+                </p>
+        </div>
+
+        <button id="newWordButton" class="mt-6 sm:mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            다른 단어 보기!
+        </button>
+    </div>
+
+    <script>
+        // 한자 단어 데이터 배열
+        const hanjaWords = [
+            {
+                hanja: "學校",
+                hangul: "학교",
+                chars: [
+                    { char: "學", sound: "학",訓:"배울 학", meaning: "지식이나 기술을 배우고 익힘.", color: "text-orange-600" },
+                    { char: "校", sound: "교",訓:"학교 교", meaning: "학생들을 모아 가르치는 기관.", color: "text-green-600" }
+                ],
+                sentence: "우리는 매일 <span class='font-bold text-indigo-700'>학교</span>에 가서 새로운 지식을 배웁니다."
+            },
+            {
+                hanja: "父母",
+                hangul: "부모",
+                chars: [
+                    { char: "父", sound: "부", 訓:"아버지 부", meaning: "자기를 낳아준 남자 어른.", color: "text-red-600" },
+                    { char: "母", sound: "모", 訓:"어머니 모", meaning: "자기를 낳아준 여자 어른.", color: "text-yellow-600" }
+                ],
+                sentence: "<span class='font-bold text-indigo-700'>부모</span>님은 우리를 항상 사랑으로 돌보아 주십니다."
+            },
+            {
+                hanja: "友情",
+                hangul: "우정",
+                chars: [
+                    { char: "友", sound: "우", 訓:"벗 우", meaning: "마음이 서로 통하는 친한 사람.", color: "text-teal-600" },
+                    { char: "情", sound: "정", 訓:"뜻 정", meaning: "느끼어 일어나는 마음이나 생각.", color: "text-purple-600" }
+                ],
+                sentence: "진정한 <span class='font-bold text-indigo-700'>우정</span>은 삶에서 매우 소중한 보물입니다."
+            },
+            {
+                hanja: "讀書",
+                hangul: "독서",
+                chars: [
+                    { char: "讀", sound: "독", 訓:"읽을 독", meaning: "글이나 책을 보고 그 내용을 이해함.", color: "text-lime-600" },
+                    { char: "書", sound: "서", 訓:"글 서", meaning: "글자나 그림으로 생각을 나타낸 것.", color: "text-cyan-600" }
+                ],
+                sentence: "<span class='font-bold text-indigo-700'>독서</span>를 통해 우리는 새로운 세상을 경험할 수 있습니다."
+            },
+            {
+                hanja: "山川",
+                hangul: "산천",
+                chars: [
+                    { char: "山", sound: "산", 訓:"뫼 산", meaning: "땅이 주변보다 훨씬 높이 솟아오른 지형.", color: "text-emerald-600" },
+                    { char: "川", sound: "천", 訓:"내 천", meaning: "강이나 시내와 같이 물이 흐르는 곳.", color: "text-sky-600" }
+                ],
+                sentence: "우리나라의 <span class='font-bold text-indigo-700'>산천</span>은 사계절 아름다운 모습을 자랑합니다."
+            },
+            {
+                hanja: "愛國",
+                hangul: "애국",
+                chars: [
+                    { char: "愛", sound: "애", 訓:"사랑 애", meaning: "매우 아끼고 소중히 여기는 마음.", color: "text-rose-600" },
+                    { char: "國", sound: "국", 訓:"나라 국", meaning: "일정한 땅에 사는 사람들이 세운 조직.", color: "text-blue-600" }
+                ],
+                sentence: "나라를 사랑하는 <span class='font-bold text-indigo-700'>애국</span>심은 모든 국민이 가져야 할 마음입니다."
+            }
+        ];
+
+        // DOM 요소 가져오기
+        const hanjaWordEl = document.getElementById('hanjaWord');
+        const hangulWordEl = document.getElementById('hangulWord');
+        const charBreakdownDiv = document.getElementById('charBreakdown');
+        const exampleSentenceEl = document.getElementById('exampleSentence');
+        const newWordButton = document.getElementById('newWordButton');
+
+        let currentWordIndex = -1;
+        const shownIndices = new Set(); // 이미 보여준 단어의 인덱스를 저장
+
+        // 랜덤하게 단어 인덱스를 선택하는 함수 (중복 방지)
+        function getRandomWordIndex() {
+            if (shownIndices.size === hanjaWords.length) {
+                shownIndices.clear(); // 모든 단어를 다 보여줬으면 초기화
+            }
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * hanjaWords.length);
+            } while (shownIndices.has(newIndex)); // 이미 보여준 단어는 다시 선택하지 않음
+            
+            shownIndices.add(newIndex);
+            return newIndex;
+        }
+
+        // 선택된 단어 정보를 화면에 표시하는 함수
+        function displayWord(wordData) {
+            hanjaWordEl.textContent = wordData.hanja;
+            hangulWordEl.textContent = `(${wordData.hangul})`;
+            
+            charBreakdownDiv.innerHTML = ''; // 이전 내용 초기화
+
+            wordData.chars.forEach((charInfo, index) => {
+                const charItemContainer = document.createElement('div');
+                // 각 한자 정보를 담을 div
+                const charInfoDiv = document.createElement('div');
+                charInfoDiv.className = 'flex flex-col sm:flex-row items-start sm:items-center p-3 bg-white rounded-md shadow-sm border border-slate-200';
+
+                // 한자 글자
+                const hanjaCharSpan = document.createElement('span');
+                hanjaCharSpan.className = `text-4xl sm:text-5xl font-noto-serif ${charInfo.color} mr-0 sm:mr-4 mb-2 sm:mb-0`;
+                hanjaCharSpan.textContent = charInfo.char;
+
+                // 한자 정보 (소리, 훈, 뜻)
+                const infoDiv = document.createElement('div');
+                infoDiv.className = "font-['Nanum_Gothic'] text-left";
+
+                const soundHunP = document.createElement('p');
+                soundHunP.className = 'text-lg sm:text-xl font-semibold text-slate-800';
+                soundHunP.textContent = `${charInfo.sound} (${charInfo.訓})`;
+
+                const meaningP = document.createElement('p');
+                meaningP.className = 'text-sm sm:text-base text-slate-600 mt-1';
+                meaningP.textContent = charInfo.meaning;
+
+                infoDiv.appendChild(soundHunP);
+                infoDiv.appendChild(meaningP);
+                
+                charInfoDiv.appendChild(hanjaCharSpan);
+                charInfoDiv.appendChild(infoDiv);
+
+                charItemContainer.appendChild(charInfoDiv);
+                charBreakdownDiv.appendChild(charItemContainer);
+            });
+
+            exampleSentenceEl.innerHTML = wordData.sentence; // innerHTML을 사용하여 span 태그 스타일 적용
+        }
+
+        // 새 단어를 불러와 화면에 표시하는 함수
+        function loadNewWord() {
+            currentWordIndex = getRandomWordIndex();
+            displayWord(hanjaWords[currentWordIndex]);
+        }
+
+        // 버튼 클릭 시 새 단어 불러오기
+        newWordButton.addEventListener('click', loadNewWord);
+
+        // 페이지 로드 시 첫 단어 표시
+        document.addEventListener('DOMContentLoaded', loadNewWord);
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

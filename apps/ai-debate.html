@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토론 탐정단 - AI 토론 도우미</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Custom Scrollbar Hide */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 20px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="transition-colors duration-500 min-h-screen">
+
+    <div id="app">
+        <!-- App content will be rendered here by JavaScript -->
+    </div>
+
+    <script>
+        // --- 1. 데이터 정의 (Data) ---
+        const resources = [
+            // --- 찬성 (약이다) ---
+            {
+                id: 1,
+                side: 'pro',
+                category: 'medical',
+                icon: 'stethoscope',
+                title: '아픈 사람을 구해주는 AI 의사',
+                summary: 'AI는 의사 선생님보다 엑스레이를 더 빠르고 정확하게 볼 수 있어요. 덕분에 암 같은 무서운 병을 빨리 찾아내서 고칠 수 있습니다.',
+                evidence: [
+                    '단백질 구조를 빨리 분석해서 신약을 만드는 AI',
+                    '의사 선생님이 놓칠 수 있는 작은 암세포도 발견함',
+                    '내 몸에 딱 맞는 치료법을 알려줌'
+                ],
+                keywords: ['AI 암 진단 정확도', 'AI 신약 개발 사례', '의료 인공지능 장점']
+            },
+            {
+                id: 2,
+                side: 'pro',
+                category: 'life',
+                icon: 'zap',
+                title: '우리 생활을 편리하게!',
+                summary: '청소 로봇, 번역기처럼 귀찮고 어려운 일을 AI가 대신 해줘요. 우리는 남은 시간에 더 재미있고 창의적인 일을 할 수 있게 됩니다.',
+                evidence: [
+                    '외국어를 몰라도 대화할 수 있는 실시간 통역기',
+                    '힘든 집안일이나 위험한 공장 일을 로봇이 대신함',
+                    '사람은 그림 그리기나 글쓰기 같은 멋진 일에 집중할 수 있음'
+                ],
+                keywords: ['AI 번역기 장점', '로봇이 대신하는 일', '인공지능 편리한 점']
+            },
+            {
+                id: 3,
+                side: 'pro',
+                category: 'society',
+                icon: 'globe',
+                title: '지구를 지키고 장애인을 도와요',
+                summary: '에너지를 아끼는 방법을 알려주거나, 앞이 보이지 않는 분들에게 길을 설명해주는 착한 AI 기술들이 많아요.',
+                evidence: [
+                    '전기를 낭비하지 않도록 조절해주는 AI 시스템',
+                    '시각 장애인에게 사진을 말로 설명해주는 앱 (Be My Eyes)',
+                    '환경 오염을 막는 방법을 연구하는 AI'
+                ],
+                keywords: ['AI 환경 보호 사례', '장애인을 돕는 AI', 'Be My Eyes 앱']
+            },
+            
+            // --- 반대 (독이다) ---
+            {
+                id: 4,
+                side: 'con',
+                category: 'job',
+                icon: 'briefcase',
+                title: '내 꿈과 직업이 사라질까?',
+                summary: 'AI가 너무 똑똑해져서 사람들이 하던 일을 다 뺏어갈 수 있어요. 운전, 요리, 그림 그리기까지 AI가 하면 우리는 무슨 일을 해야 할까요?',
+                evidence: [
+                    '마트 캐셔 대신 생긴 무인 계산대 키오스크',
+                    '그림 그리는 AI 때문에 일자리를 잃은 웹툰 작가들',
+                    '미래에 사라질 수 있는 직업 순위'
+                ],
+                keywords: ['AI로 사라지는 직업', '인공지능 일자리 문제', 'AI 화가 저작권 문제']
+            },
+            {
+                id: 5,
+                side: 'con',
+                category: 'danger',
+                icon: 'shield-alert',
+                title: '가짜 뉴스와 위험한 실수',
+                summary: 'AI가 만든 진짜 같은 가짜 영상(딥페이크) 때문에 사람들이 속을 수 있어요. 또 AI가 나쁜 마음을 먹거나 고장 나면 큰 사고가 날 수도 있습니다.',
+                evidence: [
+                    '얼굴을 바꿔치기하는 딥페이크 사기 범죄',
+                    '사람을 차별하는 잘못된 AI의 판단 (편향성)',
+                    '스스로 공격하는 자율 무기 로봇의 위험성'
+                ],
+                keywords: ['딥페이크 문제점', 'AI 알고리즘 편향성', '킬러 로봇 반대']
+            },
+            {
+                id: 6,
+                side: 'con',
+                category: 'mind',
+                icon: 'frown',
+                title: '스스로 생각하는 힘이 약해져요',
+                summary: '궁금한 게 있을 때 고민하지 않고 바로 AI에게 물어보면, 우리 뇌는 점점 게을러질 거예요. AI 없이는 아무것도 못 하게 될지도 몰라요.',
+                evidence: [
+                    '전화번호를 못 외우는 디지털 치매 현상',
+                    '유튜브 추천 영상만 보다가 생각이 한쪽으로 치우침',
+                    '직접 숙제를 안 하고 챗GPT에만 의존하는 문제'
+                ],
+                keywords: ['디지털 치매', '유튜브 알고리즘 문제점', 'AI 의존성']
+            }
+        ];
+
+        const categories = [
+            { id: 'all', name: '모두 보기' },
+            { id: 'medical', name: '병원/과학' },
+            { id: 'life', name: '우리 생활' },
+            { id: 'society', name: '사회/환경' },
+            { id: 'job', name: '직업/돈' },
+            { id: 'danger', name: '위험/안전' },
+            { id: 'mind', name: '생각/마음' }
+        ];
+
+        // --- 2. 상태 관리 (State Management) ---
+        let state = {
+            side: 'pro', // 'pro' or 'con'
+            searchTerm: '',
+            category: 'all'
+        };
+
+        // --- 3. 헬퍼 함수 (Helpers) ---
+        function setSide(side) {
+            state.side = side;
+            render();
+        }
+
+        function setCategory(id) {
+            state.category = id;
+            render();
+        }
+
+        function setSearchTerm(term) {
+            state.searchTerm = term;
+            render();
+        }
+
+        function handleKeywordClick(keyword) {
+            const searchUrl = `https://search.naver.com/search.naver?query=${encodeURIComponent(keyword)}`;
+            window.open(searchUrl, '_blank');
+        }
+
+        // --- 4. 렌더링 로직 (Rendering) ---
+        function render() {
+            const app = document.getElementById('app');
+            const { side, searchTerm, category } = state;
+
+            // 테마 설정
+            const theme = side === 'pro' 
+                ? { 
+                    bg: 'bg-blue-50', 
+                    headerBg: 'bg-blue-600', 
+                    text: 'text-blue-900', 
+                    primary: 'bg-blue-600', 
+                    secondary: 'bg-blue-50', 
+                    border: 'border-blue-200', 
+                    icon: 'text-blue-600',
+                    indicator: 'text-blue-600 bg-blue-100 border-blue-200',
+                    emoji: '😇',
+                    btnActive: 'bg-white text-blue-700 shadow-lg scale-105 ring-2 ring-blue-300',
+                    btnInactive: 'text-white text-opacity-70 hover:bg-white hover:bg-opacity-10',
+                    inputFocus: 'focus:border-blue-400',
+                    searchIconFocus: 'group-focus-within:text-blue-500',
+                    keywordHover: 'hover:border-sky-300 hover:text-sky-600 hover:bg-sky-50'
+                }
+                : { 
+                    bg: 'bg-red-50', 
+                    headerBg: 'bg-red-600', 
+                    text: 'text-red-900', 
+                    primary: 'bg-red-600', 
+                    secondary: 'bg-red-50', 
+                    border: 'border-red-200', 
+                    icon: 'text-red-600',
+                    indicator: 'text-red-600 bg-red-100 border-red-200',
+                    emoji: '👿',
+                    btnActive: 'bg-white text-red-600 shadow-lg scale-105 ring-2 ring-red-300',
+                    btnInactive: 'text-white text-opacity-70 hover:bg-white hover:bg-opacity-10',
+                    inputFocus: 'focus:border-red-400',
+                    searchIconFocus: 'group-focus-within:text-red-500',
+                    keywordHover: 'hover:border-orange-300 hover:text-orange-600 hover:bg-orange-50'
+                };
+
+            // Body 배경색 업데이트
+            document.body.className = `transition-colors duration-500 min-h-screen ${theme.bg}`;
+
+            // 필터링
+            const filteredResources = resources.filter(item => {
+                const matchSide = item.side === side;
+                const matchCategory = category === 'all' || item.category === category;
+                const matchSearch = item.title.includes(searchTerm) || 
+                                    item.summary.includes(searchTerm) ||
+                                    item.keywords.some(k => k.includes(searchTerm));
+                return matchSide && matchCategory && matchSearch;
+            });
+
+            // HTML 생성
+            const html = `
+                <!-- Header -->
+                <header class="${theme.headerBg} shadow-lg sticky top-0 z-40 transition-colors duration-500">
+                    <div class="max-w-4xl mx-auto px-6 py-4">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-xl bg-white bg-opacity-20 backdrop-blur-sm">
+                                    <i data-lucide="book-open" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h1 class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+                                        토론 탐정단 <span class="text-2xl">🔎</span>
+                                    </h1>
+                                    <p class="text-xs text-white text-opacity-90 font-medium">
+                                        ${side === 'pro' ? '찬성팀(약) 자료 찾는 중!' : '반대팀(독) 자료 찾는 중!'}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Toggle Switch -->
+                            <div class="bg-black bg-opacity-20 p-1.5 rounded-full flex w-full md:w-auto backdrop-blur-sm">
+                                <button onclick="setSide('pro')" 
+                                    class="flex-1 md:flex-none px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${side === 'pro' ? theme.btnActive : theme.btnInactive}">
+                                    <i data-lucide="thumbs-up" class="w-4 h-4" ${side === 'pro' ? 'fill="currentColor"' : ''}></i> 찬성
+                                </button>
+                                <button onclick="setSide('con')"
+                                    class="flex-1 md:flex-none px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${side === 'con' ? theme.btnActive : theme.btnInactive}">
+                                    <i data-lucide="thumbs-down" class="w-4 h-4" ${side === 'con' ? 'fill="currentColor"' : ''}></i> 반대
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="max-w-4xl mx-auto px-4 py-8 pb-20">
+                    <!-- Intro Section -->
+                    <section class="mb-10 text-center animate-fade-in-up">
+                        <div class="inline-block px-6 py-2 rounded-full text-base font-black mb-4 border-2 shadow-sm bg-white ${theme.indicator}">
+                            지금은 <span class="underline decoration-wavy decoration-2">${side === 'pro' ? '찬성(좋아요)' : '반대(위험해요)'}</span> 자료를 보고 있어요!
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-black text-gray-800 mb-4 leading-tight">
+                            인공지능(AI) 기술,<br class="md:hidden"/> 우리에게 
+                            <span class="inline-block px-3 py-1 ${side === 'pro' ? 'bg-blue-600' : 'bg-red-600'} text-white rounded-xl shadow-md mx-1 transition-colors duration-500">
+                                ${side === 'pro' ? '약💊' : '독☠️'}
+                            </span> 일까요?
+                        </h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto font-medium text-lg bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                            ${side === 'pro' 
+                                ? 'AI는 우리를 도와주는 고마운 친구예요! 😇 왜 좋은지 근거를 찾아볼까요?' 
+                                : 'AI는 조심해서 다뤄야 해요! 👿 어떤 점이 위험한지 근거를 찾아볼까요?'}
+                        </p>
+                    </section>
+
+                    <!-- Controls -->
+                    <div class="bg-white p-4 rounded-3xl shadow-sm mb-8 border border-gray-100">
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="relative flex-grow group">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 ${theme.searchIconFocus} transition-colors w-5 h-5"></i>
+                                <input 
+                                    type="text" 
+                                    placeholder="궁금한 단어를 검색해보세요! (예: 의사, 로봇)" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-gray-50 border-2 border-transparent focus:bg-white focus:outline-none transition-all font-medium text-gray-700 placeholder-gray-400 ${theme.inputFocus}"
+                                    value="${searchTerm}"
+                                    oninput="setSearchTerm(this.value)"
+                                />
+                            </div>
+                            <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide items-center">
+                                ${categories.map(cat => `
+                                    <button
+                                        onclick="setCategory('${cat.id}')"
+                                        class="px-4 py-2.5 rounded-2xl whitespace-nowrap text-sm font-bold transition-all transform active:scale-95 ${
+                                            category === cat.id 
+                                                ? `${theme.primary} text-white shadow-lg scale-105` 
+                                                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                        }"
+                                    >
+                                        ${cat.name}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${filteredResources.length > 0 ? filteredResources.map(item => `
+                            <div class="group bg-white rounded-3xl shadow-md border-2 ${theme.border} overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                                <!-- Card Header -->
+                                <div class="px-6 py-5 border-b ${theme.border} flex justify-between items-start ${theme.secondary}">
+                                    <div class="flex gap-3">
+                                        <div class="p-2.5 rounded-2xl bg-white shadow-sm ${theme.icon} group-hover:scale-110 transition-transform duration-300">
+                                            <i data-lucide="${item.icon}" class="w-6 h-6"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-lg text-gray-800 leading-tight mb-1">${item.title}</h3>
+                                            <span class="text-xs font-bold px-2 py-0.5 bg-white bg-opacity-80 rounded-md text-gray-500 inline-block">
+                                                #${categories.find(c => c.id === item.category)?.name}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card Body -->
+                                <div class="p-6 flex-grow flex flex-col gap-5">
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-2xl">${theme.emoji}</span>
+                                            <h4 class="text-sm font-extrabold text-gray-400 uppercase tracking-wider">무슨 뜻일까요?</h4>
+                                        </div>
+                                        <p class="text-gray-700 leading-relaxed font-medium bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                            ${item.summary}
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-sm font-extrabold text-gray-400 mb-3 flex items-center gap-1.5">
+                                            <i data-lucide="check-circle" class="w-4 h-4"></i> 강력한 증거들
+                                        </h4>
+                                        <ul class="text-sm text-gray-600 space-y-2">
+                                            ${item.evidence.map(ev => `
+                                                <li class="flex items-start gap-2">
+                                                    <span class="min-w-[6px] h-[6px] rounded-full mt-1.5 ${theme.primary}"></span>
+                                                    <span>${ev}</span>
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+
+                                    <div class="mt-auto pt-4 border-t border-gray-100">
+                                        <h4 class="text-xs font-bold text-gray-400 mb-2 flex items-center gap-1">
+                                            <i data-lucide="search" class="w-3.5 h-3.5"></i> 버튼을 눌러서 조사해봐요! (클릭)
+                                        </h4>
+                                        <div class="flex flex-wrap gap-2">
+                                            ${item.keywords.map(keyword => `
+                                                <button 
+                                                    onclick="handleKeywordClick('${keyword}')"
+                                                    class="px-3 py-2 bg-white border-2 border-gray-100 rounded-xl text-xs font-bold text-gray-600 
+                                                        ${theme.keywordHover}
+                                                        hover:shadow-md
+                                                        active:scale-95 transition-all flex items-center gap-1.5"
+                                                    title="네이버 검색 결과 보기"
+                                                >
+                                                    🔍 ${keyword}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('') : `
+                            <div class="col-span-1 md:col-span-2 text-center py-24 bg-white rounded-3xl border-2 border-dashed border-gray-300">
+                                <div class="text-6xl mb-4">🧐</div>
+                                <h3 class="text-xl font-bold text-gray-700 mb-2">어라? 찾으시는 내용이 없네요.</h3>
+                                <p class="text-gray-500">다른 단어로 검색하거나<br/>'모두 보기' 버튼을 눌러보세요!</p>
+                            </div>
+                        `}
+                    </div>
+
+                    <!-- Tip Section -->
+                    <section class="mt-10 p-6 rounded-3xl border-2 shadow-sm relative overflow-hidden ${side === 'pro' ? 'bg-indigo-50 border-indigo-100' : 'bg-rose-50 border-rose-100'}">
+                        <!-- Background Decoration -->
+                        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 rounded-full bg-white opacity-40 blur-xl"></div>
+
+                        <div class="flex items-start gap-4 relative z-10">
+                            <div class="p-3 rounded-2xl shadow-sm bg-white ${side === 'pro' ? 'text-indigo-600' : 'text-rose-600'}">
+                                <i data-lucide="lightbulb" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-black mb-2 flex items-center gap-2 ${side === 'pro' ? 'text-indigo-800' : 'text-rose-800'}">
+                                    선생님의 꿀팁! <span class="text-sm font-normal bg-white px-2 py-0.5 rounded-lg border border-current opacity-80">상대방 이기기</span>
+                                </h3>
+                                <p class="text-gray-700 mb-4 text-sm leading-relaxed font-medium">
+                                    ${side === 'pro' 
+                                        ? '상대방이 "AI가 우리 일자리를 뺏어가면 어떡해요?"라고 물어볼 수 있어요. 그럴 땐 이렇게 대답해보세요.<br/>"세탁기가 생겨서 손빨래할 시간이 줄어든 것처럼, AI 덕분에 우리는 더 중요하고 즐거운 일에 집중할 수 있게 될 거예요!"'
+                                        : '상대방이 "AI가 병을 고쳐주니까 무조건 좋은 거 아니에요?"라고 할 수 있어요. 그럴 땐 이렇게 반박해보세요.<br/>"물론 좋지만, 만약 AI가 해킹당하거나 고장 나서 엉뚱한 처방을 내리면 누가 책임지나요? 편리함보다 안전이 더 중요해요!"'}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+
+                <footer class="bg-white border-t border-gray-200 py-10 rounded-t-3xl">
+                    <div class="max-w-4xl mx-auto px-6 text-center text-gray-500 text-sm font-medium">
+                        <p class="mb-2">🏫 5학년 3반 토론 수업 도우미</p>
+                        <p class="text-gray-400 text-xs">선생님과 함께 만든 자료입니다. 더 궁금한 내용은 아래 버튼을 눌러 검색해보세요!</p>
+                    </div>
+                </footer>
+            `;
+
+            app.innerHTML = html;
+            
+            // Lucide 아이콘 다시 렌더링
+            lucide.createIcons();
+            
+            // Input focus 유지 (re-render 시 focus 잃는 문제 해결)
+            const input = document.querySelector('input[type="text"]');
+            if (input && state.searchTerm) {
+                input.focus();
+                // 커서 위치 끝으로
+                const val = input.value;
+                input.value = '';
+                input.value = val;
+            }
+        }
+
+        // 초기 렌더링
+        render();
+
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

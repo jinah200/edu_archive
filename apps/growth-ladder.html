@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>배움 성장 사다리표 · 인권 사다리 프로젝트</title>
+<style>
+  :root{
+    --paper:#FBF7EF; --ink:#2B2620; --line:#E3D9C6;
+    --gong:#7C5BB5; --gong-soft:#EFE7FA;
+    --yeon:#E08A2B; --yeon-soft:#FCEDD7;
+    --gongjon:#2F9E6B; --gongjon-soft:#E1F3E9;
+    --col1:#F6E5EC; --col1-line:#E6BCCB;
+    --col2:#EFE7FA; --col2-line:#C7B6E6;
+    --col3:#FBF2D8; --col3-line:#E8D49A;
+    --gold:#E6B422; --shadow:0 6px 22px rgba(43,38,32,.10);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Apple SD Gothic Neo","Noto Sans CJK KR","Malgun Gothic",sans-serif;line-height:1.55}
+  .wrap{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+  header{text-align:center;padding:10px 0 6px}
+  .eyebrow{display:inline-block;font-size:12.5px;letter-spacing:.16em;font-weight:700;
+    color:#8a7f6c;border:1.5px solid var(--line);border-radius:999px;padding:5px 15px;background:#fff}
+  h1{font-size:clamp(26px,5.5vw,38px);margin:13px 0 5px;font-weight:800;letter-spacing:-.01em}
+  .down{color:var(--gong)}
+  .sub{color:#6f6657;font-size:14.5px;margin:0}
+  .philosophy{margin:13px auto 0;max-width:560px;font-size:13.5px;color:#7d7363;
+    background:#fff;border:1px dashed var(--line);border-radius:14px;padding:10px 16px}
+  .philosophy b{color:var(--ink)}
+  .tabs{display:flex;gap:10px;margin:24px 0 4px;flex-wrap:wrap;justify-content:center}
+  .tab{flex:1;min-width:175px;cursor:pointer;border:2px solid var(--line);background:#fff;
+    border-radius:16px;padding:11px 14px;text-align:left;transition:.15s;font:inherit;color:inherit}
+  .tab:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .tab .rung{font-size:11.5px;font-weight:700;color:#fff;display:inline-block;padding:2px 9px;border-radius:999px}
+  .tab .name{display:block;font-size:17px;font-weight:800;margin-top:6px}
+  .tab .role{display:block;font-size:12px;color:#8a7f6c;margin-top:2px}
+  .tab[data-on="1"]{border-color:transparent}
+  .tab.gong[data-on="1"]{background:var(--gong-soft);border-color:var(--gong)}
+  .tab.yeon[data-on="1"]{background:var(--yeon-soft);border-color:var(--yeon)}
+  .tab.gongjon[data-on="1"]{background:var(--gongjon-soft);border-color:var(--gongjon)}
+  .tab.gong .rung{background:var(--gong)} .tab.yeon .rung{background:var(--yeon)} .tab.gongjon .rung{background:var(--gongjon)}
+  .panel-head{margin:20px 0 14px;border-radius:16px;padding:15px 20px;color:#fff}
+  .panel-head.gong{background:linear-gradient(120deg,#7C5BB5,#9b7fd0)}
+  .panel-head.yeon{background:linear-gradient(120deg,#E08A2B,#eaa856)}
+  .panel-head.gongjon{background:linear-gradient(120deg,#2F9E6B,#56b988)}
+  .panel-head .tt{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .panel-head .mark{font-size:13px;font-weight:800;background:rgba(255,255,255,.22);padding:3px 11px;border-radius:999px}
+  .panel-head h2{margin:0;font-size:21px;font-weight:800}
+  .panel-head .q{margin:7px 0 0;font-size:14px;opacity:.96}
+  .grid{width:100%;border-collapse:separate;border-spacing:0;background:#fff;
+    border:1.5px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .grid th,.grid td{border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);vertical-align:top}
+  .grid th:last-child,.grid td:last-child{border-right:none}
+  .grid tr:last-child td{border-bottom:none}
+  .corner{width:42px;background:#FCFAF5}
+  th.h{padding:12px 10px;text-align:center;font-size:15px;font-weight:800}
+  th.h .ic{font-size:17px;margin-right:5px}
+  th.c1{background:var(--col1)} th.c2{background:var(--col2)} th.c3{background:var(--col3)}
+  td.num{width:42px;text-align:center;font-size:17px;font-weight:800;color:#9a8f7c;background:#FCFAF5;vertical-align:middle}
+  td.cell{padding:0;width:31.5%}
+  .opt{display:block;width:100%;height:100%;text-align:left;cursor:pointer;border:none;background:transparent;
+    font:inherit;color:var(--ink);font-size:13.5px;line-height:1.5;padding:13px 28px 26px 14px;transition:.13s;position:relative}
+  td.cell.c1{background:#FCF3F6} td.cell.c2{background:#F7F2FC} td.cell.c3{background:#FEFAF0}
+  .opt:hover{filter:brightness(.97)}
+  .opt[data-sel="1"]{font-weight:600}
+  .opt[data-sel="1"]::after{content:"◯";position:absolute;right:9px;top:9px;font-size:20px;color:rgba(0,0,0,.28);font-weight:400}
+  td.cell.c1 .opt[data-sel="1"]{box-shadow:inset 0 0 0 3px var(--col1-line)}
+  td.cell.c2 .opt[data-sel="1"]{box-shadow:inset 0 0 0 3px var(--col2-line)}
+  td.cell.c3 .opt[data-sel="1"]{box-shadow:inset 0 0 0 3px var(--col3-line)}
+  .star{position:absolute;right:8px;bottom:7px;font-size:16px;cursor:pointer;line-height:1;
+    color:#d9cfba;background:none;border:none;padding:2px;transition:.13s;z-index:2}
+  .star:hover{transform:scale(1.2)}
+  .star[data-on="1"]{color:var(--gold)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:11px 4px 0;font-size:12.5px;color:#8a7f6c}
+  .legend b{color:var(--ink)}
+  .answers{margin-top:26px}
+  .answers h3{font-size:16px;font-weight:800;margin:0 0 4px}
+  .answers .lead{font-size:13px;color:#7d7363;margin:0 0 14px}
+  .me-input{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .me-input label{font-size:12.5px;font-weight:700;color:#8a7f6c;display:block;margin-bottom:6px}
+  .me-input input{width:160px;border:1.5px solid var(--line);border-radius:9px;padding:7px 10px;font:inherit;font-size:13.5px;margin-bottom:9px}
+  .me-input textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font:inherit;font-size:13.5px;resize:vertical;min-height:50px}
+  .me-input input:focus,.me-input textarea:focus{outline:none;border-color:var(--gong)}
+  .me-input .add{margin-top:9px;border:none;cursor:pointer;font:inherit;font-weight:700;font-size:13.5px;background:var(--ink);color:#fff;border-radius:999px;padding:9px 20px;transition:.14s}
+  .me-input .add:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow);position:relative}
+  .card .who{font-size:13.5px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .card .who .av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0}
+  .card .pos{font-size:11.5px;color:#8a7f6c;margin-bottom:9px;display:flex;gap:5px;flex-wrap:wrap}
+  .pchip{background:#FCFAF5;border:1px solid var(--line);border-radius:999px;padding:2px 8px;font-weight:700}
+  .pchip .st{color:var(--gold)}
+  .card .txt{font-size:13px;color:#4f483d;background:#FCFAF5;border-radius:9px;padding:8px 10px;border-left:3px solid var(--line)}
+  .actions{display:flex;gap:10px;margin-top:20px;justify-content:center;flex-wrap:wrap}
+  .btn{border:none;cursor:pointer;font:inherit;font-weight:700;font-size:14px;border-radius:999px;padding:11px 22px;transition:.14s}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--ink)}
+  footer{text-align:center;margin-top:34px;font-size:12px;color:#a59a86}
+  @media (max-width:680px){.opt{font-size:12.5px;padding:10px 24px 24px 11px}th.h{font-size:13px}}
+  @media print{.tabs,.actions,.me-input{display:none}body{background:#fff}.grid,.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">인권 사다리 프로젝트 · 자기 점검</span>
+    <h1>배움 성장 <span class="down">사다리</span>표</h1>
+    <p class="sub">친구와 비교하는 표가 아니라, <b>나의 출발점을 확인하고 성장을 돕는</b> 표예요.</p>
+    <div class="philosophy">우리 반 약속 — <b>빠름보다는 바름, 오름보다는 옳음</b></div>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <button class="tab gong" data-key="gong" data-on="1">
+      <span class="rung">사다리 1</span><span class="name">인권 공감 사다리</span><span class="role">불편함 감지자 · 아동 인권</span>
+    </button>
+    <button class="tab yeon" data-key="yeon">
+      <span class="rung">사다리 2</span><span class="name">인권 연대 사다리</span><span class="role">연대 행동가 · 이웃·노인 인권</span>
+    </button>
+    <button class="tab gongjon" data-key="gongjon">
+      <span class="rung">사다리 3</span><span class="name">인권 공존 사다리</span><span class="role">공존 시민 · 다문화 공존 인권</span>
+    </button>
+  </div>
+
+  <div id="panel"></div>
+  <footer>S.T.E.P.S. 전략으로 자라는 포용적 민주시민 · 5학년 인권 사다리 프로젝트</footer>
+</div>
+
+<script>
+const COLS=[
+  {key:"c1",ic:"❀",title:"잘하고 있어요"},
+  {key:"c2",ic:"🌿",title:"발전하고 있어요"},
+  {key:"c3",ic:"😊",title:"힘을 내요"},
+];
+const LADDERS={
+  gong:{name:"인권 공감 사다리",role:"불편함 감지자",coreQ:'나의 권리는 어디에서 시작되어, 어떻게 지켜질까?',
+    rows:[
+      {c1:"학칙 조항이 어떤 법의 역할을 담고 있는지 근거를 들어 구체적으로 설명할 수 있어요.",
+       c2:"학칙이 법과 관련 있다는 것을 알고 있어요. 어떤 역할을 하는지 구체적으로 말하는 것은 아직 어려워요.",
+       c3:"학칙이 법과 관련이 있는지 아직 잘 모르겠어요."},
+      {c1:"오늘 탐구한 내용을 담아 학칙을 나만의 한 문장으로 표현할 수 있어요.",
+       c2:"문장을 썼지만 교과서 표현과 비슷해서 내 말로 바꾸기가 아직 어려워요.",
+       c3:"학칙을 어떻게 표현해야 할지 아직 잘 모르겠어요."},
+      {c1:"규칙이 모두의 권리를 지키기 위해 존재한다는 것을 느끼고, 일상에서 실천하고 싶다는 마음이 생겼어요.",
+       c2:"규칙이 권리를 지키기 위한 것이라는 건 알겠는데, 어떻게 실천해야 할지 아직 잘 모르겠어요.",
+       c3:"규칙과 권리가 어떻게 연결되는지 아직 잘 모르겠어요."},
+    ]},
+  yeon:{name:"인권 연대 사다리",role:"연대 행동가",coreQ:'우리가 함께 목소리를 내면, 무엇이 달라질까?',
+    rows:[
+      {c1:"뉴스 속 사건에서 누구의 어떤 권리가 지켜지지 못했는지 근거를 들어 설명할 수 있어요.",
+       c2:"권리가 지켜지지 못한 장면은 찾았지만, 누구의 무슨 권리인지 정확히 말하기는 아직 어려워요.",
+       c3:"뉴스에서 권리가 지켜지지 못한 장면을 찾는 것이 아직 잘 안 돼요."},
+      {c1:"권리를 지키지 못해 힘든 이웃의 마음을 헤아려, 구청에 보낼 내용을 내 말로 담을 수 있어요.",
+       c2:"이웃의 어려움은 느꼈지만, 구청에 어떤 내용을 담아야 할지는 아직 어려워요.",
+       c3:"권리를 지키지 못해 힘든 이웃이 누구인지 아직 잘 모르겠어요."},
+      {c1:"혼자보다 함께 목소리를 낼 때 더 큰 힘이 된다는 것을 느끼고, 함께 행동하고 싶은 마음이 생겼어요.",
+       c2:"함께하면 좋다는 건 알겠는데, 내가 무엇을 해야 할지는 아직 잘 모르겠어요.",
+       c3:"왜 함께 목소리를 내야 하는지 아직 잘 모르겠어요."},
+    ]},
+  gongjon:{name:"인권 공존 사다리",role:"공존 시민",coreQ:'우리는 어떻게 서로 다른 사람과 함께 살아갈까?',
+    rows:[
+      {c1:"말과 문화가 달라 권리를 누리기 어려운 상황을, 그 사람의 입장에서 구체적으로 설명할 수 있어요.",
+       c2:"어려운 상황이 있다는 건 알지만, 그 사람의 입장에서 자세히 말하기는 아직 어려워요.",
+       c3:"말과 문화가 다른 사람이 겪는 어려움이 무엇인지 아직 잘 모르겠어요."},
+      {c1:"다른 배경을 가진 사람도 나와 똑같은 권리를 가진다는 것을, 까닭을 들어 말할 수 있어요.",
+       c2:"같은 권리를 가져야 한다는 건 알겠는데, 그 까닭을 설명하기는 아직 어려워요.",
+       c3:"다른 나라에서 온 사람도 같은 권리를 가지는지 아직 잘 모르겠어요."},
+      {c1:"말이 달라도 마음을 전하며 함께 살아가는 방법을 찾아, 직접 실천하고 싶은 마음이 생겼어요.",
+       c2:"함께 살아가야 한다는 건 알겠는데, 어떻게 마음을 전할지는 아직 잘 모르겠어요.",
+       c3:"서로 다른 사람과 어떻게 함께 살아갈지 아직 잘 모르겠어요."},
+    ]},
+};
+const SAMPLE={
+  gong:[
+    {name:"김서윤",color:"#7C5BB5",picks:[{r:0,c:0,star:false},{r:1,c:1,star:true},{r:2,c:0,star:false}],
+     txt:"학칙이 법이랑 연결된다는 걸 처음 알았어요. 규칙이 우리를 지켜주려고 있다는 게 신기했어요."},
+    {name:"이도현",color:"#E08A2B",picks:[{r:0,c:1,star:false},{r:1,c:2,star:true},{r:2,c:1,star:false}],
+     txt:"내 말로 바꾸는 게 제일 어려웠어요. 다음엔 교과서 안 보고 써보고 싶어요."},
+    {name:"박하준",color:"#2F9E6B",picks:[{r:0,c:0,star:false},{r:1,c:0,star:false},{r:2,c:0,star:true}],
+     txt:"규칙을 지키면 친구들도 편해진다는 마음이 생겼어요. 복도에서 안 뛰는 것부터 실천할래요!"},
+  ],
+  yeon:[
+    {name:"최지우",color:"#7C5BB5",picks:[{r:0,c:0,star:false},{r:1,c:0,star:false},{r:2,c:1,star:true}],
+     txt:"뉴스에서 할머니가 키오스크를 못 써서 힘들어하는 걸 봤어요. 같이 도와드리고 싶었어요."},
+    {name:"정시윤",color:"#E08A2B",picks:[{r:0,c:1,star:true},{r:1,c:1,star:false},{r:2,c:0,star:false}],
+     txt:"혼자보다 우리 모둠이 같이 편지를 쓰니까 더 용기가 났어요."},
+  ],
+  gongjon:[
+    {name:"한예린",color:"#7C5BB5",picks:[{r:0,c:0,star:false},{r:1,c:0,star:true},{r:2,c:1,star:false}],
+     txt:"말이 안 통하는 친구 마음을 생각하니 속상했어요. 그림으로라도 인사하고 싶어요."},
+    {name:"오건우",color:"#2F9E6B",picks:[{r:0,c:1,star:false},{r:1,c:1,star:false},{r:2,c:0,star:true}],
+     txt:"다른 나라에서 와도 똑같은 사람이니까 같은 권리가 있다고 생각해요. 같이 놀고 싶어요."},
+  ]
+};
+let current="gong";
+const state={
+  gong:{picks:{},answers:[...SAMPLE.gong]},
+  yeon:{picks:{},answers:[...SAMPLE.yeon]},
+  gongjon:{picks:{},answers:[...SAMPLE.gongjon]},
+};
+const tabs=document.getElementById("tabs");
+const panel=document.getElementById("panel");
+tabs.addEventListener("click",e=>{
+  const b=e.target.closest(".tab"); if(!b)return;
+  current=b.dataset.key;
+  [...tabs.children].forEach(t=>t.dataset.on=(t===b)?"1":"0");
+  render();
+});
+function render(){
+  const L=LADDERS[current], st=state[current];
+  const head=`<tr><th class="corner"></th>`+COLS.map(c=>`<th class="h ${c.key}"><span class="ic">${c.ic}</span>${c.title}</th>`).join("")+`</tr>`;
+  const body=L.rows.map((row,ri)=>{
+    const cells=COLS.map((col,ci)=>{
+      const sel=st.picks[ri]&&st.picks[ri].c===ci;
+      const star=sel&&st.picks[ri].star;
+      return `<td class="cell ${col.key}">
+        <button class="opt" data-r="${ri}" data-c="${ci}" data-sel="${sel?1:0}">${row[col.key]}</button>
+        ${sel?`<button class="star" data-r="${ri}" data-on="${star?1:0}" title="더 성장하고 싶어요">★</button>`:""}
+      </td>`;
+    }).join("");
+    return `<tr><td class="num">${ri+1}</td>${cells}</tr>`;
+  }).join("");
+  panel.innerHTML=`
+    <div class="panel-head ${current}">
+      <div class="tt"><span class="mark">① 배움 성장 사다리표</span><h2>${L.name}</h2></div>
+      <p class="q"><b>이 사다리의 큰 질문</b> · ${L.coreQ}</p>
+    </div>
+    <table class="grid">${head}${body}</table>
+    <div class="legend">
+      <span>◯ <b>지금 내 자리</b>에 동그라미 — 칸을 누르면 표시돼요.</span>
+      <span>★ <b>더 성장하고 싶은 부분</b>에 별표 — 동그라미 친 칸의 별을 눌러요.</span>
+    </div>
+    <div class="answers">
+      <h3>우리 반 친구들의 출발점</h3>
+      <p class="lead">서로의 자리를 비교하지 않고, 함께 어디로 자라고 싶은지 나눠 봐요.</p>
+      <div class="me-input">
+        <label>내 이름</label>
+        <input id="meName" placeholder="이름을 적어요" />
+        <label>오늘 내 마음 한 줄</label>
+        <textarea id="meTxt" placeholder="이 사다리에서 새로 알게 된 점이나 느낀 점을 적어 볼까요?"></textarea>
+        <button class="add" id="meAdd">내 답변 올리기</button>
+      </div>
+      <div class="cards" id="cards">${cardsHTML()}</div>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="printBtn">인쇄 · PDF로 저장</button>
+    </div>`;
+  panel.querySelectorAll(".opt").forEach(o=>o.addEventListener("click",()=>{
+    const r=+o.dataset.r,c=+o.dataset.c;
+    if(st.picks[r]&&st.picks[r].c===c){delete st.picks[r];}
+    else{st.picks[r]={c,star:false};}
+    render();
+  }));
+  panel.querySelectorAll(".star").forEach(s=>s.addEventListener("click",ev=>{
+    ev.stopPropagation();
+    const r=+s.dataset.r; if(st.picks[r])st.picks[r].star=!st.picks[r].star; render();
+  }));
+  panel.querySelector("#meAdd").addEventListener("click",()=>{
+    const nm=panel.querySelector("#meName").value.trim();
+    const tx=panel.querySelector("#meTxt").value.trim();
+    if(!nm&&!tx)return;
+    const picks=Object.keys(st.picks).map(r=>({r:+r,c:st.picks[r].c,star:st.picks[r].star}));
+    const colors=["#7C5BB5","#E08A2B","#2F9E6B","#C0504D","#3E7CB1"];
+    st.answers.push({name:nm||"나",color:colors[st.answers.length%colors.length],picks,txt:tx,me:true});
+    render();
+  });
+  panel.querySelector("#printBtn").addEventListener("click",()=>window.print());
+}
+function cardsHTML(){
+  return state[current].answers.map(a=>{
+    const av=a.name.slice(-2,-1)||a.name[0]||"·";
+    const chips=(a.picks||[]).map(p=>{
+      const colTitle=COLS[p.c].title;
+      return `<span class="pchip">${p.r+1}번 · ${colTitle}${p.star?' <span class="st">★</span>':''}</span>`;
+    }).join("");
+    return `<div class="card">
+      <div class="who"><span class="av" style="background:${a.color}">${av}</span>${a.name}${a.me?' <span style="font-size:11px;color:#8a7f6c">(나)</span>':''}</div>
+      <div class="pos">${chips||'<span class="pchip">자리 선택 전</span>'}</div>
+      ${a.txt?`<div class="txt">${a.txt}</div>`:""}
+    </div>`;
+  }).join("");
+}
+render();
+</script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

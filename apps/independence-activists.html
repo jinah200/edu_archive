@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기억하며 기록하다 - 독립운동가 탐구</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons Library -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
+        
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+
+        .animate-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white p-6 shadow-lg sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight">기억하며 기록하다</h1>
+                <p class="text-slate-400 text-sm mt-1">독립운동가 초상화 그리기 및 탐구 활동</p>
+            </div>
+            <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"></i>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="이름이나 키워드 검색..."
+                    class="pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64 text-sm"
+                >
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Activist List Section -->
+        <section class="md:col-span-1">
+            <h2 class="text-lg font-semibold flex items-center gap-2 mb-4 sticky top-20 bg-slate-50 py-2 z-0">
+                <i data-lucide="user" class="w-5 h-5 text-blue-600"></i>
+                독립운동가 명단 (ㄱ-ㅎ)
+            </h2>
+            <div id="activistList" class="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 custom-scrollbar">
+                <!-- List items will be injected here -->
+            </div>
+        </section>
+
+        <!-- Detail/Portrait Section -->
+        <section id="detailSection" class="md:col-span-2 space-y-6">
+            <!-- Content will be injected based on selection -->
+            <div class="h-full flex flex-col items-center justify-center p-10 bg-white rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 min-h-[400px]">
+                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                    <i data-lucide="book-open" class="w-10 h-10"></i>
+                </div>
+                <p class="text-lg font-medium">명단에서 독립운동가를 선택하세요.</p>
+                <p class="text-sm mt-2 text-slate-400 text-center">인물의 생애를 탐구하고 초상화를 멋지게 기록해봅시다.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="max-w-4xl mx-auto p-8 text-center text-slate-400 text-sm">
+        <p>© 2024 기억하며 기록하다 - 역사 탐구 활동 지원 도구</p>
+    </footer>
+
+    <script>
+        const activists = [
+            { name: "강우규", birth: "1855-1920", keywords: "사이토 총독 폭탄 투척", wiki: "강우규", summary: "대한노인단 소속으로 일제 총독에게 폭탄을 투척하며 노익장을 과시한 독립운동가입니다." },
+            { name: "권오설", birth: "1897-1930", keywords: "6·10 만세운동 주도", wiki: "권오설", summary: "사회주의 계열 독립운동가로 6·10 만세운동을 기획하고 추진하다 옥중에서 순국하셨습니다." },
+            { name: "김구", birth: "1876-1949", keywords: "대한민국 임시정부 주석", wiki: "김구", summary: "임시정부를 이끌며 한인애국단을 조직하고 민족 통합을 위해 헌신한 '백범'입니다." },
+            { name: "남자현", birth: "1872-1933", keywords: "독립군의 어머니", wiki: "남자현", summary: "여성 독립운동가로서 무장 투쟁을 지원하고 일제 장교 암살을 시도한 강인한 인물입니다." },
+            { name: "박차정", birth: "1910-1944", keywords: "의열단, 광복군", wiki: "박차정", summary: "의열단장 김원봉의 부인으로, 직접 무장 투쟁에 참여한 여성 혁명가입니다." },
+            { name: "서재필", birth: "1864-1951", keywords: "독립신문 창간", wiki: "서재필", summary: "갑신정변에 참여하고 이후 독립협회를 조직하여 근대적인 민족 의식을 고취했습니다." },
+            { name: "손병희", birth: "1861-1922", keywords: "천도교 대표, 3·1 운동", wiki: "손병희", summary: "천도교의 지도자로서 3·1 운동 당시 민족대표 33인의 중심적인 역할을 했습니다." },
+            { name: "신채호", birth: "1880-1936", keywords: "민족사학자, 의열단 선언", wiki: "신채호", summary: "역사 연구를 통해 독립 의지를 고취하고 '조선혁명선언'을 집필한 사상가입니다." },
+            { name: "안중근", birth: "1879-1910", keywords: "이토 히로부미 저격", wiki: "안중근", summary: "하얼빈역에서 침략의 원흉을 처단하고 동양평화론을 설파한 민족의 영웅입니다." },
+            { name: "안창호", birth: "1878-1938", keywords: "신민회, 흥사단", wiki: "안창호", summary: "실력 양성과 인격 수양을 강조하며 독립운동의 기초를 닦은 '도산'입니다." },
+            { name: "오동진", birth: "1889-1944", keywords: "광복군 총영", wiki: "오동진", summary: "만주 지역 무장 독립 투쟁의 선구자로 광복군 총영을 이끌며 일제에 맞섰습니다." },
+            { name: "유관순", birth: "1902-1920", keywords: "아우내 장터 만세운동", wiki: "유관순", summary: "3·1 운동의 상징으로, 어린 나이에도 굴하지 않고 옥중에서도 만세를 외쳤습니다." },
+            { name: "윤희순", birth: "1860-1935", keywords: "최초의 여성 의병장", wiki: "윤희순", summary: "의병 가사를 지어 보급하고 직접 의병 부대를 조직한 여성 독립운동가입니다." },
+            { name: "이승훈", birth: "1864-1930", keywords: "오산학교 설립, 민족대표", wiki: "이승훈", summary: "민족 교육에 힘쓰고 3·1 운동 민족대표 33인 중 개신교 대표로 참여했습니다." },
+            { name: "이원록", birth: "1904-1944", keywords: "시인 이육사, 항일 투쟁", wiki: "이원록", summary: "시인이자 독립운동가(이육사)로, 시 '청포도', '광야'를 통해 독립의지를 노래했습니다." },
+            { name: "이화림", birth: "1905-1999", keywords: "한인애국단 비서", wiki: "이화림", summary: "김구의 비서로 활동하며 이봉창, 윤봉길 의사의 거사를 도운 숨은 공로자입니다." },
+            { name: "정정화", birth: "1900-1991", keywords: "임시정부의 안살림꾼", wiki: "정정화", summary: "임시정부 요인들을 뒷바라지하며 27년간 임정의 안살림을 책임진 여성 운동가입니다." },
+            { name: "한용운", birth: "1879-1944", keywords: "님의 침묵, 민족대표", wiki: "한용운", summary: "승려이자 시인으로, 끝까지 절개를 지키며 '님의 침묵'을 통해 독립의 희망을 표현했습니다." },
+            { name: "홍범도", birth: "1868-1943", keywords: "봉오동 전투 승리", wiki: "홍범도", summary: "독립군 부대를 이끌어 봉오동 전투에서 일제 대군을 상대로 대승을 거둔 영웅입니다." }
+        ];
+
+        let currentSelection = null;
+        let searchTerm = "";
+
+        const activistList = document.getElementById('activistList');
+        const detailSection = document.getElementById('detailSection');
+        const searchInput = document.getElementById('searchInput');
+
+        function renderList() {
+            const sorted = [...activists]
+                .sort((a, b) => a.name.localeCompare(b.name, 'ko'))
+                .filter(p => p.name.includes(searchTerm) || p.keywords.includes(searchTerm));
+
+            activistList.innerHTML = sorted.map(person => `
+                <button
+                    onclick="selectActivist('${person.name}')"
+                    class="w-full text-left p-4 rounded-xl transition-all border flex items-center justify-between group ${
+                        currentSelection?.name === person.name
+                            ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                            : 'bg-white border-slate-200 hover:border-blue-300 hover:bg-blue-50'
+                    }"
+                >
+                    <div>
+                        <span class="font-bold text-lg">${person.name}</span>
+                        <p class="text-xs mt-1 ${currentSelection?.name === person.name ? 'text-blue-100' : 'text-slate-500'}">
+                            ${person.keywords}
+                        </p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-1 ${currentSelection?.name === person.name ? 'text-white' : 'text-slate-300'}"></i>
+                </button>
+            `).join('');
+
+            if (sorted.length === 0) {
+                activistList.innerHTML = '<div class="text-center py-10 text-slate-400 italic">검색 결과가 없습니다.</div>';
+            }
+            lucide.createIcons();
+        }
+
+        function selectActivist(name) {
+            currentSelection = activists.find(p => p.name === name);
+            renderList();
+            renderDetail();
+        }
+
+        function renderDetail() {
+            if (!currentSelection) return;
+
+            detailSection.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-in">
+                    <div class="bg-slate-100 p-8 flex flex-col items-center text-center">
+                        <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-slate-300">
+                            <i data-lucide="user" class="w-12 h-12"></i>
+                        </div>
+                        <h2 class="text-3xl font-black text-slate-800">${currentSelection.name}</h2>
+                        <p class="text-blue-600 font-medium mt-1">${currentSelection.birth}</p>
+                        <div class="mt-4 flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-white text-slate-600 text-xs rounded-full border border-slate-200">#${currentSelection.keywords}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 space-y-6">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <i data-lucide="info" class="w-4 h-4"></i> 주요 업적
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed text-lg font-medium">
+                                ${currentSelection.summary}
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-100">
+                            <h3 class="text-sm font-bold text-amber-700 mb-2 flex items-center gap-2">
+                                <i data-lucide="paintbrush" class="w-4 h-4"></i> 초상화 기록 팁
+                            </h3>
+                            <ul class="text-sm text-amber-800 space-y-1 list-disc list-inside">
+                                <li>인물의 성함과 생몰 연도를 정확히 기재하세요.</li>
+                                <li>가장 핵심적인 업적 1가지를 상단에 강조해보세요.</li>
+                                <li>위키백과를 참고하여 인물의 유명한 어록이나 시를 배경으로 적어보세요.</li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                            <a
+                                href="https://ko.wikipedia.org/wiki/${currentSelection.wiki}"
+                                target="_blank"
+                                class="flex-1 bg-slate-900 text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors"
+                            >
+                                위키백과에서 탐구하기 <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+                    <h3 class="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                        <i data-lucide="paintbrush" class="w-5 h-5 text-blue-600"></i>
+                        오늘의 미션: 초상화 기록하기
+                    </h3>
+                    <p class="text-sm text-blue-800 leading-relaxed mb-4">
+                        탐구한 정보를 바탕으로 활동지에 독립운동가의 얼굴과 그분의 삶을 가장 잘 나타내는 내용을 채워주세요.
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 opacity-50">
+                        <div class="aspect-[3/4] bg-white rounded-lg border border-blue-200 flex items-center justify-center text-[10px] text-blue-300">Portrait</div>
+                        <div class="aspect-[3/4] bg-white rounded-lg border border-blue-200 flex items-center justify-center text-[10px] text-blue-300">Info Card</div>
+                        <div class="aspect-[3/4] bg-white rounded-lg border border-blue-200 flex items-center justify-center text-[10px] text-blue-300">Quote</div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderList();
+        });
+
+        // Initial Render
+        window.onload = () => {
+            renderList();
+            lucide.createIcons();
+        };
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

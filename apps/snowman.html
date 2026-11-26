@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frozen OST - 빈칸 퀴즈 & 마법 단어 공개</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: radial-gradient(circle at top, #1e3a8a 0%, #0f172a 60%, #020617 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .font-frozen {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Snowflake Animation */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #e0f2fe;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+            text-shadow: 0 0 8px rgba(186, 230, 253, 0.8);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Ice Crystal Reveal Animation */
+        .blank-box {
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .blank-box:hover {
+            transform: scale(1.03);
+        }
+
+        .blank-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-style: preserve-3d;
+        }
+
+        .blank-box.revealed .blank-inner {
+            transform: rotateX(180deg);
+        }
+
+        .blank-front, .blank-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+        }
+
+        .blank-front {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.1));
+            border: 2px dashed rgba(125, 211, 252, 0.5);
+            box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.15);
+        }
+
+        .blank-back {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+            color: #0c4a6e;
+            transform: rotateX(180deg);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.7), inset 0 0 10px #ffffff;
+        }
+
+        /* Sparkle Burst Effect */
+        @keyframes magicBurst {
+            0% {
+                box-shadow: 0 0 0 0 rgba(186, 230, 253, 0.9);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(186, 230, 253, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(186, 230, 253, 0);
+            }
+        }
+
+        .burst-active {
+            animation: magicBurst 0.8s ease-out;
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(186, 230, 253, 0.25);
+        }
+    </style>
+</head>
+<body class="relative antialiased selection:bg-sky-400 selection:text-slate-900">
+
+    <!-- Snowflakes Container -->
+    <div id="snow-container"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-8 sm:py-12">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-10">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-200 text-xs sm:text-sm font-semibold tracking-wider mb-3">
+                ❄️ 똑지나쌤과 함께하는 영어팝송부 • 학습지 인터랙티브 정답 공개 ❄️
+            </div>
+            <h1 class="font-frozen text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-sky-200 to-cyan-300 drop-shadow-[0_2px_15px_rgba(56,189,248,0.5)] mb-3">
+                Do You Want to Build a Snowman?
+            </h1>
+            <p class="text-sky-100/80 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                디즈니 애니메이션 <strong>겨울왕국(Frozen)</strong>의 대표 OST 학습지 빈칸 정답을 마법처럼 하나씩 열어보세요!
+            </p>
+        </header>
+
+        <!-- Song Summary & Lyric Reference Banner -->
+        <section class="glass-panel rounded-2xl p-5 sm:p-6 mb-8 shadow-xl">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-bold text-sky-300 flex items-center gap-2 mb-1">
+                        <span>📖</span> 곡 소개 & 학습 안내
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        어린 안나가 닫힌 문 너머의 언니 엘사에게 함께 놀자고 애타게 부르는 노래로, 세월이 흐르며 장난스러움에서 외로움과 간절함으로 변해가는 자매의 감정을 담고 있습니다.
+                        <span class="block mt-1 text-sky-200/80 italic">"Do you wanna build a snowman? / Come on, let's go and play." — Kristen Bell (Anna)</span>
+                    </p>
+                </div>
+                <a href="https://www.google.com/search?q=Do+You+Want+to+Build+a+Snowman+lyrics" target="_blank" rel="noopener noreferrer"
+                   class="shrink-0 px-4 py-2.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-200 text-sm font-medium transition flex items-center gap-2">
+                    <span>🔍</span> 전체 가사 검색하기
+                </a>
+            </div>
+        </section>
+
+        <!-- Control Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-medium text-sky-200">공개 진행률:</span>
+                <div class="w-36 sm:w-48 h-3 bg-slate-800 rounded-full overflow-hidden border border-sky-500/30">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-sky-400 to-cyan-300 transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <span id="progress-text" class="text-sm font-bold text-cyan-300">0 / 26</span>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+                <button onclick="revealNext()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-sm shadow-lg shadow-sky-500/30 transition transform active:scale-95 flex items-center gap-1.5">
+                    <span>✨</span> 다음 빈칸 공개
+                </button>
+                <button onclick="revealAll()" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-200 font-bold text-sm transition transform active:scale-95 flex items-center gap-1.5">
+                    <span>❄️</span> 전체 정답 공개
+                </button>
+                <button onclick="resetAll()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-600 text-slate-300 font-medium text-sm transition transform active:scale-95">
+                    🔄 초기화
+                </button>
+            </div>
+        </div>
+
+        <!-- Interactive Blanks Grid by Section -->
+        <div id="sections-container" class="space-y-8 mb-12">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Master Vocabulary Summary Table -->
+        <section class="glass-panel rounded-2xl p-6 sm:p-8 shadow-2xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 border-b border-sky-400/20 pb-4">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+                        <span>📚</span> 핵심 정답 단어 & 뜻 총정리
+                    </h2>
+                    <p class="text-sky-200/70 text-xs sm:text-sm mt-1">학습지 빈칸에 들어가는 모든 단어를 한눈에 복습해보세요.</p>
+                </div>
+                <button onclick="toggleSummaryMask()" id="mask-btn" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-sky-500/20 border border-sky-400/40 text-sky-200 text-xs font-semibold hover:bg-sky-500/30 transition">
+                    🙈 뜻 가리기 (암기 테스트)
+                </button>
+            </div>
+
+            <div id="vocab-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-full bg-sky-950/90 border border-sky-400/50 text-sky-100 text-sm font-medium shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 flex items-center gap-2">
+        <span>❄️</span>
+        <span id="toast-msg">메시지</span>
+    </div>
+
+    <script>
+        // Worksheet Blank Data organized by PDF sections (1), (2), (3), (4)
+        const worksheetSections = [
+            {
+                id: "part1",
+                title: "Part (1) — 어린 시절 안나의 노크",
+                subtitle: "학습지 1페이지 왼쪽 • 총 10개 빈칸",
+                items: [
+                    { num: 1, context: "Do you wanna build a [ ___ ]?", word: "snowman", meaning: "눈사람" },
+                    { num: 2, context: "Come on, let's go and [ ___ ]", word: "play", meaning: "놀다" },
+                    { num: 3, context: "I never see you [ ___ ]", word: "anymore", meaning: "더 이상 (~않다)" },
+                    { num: 4, context: "Come out the [ ___ ]", word: "door", meaning: "문" },
+                    { num: 5, context: "It's like you've gone [ ___ ]", word: "away", meaning: "멀리, 떠나서" },
+                    { num: 6, context: "We used to be best [ ___ ]", word: "buddies", meaning: "단짝 친구들" },
+                    { num: 7, context: "And now we're [ ___ ]", word: "not", meaning: "~가 아니다" },
+                    { num: 8, context: "I wish you would tell me [ ___ ]", word: "why", meaning: "왜, 이유" },
+                    { num: 9, context: "It doesn't have to be a [ ___ ]", word: "snowman", meaning: "눈사람" },
+                    { num: 10, context: "Okay, [ ___ ]", word: "bye", meaning: "안녕 (작별 인사)" }
+                ]
+            },
+            {
+                id: "part2",
+                title: "Part (2) — 깊어지는 외로움과 엘사의 두려움",
+                subtitle: "학습지 1페이지 오른쪽 • 총 7개 빈칸",
+                items: [
+                    { num: 11, context: "It gets a little [ ___ ]", word: "lonely", meaning: "외로운" },
+                    { num: 12, context: "All these empty [ ___ ]", word: "rooms", meaning: "방들" },
+                    { num: 13, context: "Elsa: I'm [ ___ ]", word: "scared", meaning: "무서운, 두려운" },
+                    { num: 14, context: "It's getting [ ___ ]", word: "stronger", meaning: "더 강해지는" },
+                    { num: 15, context: "Getting upset only makes it [ ___ ]", word: "worse", meaning: "더 악화된, 더 나쁜" },
+                    { num: 16, context: "No, don't [ ___ ] me", word: "touch", meaning: "만지다, 건드리다" },
+                    { num: 17, context: "Please, I don't want to [ ___ ] you", word: "hurt", meaning: "다치게 하다" }
+                ]
+            },
+            {
+                id: "part3",
+                title: "Part (3) — 부모님과의 마지막 작별 인사",
+                subtitle: "학습지 2페이지 왼쪽 • 총 4개 빈칸",
+                items: [
+                    { num: 18, context: "See you in two [ ___ ]", word: "weeks", meaning: "주 (2주 뒤에 보자)" },
+                    { num: 19, context: "Do you have to [ ___ ]?", word: "go", meaning: "가다" },
+                    { num: 20, context: "You'll be [ ___ ], Elsa", word: "fine", meaning: "괜찮은, 잘 지내는" },
+                    { num: 21, context: "Please, I know you're in [ ___ ]", word: "there", meaning: "거기 (방 안)" }
+                ]
+            },
+            {
+                id: "part4",
+                title: "Part (4) — 문 앞에서의 간절한 외침",
+                subtitle: "학습지 2페이지 오른쪽 • 총 5개 빈칸",
+                items: [
+                    { num: 22, context: "People are asking where you've [ ___ ]", word: "been", meaning: "있었는지 (지내왔는지)" },
+                    { num: 23, context: "They say 'have [ ___ ]', and I'm trying to", word: "courage", meaning: "용기" },
+                    { num: 24, context: "I'm right out here for [ ___ ], just let me in", word: "you", meaning: "너 (당신)" },
+                    { num: 25, context: "We only have each [ ___ ], it's just you and me", word: "other", meaning: "서로 (each other)" },
+                    { num: 26, context: "What are we gonna [ ___ ]?", word: "do", meaning: "하다" }
+                ]
+            }
+        ];
+
+        let revealedSet = new Set();
+        let isMeaningMasked = false;
+        const totalItems = worksheetSections.reduce((acc, sec) => acc + sec.items.length, 0);
+
+        // Initialize Snowflakes
+        function createSnowflakes() {
+            const container = document.getElementById('snow-container');
+            const flakes = ['❄', '❅', '❆', '•'];
+            for (let i = 0; i < 32; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.fontSize = (Math.random() * 14 + 10) + 'px';
+                flake.style.animationDuration = (Math.random() * 8 + 7) + 's';
+                flake.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(flake);
+            }
+        }
+
+        // Render Sections & Cards
+        function renderSections() {
+            const container = document.getElementById('sections-container');
+            container.innerHTML = '';
+
+            worksheetSections.forEach(section => {
+                const sectionEl = document.createElement('div');
+                sectionEl.className = 'glass-panel rounded-2xl p-5 sm:p-6 shadow-xl';
+
+                const headerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5 pb-3 border-b border-sky-400/20">
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-bold text-sky-200">${section.title}</h3>
+                            <p class="text-xs text-slate-400">${section.subtitle}</p>
+                        </div>
+                        <button onclick="revealSection('${section.id}')" class="self-start sm:self-auto px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-200 text-xs font-semibold transition">
+                            ✨ 이 파트 모두 열기
+                        </button>
+                    </div>
+                `;
+
+                const gridEl = document.createElement('div');
+                gridEl.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4';
+
+                section.items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.id = `card-${item.num}`;
+                    card.className = 'blank-box h-28 select-none';
+                    card.onclick = () => toggleCard(item.num);
+
+                    card.innerHTML = `
+                        <div class="blank-inner">
+                            <!-- Front (Hidden Blank) -->
+                            <div class="blank-front">
+                                <div class="flex items-center justify-between w-full mb-1">
+                                    <span class="px-2 py-0.5 rounded-md bg-sky-500/30 text-sky-200 text-xs font-bold">#${item.num}</span>
+                                    <span class="text-xs text-sky-300/80 animate-pulse">클릭하여 공개 ❄️</span>
+                                </div>
+                                <p class="text-sm sm:text-base font-medium text-slate-100 text-center leading-snug">
+                                    ${item.context}
+                                </p>
+                            </div>
+                            <!-- Back (Revealed Answer) -->
+                            <div class="blank-back">
+                                <div class="flex items-center justify-between w-full mb-0.5">
+                                    <span class="px-2 py-0.5 rounded-md bg-sky-900/15 text-sky-900 text-xs font-extrabold">#${item.num} 정답</span>
+                                    <span class="text-xs font-bold text-sky-800">✨</span>
+                                </div>
+                                <div class="text-xl sm:text-2xl font-black tracking-wide text-sky-950">
+                                    ${item.word}
+                                </div>
+                                <div class="text-xs sm:text-sm font-semibold text-sky-800 mt-0.5">
+                                    ${item.meaning}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    gridEl.appendChild(card);
+                });
+
+                sectionEl.innerHTML = headerHTML;
+                sectionEl.appendChild(gridEl);
+                container.appendChild(sectionEl);
+            });
+        }
+
+        // Render Master Summary List
+        function renderSummary() {
+            const grid = document.getElementById('vocab-summary-grid');
+            grid.innerHTML = '';
+
+            worksheetSections.forEach(section => {
+                section.items.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-900/60 border border-sky-400/20 hover:border-sky-400/50 transition';
+                    row.innerHTML = `
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-xs font-bold text-sky-400 w-6">#${item.num}</span>
+                            <span class="font-bold text-white text-base">${item.word}</span>
+                        </div>
+                        <span class="meaning-text text-sm text-sky-200 font-medium transition-all duration-300 ${isMeaningMasked ? 'blur-sm select-none opacity-40' : ''}">
+                            ${item.meaning}
+                        </span>
+                    `;
+                    grid.appendChild(row);
+                });
+            });
+        }
+
+        // Toggle Individual Card
+        function toggleCard(num) {
+            const card = document.getElementById(`card-${num}`);
+            if (!card) return;
+
+            if (revealedSet.has(num)) {
+                revealedSet.delete(num);
+                card.classList.remove('revealed');
+            } else {
+                revealedSet.add(num);
+                card.classList.add('revealed', 'burst-active');
+                setTimeout(() => card.classList.remove('burst-active'), 800);
+            }
+            updateProgress();
+        }
+
+        // Reveal Next Unrevealed Card in Order
+        function revealNext() {
+            for (let i = 1; i <= totalItems; i++) {
+                if (!revealedSet.has(i)) {
+                    toggleCard(i);
+                    const card = document.getElementById(`card-${i}`);
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+            }
+            showToast('모든 빈칸 정답이 이미 공개되었습니다! ❄️');
+        }
+
+        // Reveal All Cards in a Specific Section
+        function revealSection(sectionId) {
+            const section = worksheetSections.find(s => s.id === sectionId);
+            if (!section) return;
+
+            section.items.forEach((item, idx) => {
+                if (!revealedSet.has(item.num)) {
+                    setTimeout(() => {
+                        revealedSet.add(item.num);
+                        const card = document.getElementById(`card-${item.num}`);
+                        if (card) {
+                            card.classList.add('revealed', 'burst-active');
+                            setTimeout(() => card.classList.remove('burst-active'), 800);
+                        }
+                        updateProgress();
+                    }, idx * 90);
+                }
+            });
+        }
+
+        // Reveal All Cards Staggered
+        function revealAll() {
+            let delay = 0;
+            for (let i = 1; i <= totalItems; i++) {
+                if (!revealedSet.has(i)) {
+                    setTimeout(() => {
+                        revealedSet.add(i);
+                        const card = document.getElementById(`card-${i}`);
+                        if (card) {
+                            card.classList.add('revealed', 'burst-active');
+                            setTimeout(() => card.classList.remove('burst-active'), 800);
+                        }
+                        updateProgress();
+                    }, delay);
+                    delay += 55;
+                }
+            }
+            showToast('마법처럼 모든 정답이 공개됩니다! ✨');
+        }
+
+        // Reset All Cards
+        function resetAll() {
+            revealedSet.clear();
+            for (let i = 1; i <= totalItems; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (card) card.classList.remove('revealed');
+            }
+            updateProgress();
+            showToast('모든 빈칸이 다시 숨겨졌습니다.');
+        }
+
+        // Toggle Meaning Blur in Summary
+        function toggleSummaryMask() {
+            isMeaningMasked = !isMeaningMasked;
+            const btn = document.getElementById('mask-btn');
+            btn.textContent = isMeaningMasked ? '👁️ 뜻 다시 보기' : '🙈 뜻 가리기 (암기 테스트)';
+            renderSummary();
+        }
+
+        // Update Progress Bar
+        function updateProgress() {
+            const count = revealedSet.size;
+            const pct = Math.round((count / totalItems) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+            document.getElementById('progress-text').textContent = `${count} / ${totalItems}`;
+        }
+
+        // Show Toast Message
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('opacity-0');
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2500);
+        }
+
+        // Init on Load
+        window.onload = function() {
+            createSnowflakes();
+            renderSections();
+            renderSummary();
+        };
+    </script>
+
+<!-- 오늘의 교실: 홈 버튼 -->
+<a href="../index.html" id="oc-home" title="오늘의 교실 홈으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#fff;color:#3b2f2a;border:1px solid #e6dccf;border-radius:999px;padding:8px 14px;font:600 13px/1 system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.12)">🏠 오늘의 교실</a>
+<style>@media print{#oc-home{display:none!important}}</style>
+</body>
+</html>

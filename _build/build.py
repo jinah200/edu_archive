@@ -1,7 +1,7 @@
 import json, re, os, shutil, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from catalog import C, INTROS, LINKS
-SRC="/mnt/user-data/uploads/오늘의교실_백업/"
+from catalog import C, INTROS, LINKS, ICONS
+SRC=os.environ.get("SRC","/mnt/user-data/uploads/오늘의교실_백업/")
 OUT="/mnt/project-files/edu-archive/"
 os.makedirs(OUT+"apps",exist_ok=True)
 HOME_BTN = '''
@@ -10,7 +10,7 @@ HOME_BTN = '''
 <style>@media print{#oc-home{display:none!important}}</style>
 '''
 def fix(html, slug):
-    html = html.replace("unpkg.com/lucide@latest","unpkg.com/lucide@0.460.0")
+    html = html.replace("unpkg.com/lucide@latest","unpkg.com/lucide@0.460.0").replace("\ufffd","")
     if slug=="o2-logo-songs":
         names=[]
         for n in re.findall(r'data-original-artist="([^"]+)"',html):
@@ -25,14 +25,17 @@ items=[]
 for src,slug,subj,sub,title,desc,note in C:
     h=open(SRC+src,encoding="utf-8").read()
     open(OUT+f"apps/{slug}.html","w",encoding="utf-8").write(fix(h,slug))
-    items.append(dict(slug=slug,subject=subj,sub=sub,title=title,desc=desc,note=note,url=f"apps/{slug}.html"))
+    items.append(dict(slug=slug,subject=subj,sub=sub,title=title,desc=desc,note=note,icon=ICONS.get(slug,'📘'),url=f"apps/{slug}.html"))
 intros={}
 for src,slug,subj in INTROS:
     h=open(SRC+src,encoding="utf-8").read()
     open(OUT+f"apps/{slug}.html","w",encoding="utf-8").write(fix(h,slug))
     intros[subj]=f"apps/{slug}.html"
-links=[dict(title=t,url=u,subject=s,desc=d,external=True) for t,u,s,d in LINKS]
-tpl=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"index.tpl.html"),encoding="utf-8").read()
+links=[dict(title=t,url=u,subject=s,desc=d,external=True,icon=ICONS.get(t,'🔗')) for t,u,s,d in LINKS]
+D=os.path.dirname(os.path.abspath(__file__))
+body=open(os.path.join(D,"index.body.html"),encoding="utf-8").read()
 data=json.dumps(dict(items=items,intros=intros,links=links),ensure_ascii=False)
-open(OUT+"index.html","w",encoding="utf-8").write(tpl.replace("/*DATA*/null",data))
+body=body.replace("/*DATA*/null",data)
+open(OUT+"index.html","w",encoding="utf-8").write('<!doctype html>\n<html lang="ko">\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+body+'\n</html>\n')
+open(os.path.join(D,"preview.html"),"w",encoding="utf-8").write(body)
 print(len(items),len(intros),len(links))

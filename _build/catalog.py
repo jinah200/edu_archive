@@ -55,3 +55,17 @@ LINKS = [
 ("영상 감상 후기 남기기","https://script.google.com/macros/s/AKfycbzVpkbHAHfl1R-Odlox8WU1hiJsfmSVmwmj5HOfxyWRsr8EUy2mAGMx18B8T0UjRWzsDQ/exec","국어·글쓰기","구글 Apps Script 웹앱"),
 ("감정 기록기","https://script.google.com/macros/s/AKfycbwTqKcwQVBOdggMqXejL1V5PqoSBwc3vZ8E36Oj5OJebdfyzcIW1BWkbrfDcVAnG4F-/exec","생활·인성","구글 Apps Script 웹앱"),
 ]
+
+ICONS = {
+"korea-land-trip":"🗺️","dokdo":"🏝️","local-rights-map":"📍","three-kingdoms-relics":"🏺","bulguksa":"🛕",
+"goryeo-culture":"📜","gyeongbokgung":"🏯","imjin-war-people":"⚓","joseon-dolsoe":"🧹","history-songs":"🎶",
+"march-first":"🇰🇷","women-activists":"🕵️‍♀️","independence-activists":"🖼️","rights-heroes":"✊","rights-violations":"🐾",
+"human-rights-research":"🔎","basic-rights-memorize":"🦁","basic-rights-research":"📋","constitution-discussion":"💬","law-triangle-book":"⚖️",
+"gallery-walk":"🖼️","growth-ladder":"🪜","cycle-meeting-rule":"🔁","ai-debate":"🤖","history-person":"🧑‍🏫",
+"my-month":"📔","phone-argument":"📱","grade-respect-discussion":"🤝","smartphone-discussion":"📵","travel-writing":"🧳",
+"hanja-today":"🀄","hanja-words":"✍️","eco-week":"🌍","school-violence-prevention":"🌳","speed-research":"🐆",
+"speed-safety":"🚗","natural-resources":"🌱","snowman":"⛄","art-appreciation":"🎨","pixel-blocks":"🧩",
+"class-logo-song":"🎤","o2-logo-songs":"🏆","minor-songs":"🎹","soccer-rules":"⚽","daily-humor":"😆",
+"career-pictogram":"🚸","friendship-bibimbap":"🍲",
+"마음 쉼터":"🌼","조선 인물 인터뷰":"🎎","영상 감상 후기 남기기":"🎬","감정 기록기":"🌈",
+}

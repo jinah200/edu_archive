@@ -1,78 +1,180 @@
 <!doctype html>
 <html lang="ko">
-<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>오늘의 교실 (by.똑지나쌤)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="똑지나쌤이 직접 만든 초등 수업용 웹앱 모음">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
 <style>
+/* Layout: 칠판(오늘의 교실) 아래로 공책 모눈 위에 과목별 스티커 카드가 붙어 있는 교실 게시판 */
 :root{
-  --bg:#fbf7f1; --surface:#ffffff; --ink:#2f2723; --muted:#7a6c62; --line:#ebe2d6;
-  --accent:#e2683c; --accent-soft:#fde9df;
-  --c-social:#d98a1f; --c-korean:#e2683c; --c-math:#3d7bd9; --c-science:#2f9e6e;
-  --c-arts:#9a5fd0; --c-career:#d4537e; --c-life:#4a9bb0; --c-tool:#6f7f8f;
+  --paper:#fffaf0; --grid:#e3ecf7; --ink:#3a3029; --muted:#7d6f63; --card:#ffffff; --line:#efe4d4;
+  --board:#2f5d4e; --board-ink:#f7f3e8; --chalk-y:#ffe58a; --chalk-p:#ffb3c7; --chalk-b:#a9dcff; --frame:#b98552;
+  --focus:#ff8a5b;
+  --display:"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  /* 과목 색: 진한 색(글자) / 연한 색(배경) */
+  --s1:#d9822b; --s1l:#ffefd9;  /* 사회 */
+  --s2:#e0587a; --s2l:#ffe4ec;  /* 국어 */
+  --s3:#3f7fd6; --s3l:#e1eeff;  /* 수학 */
+  --s4:#2e9a6a; --s4l:#dcf5e8;  /* 과학 */
+  --s5:#8d5ad6; --s5l:#efe5ff;  /* 예체능 */
+  --s6:#d0752f; --s6l:#fff0c9;  /* 창체 */
+  --s7:#2b9bb0; --s7l:#d9f3f7;  /* 생활 */
+  --s8:#6d7a88; --s8l:#e9edf1;  /* 도구 */
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#1d1916; --surface:#27221e; --ink:#f3ece4; --muted:#b3a597; --line:#3a332d;
-    --accent:#f08a5d; --accent-soft:#3b2a22;
+    --paper:#1f2228; --grid:#2a2f38; --ink:#f3ece2; --muted:#b5a99c; --card:#2a2c33; --line:#3a3c44;
+    --board:#24463b; --board-ink:#f2eee2; --frame:#7d5a38; --focus:#ffa37f;
+    --s1:#f2a557; --s1l:#3d2f22; --s2:#f58aa5; --s2l:#3e2730; --s3:#7fb0f5; --s3l:#22304a;
+    --s4:#6fd1a2; --s4l:#1f3a2e; --s5:#bb95f2; --s5l:#33284a; --s6:#f2b067; --s6l:#3d3220;
+    --s7:#6fcfe0; --s7l:#1e3a40; --s8:#a9b5c2; --s8l:#2f343b;
+    color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#1d1916; --surface:#27221e; --ink:#f3ece4; --muted:#b3a597; --line:#3a332d;
-  --accent:#f08a5d; --accent-soft:#3b2a22;
+  --paper:#1f2228; --grid:#2a2f38; --ink:#f3ece2; --muted:#b5a99c; --card:#2a2c33; --line:#3a3c44;
+  --board:#24463b; --board-ink:#f2eee2; --frame:#7d5a38; --focus:#ffa37f;
+  --s1:#f2a557; --s1l:#3d2f22; --s2:#f58aa5; --s2l:#3e2730; --s3:#7fb0f5; --s3l:#22304a;
+  --s4:#6fd1a2; --s4l:#1f3a2e; --s5:#bb95f2; --s5l:#33284a; --s6:#f2b067; --s6l:#3d3220;
+  --s7:#6fcfe0; --s7l:#1e3a40; --s8:#a9b5c2; --s8l:#2f343b;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
 a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
-header.hero{padding-top:48px;padding-bottom:28px}
-.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.brand h1{margin:0;font-size:clamp(30px,6vw,46px);letter-spacing:-.02em;font-weight:800}
-.brand .by{font-size:16px;color:var(--muted);font-weight:600}
-.lead{margin:10px 0 0;color:var(--muted);font-size:17px;max-width:620px}
-.stats{display:flex;gap:18px;margin-top:18px;color:var(--muted);font-size:14px;flex-wrap:wrap}
-.stats b{color:var(--ink);font-size:18px}
-.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line)}
-.search{width:100%;font:inherit;font-size:16px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);outline:none}
-.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.chips{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:12px}
+
+/* 칠판 */
+.hero{padding-block:28px 8px}
+.board{
+  position:relative;background:var(--board);color:var(--board-ink);
+  border:12px solid var(--frame);border-radius:22px;padding:28px clamp(18px,4vw,44px) 40px;
+  box-shadow:inset 0 0 60px rgba(0,0,0,.25),0 8px 0 rgba(0,0,0,.08);
+  overflow:hidden;
+}
+.board::after{ /* 분필 받침대 */
+  content:"";position:absolute;left:8%;right:8%;bottom:0;height:10px;background:var(--frame);border-radius:6px 6px 0 0;
+}
+.chalk{position:absolute;bottom:10px;height:8px;width:34px;border-radius:4px;z-index:1}
+.chalk.y{right:16%;background:var(--chalk-y)} .chalk.p{right:calc(16% + 44px);background:var(--chalk-p);width:24px} .chalk.w{left:14%;background:#fff;width:28px}
+.board-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:end}
+.mascot{display:block;width:clamp(200px,24vw,270px);height:auto;margin-bottom:-14px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));transform:rotate(2deg);transition:transform .3s ease;position:relative;z-index:2}
+.mascot:hover{transform:rotate(-2deg) translateY(-4px)}
+.board-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px;opacity:.9}
+.board h1{
+  margin:14px 0 4px;font-family:var(--display);font-weight:400;letter-spacing:-.01em;
+  font-size:clamp(40px,8vw,72px);line-height:1.1;text-wrap:balance;
+  text-shadow:0 0 1px rgba(255,255,255,.4);
+}
+.board h1 .by{display:inline-block;font-size:.36em;color:var(--chalk-y);transform:rotate(-4deg);margin-left:.3em;vertical-align:middle}
+.board p{margin:0;max-width:34em;font-size:17px;opacity:.92}
+.board .stars{color:var(--chalk-y)}
+.stats{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.stats span{border:2px dashed rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:15px}
+.stats b{font-family:var(--display);font-weight:400;font-size:19px;color:var(--chalk-b);margin-right:2px}
+
+/* 검색 + 과목 시간표 */
+.controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding-block:12px;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(6px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.searchbox{position:relative}
+.searchbox span{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none}
+.search{
+  width:100%;font:inherit;font-size:17px;padding:13px 18px 13px 48px;border:3px solid var(--line);border-radius:18px;
+  background:var(--card);color:var(--ink);outline:none;
+}
+.search:focus{border-color:var(--focus)}
+.chips{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-section.subject{padding:28px 0 6px}
-.shead{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.shead h2{margin:0;font-size:22px;letter-spacing:-.01em}
-.dot{width:12px;height:12px;border-radius:4px;background:var(--c)}
-.shead .count{color:var(--muted);font-size:14px}
-.shead .intro{margin-left:auto;font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px dashed var(--muted)}
-.shead .intro:hover{color:var(--accent);border-color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{position:relative;display:flex;flex-direction:column;gap:6px;padding:16px 16px 14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;text-decoration:none;transition:transform .12s ease,box-shadow .12s ease,border-color .12s}
-.card::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--c)}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(60,40,20,.10);border-color:var(--c)}
-.card .tag{font-size:12px;font-weight:700;color:var(--c)}
-.card h3{margin:0;font-size:17px;line-height:1.35;letter-spacing:-.01em}
-.card p{margin:0;font-size:14px;color:var(--muted)}
-.card .note{margin-top:auto;padding-top:6px;font-size:12px;color:var(--muted)}
-.card .note span{background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:6px;font-weight:600}
-.card .ext{font-size:12px;color:var(--muted)}
-.empty{padding:40px 0;text-align:center;color:var(--muted)}
-footer{margin:40px 0 0;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
-.theme{float:right;font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 10px;cursor:pointer}
+.chip{
+  flex:none;font-family:var(--display);font-size:16px;padding:7px 15px 6px;border-radius:14px;cursor:pointer;
+  border:2px solid var(--c,var(--line));background:var(--card);color:var(--c,var(--ink));
+  transition:transform .12s ease;
+}
+.chip:hover{transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--c,var(--ink));color:var(--card);border-color:var(--c,var(--ink))}
+
+/* 과목 영역 */
+section.subject{padding-block:26px 6px}
+.shead{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.badge{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:14px;font-size:24px;
+  background:var(--cl);border:2px solid var(--c);transform:rotate(-6deg)
+}
+.shead h2{margin:0;font-family:var(--display);font-weight:400;font-size:28px;color:var(--c)}
+.shead .count{font-family:var(--display);font-size:15px;color:var(--muted);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:1px 10px}
+.shead .intro{margin-left:auto;font-size:15px;color:var(--c);text-decoration:none;border-bottom:2px dotted var(--c);padding-bottom:1px}
+.shead .intro:hover{opacity:.75}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:6px;min-width:0;
+  padding:22px 18px 16px;background:var(--card);border:2px solid var(--line);border-radius:22px;
+  text-decoration:none;box-shadow:0 4px 0 var(--line);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+}
+.card::before{ /* 마스킹테이프 */
+  content:"";position:absolute;top:-9px;left:50%;width:62px;height:18px;margin-left:-31px;
+  background:var(--cl);border:1px dashed var(--c);opacity:.9;transform:rotate(var(--tilt,-3deg));border-radius:3px;
+}
+.card:hover{transform:translateY(-4px) rotate(var(--hov,-.6deg));border-color:var(--c);box-shadow:0 8px 0 var(--cl)}
+.card .top{display:flex;align-items:center;gap:12px}
+.icon{
+  flex:none;display:grid;place-items:center;width:58px;height:58px;border-radius:50%;
+  font-size:30px;line-height:1;background:var(--cl);border:2px solid var(--c);
+}
+.card .tag{font-family:var(--display);font-size:14px;color:var(--c);background:var(--cl);border-radius:999px;padding:1px 10px;align-self:flex-start}
+.card h3{margin:2px 0 0;font-family:var(--display);font-weight:400;font-size:20px;line-height:1.3;text-wrap:balance}
+.card p{margin:0;font-size:15px;color:var(--muted)}
+.card .note{margin-top:auto;padding-top:8px;font-size:13px;color:var(--muted)}
+.card .note::before{content:"📝 "}
+.card .ext{margin-top:auto;padding-top:8px;font-size:13px;color:var(--c)}
+.empty{padding:48px 0;text-align:center;color:var(--muted);font-size:18px}
+.empty b{display:block;font-size:44px}
+
+footer{margin-top:44px;padding-block:22px 40px;border-top:3px dashed var(--line);color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.theme{font:inherit;font-size:14px;background:var(--card);border:2px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 14px;cursor:pointer}
+
+@media (max-width:520px){
+  .board{border-width:9px;padding-top:20px}
+  .icon{width:50px;height:50px;font-size:26px}
+}
+@media (max-width:720px){
+  .board-inner{grid-template-columns:1fr}
+  .mascot{width:190px;justify-self:center;margin:6px 0 -8px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} .card:hover,.chip:hover{transform:none} }
 </style>
-</head>
-<body>
+
 <header class="hero wrap">
-  <div class="brand"><h1>오늘의 교실</h1><span class="by">by.똑지나쌤</span></div>
-  <p class="lead">교실에서 바로 열어 쓰는 수업용 웹앱 모음이에요. 과목을 고르거나 찾고 싶은 활동을 검색해 보세요.</p>
-  <div class="stats" id="stats"></div>
+  <div class="board">
+    <div class="board-top"><span id="today">오늘</span><span class="stars">☆ 오늘도 즐겁게 ☆</span></div>
+    <div class="board-inner">
+      <div>
+        <h1>오늘의 교실<span class="by">by.똑지나쌤</span></h1>
+        <p>교실에서 바로 열어 쓰는 수업 놀이터예요. 과목을 고르거나, 하고 싶은 활동을 찾아보세요!</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <img class="mascot" src="images/ttokjina.webp" width="600" height="573" alt="똑지나쌤 캐릭터">
+    </div>
+    <i class="chalk w"></i><i class="chalk p"></i><i class="chalk y"></i>
+  </div>
 </header>
 
 <div class="controls">
   <div class="wrap">
-    <input class="search" id="q" type="search" placeholder="활동 이름이나 주제로 찾기 (예: 독립운동가, 토의, 속력)" aria-label="활동 검색">
+    <div class="searchbox"><span aria-hidden="true">🔍</span><input class="search" id="q" type="search" placeholder="무엇을 배워 볼까요? (예: 독도, 토의, 속력)" aria-label="활동 찾기"></div>
     <div class="chips" id="chips" role="group" aria-label="과목 고르기"></div>
   </div>
 </div>
@@ -80,42 +182,48 @@ footer{margin:40px 0 0;padding:24px 0 40px;border-top:1px solid var(--line);colo
 <main class="wrap" id="list"></main>
 
 <footer class="wrap">
-  <button class="theme" id="theme" type="button">화면 밝기 바꾸기</button>
-  © 똑지나쌤 · 오늘의 교실. 수업 자료는 교육용으로 자유롭게 활용해 주세요.
+  <span>✏️ 똑지나쌤의 오늘의 교실 · 수업 자료는 교육용으로 자유롭게 활용해 주세요.</span>
+  <button class="theme" id="theme" type="button">🌙 화면 밝기 바꾸기</button>
 </footer>
 
 <script>
-const DATA = {"items": [{"slug": "korea-land-trip", "subject": "사회", "sub": "지리", "title": "신나는 우리 국토 탐험대", "desc": "지형 스탬프를 모으며 국토 여행을 계획해요.", "note": "", "url": "apps/korea-land-trip.html"}, {"slug": "dokdo", "subject": "사회", "sub": "지리", "title": "독도 자기주도 학습 탐험대", "desc": "공신력 있는 자료로 독도를 스스로 탐구해요.", "note": "", "url": "apps/dokdo.html"}, {"slug": "local-rights-map", "subject": "사회", "sub": "인권·법", "title": "우리 지역 인권지도 만들기", "desc": "부산 연제구 백지도 위에 우리 동네 권리를 찾아 표시해요.", "note": "", "url": "apps/local-rights-map.html"}, {"slug": "three-kingdoms-relics", "subject": "사회", "sub": "역사", "title": "삼국시대 유물 학습관", "desc": "고구려·백제·신라 유물과 장소를 탐험해요.", "note": "", "url": "apps/three-kingdoms-relics.html"}, {"slug": "bulguksa", "subject": "사회", "sub": "역사", "title": "불국사와 석굴암 탐험", "desc": "신라 문화유산의 우수성을 알아봐요.", "note": "", "url": "apps/bulguksa.html"}, {"slug": "goryeo-culture", "subject": "사회", "sub": "역사", "title": "고려 과학기술·문화 탐구", "desc": "고려청자, 금속활자, 팔만대장경, 직지 조사 보고서.", "note": "", "url": "apps/goryeo-culture.html"}, {"slug": "gyeongbokgung", "subject": "사회", "sub": "역사", "title": "경복궁 탐험 학습", "desc": "지도를 보며 경복궁 곳곳의 미션을 해결해요.", "note": "", "url": "apps/gyeongbokgung.html"}, {"slug": "imjin-war-people", "subject": "사회", "sub": "역사", "title": "임진왜란 주요 인물", "desc": "이순신, 곽재우, 권율, 사명대사를 살펴봐요.", "note": "", "url": "apps/imjin-war-people.html"}, {"slug": "joseon-dolsoe", "subject": "사회", "sub": "역사", "title": "조선에서 온 공노비, 돌쇠", "desc": "시간여행자가 되어 조선의 신분제도를 탐구해요.", "note": "AI 대화 기능은 API 키가 필요해요", "url": "apps/joseon-dolsoe.html"}, {"slug": "history-songs", "subject": "사회", "sub": "역사", "title": "노래와 함께 떠나는 한국사 여행", "desc": "역사 노래와 유물로 한국사를 만나요.", "note": "", "url": "apps/history-songs.html"}, {"slug": "march-first", "subject": "사회", "sub": "역사", "title": "3.1운동 조사 활동지", "desc": "전국으로 퍼진 3.1운동을 지역별로 조사해요.", "note": "", "url": "apps/march-first.html"}, {"slug": "women-activists", "subject": "사회", "sub": "역사", "title": "여성 독립운동가 탐구 미션", "desc": "여성 독립운동가 기록을 모아 인물카드를 만들어요.", "note": "", "url": "apps/women-activists.html"}, {"slug": "independence-activists", "subject": "사회", "sub": "역사", "title": "기억하며 기록하다", "desc": "독립운동가의 생애를 탐구하고 초상화를 그려요.", "note": "", "url": "apps/independence-activists.html"}, {"slug": "rights-heroes", "subject": "사회", "sub": "인권·법", "title": "위대한 인권 운동가들", "desc": "세상을 바꾼 인권 운동가들을 나라·시대별로 만나요.", "note": "", "url": "apps/rights-heroes.html"}, {"slug": "rights-violations", "subject": "사회", "sub": "인권·법", "title": "다양한 권리 침해 사례 조사", "desc": "인권, 동물권, 자연권 침해 사례를 조사해요.", "note": "", "url": "apps/rights-violations.html"}, {"slug": "human-rights-research", "subject": "사회", "sub": "인권·법", "title": "인권 침해 사례 조사·발표", "desc": "공신력 있는 기관 자료로 인권 침해 사례를 발표해요.", "note": "", "url": "apps/human-rights-research.html"}, {"slug": "basic-rights-memorize", "subject": "사회", "sub": "인권·법", "title": "우리들의 권리와 의무", "desc": "기본권 5가지와 국민의 의무를 쉽게 외워요.", "note": "", "url": "apps/basic-rights-memorize.html"}, {"slug": "basic-rights-research", "subject": "사회", "sub": "인권·법", "title": "기본권 조사 활동", "desc": "일상생활 속 기본권의 모습을 찾아봐요.", "note": "", "url": "apps/basic-rights-research.html"}, {"slug": "constitution-discussion", "subject": "사회", "sub": "인권·법", "title": "헌법 토의 주제 발굴단", "desc": "헌법 속 기본권에서 토의 주제를 찾아요.", "note": "", "url": "apps/constitution-discussion.html"}, {"slug": "law-triangle-book", "subject": "사회", "sub": "인권·법", "title": "우리 동네 법 이야기", "desc": "5학년에게 유용한 법 10가지로 삼각책을 만들어요.", "note": "", "url": "apps/law-triangle-book.html"}, {"slug": "gallery-walk", "subject": "수업도구", "sub": "", "title": "갤러리 워크 활동 가이드", "desc": "타이머와 함께 모둠 결과물을 감상하고 피드백해요.", "note": "", "url": "apps/gallery-walk.html"}, {"slug": "growth-ladder", "subject": "생활·인성", "sub": "", "title": "배움 성장 사다리표", "desc": "인권 사다리 프로젝트 자기 점검표.", "note": "", "url": "apps/growth-ladder.html"}, {"slug": "cycle-meeting-rule", "subject": "수학", "sub": "", "title": "신기한 주기의 비밀과 만남의 법칙", "desc": "최소공배수를 질문 만들기와 서·논술형 피드백으로 탐구해요.", "note": "[6수01-05]", "url": "apps/cycle-meeting-rule.html"}, {"slug": "ai-debate", "subject": "국어·글쓰기", "sub": "토의·토론", "title": "토론 탐정단: AI는 약일까 독일까", "desc": "찬반 근거 자료를 모아 인공지능 토론을 준비해요.", "note": "", "url": "apps/ai-debate.html"}, {"slug": "history-person", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "역사 인물 탐구", "desc": "역사 인물을 조사해 글로 정리해요.", "note": "", "url": "apps/history-person.html"}, {"slug": "my-month", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "나의 한 달 이야기", "desc": "글, 그림, 사진으로 한 달의 추억을 기록해요.", "note": "", "url": "apps/my-month.html"}, {"slug": "phone-argument", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "교내 휴대전화 사용, 함께 알아봐요", "desc": "찬반 의견을 살펴보고 주장하는 글을 써요.", "note": "", "url": "apps/phone-argument.html"}, {"slug": "grade-respect-discussion", "subject": "국어·글쓰기", "sub": "토의·토론", "title": "토의 활동지: 학년 간 존중", "desc": "높은 학년이 낮은 학년을 존중하려면? 함께 토의해요.", "note": "", "url": "apps/grade-respect-discussion.html"}, {"slug": "smartphone-discussion", "subject": "국어·글쓰기", "sub": "토의·토론", "title": "토의 근거 자료 찾기 도우미", "desc": "스마트폰 중독을 줄이는 방법을 근거와 함께 토의해요.", "note": "", "url": "apps/smartphone-discussion.html"}, {"slug": "travel-writing", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "기행문 작성 도우미", "desc": "국내 여행지 1박 2일 일정으로 여정·견문·감상을 써요.", "note": "", "url": "apps/travel-writing.html"}, {"slug": "hanja-today", "subject": "국어·글쓰기", "sub": "어휘", "title": "오늘의 한자", "desc": "매일 한자 단어와 예문을 익혀요.", "note": "", "url": "apps/hanja-today.html"}, {"slug": "hanja-words", "subject": "국어·글쓰기", "sub": "어휘", "title": "오늘의 한자 단어", "desc": "한자 한 글자씩 뜻과 소리를 자세히 봐요.", "note": "", "url": "apps/hanja-words.html"}, {"slug": "eco-week", "subject": "생활·인성", "sub": "", "title": "생태 환경 교육 주간", "desc": "나만의 지구 캐릭터를 그리고 다짐을 남겨요.", "note": "", "url": "apps/eco-week.html"}, {"slug": "school-violence-prevention", "subject": "생활·인성", "sub": "", "title": "존중의 숲: 학교폭력 예방교육", "desc": "학교폭력의 종류와 대처 방법을 영상과 함께 배워요.", "note": "", "url": "apps/school-violence-prevention.html"}, {"slug": "speed-research", "subject": "과학", "sub": "", "title": "우리 생활 속 속력 탐구", "desc": "동물과 교통수단의 속력을 조사해요.", "note": "", "url": "apps/speed-research.html"}, {"slug": "speed-safety", "subject": "과학", "sub": "", "title": "속력과 안전 심화 탐구", "desc": "속력과 관련된 위험과 안전장치의 과학 원리를 탐구해요.", "note": "", "url": "apps/speed-safety.html"}, {"slug": "natural-resources", "subject": "과학", "sub": "", "title": "슬기로운 자원 탐구소", "desc": "8가지 자연·천연 자원 카드로 자원을 탐구해요.", "note": "", "url": "apps/natural-resources.html"}, {"slug": "snowman", "subject": "예체능", "sub": "영어·음악", "title": "Do You Want to Build a Snowman?", "desc": "겨울왕국 OST 빈칸 퀴즈 (영어팝송부).", "note": "", "url": "apps/snowman.html"}, {"slug": "art-appreciation", "subject": "예체능", "sub": "미술", "title": "미술 감상 탐구실", "desc": "화가와 작품을 골라 감상 활동을 해요.", "note": "", "url": "apps/art-appreciation.html"}, {"slug": "pixel-blocks", "subject": "예체능", "sub": "미술", "title": "디폼블럭 도안 갤러리", "desc": "도안을 골라 디폼블럭 작품을 만들어요.", "note": "", "url": "apps/pixel-blocks.html"}, {"slug": "class-logo-song", "subject": "예체능", "sub": "음악", "title": "우리반 로고송 만들기", "desc": "Song Maker로 우리 반만의 노래를 만들어요.", "note": "", "url": "apps/class-logo-song.html"}, {"slug": "o2-logo-songs", "subject": "예체능", "sub": "음악", "title": "오투반 최고의 노래 투표", "desc": "친구들이 만든 로고송을 듣고 투표해요.", "note": "학생 이름은 공개용으로 가렸어요", "url": "apps/o2-logo-songs.html"}, {"slug": "minor-songs", "subject": "예체능", "sub": "음악", "title": "동요·OST 단조 명곡 20선", "desc": "친숙한 노래로 단조의 느낌을 배워요.", "note": "", "url": "apps/minor-songs.html"}, {"slug": "soccer-rules", "subject": "예체능", "sub": "체육", "title": "5학년 축구 마스터 클래스", "desc": "축구 규칙과 2026 월드컵, 퀴즈까지.", "note": "", "url": "apps/soccer-rules.html"}, {"slug": "daily-humor", "subject": "창체·진로", "sub": "", "title": "오늘의 유머", "desc": "하루 한 번 웃으며 시작해요.", "note": "AI 기능은 API 키가 필요해요", "url": "apps/daily-humor.html"}, {"slug": "career-pictogram", "subject": "창체·진로", "sub": "", "title": "꿈을 그리는 진로·픽토그램 교실", "desc": "직업 문자도와 픽토그램으로 진로를 탐색해요.", "note": "", "url": "apps/career-pictogram.html"}, {"slug": "friendship-bibimbap", "subject": "창체·진로", "sub": "", "title": "우정 한 그릇 비빔밥", "desc": "비빔밥 재료에 우정의 미덕을 적어요. A4 인쇄용.", "note": "", "url": "apps/friendship-bibimbap.html"}], "intros": {"사회": "apps/intro-social.html", "국어·글쓰기": "apps/intro-korean.html", "과학": "apps/intro-science.html", "예체능": "apps/intro-arts.html"}, "links": [{"title": "마음 쉼터", "url": "https://jinah200.github.io/maeum/", "subject": "생활·인성", "desc": "학생 마음 쉼터 (별도 사이트)", "external": true}, {"title": "조선 인물 인터뷰", "url": "https://chosunchat.ai.studio/", "subject": "사회", "desc": "조선 인물과 대화하는 AI 챗봇 (AI Studio)", "external": true}, {"title": "영상 감상 후기 남기기", "url": "https://script.google.com/macros/s/AKfycbzVpkbHAHfl1R-Odlox8WU1hiJsfmSVmwmj5HOfxyWRsr8EUy2mAGMx18B8T0UjRWzsDQ/exec", "subject": "국어·글쓰기", "desc": "구글 Apps Script 웹앱", "external": true}, {"title": "감정 기록기", "url": "https://script.google.com/macros/s/AKfycbwTqKcwQVBOdggMqXejL1V5PqoSBwc3vZ8E36Oj5OJebdfyzcIW1BWkbrfDcVAnG4F-/exec", "subject": "생활·인성", "desc": "구글 Apps Script 웹앱", "external": true}]};
+const DATA = {"items": [{"slug": "korea-land-trip", "subject": "사회", "sub": "지리", "title": "신나는 우리 국토 탐험대", "desc": "지형 스탬프를 모으며 국토 여행을 계획해요.", "note": "", "icon": "🗺️", "url": "apps/korea-land-trip.html"}, {"slug": "dokdo", "subject": "사회", "sub": "지리", "title": "독도 자기주도 학습 탐험대", "desc": "공신력 있는 자료로 독도를 스스로 탐구해요.", "note": "", "icon": "🏝️", "url": "apps/dokdo.html"}, {"slug": "local-rights-map", "subject": "사회", "sub": "인권·법", "title": "우리 지역 인권지도 만들기", "desc": "부산 연제구 백지도 위에 우리 동네 권리를 찾아 표시해요.", "note": "", "icon": "📍", "url": "apps/local-rights-map.html"}, {"slug": "three-kingdoms-relics", "subject": "사회", "sub": "역사", "title": "삼국시대 유물 학습관", "desc": "고구려·백제·신라 유물과 장소를 탐험해요.", "note": "", "icon": "🏺", "url": "apps/three-kingdoms-relics.html"}, {"slug": "bulguksa", "subject": "사회", "sub": "역사", "title": "불국사와 석굴암 탐험", "desc": "신라 문화유산의 우수성을 알아봐요.", "note": "", "icon": "🛕", "url": "apps/bulguksa.html"}, {"slug": "goryeo-culture", "subject": "사회", "sub": "역사", "title": "고려 과학기술·문화 탐구", "desc": "고려청자, 금속활자, 팔만대장경, 직지 조사 보고서.", "note": "", "icon": "📜", "url": "apps/goryeo-culture.html"}, {"slug": "gyeongbokgung", "subject": "사회", "sub": "역사", "title": "경복궁 탐험 학습", "desc": "지도를 보며 경복궁 곳곳의 미션을 해결해요.", "note": "", "icon": "🏯", "url": "apps/gyeongbokgung.html"}, {"slug": "imjin-war-people", "subject": "사회", "sub": "역사", "title": "임진왜란 주요 인물", "desc": "이순신, 곽재우, 권율, 사명대사를 살펴봐요.", "note": "", "icon": "⚓", "url": "apps/imjin-war-people.html"}, {"slug": "joseon-dolsoe", "subject": "사회", "sub": "역사", "title": "조선에서 온 공노비, 돌쇠", "desc": "시간여행자가 되어 조선의 신분제도를 탐구해요.", "note": "AI 대화 기능은 API 키가 필요해요", "icon": "🧹", "url": "apps/joseon-dolsoe.html"}, {"slug": "history-songs", "subject": "사회", "sub": "역사", "title": "노래와 함께 떠나는 한국사 여행", "desc": "역사 노래와 유물로 한국사를 만나요.", "note": "", "icon": "🎶", "url": "apps/history-songs.html"}, {"slug": "march-first", "subject": "사회", "sub": "역사", "title": "3.1운동 조사 활동지", "desc": "전국으로 퍼진 3.1운동을 지역별로 조사해요.", "note": "", "icon": "🇰🇷", "url": "apps/march-first.html"}, {"slug": "women-activists", "subject": "사회", "sub": "역사", "title": "여성 독립운동가 탐구 미션", "desc": "여성 독립운동가 기록을 모아 인물카드를 만들어요.", "note": "", "icon": "🕵️‍♀️", "url": "apps/women-activists.html"}, {"slug": "independence-activists", "subject": "사회", "sub": "역사", "title": "기억하며 기록하다", "desc": "독립운동가의 생애를 탐구하고 초상화를 그려요.", "note": "", "icon": "🖼️", "url": "apps/independence-activists.html"}, {"slug": "rights-heroes", "subject": "사회", "sub": "인권·법", "title": "위대한 인권 운동가들", "desc": "세상을 바꾼 인권 운동가들을 나라·시대별로 만나요.", "note": "", "icon": "✊", "url": "apps/rights-heroes.html"}, {"slug": "rights-violations", "subject": "사회", "sub": "인권·법", "title": "다양한 권리 침해 사례 조사", "desc": "인권, 동물권, 자연권 침해 사례를 조사해요.", "note": "", "icon": "🐾", "url": "apps/rights-violations.html"}, {"slug": "human-rights-research", "subject": "사회", "sub": "인권·법", "title": "인권 침해 사례 조사·발표", "desc": "공신력 있는 기관 자료로 인권 침해 사례를 발표해요.", "note": "", "icon": "🔎", "url": "apps/human-rights-research.html"}, {"slug": "basic-rights-memorize", "subject": "사회", "sub": "인권·법", "title": "우리들의 권리와 의무", "desc": "기본권 5가지와 국민의 의무를 쉽게 외워요.", "note": "", "icon": "🦁", "url": "apps/basic-rights-memorize.html"}, {"slug": "basic-rights-research", "subject": "사회", "sub": "인권·법", "title": "기본권 조사 활동", "desc": "일상생활 속 기본권의 모습을 찾아봐요.", "note": "", "icon": "📋", "url": "apps/basic-rights-research.html"}, {"slug": "constitution-discussion", "subject": "사회", "sub": "인권·법", "title": "헌법 토의 주제 발굴단", "desc": "헌법 속 기본권에서 토의 주제를 찾아요.", "note": "", "icon": "💬", "url": "apps/constitution-discussion.html"}, {"slug": "law-triangle-book", "subject": "사회", "sub": "인권·법", "title": "우리 동네 법 이야기", "desc": "5학년에게 유용한 법 10가지로 삼각책을 만들어요.", "note": "", "icon": "⚖️", "url": "apps/law-triangle-book.html"}, {"slug": "gallery-walk", "subject": "수업도구", "sub": "", "title": "갤러리 워크 활동 가이드", "desc": "타이머와 함께 모둠 결과물을 감상하고 피드백해요.", "note": "", "icon": "🖼️", "url": "apps/gallery-walk.html"}, {"slug": "growth-ladder", "subject": "생활·인성", "sub": "", "title": "배움 성장 사다리표", "desc": "인권 사다리 프로젝트 자기 점검표.", "note": "", "icon": "🪜", "url": "apps/growth-ladder.html"}, {"slug": "cycle-meeting-rule", "subject": "수학", "sub": "", "title": "신기한 주기의 비밀과 만남의 법칙", "desc": "최소공배수를 질문 만들기와 서·논술형 피드백으로 탐구해요.", "note": "[6수01-05]", "icon": "🔁", "url": "apps/cycle-meeting-rule.html"}, {"slug": "ai-debate", "subject": "국어·글쓰기", "sub": "토의·토론", "title": "토론 탐정단: AI는 약일까 독일까", "desc": "찬반 근거 자료를 모아 인공지능 토론을 준비해요.", "note": "", "icon": "🤖", "url": "apps/ai-debate.html"}, {"slug": "history-person", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "역사 인물 탐구", "desc": "역사 인물을 조사해 글로 정리해요.", "note": "", "icon": "🧑‍🏫", "url": "apps/history-person.html"}, {"slug": "my-month", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "나의 한 달 이야기", "desc": "글, 그림, 사진으로 한 달의 추억을 기록해요.", "note": "", "icon": "📔", "url": "apps/my-month.html"}, {"slug": "phone-argument", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "교내 휴대전화 사용, 함께 알아봐요", "desc": "찬반 의견을 살펴보고 주장하는 글을 써요.", "note": "", "icon": "📱", "url": "apps/phone-argument.html"}, {"slug": "grade-respect-discussion", "subject": "국어·글쓰기", "sub": "토의·토론", "title": "토의 활동지: 학년 간 존중", "desc": "높은 학년이 낮은 학년을 존중하려면? 함께 토의해요.", "note": "", "icon": "🤝", "url": "apps/grade-respect-discussion.html"}, {"slug": "smartphone-discussion", "subject": "국어·글쓰기", "sub": "토의·토론", "title": "토의 근거 자료 찾기 도우미", "desc": "스마트폰 중독을 줄이는 방법을 근거와 함께 토의해요.", "note": "", "icon": "📵", "url": "apps/smartphone-discussion.html"}, {"slug": "travel-writing", "subject": "국어·글쓰기", "sub": "글쓰기", "title": "기행문 작성 도우미", "desc": "국내 여행지 1박 2일 일정으로 여정·견문·감상을 써요.", "note": "", "icon": "🧳", "url": "apps/travel-writing.html"}, {"slug": "hanja-today", "subject": "국어·글쓰기", "sub": "어휘", "title": "오늘의 한자", "desc": "매일 한자 단어와 예문을 익혀요.", "note": "", "icon": "🀄", "url": "apps/hanja-today.html"}, {"slug": "hanja-words", "subject": "국어·글쓰기", "sub": "어휘", "title": "오늘의 한자 단어", "desc": "한자 한 글자씩 뜻과 소리를 자세히 봐요.", "note": "", "icon": "✍️", "url": "apps/hanja-words.html"}, {"slug": "eco-week", "subject": "생활·인성", "sub": "", "title": "생태 환경 교육 주간", "desc": "나만의 지구 캐릭터를 그리고 다짐을 남겨요.", "note": "", "icon": "🌍", "url": "apps/eco-week.html"}, {"slug": "school-violence-prevention", "subject": "생활·인성", "sub": "", "title": "존중의 숲: 학교폭력 예방교육", "desc": "학교폭력의 종류와 대처 방법을 영상과 함께 배워요.", "note": "", "icon": "🌳", "url": "apps/school-violence-prevention.html"}, {"slug": "speed-research", "subject": "과학", "sub": "", "title": "우리 생활 속 속력 탐구", "desc": "동물과 교통수단의 속력을 조사해요.", "note": "", "icon": "🐆", "url": "apps/speed-research.html"}, {"slug": "speed-safety", "subject": "과학", "sub": "", "title": "속력과 안전 심화 탐구", "desc": "속력과 관련된 위험과 안전장치의 과학 원리를 탐구해요.", "note": "", "icon": "🚗", "url": "apps/speed-safety.html"}, {"slug": "natural-resources", "subject": "과학", "sub": "", "title": "슬기로운 자원 탐구소", "desc": "8가지 자연·천연 자원 카드로 자원을 탐구해요.", "note": "", "icon": "🌱", "url": "apps/natural-resources.html"}, {"slug": "snowman", "subject": "예체능", "sub": "영어·음악", "title": "Do You Want to Build a Snowman?", "desc": "겨울왕국 OST 빈칸 퀴즈 (영어팝송부).", "note": "", "icon": "⛄", "url": "apps/snowman.html"}, {"slug": "art-appreciation", "subject": "예체능", "sub": "미술", "title": "미술 감상 탐구실", "desc": "화가와 작품을 골라 감상 활동을 해요.", "note": "", "icon": "🎨", "url": "apps/art-appreciation.html"}, {"slug": "pixel-blocks", "subject": "예체능", "sub": "미술", "title": "디폼블럭 도안 갤러리", "desc": "도안을 골라 디폼블럭 작품을 만들어요.", "note": "", "icon": "🧩", "url": "apps/pixel-blocks.html"}, {"slug": "class-logo-song", "subject": "예체능", "sub": "음악", "title": "우리반 로고송 만들기", "desc": "Song Maker로 우리 반만의 노래를 만들어요.", "note": "", "icon": "🎤", "url": "apps/class-logo-song.html"}, {"slug": "o2-logo-songs", "subject": "예체능", "sub": "음악", "title": "오투반 최고의 노래 투표", "desc": "친구들이 만든 로고송을 듣고 투표해요.", "note": "학생 이름은 공개용으로 가렸어요", "icon": "🏆", "url": "apps/o2-logo-songs.html"}, {"slug": "minor-songs", "subject": "예체능", "sub": "음악", "title": "동요·OST 단조 명곡 20선", "desc": "친숙한 노래로 단조의 느낌을 배워요.", "note": "", "icon": "🎹", "url": "apps/minor-songs.html"}, {"slug": "soccer-rules", "subject": "예체능", "sub": "체육", "title": "5학년 축구 마스터 클래스", "desc": "축구 규칙과 2026 월드컵, 퀴즈까지.", "note": "", "icon": "⚽", "url": "apps/soccer-rules.html"}, {"slug": "daily-humor", "subject": "창체·진로", "sub": "", "title": "오늘의 유머", "desc": "하루 한 번 웃으며 시작해요.", "note": "AI 기능은 API 키가 필요해요", "icon": "😆", "url": "apps/daily-humor.html"}, {"slug": "career-pictogram", "subject": "창체·진로", "sub": "", "title": "꿈을 그리는 진로·픽토그램 교실", "desc": "직업 문자도와 픽토그램으로 진로를 탐색해요.", "note": "", "icon": "🚸", "url": "apps/career-pictogram.html"}, {"slug": "friendship-bibimbap", "subject": "창체·진로", "sub": "", "title": "우정 한 그릇 비빔밥", "desc": "비빔밥 재료에 우정의 미덕을 적어요. A4 인쇄용.", "note": "", "icon": "🍲", "url": "apps/friendship-bibimbap.html"}], "intros": {"사회": "apps/intro-social.html", "국어·글쓰기": "apps/intro-korean.html", "과학": "apps/intro-science.html", "예체능": "apps/intro-arts.html"}, "links": [{"title": "마음 쉼터", "url": "https://jinah200.github.io/maeum/", "subject": "생활·인성", "desc": "학생 마음 쉼터 (별도 사이트)", "external": true, "icon": "🌼"}, {"title": "조선 인물 인터뷰", "url": "https://chosunchat.ai.studio/", "subject": "사회", "desc": "조선 인물과 대화하는 AI 챗봇 (AI Studio)", "external": true, "icon": "🎎"}, {"title": "영상 감상 후기 남기기", "url": "https://script.google.com/macros/s/AKfycbzVpkbHAHfl1R-Odlox8WU1hiJsfmSVmwmj5HOfxyWRsr8EUy2mAGMx18B8T0UjRWzsDQ/exec", "subject": "국어·글쓰기", "desc": "구글 Apps Script 웹앱", "external": true, "icon": "🎬"}, {"title": "감정 기록기", "url": "https://script.google.com/macros/s/AKfycbwTqKcwQVBOdggMqXejL1V5PqoSBwc3vZ8E36Oj5OJebdfyzcIW1BWkbrfDcVAnG4F-/exec", "subject": "생활·인성", "desc": "구글 Apps Script 웹앱", "external": true, "icon": "🌈"}]};
 const SUBJECTS = [
-  {key:"사회", color:"var(--c-social)"},
-  {key:"국어·글쓰기", color:"var(--c-korean)"},
-  {key:"수학", color:"var(--c-math)"},
-  {key:"과학", color:"var(--c-science)"},
-  {key:"예체능", color:"var(--c-arts)"},
-  {key:"창체·진로", color:"var(--c-career)"},
-  {key:"생활·인성", color:"var(--c-life)"},
-  {key:"수업도구", color:"var(--c-tool)"},
+  {key:"사회", n:1, icon:"🌏"},
+  {key:"국어·글쓰기", n:2, icon:"📖"},
+  {key:"수학", n:3, icon:"🔢"},
+  {key:"과학", n:4, icon:"🔬"},
+  {key:"예체능", n:5, icon:"🎨"},
+  {key:"창체·진로", n:6, icon:"🌟"},
+  {key:"생활·인성", n:7, icon:"💛"},
+  {key:"수업도구", n:8, icon:"🧰"},
 ];
 const all = [...DATA.items, ...DATA.links];
 let current = "전체";
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const vars = n => `--c:var(--s${n});--cl:var(--s${n}l)`;
 
-$("#stats").innerHTML = `<span><b>${DATA.items.length}</b> 개 웹앱</span><span><b>${DATA.links.length}</b> 개 바로가기</span><span><b>${SUBJECTS.length}</b> 개 영역</span>`;
+(function(){
+  const d = new Date(), days = "일월화수목금토";
+  $("#today").textContent = `${d.getMonth()+1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`;
+})();
+$("#stats").innerHTML = `<span><b>${DATA.items.length}</b>개 활동</span><span><b>${DATA.links.length}</b>개 바로가기</span><span><b>${SUBJECTS.length}</b>개 과목</span>`;
 
 function chips(){
-  const keys = ["전체", ...SUBJECTS.map(s=>s.key)];
-  $("#chips").innerHTML = keys.map(k=>`<button class="chip" type="button" aria-pressed="${k===current}" data-k="${esc(k)}">${esc(k)}</button>`).join("");
+  const list = [{key:"전체",icon:"🏫"}, ...SUBJECTS];
+  $("#chips").innerHTML = list.map(s=>`<button class="chip" type="button" aria-pressed="${s.key===current}" data-k="${esc(s.key)}" style="${s.n?vars(s.n):""}">${s.icon} ${esc(s.key)}</button>`).join("");
   $("#chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{current=b.dataset.k;chips();render();});
 }
-function card(it, color){
-  const tag = it.sub ? esc(it.sub) : (it.external ? "바로가기" : esc(it.subject));
+function card(it, i){
+  const tag = it.sub || (it.external ? "바로가기" : "");
   const target = it.external ? ' target="_blank" rel="noopener"' : "";
-  return `<a class="card" href="${esc(it.url)}"${target} style="--c:${color}">
-    <span class="tag">${tag}</span>
+  const tilt = ((i*37)%7-3)+"deg", hov = (i%2? .6 : -.6)+"deg";
+  return `<a class="card" href="${esc(it.url)}"${target} style="--tilt:${tilt};--hov:${hov}">
+    <div class="top"><span class="icon" aria-hidden="true">${it.icon||"📘"}</span>${tag?`<span class="tag">${esc(tag)}</span>`:""}</div>
     <h3>${esc(it.title)}</h3>
     <p>${esc(it.desc)}</p>
-    ${it.note ? `<div class="note"><span>${esc(it.note)}</span></div>` : ""}
+    ${it.note ? `<div class="note">${esc(it.note)}</div>` : ""}
     ${it.external ? `<div class="ext">↗ 새 창에서 열려요</div>` : ""}
   </a>`;
 }
@@ -127,11 +235,11 @@ function render(){
     if (current!=="전체" && current!==s.key) continue;
     const list = all.filter(it=>it.subject===s.key && match(it));
     if (!list.length) continue;
-    const intro = DATA.intros[s.key] && !q ? `<a class="intro" href="${DATA.intros[s.key]}">이 영역 소개 보기</a>` : "";
-    html += `<section class="subject"><div class="shead"><span class="dot" style="--c:${s.color}"></span><h2>${esc(s.key)}</h2><span class="count">${list.length}</span>${intro}</div>
-      <div class="grid">${list.map(it=>card(it,s.color)).join("")}</div></section>`;
+    const intro = DATA.intros[s.key] && !q ? `<a class="intro" href="${DATA.intros[s.key]}">이 과목 소개 보기 →</a>` : "";
+    html += `<section class="subject" style="${vars(s.n)}"><div class="shead"><span class="badge" aria-hidden="true">${s.icon}</span><h2>${esc(s.key)}</h2><span class="count">${list.length}</span>${intro}</div>
+      <div class="grid">${list.map(card).join("")}</div></section>`;
   }
-  $("#list").innerHTML = html || `<p class="empty">찾는 활동이 없어요. 다른 낱말로 검색해 보세요.</p>`;
+  $("#list").innerHTML = html || `<p class="empty"><b>🙈</b>찾는 활동이 없어요. 다른 낱말로 찾아볼까요?</p>`;
 }
 $("#q").addEventListener("input", render);
 $("#theme").onclick = () => {
@@ -143,5 +251,5 @@ $("#theme").onclick = () => {
 try{ const t = localStorage.getItem("oc-theme"); if (t) document.documentElement.dataset.theme = t; }catch(e){}
 chips(); render();
 </script>
-</body>
+
 </html>

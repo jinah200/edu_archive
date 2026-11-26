@@ -1,0 +1,249 @@
+<title>오늘의 교실 (by.똑지나쌤)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="똑지나쌤이 직접 만든 초등 수업용 웹앱 모음">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
+<style>
+/* Layout: 칠판(오늘의 교실) 아래로 공책 모눈 위에 과목별 스티커 카드가 붙어 있는 교실 게시판 */
+:root{
+  --paper:#fffaf0; --grid:#e3ecf7; --ink:#3a3029; --muted:#7d6f63; --card:#ffffff; --line:#efe4d4;
+  --board:#2f5d4e; --board-ink:#f7f3e8; --chalk-y:#ffe58a; --chalk-p:#ffb3c7; --chalk-b:#a9dcff; --frame:#b98552;
+  --focus:#ff8a5b;
+  --display:"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  /* 과목 색: 진한 색(글자) / 연한 색(배경) */
+  --s1:#d9822b; --s1l:#ffefd9;  /* 사회 */
+  --s2:#e0587a; --s2l:#ffe4ec;  /* 국어 */
+  --s3:#3f7fd6; --s3l:#e1eeff;  /* 수학 */
+  --s4:#2e9a6a; --s4l:#dcf5e8;  /* 과학 */
+  --s5:#8d5ad6; --s5l:#efe5ff;  /* 예체능 */
+  --s6:#d0752f; --s6l:#fff0c9;  /* 창체 */
+  --s7:#2b9bb0; --s7l:#d9f3f7;  /* 생활 */
+  --s8:#6d7a88; --s8l:#e9edf1;  /* 도구 */
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1f2228; --grid:#2a2f38; --ink:#f3ece2; --muted:#b5a99c; --card:#2a2c33; --line:#3a3c44;
+    --board:#24463b; --board-ink:#f2eee2; --frame:#7d5a38; --focus:#ffa37f;
+    --s1:#f2a557; --s1l:#3d2f22; --s2:#f58aa5; --s2l:#3e2730; --s3:#7fb0f5; --s3l:#22304a;
+    --s4:#6fd1a2; --s4l:#1f3a2e; --s5:#bb95f2; --s5l:#33284a; --s6:#f2b067; --s6l:#3d3220;
+    --s7:#6fcfe0; --s7l:#1e3a40; --s8:#a9b5c2; --s8l:#2f343b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1f2228; --grid:#2a2f38; --ink:#f3ece2; --muted:#b5a99c; --card:#2a2c33; --line:#3a3c44;
+  --board:#24463b; --board-ink:#f2eee2; --frame:#7d5a38; --focus:#ffa37f;
+  --s1:#f2a557; --s1l:#3d2f22; --s2:#f58aa5; --s2l:#3e2730; --s3:#7fb0f5; --s3l:#22304a;
+  --s4:#6fd1a2; --s4l:#1f3a2e; --s5:#bb95f2; --s5l:#33284a; --s6:#f2b067; --s6l:#3d3220;
+  --s7:#6fcfe0; --s7l:#1e3a40; --s8:#a9b5c2; --s8l:#2f343b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:12px}
+
+/* 칠판 */
+.hero{padding-block:28px 8px}
+.board{
+  position:relative;background:var(--board);color:var(--board-ink);
+  border:12px solid var(--frame);border-radius:22px;padding:28px clamp(18px,4vw,44px) 40px;
+  box-shadow:inset 0 0 60px rgba(0,0,0,.25),0 8px 0 rgba(0,0,0,.08);
+  overflow:hidden;
+}
+.board::after{ /* 분필 받침대 */
+  content:"";position:absolute;left:8%;right:8%;bottom:0;height:10px;background:var(--frame);border-radius:6px 6px 0 0;
+}
+.chalk{position:absolute;bottom:10px;height:8px;width:34px;border-radius:4px;z-index:1}
+.chalk.y{right:16%;background:var(--chalk-y)} .chalk.p{right:calc(16% + 44px);background:var(--chalk-p);width:24px} .chalk.w{left:14%;background:#fff;width:28px}
+.board-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:end}
+.mascot{display:block;width:clamp(200px,24vw,270px);height:auto;margin-bottom:-14px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));transform:rotate(2deg);transition:transform .3s ease;position:relative;z-index:2}
+.mascot:hover{transform:rotate(-2deg) translateY(-4px)}
+.board-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px;opacity:.9}
+.board h1{
+  margin:14px 0 4px;font-family:var(--display);font-weight:400;letter-spacing:-.01em;
+  font-size:clamp(40px,8vw,72px);line-height:1.1;text-wrap:balance;
+  text-shadow:0 0 1px rgba(255,255,255,.4);
+}
+.board h1 .by{display:inline-block;font-size:.36em;color:var(--chalk-y);transform:rotate(-4deg);margin-left:.3em;vertical-align:middle}
+.board p{margin:0;max-width:34em;font-size:17px;opacity:.92}
+.board .stars{color:var(--chalk-y)}
+.stats{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.stats span{border:2px dashed rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:15px}
+.stats b{font-family:var(--display);font-weight:400;font-size:19px;color:var(--chalk-b);margin-right:2px}
+
+/* 검색 + 과목 시간표 */
+.controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding-block:12px;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(6px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.searchbox{position:relative}
+.searchbox span{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none}
+.search{
+  width:100%;font:inherit;font-size:17px;padding:13px 18px 13px 48px;border:3px solid var(--line);border-radius:18px;
+  background:var(--card);color:var(--ink);outline:none;
+}
+.search:focus{border-color:var(--focus)}
+.chips{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:none;font-family:var(--display);font-size:16px;padding:7px 15px 6px;border-radius:14px;cursor:pointer;
+  border:2px solid var(--c,var(--line));background:var(--card);color:var(--c,var(--ink));
+  transition:transform .12s ease;
+}
+.chip:hover{transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--c,var(--ink));color:var(--card);border-color:var(--c,var(--ink))}
+
+/* 과목 영역 */
+section.subject{padding-block:26px 6px}
+.shead{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.badge{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:14px;font-size:24px;
+  background:var(--cl);border:2px solid var(--c);transform:rotate(-6deg)
+}
+.shead h2{margin:0;font-family:var(--display);font-weight:400;font-size:28px;color:var(--c)}
+.shead .count{font-family:var(--display);font-size:15px;color:var(--muted);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:1px 10px}
+.shead .intro{margin-left:auto;font-size:15px;color:var(--c);text-decoration:none;border-bottom:2px dotted var(--c);padding-bottom:1px}
+.shead .intro:hover{opacity:.75}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:6px;min-width:0;
+  padding:22px 18px 16px;background:var(--card);border:2px solid var(--line);border-radius:22px;
+  text-decoration:none;box-shadow:0 4px 0 var(--line);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+}
+.card::before{ /* 마스킹테이프 */
+  content:"";position:absolute;top:-9px;left:50%;width:62px;height:18px;margin-left:-31px;
+  background:var(--cl);border:1px dashed var(--c);opacity:.9;transform:rotate(var(--tilt,-3deg));border-radius:3px;
+}
+.card:hover{transform:translateY(-4px) rotate(var(--hov,-.6deg));border-color:var(--c);box-shadow:0 8px 0 var(--cl)}
+.card .top{display:flex;align-items:center;gap:12px}
+.icon{
+  flex:none;display:grid;place-items:center;width:58px;height:58px;border-radius:50%;
+  font-size:30px;line-height:1;background:var(--cl);border:2px solid var(--c);
+}
+.card .tag{font-family:var(--display);font-size:14px;color:var(--c);background:var(--cl);border-radius:999px;padding:1px 10px;align-self:flex-start}
+.card h3{margin:2px 0 0;font-family:var(--display);font-weight:400;font-size:20px;line-height:1.3;text-wrap:balance}
+.card p{margin:0;font-size:15px;color:var(--muted)}
+.card .note{margin-top:auto;padding-top:8px;font-size:13px;color:var(--muted)}
+.card .note::before{content:"📝 "}
+.card .ext{margin-top:auto;padding-top:8px;font-size:13px;color:var(--c)}
+.empty{padding:48px 0;text-align:center;color:var(--muted);font-size:18px}
+.empty b{display:block;font-size:44px}
+
+footer{margin-top:44px;padding-block:22px 40px;border-top:3px dashed var(--line);color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.theme{font:inherit;font-size:14px;background:var(--card);border:2px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 14px;cursor:pointer}
+
+@media (max-width:520px){
+  .board{border-width:9px;padding-top:20px}
+  .icon{width:50px;height:50px;font-size:26px}
+}
+@media (max-width:720px){
+  .board-inner{grid-template-columns:1fr}
+  .mascot{width:190px;justify-self:center;margin:6px 0 -8px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} .card:hover,.chip:hover{transform:none} }
+</style>
+
+<header class="hero wrap">
+  <div class="board">
+    <div class="board-top"><span id="today">오늘</span><span class="stars">☆ 오늘도 즐겁게 ☆</span></div>
+    <div class="board-inner">
+      <div>
+        <h1>오늘의 교실<span class="by">by.똑지나쌤</span></h1>
+        <p>교실에서 바로 열어 쓰는 수업 놀이터예요. 과목을 고르거나, 하고 싶은 활동을 찾아보세요!</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <img class="mascot" src="images/ttokjina.webp" width="600" height="573" alt="똑지나쌤 캐릭터">
+    </div>
+    <i class="chalk w"></i><i class="chalk p"></i><i class="chalk y"></i>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="searchbox"><span aria-hidden="true">🔍</span><input class="search" id="q" type="search" placeholder="무엇을 배워 볼까요? (예: 독도, 토의, 속력)" aria-label="활동 찾기"></div>
+    <div class="chips" id="chips" role="group" aria-label="과목 고르기"></div>
+  </div>
+</div>
+
+<main class="wrap" id="list"></main>
+
+<footer class="wrap">
+  <span>✏️ 똑지나쌤의 오늘의 교실 · 수업 자료는 교육용으로 자유롭게 활용해 주세요.</span>
+  <button class="theme" id="theme" type="button">🌙 화면 밝기 바꾸기</button>
+</footer>
+
+<script>
+const DATA = /*DATA*/null;
+const SUBJECTS = [
+  {key:"사회", n:1, icon:"🌏"},
+  {key:"국어·글쓰기", n:2, icon:"📖"},
+  {key:"수학", n:3, icon:"🔢"},
+  {key:"과학", n:4, icon:"🔬"},
+  {key:"예체능", n:5, icon:"🎨"},
+  {key:"창체·진로", n:6, icon:"🌟"},
+  {key:"생활·인성", n:7, icon:"💛"},
+  {key:"수업도구", n:8, icon:"🧰"},
+];
+const all = [...DATA.items, ...DATA.links];
+let current = "전체";
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const vars = n => `--c:var(--s${n});--cl:var(--s${n}l)`;
+
+(function(){
+  const d = new Date(), days = "일월화수목금토";
+  $("#today").textContent = `${d.getMonth()+1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`;
+})();
+$("#stats").innerHTML = `<span><b>${DATA.items.length}</b>개 활동</span><span><b>${DATA.links.length}</b>개 바로가기</span><span><b>${SUBJECTS.length}</b>개 과목</span>`;
+
+function chips(){
+  const list = [{key:"전체",icon:"🏫"}, ...SUBJECTS];
+  $("#chips").innerHTML = list.map(s=>`<button class="chip" type="button" aria-pressed="${s.key===current}" data-k="${esc(s.key)}" style="${s.n?vars(s.n):""}">${s.icon} ${esc(s.key)}</button>`).join("");
+  $("#chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{current=b.dataset.k;chips();render();});
+}
+function card(it, i){
+  const tag = it.sub || (it.external ? "바로가기" : "");
+  const target = it.external ? ' target="_blank" rel="noopener"' : "";
+  const tilt = ((i*37)%7-3)+"deg", hov = (i%2? .6 : -.6)+"deg";
+  return `<a class="card" href="${esc(it.url)}"${target} style="--tilt:${tilt};--hov:${hov}">
+    <div class="top"><span class="icon" aria-hidden="true">${it.icon||"📘"}</span>${tag?`<span class="tag">${esc(tag)}</span>`:""}</div>
+    <h3>${esc(it.title)}</h3>
+    <p>${esc(it.desc)}</p>
+    ${it.note ? `<div class="note">${esc(it.note)}</div>` : ""}
+    ${it.external ? `<div class="ext">↗ 새 창에서 열려요</div>` : ""}
+  </a>`;
+}
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const match = it => !q || [it.title,it.desc,it.sub,it.subject].join(" ").toLowerCase().includes(q);
+  let html = "";
+  for (const s of SUBJECTS){
+    if (current!=="전체" && current!==s.key) continue;
+    const list = all.filter(it=>it.subject===s.key && match(it));
+    if (!list.length) continue;
+    const intro = DATA.intros[s.key] && !q ? `<a class="intro" href="${DATA.intros[s.key]}">이 과목 소개 보기 →</a>` : "";
+    html += `<section class="subject" style="${vars(s.n)}"><div class="shead"><span class="badge" aria-hidden="true">${s.icon}</span><h2>${esc(s.key)}</h2><span class="count">${list.length}</span>${intro}</div>
+      <div class="grid">${list.map(card).join("")}</div></section>`;
+  }
+  $("#list").innerHTML = html || `<p class="empty"><b>🙈</b>찾는 활동이 없어요. 다른 낱말로 찾아볼까요?</p>`;
+}
+$("#q").addEventListener("input", render);
+$("#theme").onclick = () => {
+  const r = document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme = dark ? "light" : "dark";
+  try{ localStorage.setItem("oc-theme", r.dataset.theme); }catch(e){}
+};
+try{ const t = localStorage.getItem("oc-theme"); if (t) document.documentElement.dataset.theme = t; }catch(e){}
+chips(); render();
+</script>
